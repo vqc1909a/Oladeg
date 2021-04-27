@@ -1,0 +1,37 @@
+.buttons {
+  margin: 2rem 0;
+
+  span {
+    display: inline-block;
+    cursor: pointer;
+    padding: .5rem 1rem;
+    background-color: $white;
+    color: $dark;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, .5);
+    font-family: 'Nunito SemiBold',
+      sans-serif;
+    font-size: $font-sm;
+
+    &.activo {
+      background-color: $rojoOxido;
+      color: $white;
+    }
+
+    &:not(:last-child) {
+      margin-right: .5rem;
+    }
+
+    &.disabled {
+      pointer-events: none;
+    }
+
+    @include breakpoint-up(medium) {
+      font-size: $font-sm-dt;
+      padding: 1rem 2rem;
+
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+  }
+}

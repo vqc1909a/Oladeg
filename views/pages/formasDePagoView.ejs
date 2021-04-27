@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <%- include ('../partials/headView.ejs') %>
+</head>
+<body>
+  <%- include ('../layouts/headerView.ejs') %>
+  <main>
+    <%- include('../layouts/bannerView.ejs') %>
+    <div class="formas-de-pago container">
+      <div class="formas-de-pago__intro">
+        <h1>Depósito Bancario</h1>
+        <p>Usted puede hacer sus pagos en las siguientes Cuentas Bancarias:</p>
+      </div>
+      <div class="formas-de-pago__grid">
+        <div class="formas-de-pago__item">
+          <div class="formas-de-pago__image">
+            <img src="/images/bbva.jpg" alt="BBVA Banco de la Nación">
+          </div>
+          <div class="formas-de-pago__text">
+            <h3 class="formas-de-pago__banco">Banco BBVA</h3>
+            <p class="formas-de-pago__ahorro">Cta. Ahorros:</p>
+            <p class="formas-de-pago__nombre-cuenta">OLADEG-Perú</p>
+            <button type="button" class="button formas-de-pago__button forma1">Nº 0011-0970-0200109397</button>
+            <p class="formas-de-pago__advertencia">HAZ CLICK AQUÍ PARA COPIAR ☝</p>
+          </div>
+        </div>
+        <div class="formas-de-pago__item">
+          <div class="formas-de-pago__image">
+            <img src="/images/bcp.jpg" alt="BCP Oladeg">
+          </div>
+          <div class="formas-de-pago__text">
+            <h3 class="formas-de-pago__banco">Banco de Crédito BCP</h3>
+            <p class="formas-de-pago__ahorro">Cta. Ahorros:</p>
+            <p class="formas-de-pago__nombre-cuenta">OLADEG-Perú</p>
+            <button type="button" class="button formas-de-pago__button forma2">N° 191-25717993-0-68</button>
+            <p class="formas-de-pago__advertencia">HAZ CLICK AQUÍ PARA COPIAR ☝</p>
+          </div>
+        </div>
+        <div class="formas-de-pago__item">
+          <div class="formas-de-pago__image">
+            <img src="/images/banco_nacion.jpg" alt="Banco de la Nacion Oladeg">
+          </div>
+          <div class="formas-de-pago__text">
+            <h3 class="formas-de-pago__banco">Banco de la Nación</h3>
+            <p class="formas-de-pago__ahorro">Cta. Ahorros:</p>
+            <p class="formas-de-pago__nombre-cuenta">OLADEG-Perú</p>
+            <button type="button" class="button formas-de-pago__button forma3">N° 04-501-123264</button>
+            <p class="formas-de-pago__advertencia">HAZ CLICK AQUÍ PARA COPIAR ☝</p>
+          </div>
+        </div>
+      </div>
+      <input class="formas-de-pago__input" type="text" style="opacity: 0;">
+    </div>
+    <%- include('../layouts/whatsapp.ejs') %>
+  </main> 
+  <%- include('../layouts/footerView.ejs') %>
+  <%- include('../layouts/scriptView.ejs') %>
+
+</body>
+</html>

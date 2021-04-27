@@ -1,0 +1,87 @@
+@-webkit-keyframes animateLineUpAnimateIda {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(7px);
+    transform: translateY(7px); }
+  100% {
+    -webkit-transform: translateY(7px) rotate(45deg);
+    transform: translateY(7px) rotate(45deg); } }
+
+@keyframes animateLineUpAnimateIda {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(7px);
+    transform: translateY(7px); }
+  100% {
+    -webkit-transform: translateY(7px) rotate(45deg);
+    transform: translateY(7px) rotate(45deg); } }
+
+@-webkit-keyframes animateLineDownAnimateIda {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(-7px);
+    transform: translateY(-7px); }
+  100% {
+    -webkit-transform: translateY(-7px) rotate(-45deg);
+    transform: translateY(-7px) rotate(-45deg); } }
+
+@keyframes animateLineDownAnimateIda {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(-7px);
+    transform: translateY(-7px); }
+  100% {
+    -webkit-transform: translateY(-7px) rotate(-45deg);
+    transform: translateY(-7px) rotate(-45deg); } }
+
+@-webkit-keyframes animateLineUpAnimateVuelta {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(7px);
+    transform: translateY(7px); }
+  100% {
+    -webkit-transform: translateY(7px) rotate(45deg);
+    transform: translateY(7px) rotate(45deg); } }
+
+@keyframes animateLineUpAnimateVuelta {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(7px);
+    transform: translateY(7px); }
+  100% {
+    -webkit-transform: translateY(7px) rotate(45deg);
+    transform: translateY(7px) rotate(45deg); } }
+
+@-webkit-keyframes animateLineDownAnimateVuelta {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(-7px);
+    transform: translateY(-7px); }
+  100% {
+    -webkit-transform: translateY(-7px) rotate(-45deg);
+    transform: translateY(-7px) rotate(-45deg); } }
+
+@keyframes animateLineDownAnimateVuelta {
+  0% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(-7px);
+    transform: translateY(-7px); }
+  100% {
+    -webkit-transform: translateY(-7px) rotate(-45deg);
+    transform: translateY(-7px) rotate(-45deg); } }

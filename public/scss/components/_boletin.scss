@@ -1,0 +1,182 @@
+.boletin {
+  margin-right: 0rem;
+
+  @include breakpoint-up(large) {
+    margin-right: 2rem;
+    flex: 7;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0px;
+    color: $azulOxido;
+    margin-bottom: 1rem;
+
+    @include breakpoint-up(medium) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  // &__image {
+  //   text-align: center;
+
+  //   img {
+  //     width: 100%;
+  //   }
+
+  //   margin-bottom: 2rem;
+  // }
+
+  &__buttons {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+
+    @include breakpoint-up(medium) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 1fr;
+    }
+  }
+
+  &__button {
+    text-transform: uppercase;
+    display: flex;
+    padding: 1rem;
+    margin-bottom: .125rem;
+    background-color: $pinkOxido;
+    color: $white;
+    flex: 1;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
+
+    &:first-child {
+      @include breakpoint-up(medium) {
+        margin-right: .125rem;
+      }
+
+      p {
+        margin-left: 1rem;
+      }
+
+    }
+
+    &:last-child {
+      p {
+        margin-right: 1rem;
+      }
+    }
+
+  }
+
+  &__content {
+    > img{
+      float: left;
+      height: 200px;
+      @include breakpoint-up(medium) {
+        height: 260px;
+      }
+      @include breakpoint-up(large) {
+        height: 320px;
+      }
+      margin-right: 1rem;
+    }
+    > div{
+      h2 {
+        font-size: $font-nm-dt;
+  
+        @include breakpoint-up(medium) {
+          font-size: $font-lg;
+        }
+      }
+  
+      h3 {
+        font-size: $font-nm;
+  
+        @include breakpoint-up(medium) {
+          font-size: $font-nm-dt;
+        }
+      }
+  
+      h4 {
+        font-size: $font-sm-dt;
+  
+        @include breakpoint-up(medium) {
+          font-size: $font-nm;
+        }
+      }
+  
+      h5,
+      h6 {
+        font-size: $font-sm;
+  
+        @include breakpoint-up(medium) {
+          font-size: $font-sm-dt;
+        }
+      }
+  
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: $dark;
+        margin-top: 1.5rem;
+        margin-bottom: .25rem;
+      }
+  
+      p {
+        text-align: justify;
+        margin-bottom: 1rem;
+      }
+  
+      img {
+        display: block;
+        width: 100%;
+      }
+  
+      ul,
+      ol {
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+      }
+  
+      li {
+        margin-bottom: .5rem;
+      }
+  
+      a {
+        display: block;
+        margin: 2rem 0;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__download{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    a{
+      display: inline-block;
+      color: $rojoOxido;
+      text-transform: uppercase;
+      text-decoration: underline;
+    }
+  }
+  &__iframe{
+    text-align: center;
+    margin-bottom: 2rem;
+    iframe{
+      border: 5px solid $bg-secondary;
+      width: 100%;
+      height: 500px;
+      @include breakpoint-up(medium){
+        width: 90%;
+        height: 600px;
+      }
+    }
+  }
+}

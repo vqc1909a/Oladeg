@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <%- include ('../partials/headView.ejs') %>
+</head>
+<body>
+  <%- include ('../layouts/headerView.ejs') %>
+  <main>
+    <%- include('../layouts/bannerView.ejs') %>
+    <div class="quienes-somos">
+      <div class="quienes-somos__intro container">
+        <h1>¿Quiénes Somos?</h1>
+      </div>
+      <div class="wrapper-quienes container">
+        <div class="quienes-somos__text">
+          <div class="quienes-somos__item">
+            <h2>PRESENTACIÓN</h2>
+            <p>Oladeg-Perú, Es una Organización sin Fines de Lucro, una ONG, Promoviendo, motivando, sensibilizando y logrando el desarrollo integral y sostenible, de los pueblos latinoamericanos para cuyo fin se ha instalado la Oficina Regional de la zona centro del Perú, el mismo que comprende, Pasco, Junín, Huánuco y Lima Provincias.</p>
+          </div>
+          <div class="quienes-somos__item">
+            <h2>VISIÓN</h2>
+            <p>Oladeg-Perú, trabaja intensamente por construir la verdadera democracia autónoma, territorial, política, económica, educativo y cultura de las comunidades campesinas y gobiernos locales, en base al respeto y reconocimiento en el ejercicio de los derechos colectivos en alianza con los movimientos sociales.</p>
+          </div>
+          <div class="quienes-somos__item">
+            <h2>MISIÓN</h2>
+            <p>La Organización tiene como Misión contribuir a la mejora de las condiciones de vida de los pobladores de la sierra central del Perú, el desarrollo integral para el cual impulsamos procesos participativos de desarrollo local y fortalecimiento de capacidades diseñado con un programa para apoyar a las Comunidades Campesinas y gobiernos locales con el objetivo principal de incrementar la capacidad de respuesta de los gobiernos locales y regionales frente a las demandas ciudadanas.</p>
+          </div>
+        </div>
+        <div class="quienes-somos__image flex flex-fd-c flex-ai-c">
+          <img src="/images/Roberth.jpg" alt="Roberth Robles Oladeg" width="300px">
+          <h4>CPC. Roberth Robles Zelada<br/>DIRECTOR EJECUTIVO<br />OLADEG - Perú</h4>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../layouts/whatsapp.ejs') %>
+  </main> 
+  <%- include('../layouts/footerView.ejs') %>
+  <%- include('../layouts/scriptView.ejs') %>
+</body>
+</html>

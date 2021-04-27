@@ -1,0 +1,38 @@
+.quienes-somos{
+  min-height: 100vh;
+  padding: 3rem 0;
+  .wrapper-quienes{
+    @include breakpoint-up(large){
+      display: flex;
+    }
+  }
+  &__text{
+    flex: 1;
+  }
+  &__image{
+    flex: 1;
+    text-align: center;
+    padding: 1rem 0;
+
+    img{
+      border-radius: 10px;
+    }
+    h4{
+      margin-top: 1rem;
+      color: $dark;
+    }
+    @include breakpoint-up(large) {
+      padding: 0rem;
+    }
+
+  }
+  &__item{
+    margin-bottom: 2rem;
+    h2{
+      margin-bottom: 1rem;
+    }
+    p{
+      text-align: justify;
+    }
+  }
+}

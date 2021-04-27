@@ -1,0 +1,48 @@
+.nuestra-experiencia{
+  min-height: 100vh;
+  padding: 3rem 0;
+  .wrapper-nuestra{
+     @include breakpoint-up(large) {
+       display: flex;
+     }
+  }
+  &__text {
+    flex: 1;
+    h2{
+      margin-top: 1rem;
+      margin-bottom: .5rem;
+    }
+    p{
+      color: $grey;
+      margin-bottom: .5rem;
+    }
+    ul{
+      margin-left: 1rem;
+      ul{
+        li{
+          list-style: upper-latin;
+        }
+      }
+    }
+    li {
+      list-style: decimal;
+      margin-bottom: .5rem;
+    }
+
+  }
+  &__image {
+    flex: 1;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 0;
+
+    img {
+      border-radius: 10px;
+    }
+    @include breakpoint-up(large) {
+      padding: 0rem;
+    }
+
+  }
+}

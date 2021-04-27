@@ -1,0 +1,114 @@
+.sidebar{
+    margin-top: 2rem;
+    @include breakpoint-up(medium) {
+      margin-top: 5rem;
+    }
+    @include breakpoint-up(large) {
+      flex: 3;
+      margin-top: 0rem;
+    }
+    
+    >a {
+      display: block;
+      margin-bottom: 0rem;
+      @include breakpoint-up(medium) {
+        margin-bottom: 3rem;
+      }
+      @include breakpoint-up(large) {
+        margin-bottom: 0rem;
+        margin-top: -1rem;
+      }
+    }
+    #biblioteca,
+    #brazo-biblioteca,
+    #boletin-izquierdo,
+    #boletin-derecho,
+    #brazo-facebook,
+    #flechas-facebook,
+    #facebook,
+    #barra
+    #candado{
+      transform-origin: center center;
+      transform-box: fill-box;
+    }
+    #biblioteca{
+      animation: animate_biblioteca 1s linear infinite alternate;
+    }
+    #brazo-biblioteca{
+      transform-origin: right bottom;
+      animation: animate_brazo-biblioteca 1s linear infinite alternate;
+    }
+    #brazo-facebook{
+      transform-origin: left center;
+      animation: animate_brazo-facebook 1s linear infinite alternate;
+    }
+    #flechas-facebook{
+      animation: animate_flechas-facebook 1s linear infinite alternate;
+
+    }
+    #facebook{
+      animation: animate_facebook 1s linear infinite alternate;
+    }
+    #barra{
+      animation: animate_barra 1s linear infinite alternate;
+    }
+}
+
+//Animations
+@keyframes animate_biblioteca {
+  from {
+    transform: translateY(0) translateX(0);
+  }
+
+  to {
+    transform: translateY(15px) translateX(-15px);
+  }
+}
+
+@keyframes animate_brazo-biblioteca {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(15deg);
+  }
+}
+
+@keyframes animate_brazo-facebook {
+  from {
+    transform: translateX(0) translateY(0) rotateZ(0deg);
+  }
+
+  to {
+    transform: translateX(5px) translateY(-5px) rotateZ(5deg);
+  }
+}
+@keyframes animate_flechas-facebook {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(10px);
+  }
+}
+@keyframes animate_facebook {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(10px);
+  }
+}
+@keyframes animate_barra {
+  from {
+    transform: translateX(-30px);
+  }
+
+  to {
+    transform: translateX(30px);
+  }
+}
+

@@ -1,0 +1,23 @@
+.banner2{
+  min-height: 100vh;
+  background-image: url('../../images/banner2.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: none;
+  @include breakpoint-up(large){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__title{
+    color: $white;
+    font-size: $font-xxxlg-dt;
+    letter-spacing: 15px;
+    padding: 1.5rem 2rem;
+    border: 10px solid $white;
+    z-index: 0;
+    text-transform: uppercase;
+
+  }
+}

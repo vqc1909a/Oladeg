@@ -1,0 +1,86 @@
+.modal-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .5s ease-out;
+  z-index: 10;
+}
+
+.modal-bg-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-bg-close {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.modal {
+  width: 90%;
+  position: relative;
+  @include breakpoint-up(medium) {
+    width: 65%;
+  }
+  @include breakpoint-up(large) {
+    width: 35%;
+  }
+  a{
+    display: block;
+    border: 5px solid $rojoOxido;
+    border-radius: 10px;
+    img{
+      width: 100%;
+    }
+  }
+
+}
+
+.modal-button-close {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  cursor: pointer;
+  color: $white;
+  padding: .6rem;
+  transform: translate(25%, -25%);
+  border-radius: 50%;
+  background-color: $rojoOxido;
+  font-family: "Nunito Bold", sans-serif;
+  font-size: $font-nm-dt;
+  @include breakpoint-up(medium) {
+    font-size: $font-lg;
+  }
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+.modal-title{
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: $font-nm-dt;
+  margin-bottom: 1rem;
+  @include breakpoint-up(medium){
+    font-size: $font-lg;
+  }
+}
+.modal-subtitle {
+  text-align: center;
+  color: white;
+  margin-bottom: 1rem;
+  font-size: $font-sm;
+  @include breakpoint-up(medium) {
+    font-size: $font-sm-dt;
+  }
+}

@@ -1,0 +1,91 @@
+.curso{
+  min-height: 90vh;
+  @include breakpoint-up(large){
+    display: flex;
+  }
+  &__image{
+    flex: 1;    
+    background-color: $bg-secondary; 
+    padding: 1rem;
+    @include breakpoint-up(medium) {
+      padding: 2rem;
+    }
+    @include breakpoint-up(large) {
+      padding: 3rem 0;
+    }
+  }
+  &__text{
+    flex: 1;
+    padding: 1rem;
+    @include breakpoint-up(medium) {
+      padding: 2rem;
+    }
+    @include breakpoint-up(large) {
+      padding: 3rem 0;
+    }
+  }
+  &__image-subcontainer{
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 200px;
+      @include breakpoint-up(medium) {
+          height: 250px;
+      }
+      @include breakpoint-up(large) {
+        height: 320px;
+      }
+    }
+    @include breakpoint-up(large) {
+      justify-content: flex-end;
+      width: 45vw;
+      margin-left: 5vw;
+      padding-right: 3rem;
+    }
+  }
+  &__text-subcontainer {
+    @include breakpoint-up(large) {
+      width: 45vw;
+      margin-right: 5vw;
+      padding-left: 3rem;
+    }
+  }
+  &__intro{
+    text-align: center;
+    margin-bottom: .5rem;
+    color: $rojoOxido;
+    font-family: 'Nunito Bold', sans-serif;
+    font-size: $font-nm-dt;
+    @include breakpoint-up(large) {
+      font-size: $font-lg;
+    }
+
+  }
+  &__title{
+    text-transform: uppercase;
+    text-align: center;
+    color: $azulOxido;
+    letter-spacing: 0px;
+    font-size: $font-nm-dt;
+    @include breakpoint-up(medium) {
+      font-size: $font-lg;
+    }
+    @include breakpoint-up(large){
+      font-size: $font-lg-dt;
+    }
+    margin-bottom: 1rem;
+  }
+  &__description{
+    text-align: justify;
+    color: $grey;
+    font-size: $font-nm;
+    @include breakpoint-up(large) {
+      font-size: $font-nm-dt;
+    }
+    p{
+      margin-bottom: 1rem;
+    }
+  }
+}

@@ -1,0 +1,234 @@
+.hero{
+  padding: 2rem 0;
+  min-height: 70vh;
+  font-size: $font-lg;
+  display: grid;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  background-color: $bg-secondary;
+  @include breakpoint-up(medium) {
+    row-gap: 2rem;                
+  }
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-areas: "curso"
+                       "diplomado"
+                       "especializacion"
+                       "image2"; 
+  @include breakpoint-up(large) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: "curso diplomado especializacion"  
+                          "image1 image2 image3";
+                
+  }
+  &__wrapper_course {
+    @include breakpoint-up(large) {
+      margin-bottom: 0rem;
+    }
+    &:first-child{
+      grid-area: curso;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include breakpoint-up(large) {
+        justify-content: flex-end;
+      }
+    }
+    &:nth-child(2){
+      grid-area: diplomado;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include breakpoint-up(large) {
+        align-items: flex-end;
+      }
+      
+    }
+    &:nth-child(3){
+      grid-area: especializacion;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include breakpoint-up(large) {
+        justify-content: flex-start;
+      }
+    }
+  }
+  &__course{
+    display: block;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    @include breakpoint-down(small) {
+      width: 90%;
+    }
+    @include breakpoint-up(medium) {
+      width: 50%;
+    }
+    @include breakpoint-up(large) {
+      width: 90%;
+    }
+    img{
+      width: 100%;
+      height: 250px;
+      transition: transform 600ms ease-in-out;
+      @include breakpoint-down(small) {
+        height: 200px;
+      }
+    }
+    &:hover {
+      .hero__barra {
+        transform: scaleY(4);
+      }
+      img{
+        transform: scale(1.2);
+      }
+    }
+    animation: animateHeroCourse 1.5s linear infinite alternate;
+  }
+  &__title{
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-family: 'Nunito ExtraLight',
+    sans-serif;
+    z-index: 2;
+    font-size: $font-nm-dt;
+    // @include breakpoint-up(large) {
+    //   font-size: $font-nm-dt;
+    // }
+  }
+  &__barra{
+    height: 25%;
+    z-index: 1;
+    background-color: rgba(0,0,0,.5);
+    position: absolute;
+    top: calc(75% / 2);
+    width: 100%;
+    transform: scaleY(1);
+    transition: transform 300ms ease-in-out;
+    transform-origin: center center;
+  }
+  &__image1{
+    grid-area: image1;
+    display: none;
+    @include breakpoint-up(large) {
+     display: flex;
+     justify-content: flex-start;
+     align-items: flex-start;
+    }
+  }
+  &__image2 {
+    grid-area: image2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top: 2rem;
+  }
+  &__image3 {
+    grid-area: image3;
+   
+    display: none;  
+
+    @include breakpoint-up(large) {
+       display: flex;
+       justify-content: flex-end;
+       align-items: flex-start;
+    }
+  }
+  #brazo-estudiante,
+  #antebrazo-estudiante,
+  #brazo-hombre,
+  #brazo-mujer,
+  #flor-izquierda,
+  #flor-derecha{
+    transform-origin: center center;
+    transform-box: fill-box;
+  }  
+  #brazo-estudiante{
+    animation: animate_brazo_estudiante 1.5s linear 1.5s infinite alternate;
+  }
+  #antebrazo-estudiante{
+    animation: animate_antebrazo_estudiante 1.5s linear 1.5s infinite alternate;
+  }
+  #brazo-hombre{
+    animation: animate_brazo_hombre 1.5s linear 1.5s infinite alternate;
+  }
+  #brazo-mujer{
+    animation: animate_brazo_mujer 1.5s linear 1.5s infinite alternate;
+  }
+  #flor-izquierda{
+    transform-origin: right bottom;
+    animation: animate_flor_izquierda 1.5s linear infinite alternate;
+  }
+  #flor-derecha{
+    transform-origin: left bottom;
+    animation: animate_flor_derecha 1.5s linear infinite alternate;
+
+  }
+
+}
+
+//Animations
+@keyframes animate_brazo_estudiante{
+  from{
+    transform: translateY(0);
+  } 
+  to{
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes animate_antebrazo_estudiante {
+  from {
+    transform: translateY(0) rotateX(0deg);
+  }
+
+  to {
+    transform: translateY(-5px) rotateX(30deg);
+  }
+}
+
+@keyframes animate_brazo_hombre {
+  from {
+    transform: translateX(0px) translateY(0px) rotateZ(0deg);
+  }
+
+  to {
+    transform: translateX(-4px) translateY(-10px) rotateZ(-15deg);
+  }
+}
+
+@keyframes animate_brazo_mujer {
+  from {
+    transform: translateX(0px) translateY(0px) rotateZ(0deg);
+  }
+
+  to {
+    transform: translateX(2px) translateY(-10px) rotateZ(15deg);
+  }
+}
+
+@keyframes animate_flor_izquierda {
+  from {
+    transform: rotateZ(-4deg) translateY(0);
+  }
+
+  to {
+    transform: rotateZ(6deg) translateY(3px);
+  }
+}
+
+@keyframes animate_flor_derecha {
+  from {
+    transform: rotateZ(4deg) translateY(0);
+  }
+
+  to {
+    transform: rotateZ(-8deg) translateY(3px);
+  }
+}

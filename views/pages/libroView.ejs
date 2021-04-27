@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <%- include ('../partials/headView.ejs') %>
+</head>
+<body>
+  <%- include ('../layouts/headerView.ejs') %>
+  <main>
+     <div class="main">
+       <div class="main__content container">
+        <div class="boletin">
+          <h1 class="boletin__title">Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional</h1>
+          <!-- <div class="boletin__image">
+            <img src="/images/boletin.jpg" alt="Boletin Gestión Estratégica para el Desarrollo Regional">
+          </div> -->
+          <div class="boletin__content">
+            <img src="/images/libro.jpg" alt="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
+            <div>
+              <p><strong>Autor: </strong>OLADEG</p>
+              <p><strong>Año: </strong>2021</p>              
+              <p>El boletín tiene por objetivo fortalecer a 1,000 jóvenes en todo el país con técnicas modernas de diálogo y de elaboración de políticas públicas, quienes integrarán 40 grupos de 25 personas. Para formarse en diálogo se impartirá la metodología para la transformación social de la Teoría U, del profesor Otto Sharmer del MIT (Pucci, Carpio y de la Fuente, 2007); a través del cual se construye un liderazgo colectivo, utilizando técnicas para que los integrantes co-inicien bajo un entorno de confianza intrapersonal, la identificación de un tema relevante de su comunidad.</p>
+              <p>Sobre la base anterior, los 40 grupos redactarán una propuesta de política pública que será presentada a las autoridades nacionales y municipales. Para realizar dicha tarea, se ha elaborado la presente guía metodológica, la cual se apoya en un marco teórico con un método práctico basado en preguntas críticas que deben ser respondidas por cada grupo para formular una política pública, así: ¿qué problema identificaron para estudiarlo?, ¿por qué quieren estudiar el problema?, ¿para qué quieren resolver el problema? (identifican los objetivos y resultados), ¿cómo plantean resolver el problema? (definen acciones concretas para alcanzar los objetivos), ¿dónde, cuándo y con quiénes resolverán el problema?.</p>
+              <p>Para cada pregunta la guía ofrece una orientación específica de los elementos que deben contemplar, y se desarrollan ejemplos de políticas públicas pasadas para comprender mejor cómo redactar cada parte. También, la guía incluye un componente de incidencia para que los grupos establezcan una agenda de acciones para que la política pública sea aceptada por la institución pública respectiva (esta puede ser del ámbito nacional o municipal).</p>  
+            </div>
+
+            <h2 class="boletin__download"><a target="_blank" href="<%= `${protocol}://${host}/images/CALENDARIO.pdf` %>" role="link" title="">Descargar Boletín</a title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg"></h2>
+            <div class="boletin__iframe">
+              <iframe src="<%= `${protocol}://${host}/images/CALENDARIO.pdf` %>" frameborder="0" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg"></iframe>
+            </div>
+          </div>
+         <%- include('../partials/twobuttons.ejs') %>
+        </div>
+        <%- include('../layouts/sidebarView.ejs') %>
+       </div>
+     </div>
+
+    <%- include('../layouts/whatsapp.ejs') %>
+  </main> 
+  <%- include('../layouts/footerView.ejs') %>
+  <%- include('../layouts/scriptView.ejs') %>
+</body>
+</html>

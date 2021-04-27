@@ -1,0 +1,128 @@
+<header class="header">
+  <nav class="sec-nav container flex flex-fd-c flex-ai-c flex-jc-c">
+    <div class="header__cta flex flex-jc-c flex-ai-c">
+      <button type="button" class="button modal-button" data-modal="modalSubscribe">
+        Informes
+      </button>
+    </div>
+    <div class="header__contact hide-for-mobile">
+      <a href="https://wa.me/51931216468?text=Hola&nbsp;deseo&nbsp;mayor&nbsp;información!" class="flex flex-ai-c" title="WhatsApp1 Oladeg" target="_blank" role="link">
+        <img loading="lazy" src="/icons/Whatsapp.svg" alt="WhatsApp1 Oladeg">
+        <span class="header__number">931216468</span>
+      </a>
+      <a href="https://wa.me/51940379357?text=Hola&nbsp;deseo&nbsp;mayor&nbsp;información!" class="flex flex-ai-c" title="WhatsApp2 Oladeg" target="_blank" role="link">
+        <img loading="lazy" src="/icons/Whatsapp.svg" alt="WhatsApp2 Oladeg">    
+        <span class="header__number">940379357</span>
+      </a>
+    </div>
+    <a href="<%= `${protocol}://${host}/` %>" class="header__logo flex flex-ai-c flex-jc-c" title="Inicio Oladeg" role="link">
+      <img loading="lazy" src="/images/logo.jpg" alt="Logo Oladeg">
+    </a>
+    <div class="header__social_media flex flex-jc-c">
+      <a href="https://es-la.facebook.com/oladeg.Peru/" title="Facebook Oladeg" target="_blank" role="link">
+        <img loading="lazy" src="/icons/Facebook.svg" alt="Facebook Oladeg">
+      </a>
+      <a href="https://www.instagram.com/oladeg_peru/" title="Instagram Oladeg" target="_blank" role="link">
+        <img loading="lazy" src="/icons/Instagram.svg" alt="Instagram Oladeg">
+      </a>
+      <a href="" title="Linkedlin Oladeg" target="_blank" role="link">
+        <img loading="lazy" src="/icons/Linkedlin.svg" alt="Linkedlin Oladeg" target="_blank">
+      </a>
+    </div>
+  </nav>
+  
+  <nav class="main-nav flex flex-jc-c flex-ai-c">
+    <div class="header__menu container flex flex-jc-sb flex-ai-c hide-for-mobile">
+      <a href="<%= `${protocol}://${host}` %>" class="header__link" title="Inicio | Oladeg" role="link">Inicio</a>
+      <a href="<%= `${protocol}://${host}/consultorias/` %>" class="header__link" title="Consultorias | Oladeg" role="link">Consultorias</a>
+      <a href="<%= `${protocol}://${host}/cursos/` %>" class="header__link" title="Cursos | Oladeg" role="link">Cursos</a>
+      <a href="<%= `${protocol}://${host}/diplomados/` %>" class="header__link" title="Diplomados | Oladeg" role="link">Diplomados</a>
+      <a href="<%= `${protocol}://${host}/especializaciones/` %>" class="header__link" title="Especializaciones | Oladeg" role="link">Especializaciones</a>
+      <a href="https://oladegperu.milaulas.com/index.php/" class="header__link" title="Aulas Virtuales | Oladeg" role="link">Aulas Virtuales</a>
+      <a href="<%= `${protocol}://${host}/formas-de-pago/` %>" class="header__link" title="Formas de Pago | Oladeg" role="link">Formas de Pago</a>
+      <a href="<%= `${protocol}://${host}/contacto/` %>" class="header__link" title="Contacto | Oladeg" role="link">Contacto</a>
+    </div>
+    <div class="header__hamburguer hide-for-desktop">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <div class="header__menu-overlay hide-for-desktop">
+    <div class="menu-col col col1 hide-for-desktop">
+      <a href="<%= `${protocol}://${host}/` %>" class="header__link link_mobile link_mobile1" alt="Inicio | Oladeg" role="link">Inicio</a>
+      <a href="<%= `${protocol}://${host}/consultorias/` %>" class="header__link link_mobile link_mobile1" alt="Consultorias | Oladeg" role="link">Consultorias</a>
+      <a href="<%= `${protocol}://${host}/cursos/` %>" class="header__link link_mobile link_mobile1" alt="Cursos | Oladeg" role="link">Cursos</a>
+      <a href="<%= `${protocol}://${host}/diplomados/` %>" class="header__link link_mobile link_mobile1" alt="Diplomados | Oladeg" role="link">Diplomados</a>
+    </div>
+    <div class="menu-col col col2 hide-for-desktop">
+      <a href="<%= `${protocol}://${host}/especializaciones/` %>" class="header__link link_mobile link_mobile2" alt="Especializaciones | Oladeg" role="link">Especializaciones</a>
+      <a href="https://oladegperu.milaulas.com/index.php/" class="header__link link_mobile link_mobile2" alt="Aulas Virtuales | Oladeg" role="link">Aulas Virtuales</a>
+      <a href="<%= `${protocol}://${host}/formas-de-pago/` %>" class="header__link link_mobile link_mobile2" alt="Formas de Pago | Oladeg" role="link">Formas de Pago</a>
+      <a href="<%= `${protocol}://${host}/contacto/` %>" class="header__link link_mobile link_mobile2" alt="Contacto | Oladeg" role="link">Contacto</a>
+    </div>
+  </div>
+  <div class="overlay hide-for-desktop">
+
+  </div>
+
+   
+  <div class="modalSubscribe modal-bg">
+    <div class="modal">
+      <div class="contact__content">
+        <p class="modal-title"><i class="fas fa-info-circle"></i> Solicitar Información</p>
+        <p class="modal-subtitle">Brindenos sus datos y el curso de interés; y un asesor se comunicara lo antes posible</p>
+        <form action=""  class="formulario2">
+          <div class="input-group">
+            <input type="text" class="input-group__input" name="nombres" placeholder="Nombres y Apellidos" autocomplete="off">
+            <i class="input-group__validacion-estado fas fa-times-circle fa-2x"></i>
+          </div>
+          <p class="input-group__error">Los nombres y apellidos tienen que ser de 5 a 30 dígitos y solo puede contener letras.</p>
+
+          <div class="input-group">
+            <input type="email" class="input-group__input" name="correo" placeholder="Correo Electrónico" autocomplete="off">
+            <i class="input-group__validacion-estado fas fa-times-circle fa-2x"></i>
+          </div>
+           <p class="input-group__error">El correo solo puede contener letras, numeros, puntos y guiones</p>
+
+          <div class="input-group">
+            <input type="text" class="input-group__input" name="celular" placeholder="N° de WhatsApp" autocomplete="off">
+            <i class="input-group__validacion-estado fas fa-times-circle fa-2x"></i>
+          </div>
+          <p class="input-group__error">El teléfono solo puede contener numeros y tienen que ser de 7 a 14 dígitos</p>
+
+
+          <div class="input-group">
+            <input type="text" class="input-group__input" name="curso" placeholder="Curso de Interés" autocomplete="off">
+            <i class="input-group__validacion-estado fas fa-times-circle fa-2x"></i>
+          </div>
+          <p class="input-group__error">El curso tiene que ser de 5 a 30 dígitos y solo puede contener letras.</p>
+
+          <div class="input-group__mensaje">
+            <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+          </div>
+          
+          <div class="input-group">
+            <button type="submit" class="input-group__input input-group__input--submit" name="cellphone">Solicitar Información</button>
+          </div>
+
+          <p class="input-group__mensaje-exito">Datos enviados correctamente!</p>            
+        </form>
+       </div>
+      <div class="modal-button-close">X</div>
+    </div>
+  </div>
+
+  <div class="modalAnuncio modal-bg">
+    <div class="modal">
+      <a href="">
+        <img src="/images/anuncio.jpg" alt="">  
+      </a>
+      <div class="modal-button-close">x</div>
+    </div>
+  </div>
+
+</header>
+
+

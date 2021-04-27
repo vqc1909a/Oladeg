@@ -1,0 +1,117 @@
+.anuncios{
+  margin-right: 0rem;
+  @include breakpoint-up(large) {
+    margin-right: 2rem;
+    flex: 7;
+  }
+  &__item{
+    display: grid;
+    background-color: $white;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, .3);
+    @include breakpoint-up(medium){    
+      display: flex;  
+      // grid-template-columns: repeat(2, 1fr);
+      // grid-template-rows: 1fr;
+    }
+    margin-bottom: 2rem;
+  }
+  &__image{
+    display: block;
+    flex: 1;
+    height: 180px;
+    overflow: hidden;
+
+    @include breakpoint-up(medium) {
+      height: 250px;
+    }
+    img{
+      width: 100%;
+      height: 100%;
+      transition: transform 600ms ease-in-out;
+    }
+
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+    }
+  }
+  &__text {
+    padding: 1rem;
+    flex: 1;
+
+  }
+  &__title{
+    text-transform: uppercase;
+    font-size: $font-nm;
+    font-family: 'Nunito Bold', sans-serif;
+    @include breakpoint-up(medium) {
+      font-size: $font-nm-dt;
+    }      
+    a{
+    color: $dark;
+    transition: color 300ms ease-in-out;
+    }
+    margin-bottom: 1rem;
+    &:hover{
+      a{
+        color: $rojoOxido;
+      }
+    }
+  }
+  &__description{
+    text-align: justify;
+    color: $grey;
+    font-family: 'Nunito Regular', sans-serif;
+    font-size: $font-sm-dt;
+    margin-bottom: .25rem;
+    @include breakpoint-up(large) {
+      font-size: $font-nm;
+    }
+  }
+  &__time{
+    justify-content: flex-end;
+    img{
+      margin-right: .5rem;
+    }
+    time{
+      font-size: $font-xsm;
+      @include breakpoint-up(large) {
+        font-size: $font-xsm-dt;
+      }
+    }
+  }
+  &__link{
+     display: inline-block;    
+     margin-top: .75rem;
+     position: relative;
+     color: $rojoOxido;
+     font-family: "Nunito Bold", sans-serif;
+     font-size: $font-sm-dt;
+    @include breakpoint-up(large) {
+      font-size: $font-nm;
+    }
+    &::after {
+       content: '';
+       position: absolute;
+       bottom: -3px;
+       left: 0;
+       width: 15%;
+       height: 3px;
+       background-color: $rojoOxido;
+       transform: scaleX(0);
+       transform-origin: left center;
+       transition: transform 300ms ease-in-out;
+       @include breakpoint-up(large) {
+          width: 15%;
+       }
+     }
+     &:hover{
+       &::after{
+        transform: scaleX(1);
+       }
+     }
+  }
+ 
+}

@@ -1,0 +1,119 @@
+.appear-content{
+  opacity: 0;
+  transform: translateY(50px);
+  transition: .6s all ease-out;
+}
+.intro-appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+@keyframes fade-in {
+  from {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes translate-right-in {
+  from {
+    transform: translateX(-150%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes translate-right-out {
+  from {
+    transform: translateX(-150%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+//Navbar
+@keyframes animateLineUpAnimateIda {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(7px);
+  }
+
+  100% {
+    transform: translateY(7px) rotate(45deg);
+  }
+}
+
+@keyframes animateLineDownAnimateIda {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+
+  100% {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+@keyframes animateLineUpAnimateVuelta {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(7px);
+  }
+
+  100% {
+    transform: translateY(7px) rotate(45deg);
+  }
+}
+
+@keyframes animateLineDownAnimateVuelta {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+
+  100% {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+//hero
+@keyframes animateHeroCourse {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(50px);
+  }
+}

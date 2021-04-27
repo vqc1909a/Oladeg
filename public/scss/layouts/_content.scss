@@ -1,0 +1,21 @@
+.main{
+  padding: 3rem 0;
+  background-color: $bg-primary;
+
+  &__content{
+    @include breakpoint-up(large) {
+      display: flex;
+    }
+    // display: grid;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: repeat(2, 1fr);
+    // column-gap: 1rem;
+    // row-gap: 1rem;
+    // @include breakpoint-up(large) {
+    //    grid-template-columns: 7fr 3fr;
+    //    grid-template-rows: 1fr;
+    //    column-gap: 3rem;
+    //    row-gap: 2rem;
+    // }
+  }
+}
