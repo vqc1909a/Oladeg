@@ -17,7 +17,7 @@ const mostrarCursos = async (req, res) => {
 
   return res.render('pages/cursosView', {
     title: "Cursos &#8211; OLADEG",
-    description: "Oladeg invita a participar a los Diplomados, Cursos y Especializaciones de Capacitación a Distancia Virtual mediante su Escuela de Gestión Pública.",
+    description: "Oladeg te invita a participar de los Cursos de Capacitación a Distancia Virtual mediante su Escuela de Gestión Pública.",
     protocol: req.protocol, 
     host: req.headers.host,
     cursos,

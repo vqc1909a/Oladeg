@@ -15,7 +15,7 @@ const mostrarEspecializaciones = async (req, res) => {
   especializaciones = especializaciones.slice(elementos_hasta_ahora - elementos_por_pagina, elementos_hasta_ahora)
   return res.render('pages/especializacionesView', {
     title: "Especializaciones &#8211; OLADEG",
-    description: "Oladeg invita a participar a los Diplomados, Cursos y Especializaciones de Capacitación a Distancia Virtual mediante su Escuela de Gestión Pública.",
+    description: "Oladeg te invita a participar de las Especializaciones de Capacitación a Distancia Virtual mediante su Escuela de Gestión Pública.",
     protocol: req.protocol, 
     host: req.headers.host,
     especializaciones,

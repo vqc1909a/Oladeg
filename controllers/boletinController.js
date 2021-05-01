@@ -16,7 +16,7 @@ const mostrarBoletines = async (req, res) => {
   boletines = boletines.slice(elementos_hasta_ahora - elementos_por_pagina, elementos_hasta_ahora);
   return res.render("pages/boletinesView", {
     title: "Boletines &#8211; OLADEG",
-    description: "Ofrecemos documentos, libros y artículos digitales relacionados a temas de Gestión Pública y Empresarial, Planificación, Monitoreo y Evaluación de Proyectos de Desarrollo Económico Rural.",
+    description: "Ofrecemos información digital legalizada sobre diversos temas que abarca la organización Oladeg.",
     protocol: req.protocol,
     host: req.headers.host,
     boletines,

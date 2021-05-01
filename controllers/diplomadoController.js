@@ -15,7 +15,7 @@ const mostrarDiplomados = async (req, res) => {
   diplomados = diplomados.slice(elementos_hasta_ahora - elementos_por_pagina, elementos_hasta_ahora)
   return res.render('pages/diplomadosView', {
     title: "Diplomados &#8211; OLADEG",
-    description: "Oladeg invita a participar a los Diplomados, Cursos y Especializaciones de Capacitación a Distancia Virtual mediante su Escuela de Gestión Pública.",
+    description: "Oladeg te invita a participar de los Diplomados de Capacitación a Distancia Virtual mediante su Escuela de Gestión Pública.",
     protocol: req.protocol, 
     host: req.headers.host,
     diplomados,
