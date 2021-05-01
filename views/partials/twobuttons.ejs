@@ -1,10 +1,21 @@
 <div class="anuncio__buttons">
-  <a href="<%= `${protocol}://${host}/anuncio/convocatoria-de-supervisor-en-farmacia` %>" role="link" class="anuncio__button anuncio__button--before" title="Convocatoria de Supervisor en Farmacia | Oladeg">
-    <span>&lt;</span>
-    <p>Convocatoria de Supervisor en Farmacia</p>
-  </a>
-  <a href="<%= `${protocol}://${host}/anuncio/70%-descuento:-curso-implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional-en-minería` %>" role="link" class="anuncio__button anuncio__button--after" title="70% Descuento: Curso Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería | Oladeg">
-    <p>70% Descuento: Curso Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería</p>
-    <span>&gt;</span>
-  </a>
+    <% if (anterior) { %>
+      <a href="<%= `${protocol}://${host}/${tipo}/${anterior.Url}` %>" role="link" class="anuncio__button anuncio__button--before" title="<%= `${anterior.Titulo} | Oladeg` %>">
+        <span>&lt;</span>
+        <p><%= `${anterior.Titulo}` %></p>
+      </a>
+    <% } else { %>
+      <a href="" role="link" class="anuncio__button anuncio__button--before anuncio__button--disabled" title="">
+      </a>
+    <% } %>
+  
+    <% if (despues) { %>
+      <a href="<%= `${protocol}://${host}/${tipo}/${despues.Url}` %>" role="link" class="anuncio__button anuncio__button--after" title="<%= `${despues.Titulo} | Oladeg` %>">
+        <p><%= `${despues.Titulo}` %></p>
+        <span>&gt;</span>
+      </a>
+    <% } else { %>
+      <a href="" role="link" class="anuncio__button anuncio__button--after anuncio__button--disabled" title="">
+      </a>
+    <% } %>
 </div>

@@ -6,11 +6,11 @@
       </button>
     </div>
     <div class="header__contact hide-for-mobile">
-      <a href="https://wa.me/51931216468?text=Hola&nbsp;deseo&nbsp;mayor&nbsp;información!" class="flex flex-ai-c" title="WhatsApp1 Oladeg" target="_blank" role="link">
+      <a href="https://wa.me/51931216468?text=Hola&nbsp;deseo&nbsp;mayor&nbsp;información!" class="flex flex-ai-c" title="WhatsApp1 Oladeg" target="_blank" role="link" rel="nofollow">
         <img loading="lazy" src="/icons/Whatsapp.svg" alt="WhatsApp1 Oladeg">
         <span class="header__number">931216468</span>
       </a>
-      <a href="https://wa.me/51940379357?text=Hola&nbsp;deseo&nbsp;mayor&nbsp;información!" class="flex flex-ai-c" title="WhatsApp2 Oladeg" target="_blank" role="link">
+      <a href="https://wa.me/51940379357?text=Hola&nbsp;deseo&nbsp;mayor&nbsp;información!" class="flex flex-ai-c" title="WhatsApp2 Oladeg" target="_blank" role="link" rel="nofollow">
         <img loading="lazy" src="/icons/Whatsapp.svg" alt="WhatsApp2 Oladeg">    
         <span class="header__number">940379357</span>
       </a>
@@ -113,15 +113,16 @@
       <div class="modal-button-close">X</div>
     </div>
   </div>
-
-  <div class="modalAnuncio modal-bg">
-    <div class="modal">
-      <a href="">
-        <img src="/images/anuncio.jpg" alt="">  
-      </a>
-      <div class="modal-button-close">x</div>
-    </div>
-  </div>
+  <% if(publicidad){ %>
+    <div class="modalAnuncio modal-bg">
+      <div class="modal">
+        <a href="<%= publicidad.Direccion %>" title="Publicidad | Oladeg">
+          <img src="<%= publicidad.Imagen %>" alt="Publicidad Oladeg">  
+        </a>
+        <div class="modal-button-close">x</div>
+      </div>
+    </div>  
+  <% } %>
 
 </header>
 

@@ -68,7 +68,7 @@ let anunciosItemsArray = Array.from(anuncios_items);
 let appearContentsArray = Array.from(appear_contents);
 let boletinesArray = Array.from(boletines);
 let animateNosotrosItemsArray = gsap.from(nosotrosItemsArray, {duration: 2, scale: 0.5, opacity: 0, delay: 1, stagger: {each: .5, from: "start"}, ease: "elastic(1, 0.3)", force3D: true});
-let animateAnunciosItemsArray = gsap.from(anunciosItemsArray, {duration: 1, delay: 1, stagger: {each: .5, from: "start"}, ease: "back(4)", force3D: true, xPercent: -100,  opacity: 0});
+// let animateAnunciosItemsArray = gsap.from(anunciosItemsArray, {duration: 1, delay: 1, stagger: {each: .5, from: "start"}, ease: "back(4)", force3D: true, xPercent: -100,  opacity: 0});
 
 CustomEase.create("custom_acercamiento", "M0,0 C0.006,0.016 0.1,0.4 0.2,0.4 0.3,0.4 0.4,0 0.4,0 0.4,0 0.448,1 0.7,1 0.952,1 1,0 1,0 ")
 gsap.to(candado, {duration: 2, ease: "custom_acercamiento", scale: 2, rotate: "20", force3D: true, repeat: -1, repeatDelay: 1});
@@ -203,12 +203,12 @@ window.onscroll = function(){
       animateNosotrosItemsArray.pause();
     }
 
-    if(anuncios.getBoundingClientRect().top < window.innerHeight / 1.2){
-      animateAnunciosItemsArray.play();
-    }else{
-      animateAnunciosItemsArray.restart();
-      animateAnunciosItemsArray.pause();
-    }
+    // if(anuncios.getBoundingClientRect().top < window.innerHeight / 1.2){
+    //   animateAnunciosItemsArray.play();
+    // }else{
+    //   animateAnunciosItemsArray.restart();
+    //   animateAnunciosItemsArray.pause();
+    // }
   }
   //Appear Contents
   appearContentsArray.forEach(content => {

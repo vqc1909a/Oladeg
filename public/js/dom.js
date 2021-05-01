@@ -83,6 +83,8 @@ const inputs_modal = document.querySelectorAll(".formulario2 input");
 
 const textarea = document.querySelector("textarea");
 
+//Buttons
+const buttons = document.querySelectorAll(".anuncios__button");
 
-module.exports = {header, hamburguer, main_nav, sec_nav, overlay, links, links1, links2, hero, menu_overlay, sidebar, nosotros, nosotros_items, whatsapp_button, whatsapp_mensaje,whatsapp__send, whatsapp__input, whatsapp__close, banner, deposito_button_1, deposito_button_2, deposito_button_3, deposito_input, banner2, banner2_title, curso, curso_triggers, curso_contents, main, modal_buttons, modal_buttons_close, modal_anuncio, anuncios_items, anuncios, appear_contents, candado, cursos, formas_de_pago, contact, boletines, quienes_somos, nuestra_experiencia, nuestros_servicios, formulario1, formulario2, inputs_contact, inputs_modal, textarea};  
+module.exports = {header, hamburguer, main_nav, sec_nav, overlay, links, links1, links2, hero, menu_overlay, sidebar, nosotros, nosotros_items, whatsapp_button, whatsapp_mensaje,whatsapp__send, whatsapp__input, whatsapp__close, banner, deposito_button_1, deposito_button_2, deposito_button_3, deposito_input, banner2, banner2_title, curso, curso_triggers, curso_contents, main, modal_buttons, modal_buttons_close, modal_anuncio, anuncios_items, anuncios, appear_contents, candado, cursos, formas_de_pago, contact, boletines, quienes_somos, nuestra_experiencia, nuestros_servicios, formulario1, formulario2, inputs_contact, inputs_modal, textarea, buttons};  
 

@@ -3,7 +3,7 @@
 
   @include breakpoint-up(large) {
     margin-right: 2rem;
-    flex: 7;
+    flex: 7;  
   }
 
   &__title {
@@ -82,6 +82,10 @@
         height: 320px;
       }
       margin-right: 1rem;
+      margin-bottom: 1rem;
+      @include breakpoint-up(large) {
+        margin-bottom: .5rem;
+      }
     }
     > div{
       h2 {

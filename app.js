@@ -10,9 +10,20 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
+
 //Routes
 app.use('/', require("./routes/infoRoute"));
-app.use('/', require("./routes/contactoRoute"));
+app.use('/', require("./routes/anuncioRoute"));
+app.use('/', require("./routes/cursoRoute"));
+app.use('/', require("./routes/diplomadoRoute"));
+app.use('/', require("./routes/especializacionRoute"));
+app.use('/', require("./routes/libroRoute"));
+app.use('/', require("./routes/boletinRoute"));
+
+
+
+
+
 
 
 

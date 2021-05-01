@@ -18,11 +18,13 @@
     text-align: center;
     img{
       width: 100%;
+      @include breakpoint-up(medium) {
+        width: 80%;
+      }
     }
     margin-bottom: 2rem;
   }
   &__buttons{
-    margin-top: 2rem;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, 1fr);
@@ -43,7 +45,7 @@
     align-items: center;
     justify-content: space-between;
 
-    &:first-child{
+    &--before{
       @include breakpoint-up(medium) {
         margin-right: .125rem;
       }
@@ -52,15 +54,19 @@
       }
       
     }
-    &:last-child{
+    &--after{
       p{
         margin-right: 1rem;
       }
+    }
+    &--disabled{
+      pointer-events: none;
     }
 
   }
   &__content{
     text-align: justify;
+    margin-bottom: 2rem;
     h2{
       font-size: $font-nm-dt;
       @include breakpoint-up(medium){

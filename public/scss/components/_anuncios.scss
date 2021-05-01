@@ -65,7 +65,7 @@
     color: $grey;
     font-family: 'Nunito Regular', sans-serif;
     font-size: $font-sm-dt;
-    margin-bottom: .25rem;
+    margin-bottom: .5rem;
     @include breakpoint-up(large) {
       font-size: $font-nm;
     }

@@ -7,73 +7,94 @@
   <%- include ('../layouts/headerView.ejs') %>
   <main>
     <%- include('../layouts/banner2View.ejs', {variant: 'Cursos'}); %>
-    
-    <section class="cursos container">
-      <h1 class="cursos__intro">Cursos</h1>
-      <div class="cursos__grid">
-        <div class="cursos__item appear-content">
-          <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
-          <p class="cursos__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="cursos__image">
-            <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">
-              <img loading="lazy" src="/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
-            </a>
+    <div class="main__content container">
+      <section class="cursos">
+        <h1 class="cursos__intro">Cursos</h1>
+        <% if(cursos.length !== 0) { %>
+          <div class="cursos__grid">
+              <% cursos.forEach(function(curso) {  %>
+                <div class="cursos__item appear-content">
+                  <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/${curso.Url}` %>" title="<%= `${curso.Titulo} | Oladeg` %>" role="link"><%= curso.Titulo %></a></h2>
+                  <p class="cursos__time flex flex-ai-c">
+                    <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
+                    <time datetime="<%= curso.created_at %>" class="flex flex-ai-c"><%= `${curso.fecha_month} ${curso.fecha_date}, ${curso.fecha_year}`%></time>
+                  </p>
+                  <div class="cursos__image">
+                    <a  href="<%= `${protocol}://${host}/curso/${curso.Url}` %>" title="<%= `${curso.Titulo} | Oladeg` %>" role="link">
+                      <img loading="lazy" src="<%= curso.Portada %>" alt="<%= `Curso ${curso.Titulo}` %>">
+                    </a>
+                  </div>
+                  <div class="cursos__button">
+                    <a  href="<%= `${protocol}://${host}/curso/${curso.Url}` %>" title="<%= `${curso.Titulo} | Oladeg` %>" role="link" type="button" class="button">Más Información</a>
+                  </div>
+                </div>
+              <% }) %> 
+            <!-- <div class="cursos__item appear-content">
+              <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
+              <p class="cursos__time flex flex-ai-c">
+                <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
+                <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
+              </p>
+              <div class="cursos__image">
+                <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">
+                  <img loading="lazy" src="/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
+                </a>
+              </div>
+              <div class="cursos__button">
+                <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link" type="button" class="button">Más Información</a>
+              </div>
+            </div>
+            <div class="cursos__item appear-content" >
+              <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
+              <p class="cursos__time flex flex-ai-c">
+                <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
+                <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
+              </p>
+              <div class="cursos__image">
+                <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">
+                  <img loading="lazy" src="/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
+                </a>
+              </div>
+              <div class="cursos__button">
+                <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link" type="button" class="button">Más Información</a>
+              </div>
+            </div>
+            <div class="cursos__item appear-content">
+              <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
+              <p class="cursos__time flex flex-ai-c">
+                <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
+                <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
+              </p>
+              <div class="cursos__image">
+                <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">
+                  <img loading="lazy" src="/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
+                </a>
+              </div>
+              <div class="cursos__button">
+                <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link" type="button" class="button">Más Información</a>
+              </div>
+            </div>
+            <div class="cursos__item appear-content">
+              <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
+              <p class="cursos__time flex flex-ai-c">
+                <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
+                <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
+              </p>
+              <div class="cursos__image">
+                <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">
+                  <img loading="lazy" src="/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
+                </a>
+              </div>
+              <div class="cursos__button">
+                <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link" type="button" class="button">Más Información</a>
+              </div>
+            </div> -->
           </div>
-          <div class="cursos__button">
-            <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
-        </div>
-        <div class="cursos__item appear-content" >
-          <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
-          <p class="cursos__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="cursos__image">
-            <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">
-              <img loading="lazy" src="/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
-            </a>
-          </div>
-          <div class="cursos__button">
-            <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
-        </div>
-        <div class="cursos__item appear-content">
-          <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
-          <p class="cursos__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="cursos__image">
-            <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">
-              <img loading="lazy" src="/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
-            </a>
-          </div>
-          <div class="cursos__button">
-            <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
-        </div>
-        <div class="cursos__item appear-content">
-          <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
-          <p class="cursos__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="cursos__image">
-            <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">
-              <img loading="lazy" src="/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
-            </a>
-          </div>
-          <div class="cursos__button">
-            <a  href="<%= `${protocol}://${host}/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
-        </div>
-      </div>
-      <%- include('../partials/buttonsView.ejs') %>
-    </section>
+          <%- include('../partials/buttonsView.ejs') %>
+        <% } %>
+      </section>
+      <%- include('../layouts/sidebarView.ejs') %>
+    </div>
     <%- include('../layouts/whatsapp.ejs') %>
   </main> 
   <%- include('../layouts/footerView.ejs') %>

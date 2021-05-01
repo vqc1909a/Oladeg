@@ -1,6 +1,7 @@
 .buttons {
-  margin: 2rem 0;
-
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
   span {
     display: inline-block;
     cursor: pointer;
@@ -11,7 +12,7 @@
     font-family: 'Nunito SemiBold',
       sans-serif;
     font-size: $font-sm;
-
+    margin: .5rem 0;
     &.activo {
       background-color: $rojoOxido;
       color: $white;

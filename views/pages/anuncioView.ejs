@@ -9,11 +9,14 @@
      <div class="main">
        <div class="main__content container">
         <div class="anuncio">
-          <h1 class="anuncio__title">I Encuentro de Sostenibilidad en las Empresas Comunales</h1>
+          <h1 class="anuncio__title"><%= anuncio.Titulo %></h1>
           <div class="anuncio__image">
-            <img src="/images/anuncio.jpg" alt="Anuncio I Primer Encuentro de Sostenibilidad en las Empresas Comunales">
+            <img src="<%= `${anuncio.Portada}` %>" alt="<%= `Anuncio ${anuncio.Titulo}` %>">
           </div>
           <div class="anuncio__content">
+            <%- anuncio.Contenido %>
+          </div>
+          <!-- <div class="anuncio__content">
             <h2>PRESENTACIÓN:</h2>
             <p>En el Perú existen más de siete mil comunidades que representan más del cuarenta por ciento del territorio nacional. Los grandes economistas mencionan que nuestro país necesita crecer un promedio superior al 5.5% anual, la pregunta es ¿Cómo podríamos soñar en ese porcentaje si no estamos atendiendo ni le damos importancia a un gran número de personas que representan a las comunidades? ¿Cómo podríamos crecer si no las capitalizamos, no les damos capacidades técnicas, tecnológicas, acompañamiento, no aseguramos el cumplimiento de acuerdos ni el Estado ejerce su rol? Todas estas preguntas necesitamos estrategias de sensibilización en todos los niveles socioeconómicos. Todos los programas del Estado están enfocados en dar mayor y mejores beneficios y oportunidades a inversionistas, situando a los productores en segundo plano en la incidencia del acompañamiento. De este análisis, nos llega la interrogante, ¿por qué la pobreza en nuestro país está en algunas comunidades, si ellas son propietarias de las zonas de donde sale la riqueza más preciada para el mundo?.
             La Cámara Peruana de Empresas Comunales, viene organizando el II Encuentro de Sostenibilidad de Empresas Comunales,  para analizar que existe políticas del estado para volver productiva la zona rural del Perú. A pesar de ello actualmente un nuevo modelo de gestión y éxito vienen alcanzando las empresas comunales en diversas regiones del país impulsadas por el sector minero. Estas no solo generan empleo sino también la integración de las poblaciones a la cadena productiva, permitiendo un desarrollo sostenible. El evento tratara  temas relacionados a la organización y gestión; que son los pilares de las empresas sus lideres y sus profesionales, gestión de capital humano, gestión de la productividad, gestión socio-ambiental y gestión de tecnología, como participar para contratar con el estado, importación de bienes, casos de éxitos de empresas comunales.
@@ -94,8 +97,8 @@
                 
             <p>Solamente serán tomadas en cuenta las candidaturas completas enviadas hasta la fecha límite.</p>
             <p><img src="http://localhost:1337/uploads/cesar2_c3aafb175a.png" alt=""></p>
-          </div>
-         <%- include('../partials/twobuttons.ejs') %>
+          </div> -->
+         <%- include('../partials/twobuttons.ejs', {tipo: "anuncio"}) %>
         </div>
         <%- include('../layouts/sidebarView.ejs') %>
        </div>

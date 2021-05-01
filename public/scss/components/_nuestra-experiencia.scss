@@ -11,6 +11,10 @@
     h2{
       margin-top: 1rem;
       margin-bottom: .5rem;
+      font-size: $font-nm-dt;
+      @include breakpoint-up(large) {
+        font-size: $font-lg;
+      }
     }
     p{
       color: $grey;
@@ -36,10 +40,15 @@
     justify-content: center;
     text-align: center;
     padding: 2rem 0;
-
-    img {
-      border-radius: 10px;
+    img{
+      @include breakpoint-up(medium) {
+        width: 50%;
+      }
+      @include breakpoint-up(large){
+        width: 60%;
+      }
     }
+
     @include breakpoint-up(large) {
       padding: 0rem;
     }

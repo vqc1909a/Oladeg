@@ -1,20 +1,25 @@
 .cursos{
   padding: 3rem 0;
+  margin-right: 0rem;
+  @include breakpoint-up(large) {
+    margin-right: 4rem;
+    flex: 7;
+  }
+
   &__grid{
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: minmax(1fr, repeat(4, 1fr));
     row-gap: 2rem;
     @include breakpoint-up(medium) {
-      margin: 0 3rem;
-      column-gap: 4rem;
+      // margin: 0 2rem;
+      column-gap: 3rem;
       row-gap: 4rem;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: minmax(1fr, repeat(2, 1fr));
     }
     @include breakpoint-up(large) {
-      column-gap: 6rem;
-      margin: 0 6rem;
+      // column-gap: 4rem;
     }
   }
   &__title{
@@ -46,9 +51,8 @@
     }
   }
   &__image{
-    border-radius: 10px;
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
     a{
       display: block;
       img {
@@ -56,10 +60,10 @@
         height: 200px;
         transition: transform 600ms ease-in-out;
         @include breakpoint-up(medium) {
-          height: 250px;
+          height: 230px;
         }
         @include breakpoint-up(large) {
-          height: 300px;
+          height: 260px;
         }
       }
       &:hover{

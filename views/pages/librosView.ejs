@@ -7,103 +7,37 @@
   <%- include ('../layouts/headerView.ejs') %>
   <main>
     <%- include('../layouts/banner2View.ejs', {variant: 'Biblioteca Digital'}); %>
-    
-    <section class="boletines container">
+    <div class="main__content container">
+      <section class="boletines">
       <h1 class="boletines__intro">Biblioteca Digital</h1>
-      <div class="boletines__grid">
-        <div class="boletines__item appear-content">
-          <h2 class="boletines__title"><a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas"</a></h2>
-          <p class="boletines__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="boletines__image">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link">
-              <img loading="lazy" src="/images/libro.jpg" alt="Libro Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas">
-            </a>
-          </div>
-          <div class="boletines__button">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
+      <% if(libros.length !== 0) { %> 
+        <div class="boletines__grid">
+          <% libros.forEach(function(libro) {  %>
+            <div class="boletines__item appear-content">
+              <h2 class="boletines__title"><a href="<%= `${protocol}://${host}/libro/${libro.Url}` %>" title="<%= `${libro.Titulo} | Oladeg` %>" role="link">"<%= libro.Titulo %>"</a></h2>
+              <p class="boletines__time flex flex-ai-c">
+                <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Libro">
+                <time datetime="<%= libro.created_at %>" class="flex flex-ai-c"><%= `${libro.fecha_month} ${libro.fecha_date}, ${libro.fecha_year}` %></time>
+              </p>
+              <div class="boletines__image">
+                <a  href="<%= `${protocol}://${host}/libro/${libro.Url}` %>" title="<%= `${libro.Titulo} | Oladeg` %>" role="link">
+                  <img loading="lazy" src="<%= libro.Portada %>" alt="<%= `Libro ${libro.Titulo}` %>">
+                </a>
+              </div>
+              <div class="boletines__button">
+                <a  href="<%= `${protocol}://${host}/libro/${libro.Url}` %>" title="<%= `${libro.Titulo} | Oladeg` %>" role="link" type="button" class="button">Más Información</a>
+              </div>
+            </div>
+          <% }) %> 
         </div>
-        <div class="boletines__item appear-content">
-          <h2 class="boletines__title"><a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas"</a></h2>
-          <p class="boletines__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="boletines__image">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link">
-              <img loading="lazy" src="/images/libro.jpg" alt="Libro Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas">
-            </a>
-          </div>
-          <div class="boletines__button">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
-        </div>
-        <div class="boletines__item appear-content">
-          <h2 class="boletines__title"><a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas"</a></h2>
-          <p class="boletines__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="boletines__image">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link">
-              <img loading="lazy" src="/images/libro.jpg" alt="Libro Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas">
-            </a>
-          </div>
-          <div class="boletines__button">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
-        </div>
-        <div class="boletines__item appear-content">
-          <h2 class="boletines__title"><a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas"</a></h2>
-          <p class="boletines__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="boletines__image">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link">
-              <img loading="lazy" src="/images/libro.jpg" alt="Libro Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas">
-            </a>
-          </div>
-          <div class="boletines__button">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
-        </div>
-        <div class="boletines__item appear-content">
-          <h2 class="boletines__title"><a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas"</a></h2>
-          <p class="boletines__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="boletines__image">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link">
-              <img loading="lazy" src="/images/libro.jpg" alt="Libro Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas">
-            </a>
-          </div>
-          <div class="boletines__button">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
-        </div>
-        <div class="boletines__item appear-content">
-          <h2 class="boletines__title"><a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional | Oladeg" role="link">"Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas"</a></h2>
-          <p class="boletines__time flex flex-ai-c">
-            <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-            <time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
-          </p>
-          <div class="boletines__image">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link">
-              <img loading="lazy" src="/images/libro.jpg" alt="Libro Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas">
-            </a>
-          </div>
-          <div class="boletines__button">
-            <a  href="<%= `${protocol}://${host}/libro/guía-metodológica-para-la-formulación-e-incidencia-de-políticas-públicas-estratégicas` %>" title="Guía Metodológica para la Formulación e Incidencia de Políticas Públicas Estratégicas | Oladeg" role="link" type="button" class="button">Más Información</a>
-          </div>
-        </div>
-      </div>
-      <%- include('../partials/buttonsView.ejs') %>
-    </section>
+        <%- include('../partials/buttonsView.ejs') %>
+      <% } %>
+    
+    
+      </section>
+      <%- include('../layouts/sidebarView.ejs') %>
+    </div>
+    
     <%- include('../layouts/whatsapp.ejs') %>
   </main> 
   <%- include('../layouts/footerView.ejs') %>
