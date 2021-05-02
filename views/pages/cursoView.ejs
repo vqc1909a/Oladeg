@@ -173,7 +173,9 @@
             <div class="wrapper">
               <div class="image flex flex-fd-c flex-jc-c flex-ai-c">
                 <img loading="lazy" src="<%= curso.ImagenExpositor %>" alt="Expositor Curso Oladeg">
-                <h2><%= curso.NombreExpositor %></h1>
+                <% if(curso.NombreExpositor) {%>
+                  <h2><%= curso.NombreExpositor %></h1>
+                <% } %>
               </div>
               <div class="description">
                 <%- curso.DescripcionExpositor %>
@@ -184,7 +186,9 @@
         </div>
       </div>
       <div class="detalles__image flex flex-ai-c flex-jc-c">
-        <img src="<%= curso.Certificado %>" alt="<% `Certificado Curso ${curso.Titulo}  ` %>">
+        <% if(curso.Certificado) { %>
+          <img src="<%= curso.Certificado %>" alt="<% `Certificado Curso ${curso.Titulo}  ` %>">
+        <% } %>
       </div>
     </section>
     <%- include('../partials/twobuttons.ejs', {tipo: "curso"}) %>

@@ -130,7 +130,9 @@
         </div>
       </div>
       <div class="detalles__image flex flex-ai-c flex-jc-c">
-        <img src="<%= especializacion.Certificado %>" alt="<% `Certificado Especializacion ${especializacion.Titulo}  ` %>">
+        <% if(especializacion.Certificado) { %>
+          <img src="<%= especializacion.Certificado %>" alt="<% `Certificado Especializacion ${especializacion.Titulo}  ` %>">
+        <% } %>
       </div>
     </section>
     <%- include('../partials/twobuttons.ejs', {tipo: "especializacion"}) %>

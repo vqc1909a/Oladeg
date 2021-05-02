@@ -32,7 +32,7 @@ exports.obtenerCursos = async () => {
   let cursos = data.filter(dat => dat.TipoDeContenido === "CURSO");
   cursos = cursos.map(curso => {
     curso.Portada = process.env.BACKEND_URI + curso.Portada.url;
-    curso.Certificado = process.env.BACKEND_URI + curso.Certificado.url;
+    curso.Certificado = curso.Certificado ? process.env.BACKEND_URI + curso.Certificado.url : '';
     curso.fecha_month = monthNames[new Date(curso.created_at).getMonth()];
     curso.fecha_year = new Date(curso.created_at).getFullYear();
     curso.fecha_date = new Date(curso.created_at).getDate();
@@ -48,14 +48,14 @@ exports.obtenerCursos = async () => {
       curso.inicio_horario = "pm";
     }
     curso.inicio_minute = new Date(curso.FechaDeInicio).getMinutes();
-    curso.ImagenExpositor = process.env.BACKEND_URI + curso.ImagenExpositor.url;
+    curso.ImagenExpositor = curso.ImagenExpositor ? process.env.BACKEND_URI + curso.ImagenExpositor.url : '';
     curso.Descripcion = converter.makeHtml(curso.Descripcion);
-    curso.DescripcionExpositor = converter.makeHtml(curso.DescripcionExpositor);
-    curso.Inscripcion = converter.makeHtml(curso.Inscripcion);
-    curso.Temario = converter.makeHtml(curso.Temario);
-    curso.Materiales = converter.makeHtml(curso.Materiales);
-    curso.Promocion = converter.makeHtml(curso.Promocion);
-    curso.Metodologia = converter.makeHtml(curso.Metodologia);
+    curso.DescripcionExpositor = curso.DescripcionExpositor ? converter.makeHtml(curso.DescripcionExpositor) : '';
+    curso.Inscripcion = curso.Inscripcion ? converter.makeHtml(curso.Inscripcion) : '';
+    curso.Temario = curso.Temario ? converter.makeHtml(curso.Temario) : '';
+    curso.Materiales = curso.Materiales ? converter.makeHtml(curso.Materiales) : '';
+    curso.Promocion = curso.Promocion ? converter.makeHtml(curso.Promocion) : '';
+    curso.Metodologia = curso.Metodologia ? converter.makeHtml(curso.Metodologia) : '';
     curso.metadescripcion = htmlToText(curso.Descripcion, {
       wordwrap: 130
     }).replaceAll(/\n/g,' ').slice(0, 170);
@@ -69,7 +69,7 @@ exports.obtenerDiplomados = async () => {
   let diplomados = data.filter(dat => dat.TipoDeContenido === "DIPLOMADO");
   diplomados = diplomados.map(diplo => {
     diplo.Portada = process.env.BACKEND_URI + diplo.Portada.url;
-    diplo.Certificado = process.env.BACKEND_URI + diplo.Certificado.url;
+    diplo.Certificado = diplo.Certificado ? process.env.BACKEND_URI + diplo.Certificado.url : '';
     diplo.fecha_month = monthNames[new Date(diplo.created_at).getMonth()];
     diplo.fecha_year = new Date(diplo.created_at).getFullYear();
     diplo.fecha_date = new Date(diplo.created_at).getDate();
@@ -85,14 +85,14 @@ exports.obtenerDiplomados = async () => {
       diplo.inicio_horario = "pm";
     }
     diplo.inicio_minute = new Date(diplo.FechaDeInicio).getMinutes();
-    diplo.ImagenExpositor = process.env.BACKEND_URI + diplo.ImagenExpositor.url;
+    diplo.ImagenExpositor = diplo.ImagenExpositor ? process.env.BACKEND_URI + diplo.ImagenExpositor: ''.url;
     diplo.Descripcion = converter.makeHtml(diplo.Descripcion);
-    diplo.DescripcionExpositor = converter.makeHtml(diplo.DescripcionExpositor);
-    diplo.Inscripcion = converter.makeHtml(diplo.Inscripcion);
-    diplo.Temario = converter.makeHtml(diplo.Temario);
-    diplo.Materiales = converter.makeHtml(diplo.Materiales);
-    diplo.Promocion = converter.makeHtml(diplo.Promocion);
-    diplo.Metodologia = converter.makeHtml(diplo.Metodologia);
+    diplo.DescripcionExpositor = diplo.DescripcionExpositor ? converter.makeHtml(diplo.DescripcionExpositor) : '';
+    diplo.Inscripcion = diplo.Inscripcion ? converter.makeHtml(diplo.Inscripcion) : '';
+    diplo.Temario = diplo.Temario ? converter.makeHtml(diplo.Temario) : '';
+    diplo.Materiales = diplo.Materiales ? converter.makeHtml(diplo.Materiales) : '';
+    diplo.Promocion = diplo.Promocion ? converter.makeHtml(diplo.Promocion) : '';
+    diplo.Metodologia = diplo.Metodologia ? converter.makeHtml(diplo.Metodologia) : '';
     diplo.metadescripcion = htmlToText(diplo.Descripcion, {
       wordwrap: 130
     }).replaceAll(/\n/g,' ').slice(0, 170);
@@ -107,7 +107,7 @@ exports.obtenerEspecializaciones = async () => {
   let especializaciones = data.filter(dat => dat.TipoDeContenido === "ESPECIALIZACION");
   especializaciones = especializaciones.map(espe => {
     espe.Portada = process.env.BACKEND_URI + espe.Portada.url;
-    espe.Certificado = process.env.BACKEND_URI + espe.Certificado.url;
+    espe.Certificado = espe.Certificado ? process.env.BACKEND_URI + espe.Certificado.url : '';
     espe.fecha_month = monthNames[new Date(espe.created_at).getMonth()];
     espe.fecha_year = new Date(espe.created_at).getFullYear();
     espe.fecha_date = new Date(espe.created_at).getDate();
@@ -123,14 +123,14 @@ exports.obtenerEspecializaciones = async () => {
       espe.inicio_horario = "pm";
     }
     espe.inicio_minute = new Date(espe.FechaDeInicio).getMinutes();
-    espe.ImagenExpositor = process.env.BACKEND_URI + espe.ImagenExpositor.url;
+    espe.ImagenExpositor = espe.ImagenExpositor ? process.env.BACKEND_URI + espe.ImagenExpositor.url : '';
     espe.Descripcion = converter.makeHtml(espe.Descripcion);
-    espe.DescripcionExpositor = converter.makeHtml(espe.DescripcionExpositor);
-    espe.Inscripcion = converter.makeHtml(espe.Inscripcion);
-    espe.Temario = converter.makeHtml(espe.Temario);
-    espe.Materiales = converter.makeHtml(espe.Materiales);
-    espe.Promocion = converter.makeHtml(espe.Promocion);
-    espe.Metodologia = converter.makeHtml(espe.Metodologia);
+    espe.DescripcionExpositor = espe.DescripcionExpositor ? converter.makeHtml(espe.DescripcionExpositor) : '';
+    espe.Inscripcion = espe.Inscripcion ? converter.makeHtml(espe.Inscripcion) : '';
+    espe.Temario = espe.Temario ? converter.makeHtml(espe.Temario) : '';
+    espe.Materiales = espe.Materiales ? converter.makeHtml(espe.Materiales) : '';
+    espe.Promocion = espe.Promocion ? converter.makeHtml(espe.Promocion) : '';
+    espe.Metodologia = espe.Metodologia ? converter.makeHtml(espe.Metodologia) : '';
     espe.metadescripcion = htmlToText(espe.Descripcion, {
       wordwrap: 130
     }).replaceAll(/\n/g,' ').slice(0, 170);
@@ -144,7 +144,7 @@ exports.obtenerLibros = async () => {
   let libros = data;
   libros = libros.map(lib => {
     lib.Portada = process.env.BACKEND_URI + lib.Portada.url;
-    lib.Libro = process.env.BACKEND_URI + lib.Libro.url;
+    lib.Libro = lib.Libro ? process.env.BACKEND_URI + lib.Libro.url : '';
     lib.fecha_month = monthNames[new Date(lib.created_at).getMonth()];
     lib.fecha_year = new Date(lib.created_at).getFullYear();
     lib.fecha_date = new Date(lib.created_at).getDate();
@@ -162,7 +162,7 @@ exports.obtenerBoletines = async () => {
   let boletines = data;
   boletines = boletines.map(bol => {
     bol.Portada = process.env.BACKEND_URI + bol.Portada.url;
-    bol.Boletin = process.env.BACKEND_URI + bol.Boletin.url;
+    bol.Boletin = bol.Boletin ? process.env.BACKEND_URI + bol.Boletin.url : '';
     bol.fecha_month = monthNames[new Date(bol.created_at).getMonth()];
     bol.fecha_year = new Date(bol.created_at).getFullYear();
     bol.fecha_date = new Date(bol.created_at).getDate();
@@ -178,6 +178,6 @@ exports.obtenerBoletines = async () => {
 exports.obtenerUltimaPublicidad = async () => {
   let {data} = await axios.get(process.env.BACKEND_URI + '/publicidads');
   let publicidad = data.reverse()[0];
-  publicidad.Imagen = process.env.BACKEND_URI + publicidad.Imagen.url;
+  if(publicidad) publicidad.Imagen = process.env.BACKEND_URI + publicidad.Imagen.url;
   return publicidad;
 }
