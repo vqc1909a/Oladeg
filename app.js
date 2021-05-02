@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const port = process.env.PORT || 4000;
+const cors = require('cors');
 require('dotenv').config();
 //Middleware
 app.use(express.static('public'));
