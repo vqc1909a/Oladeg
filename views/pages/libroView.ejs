@@ -22,9 +22,22 @@
             </div>
             <% if(libro.Libro){ %>          
               <h2 class="boletin__download"><a target="_blank" href="<%= libro.Libro %>" role="link" title="<%= `Archivo ${libro.Titulo} | Oladeg` %>">Descargar Libro</a></h2>
-              <div class="boletin__iframe">
-                <iframe src="<%= libro.Libro %>" frameborder="0" title="<%= `Archivo ${libro.Titulo} | Oladeg` %>"></iframe>
-              </div>
+              <% if (libro.Libro.substr(-3) === "pdf") { %>
+                <div class="boletin__iframe">
+                  <canvas id="pdf-render"></canvas>
+                  <div class="top-bar">
+                    <div class="page-info">
+                      Page <span id="page-num"></span> of <span id="page-count"></span>
+                    </div>
+                    <button class="btn" id="prev-page">
+                      <i class="fas fa-arrow-circle-left"></i> Prev Page
+                    </button>
+                    <button class="btn" id="next-page">
+                      Next Page <i class="fas fa-arrow-circle-right"></i>
+                    </button>
+                  </div>
+                </div>
+              <% } %>
             <% } %>
           </div>
          <%- include('../partials/twobuttons.ejs', {tipo: "libro"}) %>

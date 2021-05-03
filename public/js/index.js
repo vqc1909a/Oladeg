@@ -7,6 +7,8 @@ import './modules/cursoModule';
 import './modules/modalModule';
 import './modules/formularioModule';
 import './modules/buttonsModule';
+import './modules/pdfModule';
+
 
 
 
