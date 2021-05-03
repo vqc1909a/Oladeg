@@ -16,6 +16,7 @@ if(window.location.pathname.slice(0, 7) === '/libro/'){
     const {data} = await axios.get(process.env.BACKEND_URI + '/biblioteca-digitals');
     let libro = data.find((dat) => dat.Url === url );
     url_pdf = libro.Libro ? process.env.BACKEND_URI + libro.Libro.url : '';
+    console.log(url_pdf);
     if(url_pdf){
       let pdfDoc = null;
       let pageNum = 1;
