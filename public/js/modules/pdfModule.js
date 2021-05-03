@@ -13,9 +13,9 @@ if(window.location.pathname.slice(0, 7) === '/libro/'){
   let url = window.location.pathname.slice(7);
   let url_pdf;
   (async () => {
-    const {data} = await axios.get('https://oladeg.org' + '/biblioteca-digitals');
+    const {data} = await axios.get('https://api.oladeg.org' + '/biblioteca-digitals');
     let libro = data.find((dat) => dat.Url === url );
-    url_pdf = libro.Libro ? 'https://oladeg.org' + libro.Libro.url : '';
+    url_pdf = libro.Libro ? 'https://api.oladeg.org' + libro.Libro.url : '';
     console.log(url_pdf);
     if(url_pdf){
       let pdfDoc = null;
