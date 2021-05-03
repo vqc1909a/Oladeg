@@ -1,4 +1,6 @@
+
 <div class="anuncio__buttons">
+  <% if (anterior || despues) { %>
     <% if (anterior) { %>
       <a href="<%= `${protocol}://${host}/${tipo}/${anterior.Url}` %>" role="link" class="anuncio__button anuncio__button--before" title="<%= `${anterior.Titulo} | Oladeg` %>">
         <span>&lt;</span>
@@ -18,4 +20,5 @@
       <a href="" role="link" class="anuncio__button anuncio__button--after anuncio__button--disabled" title="">
       </a>
     <% } %>
+  <% } %>
 </div>
