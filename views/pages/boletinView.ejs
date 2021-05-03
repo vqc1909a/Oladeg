@@ -17,9 +17,22 @@
             </div>
             <% if(boletin.Boletin){ %>
               <h2 class="boletin__download"><a target="_blank" href="<%= boletin.Boletin %>" title="<%= `Archivo ${boletin.Titulo} | Oladeg` %>"  role="link">Descargar Boletín</a ></h2>
-              <div class="boletin__iframe">
-                <iframe src="<%= boletin.Boletin %>" frameborder="0" title="<%= `Archivo ${boletin.Titulo} | Oladeg` %>"></iframe>
-              </div>
+              <% if (boletin.Boletin.substr(-3) === "pdf") { %>
+                <div class="boletin__iframe">
+                  <canvas id="pdf-render2"></canvas>
+                  <div class="top-bar">
+                    <div class="page-info">
+                      Page <span id="page-num2"></span> of <span id="page-count2"></span>
+                    </div>
+                    <button class="btn" id="prev-page2">
+                      <i class="fas fa-arrow-circle-left"></i> Anterior
+                    </button>
+                    <button class="btn" id="next-page2">
+                      Siguiente <i class="fas fa-arrow-circle-right"></i>
+                    </button>
+                  </div>
+                </div>
+              <% } %>
             <%}%>
           </div>
          <%- include('../partials/twobuttons.ejs', {tipo: "boletin"}) %>
