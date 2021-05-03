@@ -13,9 +13,9 @@ if(window.location.pathname.slice(0, 7) === '/libro/'){
   let url = window.location.pathname.slice(7);
   let url_pdf;
   (async () => {
-    const {data} = await axios.get(process.env.BACKEND_URI + '/biblioteca-digitals');
+    const {data} = await axios.get('https://oladeg.org' + '/biblioteca-digitals');
     let libro = data.find((dat) => dat.Url === url );
-    url_pdf = libro.Libro ? process.env.BACKEND_URI + libro.Libro.url : '';
+    url_pdf = libro.Libro ? 'https://oladeg.org' + libro.Libro.url : '';
     console.log(url_pdf);
     if(url_pdf){
       let pdfDoc = null;
@@ -82,9 +82,9 @@ if(window.location.pathname.slice(0, 9) === '/boletin/'){
   let url = window.location.pathname.slice(9);
   let url_pdf;
   (async () => {
-    const {data} = await axios.get(process.env.BACKEND_URI + '/boletines');
+    const {data} = await axios.get('https://oladeg.org' + '/boletines');
     let boletin = data.find((dat) => dat.Url === url );
-    url_pdf = boletin.Boletin ? process.env.BACKEND_URI + boletin.Boletin.url : '';
+    url_pdf = boletin.Boletin ? 'https://oladeg.org' + boletin.Boletin.url : '';
     if(url_pdf){
       let pdfDoc = null;
       let pageNum = 1;
