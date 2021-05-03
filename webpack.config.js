@@ -1,6 +1,7 @@
 const Dotenv = require('dotenv-webpack');
 const TerserPlugin = require("terser-webpack-plugin");
 const path = require('path');
+const webpack = require('webpack');
 module.exports = {
   entry: path.join(__dirname, './public/js/index.js'),
   output: {
@@ -24,6 +25,8 @@ module.exports = {
     minimizer: [new TerserPlugin()],
   },
   plugins: [
-    new Dotenv()
+    new Dotenv({
+      path: path.resolve(__dirname, './.env')
+    })
   ]
 };
