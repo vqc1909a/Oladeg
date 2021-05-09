@@ -114,7 +114,7 @@ formulario2.addEventListener('submit', (e) => {
     document.querySelector(".formulario2 .input-group__mensaje-exito").classList.add("input-group__mensaje-exito--active");
     
     (async ()=>{
-      await axios.post(process.env.BACKEND_URI + "/solicitantes", {
+      await axios.post("https://api.oladeg.org" + "/solicitantes", {
         nombres: document.querySelector(".formulario2 input[name='nombres']").value,
         correo: document.querySelector(".formulario2 input[name='correo']").value,
         celular: document.querySelector(".formulario2 input[name='celular']").value,
