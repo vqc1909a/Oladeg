@@ -17,7 +17,7 @@ modal_buttons_close.forEach((modal) => {
 })
 
 window.onload = function(){
-  if(window.location.pathname === "/"){
+  if(window.location.pathname === "/" & modal_anuncio){
     setTimeout(()=>{
       modal_anuncio.classList.add("modal-bg-open")
     }, 3000)

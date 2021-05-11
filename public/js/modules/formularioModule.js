@@ -87,7 +87,7 @@ if(window.location.pathname === '/contacto/'){
       document.querySelector(".formulario1 .input-group__mensaje-exito").classList.add("input-group__mensaje-exito--active");
 
       (async ()=>{
-        await axios.post(process.env.BACKEND_URI + "/solicitantes", {
+        await axios.post("https://api.oladeg.org" + "/solicitantes", {
           nombres: document.querySelector(".formulario1 input[name='nombres']").value,
           correo: document.querySelector(".formulario1 input[name='correo']").value,
           celular: document.querySelector(".formulario1 input[name='celular']").value,
