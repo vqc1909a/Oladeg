@@ -85,6 +85,8 @@ if(window.location.pathname.slice(0, 9) === '/boletin/'){
     const {data} = await axios.get('https://api.oladeg.org' + '/boletines');
     let boletin = data.find((dat) => dat.Url === url );
     url_pdf = boletin.Boletin ? 'https://api.oladeg.org' + boletin.Boletin.url : '';
+    console.log(url_pdf);
+
     if(url_pdf){
       let pdfDoc = null;
       let pageNum = 1;
