@@ -30,7 +30,6 @@
     align-items: center;
     color: $dark;
     font-family: 'Nunito Bold', sans-serif;
-    border-bottom: 2px solid $pinkOxido;
     cursor: pointer;
     margin: 0;
     color: $rojoOxido;
@@ -90,7 +89,7 @@
           div{
             height: 65px;
             width: 65px;
-            background-color: $pinkOxido;
+            background-color: $rojoOxido;
             border-radius: 50%;
           }
         }
@@ -153,7 +152,7 @@
     }
     ul{
       height: 10vh;
-      background-color: $pinkOxido;
+      background-color: $rojoOxido;
       justify-content: space-around;
       > li{
         position: relative;
@@ -168,7 +167,7 @@
           left: 0;
           right: 0;
           height: 3px;
-          background-color: $rojoOxido;
+          background-color: $pinkOxido;
           transition: transform 300ms ease-in-out;
           transform-origin: left center;
           transform: scaleX(0);

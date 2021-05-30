@@ -20,13 +20,7 @@ app.use('/', require("./routes/diplomadoRoute"));
 app.use('/', require("./routes/especializacionRoute"));
 app.use('/', require("./routes/libroRoute"));
 app.use('/', require("./routes/boletinRoute"));
-
-
-
-
-
-
-
+app.use('/', require("./routes/publicidadRoute"));
 
 
 

@@ -83,9 +83,9 @@
     }
   }
   &__nombre-cuenta{
-      font-family: 'Nunito Bold',
+    font-family: 'Nunito Black',
     sans-serif;
-    color: $rojoOxido;
+    color: $dark;
     font-size: $font-nm;
     @include breakpoint-up(large) {
       font-size: $font-nm-dt;

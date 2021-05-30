@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <%- include ('../partials/headView.ejs') %>
+</head>
+<body>
+  <%- include ('../layouts/headerView.ejs') %>
+  <main>
+    <%- include('../layouts/bannerView.ejs') %>
+
+     <div class="main">
+       <h1 class="container">Publicidad</h1>
+       <div class="main__content container">
+        <div class="consultorias">
+          <p>Oladeg ofrece servicios de publicidad a través de sus 5 canales de comunicación:</p>
+          <ul>
+            <li><b>Emailing:</b> A través de nuestra lista de distribución <b>(Google Groups)</b>, se envía un mensaje a los correos electrónicos de todos nuestros suscriptores.</li>
+           
+            <li><b>Página Web:</b> La publicidad es colgada en nuestra Página Web, en la sección de anuncios en la parte de abajo de nuestra página principal y está publicidad tendrá permanencia de 1 año.</li>
+
+            <li><b>Facebook:</b> La publicidad alojada en nuestra página web es impulsada a través de nuestra página en Facebook.</li>
+
+            <li><b>Twitter:</b> La publicidad alojada en nuestra página web es impulsada a través de Twitter a todos nuestros seguidores.</li>
+
+            <li><b>Linkedin:</b> La publicidad alojada en nuestra página web es impulsada a través de nuestra página en Linkedin.</li>      
+          </ul>
+          <br />
+          <p><b>RESTRICCIÓN: </b>No están permitidos los avisos políticos, ni religiosos o todo aquel que atente contra la moral y buenas costumbres de nuestros seguidores.</p>
+          <p><b>COSTO: </b>S/ 120 soles</p>
+
+          <p><b>DEPÓSITO: </b>El depósito o transferencia puede hacerlo por cualquiera de los siguientes medios <b><a href="<%= `${protocol}://${host}/formas-de-pago/` %>" target="_blank" title="Formas de Pago | Oladeg" role="link">Formas de Pago</a></b></p>
+
+          <p>Luego del depósito o transferencia, remitir el VOUCHER o CONSTANCIA DE PAGO a los correos <b>roberth.robles@oladeg.org</b> ó <b>oladegperucapacitacion@gmail.com</b> adjuntando el aviso que desea difundir.</p>
+          <br />
+          <p><b>CONSIDERACIONES: </b></p>
+          <ul>
+            <li>Para la difusión de emaling, los avisos pueden ser editados en HTML o incluir una fotografía o imagen (formato JPG, cualquier tamaño), de preferencia remitirlo en cuerpo de mensaje en correo (así poder reenviarlo directamente).</li>
+            <li>Para la difusión en redes sociales, incluir foto o imagen diseñada en JPG, tamaño máximo 1200 x 628 pixeles.</li>
+            <li>No se realiza servicios de edición, los avisos son publicados tal cual son enviados.</li>
+            <li>Al momento de difundir y publicar, se le enviará un correo de confirmación, junto con los enlaces a la página dónde fué colgada y los enlaces a las redes sociales.</li>
+            <li>No realizamos servicio de seguimiento, por ello se les comparten los enlaces, para que puedan hacer seguimiento de manera directa.</li>      
+          </ul>
+         </div>
+
+        <%- include('../layouts/sidebarView.ejs') %>
+       </div>
+     </div>
+   
+    <%- include('../layouts/whatsapp.ejs') %>
+  </main> 
+  <%- include('../layouts/footerView.ejs') %>
+  <%- include('../layouts/scriptView.ejs') %>
+
+</body>
+</html>

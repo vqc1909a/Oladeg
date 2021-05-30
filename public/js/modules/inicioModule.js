@@ -91,9 +91,12 @@ window.onscroll = function(){
       hero.style.marginTop = "10vh";
     }
 
-    if(window.location.pathname === '/consultorias/' || window.location.pathname === "/quienes-somos/" || window.location.pathname === "/nuestra-experiencia/" || window.location.pathname === "/nuestros-servicios/" || window.location.pathname === "/formas-de-pago/" || window.location.pathname === "/contacto/"){
+    if(window.location.pathname === '/consultorias/' || window.location.pathname === "/quienes-somos/" || window.location.pathname === "/nuestra-experiencia/" || window.location.pathname === "/nuestros-servicios/" || window.location.pathname === "/formas-de-pago/" || window.location.pathname === "/contacto/" || window.location.pathname === "/publicidad/"){
       banner.style.marginTop = "10vh";
       if(window.location.pathname === '/consultorias/' & window.innerWidth < 1024){
+        main.style.marginTop = "10vh";
+      }
+      if(window.location.pathname === '/publicidad/' & window.innerWidth < 1024){
         main.style.marginTop = "10vh";
       }
       if(window.location.pathname === '/formas-de-pago/' & window.innerWidth < 1024){
@@ -145,9 +148,12 @@ window.onscroll = function(){
       hero.style.marginTop = "0rem";
     }
 
-    if(window.location.pathname === '/consultorias/' || window.location.pathname === "/quienes-somos/" || window.location.pathname === "/nuestra-experiencia/" || window.location.pathname === "/nuestros-servicios/" || window.location.pathname === "/formas-de-pago/" || window.location.pathname === "/contacto/"){
+    if(window.location.pathname === '/consultorias/' || window.location.pathname === "/quienes-somos/" || window.location.pathname === "/nuestra-experiencia/" || window.location.pathname === "/nuestros-servicios/" || window.location.pathname === "/formas-de-pago/" || window.location.pathname === "/contacto/" || window.location.pathname === "/publicidad/"){
       banner.style.marginTop = "0rem";
       if(window.location.pathname === '/consultorias/' & window.innerWidth < 1024){
+        main.style.marginTop = "0rem";
+      }
+      if(window.location.pathname === '/publicidad/' & window.innerWidth < 1024){
         main.style.marginTop = "0rem";
       }
       if(window.location.pathname === '/formas-de-pago/' & window.innerWidth < 1024){
