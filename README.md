@@ -1,4 +1,4 @@
 # Oladeg
 
 ## Live Preview
-[Aplicativo Web](https://oladeg.org)
+https://oladeg.org
