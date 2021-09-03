@@ -26,7 +26,8 @@ import {
   boletines,
   quienes_somos,
   nuestra_experiencia,
-  nuestros_servicios
+  nuestros_servicios,
+  wrapper_banner
 } from '../dom';
 
 import { gsap } from "gsap";
@@ -73,6 +74,13 @@ let animateNosotrosItemsArray = gsap.from(nosotrosItemsArray, {duration: 2, scal
 CustomEase.create("custom_acercamiento", "M0,0 C0.006,0.016 0.1,0.4 0.2,0.4 0.3,0.4 0.4,0 0.4,0 0.4,0 0.448,1 0.7,1 0.952,1 1,0 1,0 ")
 gsap.to(candado, {duration: 2, ease: "custom_acercamiento", scale: 2, rotate: "20", force3D: true, repeat: -1, repeatDelay: 1});
 animateNosotrosItemsArray.pause();
+
+if(window.location.pathname === "/nuestros-servicios/"){
+  wrapper_banner.style.backgroundImage = "url('/images/banner3.jpg')";
+  banner.style.padding = "0rem";
+  banner.style.height = "90vh";
+}
+
 window.onscroll = function(){
   distance_bottom_sec_nav = sec_nav.getBoundingClientRect().bottom;
   height_sec_nav = sec_nav.getBoundingClientRect().height;

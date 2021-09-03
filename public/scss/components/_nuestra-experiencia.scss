@@ -19,6 +19,7 @@
     p{
       color: $grey;
       margin-bottom: .5rem;
+      text-align: justify;
     }
     ul{
       margin-left: 1rem;
@@ -36,21 +37,26 @@
   }
   &__image {
     flex: 1;
-    align-items: flex-start;
     justify-content: center;
-    text-align: center;
-    padding: 2rem 0;
+    align-items: flex-start;
+    margin: 2rem 0rem;
     img{
-      @include breakpoint-up(medium) {
-        width: 50%;
-      }
-      @include breakpoint-up(large){
-        width: 60%;
-      }
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+
     }
+    // img{
+    //   @include breakpoint-up(medium) {
+    //     width: 50%;
+    //   }
+    //   @include breakpoint-up(large){
+    //     width: 60%;
+    //   }
+    // }
 
     @include breakpoint-up(large) {
-      padding: 0rem;
+      margin: 0rem 4rem;
     }
 
   }
