@@ -14,13 +14,13 @@
   grid-template-areas: "curso"
                        "diplomado"
                        "especializacion"
-                       "image2"; 
+                       "image1"; 
+
   @include breakpoint-up(large) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-template-areas: "curso diplomado especializacion"  
-                          "image1 image2 image3";
-                
+                          "image1 image1 image1";    
   }
   &__wrapper_course {
     @include breakpoint-up(large) {
@@ -85,7 +85,7 @@
         transform: scale(1.2);
       }
     }
-    animation: animateHeroCourse 1.5s linear infinite alternate;
+    // animation: animateHeroCourse 1.5s linear infinite alternate;
   }
   &__title{
     color: white;
@@ -115,11 +115,16 @@
   }
   &__image1{
     grid-area: image1;
-    display: none;
-    @include breakpoint-up(large) {
-     display: flex;
-     justify-content: flex-start;
-     align-items: flex-start;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      height: 100px;
+      @include breakpoint-up(large) {
+        height: 150px;
+      }
+      mix-blend-mode: darken;
     }
   }
   &__image2 {
