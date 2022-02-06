@@ -1,0 +1,19 @@
+<div class="cursos__grid">
+    <% cursos.forEach(function(curso) {  %>
+      <div class="cursos__item appear-content">
+        <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/curso/${curso.Url}` %>" title="<%= `${curso.Titulo} | Oladeg` %>" role="link"><%= curso.Titulo %></a></h2>
+        <p class="cursos__time flex flex-ai-c">
+          <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
+          <time datetime="<%= curso.created_at %>" class="flex flex-ai-c"><%= `${curso.fecha_month} ${curso.fecha_date}, ${curso.fecha_year}`%></time>
+        </p>
+        <div class="cursos__image">
+          <a  href="<%= `${protocol}://${host}/curso/${curso.Url}` %>" title="<%= `${curso.Titulo} | Oladeg` %>" role="link">
+            <img loading="lazy" src="<%= curso.Portada %>" alt="<%= `Curso ${curso.Titulo}` %>">
+          </a>
+        </div>
+        <div class="cursos__button">
+          <a  href="<%= `${protocol}://${host}/curso/${curso.Url}` %>" title="<%= `${curso.Titulo} | Oladeg` %>" role="link" type="button" class="button">Más Información</a>
+        </div>
+      </div>
+    <% }) %> 
+</div>
