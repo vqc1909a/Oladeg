@@ -1,2 +1,9 @@
 node_modules/
+*.jpg
+*.png
+*.pdf
+*.docx
+*.pptx
+*.ppt
+*.doc
 .env
