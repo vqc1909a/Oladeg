@@ -28,10 +28,10 @@ import {
   nuestra_experiencia,
   nuestros_servicios,
   wrapper_banner
-} from '../dom';
+} from '../dom.js';
 
 import { gsap } from "gsap";
-import { CustomEase } from "gsap/CustomEase";
+import { CustomEase } from "gsap/CustomEase.js";
 gsap.registerPlugin(CustomEase);
 
 //GSAP

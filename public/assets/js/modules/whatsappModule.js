@@ -4,10 +4,10 @@ import {
   whatsapp__send,
   whatsapp__input,
   whatsapp__close
-} from '../dom';
+} from '../dom.js';
 import {
   stringToUrl
-} from '../functions/stringToUrl';
+} from '../functions/stringToUrl.js';
 
   whatsapp_button.addEventListener('click', () => {
     if(whatsapp_mensaje.classList.contains('open')){

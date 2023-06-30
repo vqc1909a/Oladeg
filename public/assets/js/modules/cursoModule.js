@@ -1,7 +1,7 @@
 import {
   curso_triggers,
   curso_contents
-} from '../dom';
+} from '../dom.js';
 
 const curso_triggers_array = Array.from(curso_triggers);
 const curso_contents_array = Array.from(curso_contents);

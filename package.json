@@ -5,9 +5,14 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node ./app.js",
-    "dev": "nodemon ./app.js",
-    "watch": "webpack --watch --mode development"
+    "dev": "cross-env NODE_ENV=development nodemon app.js",
+    "start": "cross-env NODE_ENV=production node app.js",
+    "watch:dev": "webpack --watch --config webpack.dev.js",
+    "watch:prod": "webpack --watch --config webpack.prod.js",
+    "desarrollo": "concurrently \"npm run dev \" \"npm run watch:dev\"",
+    "produccion": "concurrently \"npm run start \" \"npm run watch:prod\"",
+    "data:import": "node seeder.js",
+    "data:destroy": "node seeder.js -d"
   },
   "repository": {
     "type": "git",

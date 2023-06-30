@@ -1,13 +1,11 @@
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
-import './modules/inicioModule';
-import './modules/depositosModule';
-import './modules/whatsappModule';
-import './modules/cursoModule';
-import './modules/modalModule';
-import './modules/formularioModule';
-import './modules/buttonsModule';
-import './modules/pdfModule';
+import './modules/inicioModule.js';
+import './modules/depositosModule.js';
+import './modules/whatsappModule.js';
+import './modules/cursoModule.js';
+import './modules/modalModule.js';
+import './modules/formularioModule.js';
+import './modules/buttonsModule.js';
+import './modules/pdfModule.js';
 
 
 

@@ -6,11 +6,11 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const __filename = url.fileURLToPath(import.meta.url);
 
 export default  {
-     entry: path.join(__dirname, "./public/assets/js"),
+     entry: path.join(__dirname, "./public/assets/js/index.js"),
      output: {
-          filename: "[name].bundle.js",
+          filename: "main.bundle.js",
           path: path.join(__dirname, "./public/dist/js"),
-          //clean: true //Te Limpia la salida de webpack cada vez que hace una compilacion, esto es jodido si es que en la misma carpeta bundle esta compilando archivos scss
+          //clean: true //Te Limpia la salida de webpack cada vez que hace una compilacion, esto es jodido si es que en la misma carpeta bundle esta compilando archivos scss o talvez tengas otros archivos javascript que lo uses en el front
      },
      //! Webpack requiere ciertos modulos para que utilize, asi que le especificamos que modulos queremos utilizar
      module: {
@@ -33,7 +33,7 @@ export default  {
           ]
     },
      plugins: [
-          new Dotenv()
+          new Dotenv(),
      ]
 }
 

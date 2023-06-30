@@ -2,7 +2,7 @@ import {
   modal_buttons,
   modal_buttons_close,
   modal_anuncio
-} from '../dom';
+} from '../dom.js';
 
 modal_buttons.forEach((modal) => {
   modal.addEventListener('click', (e) => {

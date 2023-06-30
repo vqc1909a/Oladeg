@@ -5,7 +5,7 @@ import {
   canvas2,
   button_pdf_prev2,
   button_pdf_next2
-} from '../dom';
+} from '../dom.js';
 
 import axios from "axios";
 

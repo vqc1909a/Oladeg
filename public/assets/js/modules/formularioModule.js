@@ -4,7 +4,7 @@ import {
   inputs_contact,
   inputs_modal,
   textarea
-} from '../dom';
+} from '../dom.js';
 import axios from 'axios';
 
 const expresiones = {

@@ -1,6 +1,6 @@
 import {
   buttons
-} from '../dom';
+} from '../dom.js';
 
 buttons.forEach((button) => {
   button.addEventListener('click', (e) => {
