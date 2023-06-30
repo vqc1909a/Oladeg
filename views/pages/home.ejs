@@ -10,21 +10,21 @@
      <p style="display: none;">Oladeg es una ONG que va dirigido a los ciudadanos, líderes sociales, autoridades y funcionarios de gobiernos locales, regionales y organizacionales de la sociedad civil, a través de cursos, seminarios, talleres y pasantías a nivel Nacional e Internacional</p>
      <section class="hero">
        <div class="hero__wrapper_course">
-         <a class="hero__course" role="link" href="<%= `${protocol}://${host}/cursos/` %>" title="Cursos | Oladeg">
+         <a class="hero__course" role="link" href="<%= `/cursos/` %>" title="Cursos | Oladeg">
           <h2 class="hero__title">Cursos</h2>
           <div class="hero__barra"></div>
           <img loading="lazy" src="/images/cursos.jpg" alt="Cursos Oladeg">
          </a>
        </div>
        <div class="hero__wrapper_course">
-         <a class="hero__course" role="link" href="<%= `${protocol}://${host}/diplomados/` %>" title="Diplomados | Oladeg">
+         <a class="hero__course" role="link" href="<%= `/diplomados/` %>" title="Diplomados | Oladeg">
           <h2 class="hero__title">Diplomados</h2>
           <div class="hero__barra"></div>
           <img loading="lazy" src="/images/diplomados.jpg" alt="Diplomados Oladeg">
          </a>
        </div>
        <div class="hero__wrapper_course">
-         <a class="hero__course" role="link" href="<%= `${protocol}://${host}/especializaciones/` %>" title="Especializaciones | Oladeg">
+         <a class="hero__course" role="link" href="<%= `/especializaciones/` %>" title="Especializaciones | Oladeg">
           <h2 class="hero__title">Especializaciones</h2>
           <div class="hero__barra"></div>
           <img loading="lazy" src="/images/especializaciones.jpg" alt="Especializaciones Oladeg">
@@ -166,28 +166,28 @@
         <h2>Acerca De Nosotros</h2>
         <div class="nosotros__grid">
           <div class="nosotros__item">
-            <a href="<%= `${protocol}://${host}/quienes-somos/` %>" class="nosotros__image" role="link" title="¿Quienes Somos? | Oladeg" >
+            <a href="<%= `/quienes-somos/` %>" class="nosotros__image" role="link" title="¿Quienes Somos? | Oladeg" >
               <img loading="lazy" src="/images/quienes-somos2.jpg" alt="¿Quienes Somos? Oladeg">
             </a>
             <div class="nosotros__text">
-              <h3 class="nosotros__title"><a href="<%= `${protocol}://${host}/quienes-somos/` %>" role="link" title="¿Quienes Somos? | Oladeg">¿Quienes Somos?</a>              
+              <h3 class="nosotros__title"><a href="<%= `/quienes-somos/` %>" role="link" title="¿Quienes Somos? | Oladeg">¿Quienes Somos?</a>              
               </h3>
             </div>
           </div>
           <div class="nosotros__item">
-            <a href="<%= `${protocol}://${host}/nuestra-experiencia/` %>" class="nosotros__image" role="link" title="Nuestra Experiencia | Oladeg">
+            <a href="<%= `/nuestra-experiencia/` %>" class="nosotros__image" role="link" title="Nuestra Experiencia | Oladeg">
               <img loading="lazy"  src="/images/nuestra-experiencia.jpg" alt="Nuestra Experiencia Oladeg">
             </a>
             <div class="nosotros__text">
-              <h3 class="nosotros__title"><a href="<%= `${protocol}://${host}/nuestra-experiencia/` %>" role="link" title="Nuestra Experiencia | Oladeg">Nuestra Experiencia</a></h3>
+              <h3 class="nosotros__title"><a href="<%= `/nuestra-experiencia/` %>" role="link" title="Nuestra Experiencia | Oladeg">Nuestra Experiencia</a></h3>
             </div>
           </div>
           <div class="nosotros__item">
-            <a href="<%= `${protocol}://${host}/nuestros-servicios/` %>" class="nosotros__image" role="link" title="Nuestros Servicios | Oladeg">
+            <a href="<%= `/nuestros-servicios/` %>" class="nosotros__image" role="link" title="Nuestros Servicios | Oladeg">
               <img loading="lazy" src="/images/banner3.jpg" alt="Nuestros Servicios Oladeg">
             </a>
             <div class="nosotros__text">
-              <h3 class="nosotros__title"><a href="<%= `${protocol}://${host}/nuestros-servicios/` %>" role="link" title="Nuestros Servicios | Oladeg">Nuestros Servicios</a></h3>
+              <h3 class="nosotros__title"><a href="<%= `/nuestros-servicios/` %>" role="link" title="Nuestros Servicios | Oladeg">Nuestros Servicios</a></h3>
             </div>
           </div>
         </div>
@@ -201,34 +201,34 @@
           <% if(anuncios.length !== 0) { %>
             <% anuncios.forEach(function(anuncio) {  %>
               <div class="anuncios__item">
-                <a href="<%= `${protocol}://${host}/anuncio/${anuncio.Url}` %>" class="anuncios__image" role="link" title="<%= `${anuncio.Title} | Oladeg` %>" > 
+                <a href="<%= `/anuncio/${anuncio.Url}` %>" class="anuncios__image" role="link" title="<%= `${anuncio.Title} | Oladeg` %>" > 
                   <img loading="lazy" src="<%= `${anuncio.Portada}` %>" alt="<%= `Anuncio ${anuncio.Title}` %>" />
                 </a>
                 <div class="anuncios__text flex flex-fd-c flex-jc-c">
-                  <h3 class="anuncios__title"><a href="<%= `${protocol}://${host}/anuncio/${anuncio.Url}` %>" title="<%= `${anuncio.Title} | Oladeg` %>" role="link"><%= anuncio.Titulo %></a></h3>
+                  <h3 class="anuncios__title"><a href="<%= `/anuncio/${anuncio.Url}` %>" title="<%= `${anuncio.Title} | Oladeg` %>" role="link"><%= anuncio.Titulo %></a></h3>
                   <p class="anuncios__description"><%= anuncio.metadescripcion %>...</p>
                   <p class="anuncios__time flex flex-ai-c">
                     <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Oladeg">
                     <time datetime="<%= anuncio.created_at %>" class="flex flex-ai-c"><%= `${anuncio.month} ${anuncio.date}, ${anuncio.year}`%></time>
                   </p>
-                  <a href="<%= `${protocol}://${host}/anuncio/${anuncio.Url}` %>" role="link" class="anuncios__link" title="<%= `${anuncio.Title} | Oladeg` %>">Leer Más</a>
+                  <a href="<%= `/anuncio/${anuncio.Url}` %>" role="link" class="anuncios__link" title="<%= `${anuncio.Title} | Oladeg` %>">Leer Más</a>
                 </div>
               </div>
             <% }); %> 
           <% } %>
 
           <!-- <div class="anuncios__item">
-            <a href="<%= `${protocol}://${host}/anuncio/i-primer-encuentro` %>" class="anuncios__image" role="link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"> 
+            <a href="<%= `/anuncio/i-primer-encuentro` %>" class="anuncios__image" role="link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"> 
               <img loading="lazy" src="/images/anuncio.jpg" alt="Anuncio I Primer Encuentro de Sostenibilidad en las Empresas Comunales">
             </a>
             <div class="anuncios__text flex flex-fd-c flex-jc-c">
-              <h3 class="anuncios__title"><a href="<%= `${protocol}://${host}/anuncio/i-primer-encuentro` %>" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg" role="link">I Primer Encuentro de Sostenibilidad en las Empresas Comunales</a></h3>
+              <h3 class="anuncios__title"><a href="<%= `/anuncio/i-primer-encuentro` %>" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg" role="link">I Primer Encuentro de Sostenibilidad en las Empresas Comunales</a></h3>
               <p class="anuncios__description">En el perú existen más de siete mil comunidades que representan más del cuarenta por ciento del territorio nacional en el perú existen más de sietessssssssssssssssssss...</p>
               <p class="anuncios__time flex flex-ai-c">
                 <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Oladeg">
                 <time datetime="2008-02-14 20:00" class="flex flex-ai-c">JULY 23, 2019</time>
               </p>
-              <a href="<%= `${protocol}://${host}/anuncio/i-primer-encuentro` %>" role="link" class="anuncios__link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg">Leer Más</a>
+              <a href="<%= `/anuncio/i-primer-encuentro` %>" role="link" class="anuncios__link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg">Leer Más</a>
             </div>
           </div> -->
           
