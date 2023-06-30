@@ -1,5 +1,5 @@
 .hero{
-  padding: 2rem 0;
+  padding: 2.5rem 0;
   min-height: 70vh;
   font-size: $font-lg;
   background-color: $bg-secondary;
@@ -25,8 +25,9 @@
     }
   } 
   &__wrapper_course {
-    margin-top: 2rem;
+    margin-bottom: 1rem;
     @include breakpoint-up(large) {
+      margin-top: 1rem;
       margin-bottom: 0rem;
     }
     &:first-child{

@@ -9,7 +9,6 @@
   .main-nav{
     z-index: 3;
     background-color: $rojoOxido;
-    height: 10vh;
     @include breakpoint-up(large) {
       display: block;
     }
@@ -69,9 +68,10 @@
     }
   }
   &__menu{
-    height: inherit;
+    padding: 1.2rem 0;
   }
   &__hamburguer{
+    padding: 1.2rem 0;
     border: none;
     background: none;
     outline: none;
@@ -98,8 +98,8 @@
   &__link{
     color: $white;
     text-transform: uppercase;
-    font-size: $font-nm;
-    font-weight: 800;
+    font-size: $font-sm;
+    font-weight: 600;
     display: block;
     text-align: center;
     margin-bottom: 2rem 0;
@@ -123,7 +123,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: $font-nm-dt;
+      font-size: $font-sm-dt;
       padding: 0rem .25rem;
     }
   }
