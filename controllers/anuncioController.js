@@ -15,7 +15,7 @@ const mostrarPaginaPrincipal = async (req, res) => {
   }else{
     pagina_actual = 1;
   }
-  anuncios = anuncios.slice(elementos_hasta_ahora - elementos_por_pagina, elementos_hasta_ahora)
+  anuncios = anuncios.slice(elementos_hasta_ahora - elementos_por_pagina, elementos_hasta_ahora);
   return res.render("pages/indexView", {
     title: "OLADEG &#8211; Desarrollo Rural y Gobiernos Locales",
     description: "Oladeg es una ONG que va dirigido a los ciudadanos, líderes sociales, autoridades y funcionarios de gobiernos locales, regionales y organizacionales.",
