@@ -2,27 +2,30 @@
   padding: 2rem 0;
   min-height: 70vh;
   font-size: $font-lg;
-  display: grid;
-  column-gap: 1rem;
-  row-gap: 1rem;
   background-color: $bg-secondary;
-  @include breakpoint-up(medium) {
-    row-gap: 2rem;                
-  }
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-areas: "curso"
-                       "diplomado"
-                       "especializacion"
-                       "image1"; 
+  &__wrapper{
+    display: grid;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    @include breakpoint-up(medium) {
+      row-gap: 2rem;                
+    }
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: "curso"
+                        "diplomado"
+                        "especializacion"
+                        "image1"; 
 
-  @include breakpoint-up(large) {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-areas: "curso diplomado especializacion"  
-                          "image1 image1 image1";    
-  }
+    @include breakpoint-up(large) {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-template-areas: "curso diplomado especializacion"  
+                            "image1 image1 image1";    
+    }
+  } 
   &__wrapper_course {
+    margin-top: 2rem;
     @include breakpoint-up(large) {
       margin-bottom: 0rem;
     }
@@ -31,18 +34,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      @include breakpoint-up(large) {
-        justify-content: flex-end;
-      }
+      
     }
     &:nth-child(2){
       grid-area: diplomado;
       display: flex;
       align-items: center;
       justify-content: center;
-      @include breakpoint-up(large) {
-        align-items: flex-end;
-      }
       
     }
     &:nth-child(3){
@@ -50,9 +48,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      @include breakpoint-up(large) {
-        justify-content: flex-start;
-      }
     }
   }
   &__course{
@@ -175,7 +170,6 @@
     animation: animate_flor_derecha 1.5s linear infinite alternate;
 
   }
-
 }
 
 //Animations
