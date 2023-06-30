@@ -1,44 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <%- include ('../partials/headView.ejs') %>
-</head>
-<body>
-  <%- include ('../layouts/headerView.ejs') %>
-  <main>
-    <%- include('../layouts/banner2View.ejs', {variant: 'Boletines'}); %>
-    <div class="main__content container">
-      <section class="boletines">
-      <h1 class="boletines__intro">Boletines</h1>
-      <% if(boletines.length !== 0) { %>
-        <div class="boletines__grid">
-          <% boletines.forEach(function(boletin) {  %>
-            <div class="boletines__item appear-content">
-              <h2 class="boletines__title"><a href="<%= `${protocol}://${host}/boletin/${boletin.Url}` %>" title="<%= `${boletin.Titulo} | Oladeg` %>" role="link">"<%= boletin.Titulo %>"</a></h2>
-              <p class="boletines__time flex flex-ai-c">
-                <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Curso">
-                <time datetime="<%= boletin.created_at %>" class="flex flex-ai-c"><%= `${boletin.fecha_month} ${boletin.fecha_date}, ${boletin.fecha_year}` %></time>
-              </p>
-              <div class="boletines__image">
-                <a  href="<%= `${protocol}://${host}/boletin/${boletin.Url}` %>" title="<%= `${boletin.Titulo} | Oladeg` %>" role="link">
-                  <img loading="lazy" src="<%= boletin.Portada %>" alt="<%= `Boletin ${boletin.Titulo}` %>">
-                </a>
-              </div>
-              <div class="boletines__button">
-                <a  href="<%= `${protocol}://${host}/boletin/${boletin.Url}` %>" title="<%= `${boletin.Titulo} | Oladeg` %>" role="link" type="button" class="button">Más Información</a>
-              </div>
-            </div>
-          <% }) %> 
-        </div>
-        <%- include('../partials/buttonsView.ejs') %>
-      <% } %>
-      </section>
-      <%- include('../layouts/sidebarView.ejs') %>
-    </div>
-    
-    <%- include('../layouts/whatsapp.ejs') %>
-  </main> 
-  <%- include('../layouts/footerView.ejs') %>
-  <%- include('../layouts/scriptView.ejs') %>
-</body>
+	<head>
+		<%- include ('../partials/headView.ejs') %>
+	</head>
+	<body>
+		<%- include ('../layouts/headerView.ejs') %>
+		<main>
+			<%- include('../layouts/banner2View.ejs', {variant: 'Boletines'});
+			%>
+			<div class="main__content container">
+				<section class="boletines">
+					<h1 class="boletines__intro">Boletines</h1>
+					<% if(boletines.length !== 0) { %>
+					<div class="boletines__grid">
+						<% boletines.forEach(function(boletin) { %>
+						<div class="boletines__item appear-content">
+							<h2 class="boletines__title">
+								<a
+									href="<%= `${protocol}://${host}/boletin/${boletin.Url}` %>"
+									title="<%= `${boletin.Titulo} | Oladeg` %>"
+									role="link"
+									>"<%= boletin.Titulo %>"</a
+								>
+							</h2>
+							<p class="boletines__time flex flex-ai-c">
+								<img
+									loading="lazy"
+									src="/dist/icons/Clock.svg"
+									alt="Datetime Curso"
+								/>
+								<time
+									datetime="<%= boletin.created_at %>"
+									class="flex flex-ai-c"
+									><%= `${boletin.fecha_month}
+									${boletin.fecha_date},
+									${boletin.fecha_year}` %></time
+								>
+							</p>
+							<div class="boletines__image">
+								<a
+									href="<%= `${protocol}://${host}/boletin/${boletin.Url}` %>"
+									title="<%= `${boletin.Titulo} | Oladeg` %>"
+									role="link"
+								>
+									<img
+										loading="lazy"
+										src="<%= boletin.Portada %>"
+										alt="<%= `Boletin ${boletin.Titulo}` %>"
+									/>
+								</a>
+							</div>
+							<div class="boletines__button">
+								<a
+									href="<%= `${protocol}://${host}/boletin/${boletin.Url}` %>"
+									title="<%= `${boletin.Titulo} | Oladeg` %>"
+									role="link"
+									type="button"
+									class="button"
+									>Más Información</a
+								>
+							</div>
+						</div>
+						<% }) %>
+					</div>
+					<%- include('../partials/buttonsView.ejs') %> <% } %>
+				</section>
+				<%- include('../layouts/sidebarView.ejs') %>
+			</div>
+
+			<%- include('../layouts/whatsapp.ejs') %>
+		</main>
+		<%- include('../layouts/footerView.ejs') %> <%-
+		include('../layouts/scriptView.ejs') %>
+	</body>
 </html>

@@ -1,14 +1,42 @@
 <div class="anuncios__item">
- <a href="<%= `${protocol}://${host}/anuncio/${anuncio.Url}` %>" class="anuncios__image" role="link" title="<%= `${anuncio.Title} | Oladeg` %>" > 
-   <img loading="lazy" src="<%= `${anuncio.Portada}` %>" alt="<%= `Anuncio ${anuncio.Title}` %>" />
- </a>
- <div class="anuncios__text flex flex-fd-c flex-jc-c">
-   <h3 class="anuncios__title"><a href="<%= `${protocol}://${host}/anuncio/${anuncio.Url}` %>" title="<%= `${anuncio.Title} | Oladeg` %>" role="link"><%= anuncio.Titulo %></a></h3>
-   <p class="anuncios__description"><%= anuncio.metadescripcion %>...</p>
-   <p class="anuncios__time flex flex-ai-c">
-     <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Oladeg">
-     <time datetime="<%= anuncio.created_at %>" class="flex flex-ai-c"><%= `${anuncio.month} ${anuncio.date}, ${anuncio.year}`%></time>
-   </p>
-   <a href="<%= `${protocol}://${host}/anuncio/${anuncio.Url}` %>" role="link" class="anuncios__link" title="<%= `${anuncio.Title} | Oladeg` %>">Leer Más</a>
- </div>
+	<a
+		href="/anuncio/${anuncio.Url}"
+		class="anuncios__image"
+		role="link"
+		title="<%= `${anuncio.Title} | Oladeg` %>"
+	>
+		<img
+			loading="lazy"
+			src="<%= `${anuncio.Portada}` %>"
+			alt="<%= `Anuncio ${anuncio.Title}` %>"
+		/>
+	</a>
+	<div class="anuncios__text flex flex-fd-c flex-jc-c">
+		<h3 class="anuncios__title">
+			<a
+				href="/anuncio/${anuncio.Url}"
+				title="<%= `${anuncio.Title} | Oladeg` %>"
+				role="link"
+				><%= anuncio.Titulo %></a
+			>
+		</h3>
+		<p class="anuncios__description"><%= anuncio.metadescripcion %>...</p>
+		<p class="anuncios__time flex flex-ai-c">
+			<img
+				loading="lazy"
+				src="/dist/icons/Clock.svg"
+				alt="Datetime Oladeg"
+			/>
+			<time datetime="<%= anuncio.created_at %>" class="flex flex-ai-c"
+				><%= `${anuncio.month} ${anuncio.date}, ${anuncio.year}`%></time
+			>
+		</p>
+		<a
+			href="/anuncio/${anuncio.Url}"
+			role="link"
+			class="anuncios__link"
+			title="<%= `${anuncio.Title} | Oladeg` %>"
+			>Leer Más</a
+		>
+	</div>
 </div>

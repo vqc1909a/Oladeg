@@ -20,6 +20,7 @@ export const mostrarPaginaPrincipal = async (req, res) => {
     total_elementos,
     elementos_por_pagina,
     total_paginas,
+    anuncios,
     publicidad
   });
 }

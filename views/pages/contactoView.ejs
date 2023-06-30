@@ -1,93 +1,169 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <%- include ('../partials/headView.ejs') %>
-</head>
-<body>
-  <%- include ('../layouts/headerView.ejs') %>
-  <main>
-    <%- include('../layouts/bannerView.ejs') %>
-     <div class="contact">
-       <div class="contact__content">
-        <h1>Contáctanos</h1>
-        <% if(!send_info)  {%>
-          <h2>Envianos un Mensaje</h2>
-          <form action="" method="" class="formulario1">
-            <div class="input-group">
-              <input type="text" class="input-group__input" name="nombres" placeholder="Nombres y Apellidos" autocomplete="off">
-    					<i class="input-group__validacion-estado fas fa-times-circle fa-2x"></i>
-            </div>
-            <p class="input-group__error">Los nombres y apellidos tienen que ser de 5 a 30 dígitos y solo puede contener letras.</p>
+	<head>
+		<%- include ('../partials/headView.ejs') %>
+	</head>
+	<body>
+		<%- include ('../layouts/headerView.ejs') %>
+		<main>
+			<%- include('../layouts/bannerView.ejs') %>
+			<div class="contact">
+				<div class="contact__content">
+					<h1>Contáctanos</h1>
+					<% if(!send_info) {%>
+					<h2>Envianos un Mensaje</h2>
+					<form action="" method="" class="formulario1">
+						<div class="input-group">
+							<input
+								type="text"
+								class="input-group__input"
+								name="nombres"
+								placeholder="Nombres y Apellidos"
+								autocomplete="off"
+							/>
+							<i
+								class="input-group__validacion-estado fas fa-times-circle fa-2x"
+							></i>
+						</div>
+						<p class="input-group__error">
+							Los nombres y apellidos tienen que ser de 5 a 30
+							dígitos y solo puede contener letras.
+						</p>
 
-            <div class="input-group">
-              <input type="text" class="input-group__input" name="correo" placeholder="Correo Electrónico" autocomplete="off">
-    					<i class="input-group__validacion-estado fas fa-times-circle fa-2x"></i>
-            </div>
-            <p class="input-group__error">El correo solo puede contener letras, numeros, puntos y guiones</p>
+						<div class="input-group">
+							<input
+								type="text"
+								class="input-group__input"
+								name="correo"
+								placeholder="Correo Electrónico"
+								autocomplete="off"
+							/>
+							<i
+								class="input-group__validacion-estado fas fa-times-circle fa-2x"
+							></i>
+						</div>
+						<p class="input-group__error">
+							El correo solo puede contener letras, numeros,
+							puntos y guiones
+						</p>
 
-            <div class="input-group">
-              <input type="text" class="input-group__input" name="celular" placeholder="N° de WhatsApp" autocomplete="off">
-    					<i class="input-group__validacion-estado fas fa-times-circle fa-2x"></i>
-            </div>
-            <p class="input-group__error">El teléfono solo puede contener numeros y tienen que ser de 7 a 14 dígitos</p>
+						<div class="input-group">
+							<input
+								type="text"
+								class="input-group__input"
+								name="celular"
+								placeholder="N° de WhatsApp"
+								autocomplete="off"
+							/>
+							<i
+								class="input-group__validacion-estado fas fa-times-circle fa-2x"
+							></i>
+						</div>
+						<p class="input-group__error">
+							El teléfono solo puede contener numeros y tienen que
+							ser de 7 a 14 dígitos
+						</p>
 
-            <div class="input-group">
-              <textarea name="mensaje" rows="6" class="input-group__input input-group__input--message" placeholder="Mensaje" autocomplete="off"></textarea>
-    					<i class="input-group__validacion-estado fas fa-times-circle fa-2x" style="display: none;"></i>
-            </div>
-            <p class="input-group__error">El mensaje tienen que ser de 10 a 300 dígitos y solo puede contener letras y numeros.</p>
+						<div class="input-group">
+							<textarea
+								name="mensaje"
+								rows="6"
+								class="input-group__input input-group__input--message"
+								placeholder="Mensaje"
+								autocomplete="off"
+							></textarea>
+							<i
+								class="input-group__validacion-estado fas fa-times-circle fa-2x"
+								style="display: none"
+							></i>
+						</div>
+						<p class="input-group__error">
+							El mensaje tienen que ser de 10 a 300 dígitos y solo
+							puede contener letras y numeros.
+						</p>
 
-            <div class="input-group__mensaje">
-              <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
-            </div>
+						<div class="input-group__mensaje">
+							<p>
+								<i class="fas fa-exclamation-triangle"></i>
+								<b>Error:</b> Por favor rellena el formulario
+								correctamente.
+							</p>
+						</div>
 
-            <div class="input-group">
-              <button type="submit" class="input-group__input input-group__input--submit" style="background-color: rgba(153, 34, 17, .7) ">Solicitar Información</button>
-            </div>
+						<div class="input-group">
+							<button
+								type="submit"
+								class="input-group__input input-group__input--submit"
+								style="background-color: rgba(153, 34, 17, 0.7)"
+							>
+								Solicitar Información
+							</button>
+						</div>
 
-            <p class="input-group__mensaje-exito">Datos enviados correctamente!</p>            
-          </form>
-        <% } else{ %>
-          <div class="contact__success">
-            <p>GRACIAS POR CONTACTARNOS! Nos pondremos en contacto con usted en breve</p>
-          </div>
-        <% } %>
-       </div>
-      
-       <div class="contact__datos">
-        <div class="contact__data flex flex-ai-c">
-          <div class="contact__image">
-            <img src="/icons/Location.svg" alt="Ubicación Oladeg">
-          </div>
-          <div class="contact__text">
-            <p>Jr. Apurimac 463 Of. 402 “F” Lima 1</p>
-          </div>
-        </div>
-        <div class="contact__data flex flex-ai-c">
-          <div class="contact__image">
-            <img src="/icons/cellphone.svg" alt="Celular Oladeg">
-          </div>
-          <div class="contact__text">
-            <p>+51 931216468 | +51 940379357</p>          
-          </div>
-        </div>
-        <div class="contact__data flex flex-ai-c" >
-          <div class="contact__image">
-            <img src="/icons/email.svg" alt="Email Oladeg">
-          </div>
-          <div class="contact__text flex flex-fd-c">
-            <span>roberth.robles@oladeg.org</span>
-            <span>oladegperucapacitacion@gmail.com</span>
-          </div>
-        </div>
-        <div class="contact__map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.5405781209748!2d-77.09288547084546!3d-12.032344399467307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cea55fc25845%3A0xbd86d126053e1cc0!2sJr.%20Apurimac%2C%20San%20Mart%C3%ADn%20de%20Porres%2015106!5e0!3m2!1ses!2spe!4v1618598265307!5m2!1ses!2spe" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-       </div>      
-     </div>
-    <%- include('../layouts/whatsapp.ejs') %>
-  </main> 
-  <%- include('../layouts/footerView.ejs') %>
-  <%- include('../layouts/scriptView.ejs') %>
-</body>
+						<p class="input-group__mensaje-exito">
+							Datos enviados correctamente!
+						</p>
+					</form>
+					<% } else{ %>
+					<div class="contact__success">
+						<p>
+							GRACIAS POR CONTACTARNOS! Nos pondremos en contacto
+							con usted en breve
+						</p>
+					</div>
+					<% } %>
+				</div>
+
+				<div class="contact__datos">
+					<div class="contact__data flex flex-ai-c">
+						<div class="contact__image">
+							<img
+								src="/dist/icons/Location.svg"
+								alt="Ubicación Oladeg"
+							/>
+						</div>
+						<div class="contact__text">
+							<p>Jr. Apurimac 463 Of. 402 “F” Lima 1</p>
+						</div>
+					</div>
+					<div class="contact__data flex flex-ai-c">
+						<div class="contact__image">
+							<img
+								src="/dist/icons/cellphone.svg"
+								alt="Celular Oladeg"
+							/>
+						</div>
+						<div class="contact__text">
+							<p>+51 931216468 | +51 940379357</p>
+						</div>
+					</div>
+					<div class="contact__data flex flex-ai-c">
+						<div class="contact__image">
+							<img
+								src="/dist/icons/email.svg"
+								alt="Email Oladeg"
+							/>
+						</div>
+						<div class="contact__text flex flex-fd-c">
+							<span>roberth.robles@oladeg.org</span>
+							<span>oladegperucapacitacion@gmail.com</span>
+						</div>
+					</div>
+					<div class="contact__map">
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.5405781209748!2d-77.09288547084546!3d-12.032344399467307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cea55fc25845%3A0xbd86d126053e1cc0!2sJr.%20Apurimac%2C%20San%20Mart%C3%ADn%20de%20Porres%2015106!5e0!3m2!1ses!2spe!4v1618598265307!5m2!1ses!2spe"
+							width="100%"
+							height="250"
+							style="border: 0"
+							allowfullscreen=""
+							loading="lazy"
+						></iframe>
+					</div>
+				</div>
+			</div>
+			<%- include('../layouts/whatsapp.ejs') %>
+		</main>
+		<%- include('../layouts/footerView.ejs') %> <%-
+		include('../layouts/scriptView.ejs') %>
+	</body>
 </html>

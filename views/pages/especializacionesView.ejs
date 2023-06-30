@@ -1,43 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <%- include ('../partials/headView.ejs') %>
-</head>
-<body>
-  <%- include ('../layouts/headerView.ejs') %>
-  <main>
-    <%- include('../layouts/banner2View.ejs', {variant: 'Especializaciones'}); %>
-    <div class="main__content container">
-      <section class="cursos">
-        <h1 class="cursos__intro">Especializaciones</h1>
-        <% if(especializaciones.length !== 0) { %>
-          <div class="cursos__grid">
-            <% especializaciones.forEach(function(especializacion) {  %>
-              <div class="cursos__item appear-content">
-                <h2 class="cursos__title"><a  href="<%= `${protocol}://${host}/especializacion/${especializacion.Url}` %>" title="<%`${especializacion.Titulo}`%> | Oladeg" role="link">"<%= especializacion.Titulo %>"</a></h2>
-                <p class="cursos__time flex flex-ai-c">
-                  <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Especializacion">
-                  <time datetime="<%= especializacion.created_at %>" class="flex flex-ai-c"><%= `${especializacion.fecha_month} ${especializacion.fecha_date}, ${especializacion.fecha_year}`%></time>
-                </p>
-                <div class="cursos__image">
-                  <a  href="<%= `${protocol}://${host}/especializacion/${especializacion.Url}` %>" title="<%= `${especializacion.Titulo} | Oladeg` %>" role="link">
-                    <img loading="lazy" src="<%= especializacion.Portada %>" alt="<%= `Especializacion ${especializacion.Titulo}` %>">
-                  </a>
-                </div>
-                <div class="cursos__button">
-                  <a  href="<%= `${protocol}://${host}/especializacion/${especializacion.Url}` %>" title="<%= `${especializacion.Titulo} | Oladeg` %>" role="link" type="button" class="button">Más Información</a>
-                </div>
-              </div>
-            <% }) %> 
-          </div>
-          <%- include('../partials/buttonsView.ejs') %>
-        <% } %>
-      </section>
-      <%- include('../layouts/sidebarView.ejs') %>
-    </div>
-    <%- include('../layouts/whatsapp.ejs') %>
-    </main> 
-  <%- include('../layouts/footerView.ejs') %>
-  <%- include('../layouts/scriptView.ejs') %>
-</body>
+	<head>
+		<%- include ('../partials/headView.ejs') %>
+	</head>
+	<body>
+		<%- include ('../layouts/headerView.ejs') %>
+		<main>
+			<%- include('../layouts/banner2View.ejs', {variant:
+			'Especializaciones'}); %>
+			<div class="main__content container">
+				<section class="cursos">
+					<h1 class="cursos__intro">Especializaciones</h1>
+					<% if(especializaciones.length !== 0) { %>
+					<div class="cursos__grid">
+						<% especializaciones.forEach(function(especializacion) {
+						%>
+						<div class="cursos__item appear-content">
+							<h2 class="cursos__title">
+								<a
+									href="<%= `${protocol}://${host}/especializacion/${especializacion.Url}` %>"
+									title="<%`${especializacion.Titulo}`%> | Oladeg"
+									role="link"
+									>"<%= especializacion.Titulo %>"</a
+								>
+							</h2>
+							<p class="cursos__time flex flex-ai-c">
+								<img
+									loading="lazy"
+									src="/dist/icons/Clock.svg"
+									alt="Datetime Especializacion"
+								/>
+								<time
+									datetime="<%= especializacion.created_at %>"
+									class="flex flex-ai-c"
+									><%= `${especializacion.fecha_month}
+									${especializacion.fecha_date},
+									${especializacion.fecha_year}`%></time
+								>
+							</p>
+							<div class="cursos__image">
+								<a
+									href="<%= `${protocol}://${host}/especializacion/${especializacion.Url}` %>"
+									title="<%= `${especializacion.Titulo} | Oladeg` %>"
+									role="link"
+								>
+									<img
+										loading="lazy"
+										src="<%= especializacion.Portada %>"
+										alt="<%= `Especializacion ${especializacion.Titulo}` %>"
+									/>
+								</a>
+							</div>
+							<div class="cursos__button">
+								<a
+									href="<%= `${protocol}://${host}/especializacion/${especializacion.Url}` %>"
+									title="<%= `${especializacion.Titulo} | Oladeg` %>"
+									role="link"
+									type="button"
+									class="button"
+									>Más Información</a
+								>
+							</div>
+						</div>
+						<% }) %>
+					</div>
+					<%- include('../partials/buttonsView.ejs') %> <% } %>
+				</section>
+				<%- include('../layouts/sidebarView.ejs') %>
+			</div>
+			<%- include('../layouts/whatsapp.ejs') %>
+		</main>
+		<%- include('../layouts/footerView.ejs') %> <%-
+		include('../layouts/scriptView.ejs') %>
+	</body>
 </html>

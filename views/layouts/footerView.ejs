@@ -1,108 +1,317 @@
- <footer class="footer">
-     <div class="footer__main container">
-      <div class="footer__logo flex flex-fd-c flex-jc-c flex-ai-c">
-        <img src="/images/logo.jpg" alt="Logo Oladeg">
-        <div class="footer__social-media">
-          <a target="_blank" href="https://es-la.facebook.com/oladeg.Peru/" title="Facebook | Oladeg">
-            <svg width="30" height="30" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 25.1396C0 37.5688 9.02709 47.9042 20.8333 50V31.9438H14.5833V25H20.8333V19.4438C20.8333 13.1937 24.8604 9.72292 30.5563 9.72292C32.3604 9.72292 34.3063 10 36.1104 10.2771V16.6667H32.9167C29.8604 16.6667 29.1667 18.1937 29.1667 20.1396V25H35.8333L34.7229 31.9438H29.1667V50C40.9729 47.9042 50 37.5708 50 25.1396C50 11.3125 38.75 0 25 0C11.25 0 0 11.3125 0 25.1396Z" fill="#395185"/>
-            </svg>
-          </a>
-          <a target="_blank" href="" title="Youtube | Oladeg">
-            <svg width="30" height="30" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M29.1745 24.5651L23.3255 21.8359C22.8151 21.599 22.3958 21.8646 22.3958 22.4297V27.5703C22.3958 28.1354 22.8151 28.401 23.3255 28.1641L29.1719 25.4349C29.6849 25.1953 29.6849 24.8047 29.1745 24.5651ZM25 0C11.1927 0 0 11.1927 0 25C0 38.8073 11.1927 50 25 50C38.8073 50 50 38.8073 50 25C50 11.1927 38.8073 0 25 0ZM25 35.1562C12.2031 35.1562 11.9792 34.0026 11.9792 25C11.9792 15.9974 12.2031 14.8437 25 14.8437C37.7969 14.8437 38.0208 15.9974 38.0208 25C38.0208 34.0026 37.7969 35.1562 25 35.1562Z" fill="#FF0000"/>
-            </svg>
-          </a>
-          <a target="_blank" href="https://www.instagram.com/oladeg_peru/" title="Instagram | Oladeg">
-            <svg width="30" height="30" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M25 0C31.7925 0 32.64 0.0249998 35.305 0.15C37.9675 0.275 39.78 0.6925 41.375 1.3125C43.025 1.9475 44.415 2.8075 45.805 4.195C47.0762 5.44474 48.0599 6.95647 48.6875 8.625C49.305 10.2175 49.725 12.0325 49.85 14.695C49.9675 17.36 50 18.2075 50 25C50 31.7925 49.975 32.64 49.85 35.305C49.725 37.9675 49.305 39.78 48.6875 41.375C48.0617 43.0444 47.0778 44.5565 45.805 45.805C44.5549 47.0758 43.0433 48.0594 41.375 48.6875C39.7825 49.305 37.9675 49.725 35.305 49.85C32.64 49.9675 31.7925 50 25 50C18.2075 50 17.36 49.975 14.695 49.85C12.0325 49.725 10.22 49.305 8.625 48.6875C6.95581 48.0612 5.44382 47.0774 4.195 45.805C2.92352 44.5555 1.93983 43.0437 1.3125 41.375C0.6925 39.7825 0.275 37.9675 0.15 35.305C0.0324999 32.64 0 31.7925 0 25C0 18.2075 0.0249999 17.36 0.15 14.695C0.275 12.03 0.6925 10.22 1.3125 8.625C1.93809 6.95545 2.92201 5.4433 4.195 4.195C5.44418 2.92308 6.95607 1.93932 8.625 1.3125C10.22 0.6925 12.03 0.275 14.695 0.15C17.36 0.0324999 18.2075 0 25 0ZM25 12.5C21.6848 12.5 18.5054 13.817 16.1612 16.1612C13.817 18.5054 12.5 21.6848 12.5 25C12.5 28.3152 13.817 31.4946 16.1612 33.8388C18.5054 36.183 21.6848 37.5 25 37.5C28.3152 37.5 31.4946 36.183 33.8388 33.8388C36.183 31.4946 37.5 28.3152 37.5 25C37.5 21.6848 36.183 18.5054 33.8388 16.1612C31.4946 13.817 28.3152 12.5 25 12.5ZM41.25 11.875C41.25 11.0462 40.9208 10.2513 40.3347 9.66529C39.7487 9.07924 38.9538 8.75 38.125 8.75C37.2962 8.75 36.5013 9.07924 35.9153 9.66529C35.3292 10.2513 35 11.0462 35 11.875C35 12.7038 35.3292 13.4987 35.9153 14.0847C36.5013 14.6708 37.2962 15 38.125 15C38.9538 15 39.7487 14.6708 40.3347 14.0847C40.9208 13.4987 41.25 12.7038 41.25 11.875ZM25 17.5C26.9891 17.5 28.8968 18.2902 30.3033 19.6967C31.7098 21.1032 32.5 23.0109 32.5 25C32.5 26.9891 31.7098 28.8968 30.3033 30.3033C28.8968 31.7098 26.9891 32.5 25 32.5C23.0109 32.5 21.1032 31.7098 19.6967 30.3033C18.2902 28.8968 17.5 26.9891 17.5 25C17.5 23.0109 18.2902 21.1032 19.6967 19.6967C21.1032 18.2902 23.0109 17.5 25 17.5Z" fill="url(#paint0_linear)"/>
-            <defs>
-            <linearGradient id="paint0_linear" x1="-6.40244" y1="56.4024" x2="51.8293" y2="-4.15801e-06" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#FED073"/>
-            <stop offset="1" stop-color="#CC27C4"/>
-            </linearGradient>
-            </defs>
-            </svg>
-          </a>
-          <a target="_blank" href="" title="Linkedlin | Oladeg">
-            <svg width="30" height="30" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M25 0C11.1927 0 0 11.1927 0 25C0 38.8073 11.1927 50 25 50C38.8073 50 50 38.8073 50 25C50 11.1927 38.8073 0 25 0ZM18.8802 35.362H13.8177V19.0703H18.8802V35.362ZM16.3177 17.0703C14.7187 17.0703 13.6849 15.9375 13.6849 14.5365C13.6849 13.1068 14.75 12.0078 16.3828 12.0078C18.0156 12.0078 19.0156 13.1068 19.0469 14.5365C19.0469 15.9375 18.0156 17.0703 16.3177 17.0703ZM37.3698 35.362H32.3073V26.3333C32.3073 24.2318 31.5729 22.8047 29.7422 22.8047C28.3438 22.8047 27.513 23.7708 27.1458 24.7005C27.0104 25.0313 26.9766 25.5 26.9766 25.9661V35.3594H21.9115V24.2656C21.9115 22.2318 21.8464 20.5312 21.7786 19.0677H26.1771L26.4089 21.3307H26.5104C27.1771 20.2682 28.8099 18.7005 31.5417 18.7005C34.8724 18.7005 37.3698 20.9323 37.3698 25.7292V35.362Z" fill="#0275B4"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-      <div class="footer__links col1">
-        <h4>Menú</h4>
-        <ul>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="<%= `${protocol}://${host}/` %>" title="Inicio | Oladeg" role="link">Inicio</a>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="<%= `${protocol}://${host}/consultorias/` %>" alt="Consultorias | Oladeg" role="link">Consultorías</a>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="https://oladegperu.milaulas.com/index.php/" alt="Aulas Virtuales | Oladeg" role="link">Aulas Virtuales</a>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="<%= `${protocol}://${host}/libros/`%>" role="link" title="Biblioteca Digital | Oladeg">Biblioteca Digital</a>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="<%= `${protocol}://${host}/boletines/` %>" role="link" title="Boletines | Oladeg">Boletines</a>
-          </li>
-        </ul>
-      </div>
-      <div class="footer__links col2">
-        <h4>Nuestros Servicios</h4>
-        <ul>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="<%= `${protocol}://${host}/cursos/` %>" title="Cursos | Oladeg" role="link">Cursos</a>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="<%= `${protocol}://${host}/diplomados/` %>" title="Diplomados | Oladeg" role="link">Diplomados</a>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="<%= `${protocol}://${host}/especializaciones/` %>" title="Especializaciones | Oladeg" role="link">Especializaciones</a>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="<%= `${protocol}://${host}/formas-de-pago/` %>" title="Formas de Pago | Oladeg" role="link" >Forma de Pago</a>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z" stroke="#877777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <a href="<%= `${protocol}://${host}/contacto/` %>" title="Contacto | Oladeg" role="link">Contáctanos</a>
-          </li>
-        </ul>
-      </div>
-     </div>
-     <div class="footer__sec">
-      <p>Copyright &copy; <%= new Date().getFullYear() %> OLADEG PERU</p>
-     </div>
-   </footer>
+<footer class="footer">
+	<div class="footer__main container">
+		<div class="footer__logo flex flex-fd-c flex-jc-c flex-ai-c">
+			<img src="/dist/images/logo.jpg" alt="Logo Oladeg" />
+			<div class="footer__social-media">
+				<a
+					target="_blank"
+					href="https://es-la.facebook.com/oladeg.Peru/"
+					title="Facebook | Oladeg"
+				>
+					<svg
+						width="30"
+						height="30"
+						viewBox="0 0 50 50"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							fill-rule="evenodd"
+							clip-rule="evenodd"
+							d="M0 25.1396C0 37.5688 9.02709 47.9042 20.8333 50V31.9438H14.5833V25H20.8333V19.4438C20.8333 13.1937 24.8604 9.72292 30.5563 9.72292C32.3604 9.72292 34.3063 10 36.1104 10.2771V16.6667H32.9167C29.8604 16.6667 29.1667 18.1937 29.1667 20.1396V25H35.8333L34.7229 31.9438H29.1667V50C40.9729 47.9042 50 37.5708 50 25.1396C50 11.3125 38.75 0 25 0C11.25 0 0 11.3125 0 25.1396Z"
+							fill="#395185"
+						/>
+					</svg>
+				</a>
+				<a target="_blank" href="" title="Youtube | Oladeg">
+					<svg
+						width="30"
+						height="30"
+						viewBox="0 0 50 50"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M29.1745 24.5651L23.3255 21.8359C22.8151 21.599 22.3958 21.8646 22.3958 22.4297V27.5703C22.3958 28.1354 22.8151 28.401 23.3255 28.1641L29.1719 25.4349C29.6849 25.1953 29.6849 24.8047 29.1745 24.5651ZM25 0C11.1927 0 0 11.1927 0 25C0 38.8073 11.1927 50 25 50C38.8073 50 50 38.8073 50 25C50 11.1927 38.8073 0 25 0ZM25 35.1562C12.2031 35.1562 11.9792 34.0026 11.9792 25C11.9792 15.9974 12.2031 14.8437 25 14.8437C37.7969 14.8437 38.0208 15.9974 38.0208 25C38.0208 34.0026 37.7969 35.1562 25 35.1562Z"
+							fill="#FF0000"
+						/>
+					</svg>
+				</a>
+				<a
+					target="_blank"
+					href="https://www.instagram.com/oladeg_peru/"
+					title="Instagram | Oladeg"
+				>
+					<svg
+						width="30"
+						height="30"
+						viewBox="0 0 50 50"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M25 0C31.7925 0 32.64 0.0249998 35.305 0.15C37.9675 0.275 39.78 0.6925 41.375 1.3125C43.025 1.9475 44.415 2.8075 45.805 4.195C47.0762 5.44474 48.0599 6.95647 48.6875 8.625C49.305 10.2175 49.725 12.0325 49.85 14.695C49.9675 17.36 50 18.2075 50 25C50 31.7925 49.975 32.64 49.85 35.305C49.725 37.9675 49.305 39.78 48.6875 41.375C48.0617 43.0444 47.0778 44.5565 45.805 45.805C44.5549 47.0758 43.0433 48.0594 41.375 48.6875C39.7825 49.305 37.9675 49.725 35.305 49.85C32.64 49.9675 31.7925 50 25 50C18.2075 50 17.36 49.975 14.695 49.85C12.0325 49.725 10.22 49.305 8.625 48.6875C6.95581 48.0612 5.44382 47.0774 4.195 45.805C2.92352 44.5555 1.93983 43.0437 1.3125 41.375C0.6925 39.7825 0.275 37.9675 0.15 35.305C0.0324999 32.64 0 31.7925 0 25C0 18.2075 0.0249999 17.36 0.15 14.695C0.275 12.03 0.6925 10.22 1.3125 8.625C1.93809 6.95545 2.92201 5.4433 4.195 4.195C5.44418 2.92308 6.95607 1.93932 8.625 1.3125C10.22 0.6925 12.03 0.275 14.695 0.15C17.36 0.0324999 18.2075 0 25 0ZM25 12.5C21.6848 12.5 18.5054 13.817 16.1612 16.1612C13.817 18.5054 12.5 21.6848 12.5 25C12.5 28.3152 13.817 31.4946 16.1612 33.8388C18.5054 36.183 21.6848 37.5 25 37.5C28.3152 37.5 31.4946 36.183 33.8388 33.8388C36.183 31.4946 37.5 28.3152 37.5 25C37.5 21.6848 36.183 18.5054 33.8388 16.1612C31.4946 13.817 28.3152 12.5 25 12.5ZM41.25 11.875C41.25 11.0462 40.9208 10.2513 40.3347 9.66529C39.7487 9.07924 38.9538 8.75 38.125 8.75C37.2962 8.75 36.5013 9.07924 35.9153 9.66529C35.3292 10.2513 35 11.0462 35 11.875C35 12.7038 35.3292 13.4987 35.9153 14.0847C36.5013 14.6708 37.2962 15 38.125 15C38.9538 15 39.7487 14.6708 40.3347 14.0847C40.9208 13.4987 41.25 12.7038 41.25 11.875ZM25 17.5C26.9891 17.5 28.8968 18.2902 30.3033 19.6967C31.7098 21.1032 32.5 23.0109 32.5 25C32.5 26.9891 31.7098 28.8968 30.3033 30.3033C28.8968 31.7098 26.9891 32.5 25 32.5C23.0109 32.5 21.1032 31.7098 19.6967 30.3033C18.2902 28.8968 17.5 26.9891 17.5 25C17.5 23.0109 18.2902 21.1032 19.6967 19.6967C21.1032 18.2902 23.0109 17.5 25 17.5Z"
+							fill="url(#paint0_linear)"
+						/>
+						<defs>
+							<linearGradient
+								id="paint0_linear"
+								x1="-6.40244"
+								y1="56.4024"
+								x2="51.8293"
+								y2="-4.15801e-06"
+								gradientUnits="userSpaceOnUse"
+							>
+								<stop stop-color="#FED073" />
+								<stop offset="1" stop-color="#CC27C4" />
+							</linearGradient>
+						</defs>
+					</svg>
+				</a>
+				<a target="_blank" href="" title="Linkedlin | Oladeg">
+					<svg
+						width="30"
+						height="30"
+						viewBox="0 0 50 50"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M25 0C11.1927 0 0 11.1927 0 25C0 38.8073 11.1927 50 25 50C38.8073 50 50 38.8073 50 25C50 11.1927 38.8073 0 25 0ZM18.8802 35.362H13.8177V19.0703H18.8802V35.362ZM16.3177 17.0703C14.7187 17.0703 13.6849 15.9375 13.6849 14.5365C13.6849 13.1068 14.75 12.0078 16.3828 12.0078C18.0156 12.0078 19.0156 13.1068 19.0469 14.5365C19.0469 15.9375 18.0156 17.0703 16.3177 17.0703ZM37.3698 35.362H32.3073V26.3333C32.3073 24.2318 31.5729 22.8047 29.7422 22.8047C28.3438 22.8047 27.513 23.7708 27.1458 24.7005C27.0104 25.0313 26.9766 25.5 26.9766 25.9661V35.3594H21.9115V24.2656C21.9115 22.2318 21.8464 20.5312 21.7786 19.0677H26.1771L26.4089 21.3307H26.5104C27.1771 20.2682 28.8099 18.7005 31.5417 18.7005C34.8724 18.7005 37.3698 20.9323 37.3698 25.7292V35.362Z"
+							fill="#0275B4"
+						/>
+					</svg>
+				</a>
+			</div>
+		</div>
+		<div class="footer__links col1">
+			<h4>Menú</h4>
+			<ul>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a href="/" title="Inicio | Oladeg" role="link">Inicio</a>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a
+						href="/consultorias"
+						alt="Consultorias | Oladeg"
+						role="link"
+						>Consultorías</a
+					>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a
+						href="https://oladegperu.milaulas.com/index.php/"
+						alt="Aulas Virtuales | Oladeg"
+						role="link"
+						>Aulas Virtuales</a
+					>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a
+						href="/libros"
+						role="link"
+						title="Biblioteca Digital | Oladeg"
+						>Biblioteca Digital</a
+					>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a href="/boletines" role="link" title="Boletines | Oladeg"
+						>Boletines</a
+					>
+				</li>
+			</ul>
+		</div>
+		<div class="footer__links col2">
+			<h4>Nuestros Servicios</h4>
+			<ul>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a href="/cursos" title="Cursos | Oladeg" role="link"
+						>Cursos</a
+					>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a
+						href="/diplomados"
+						title="Diplomados | Oladeg"
+						role="link"
+						>Diplomados</a
+					>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a
+						href="/especializaciones"
+						title="Especializaciones | Oladeg"
+						role="link"
+						>Especializaciones</a
+					>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a
+						href="/formas-de-pago"
+						title="Formas de Pago | Oladeg"
+						role="link"
+						>Forma de Pago</a
+					>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 27 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M26 12.25L17.2685 1V7.25C2.35874 7.25 0.638629 19.3475 1.05275 26C1.67893 22.6438 1.96956 17.25 17.2685 17.25V23.5L26 12.25Z"
+							stroke="#877777"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+					<a href="/contacto" title="Contacto | Oladeg" role="link"
+						>Contáctanos</a
+					>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="footer__sec">
+		<p>Copyright &copy; <%= new Date().getFullYear() %> OLADEG PERU</p>
+	</div>
+</footer>

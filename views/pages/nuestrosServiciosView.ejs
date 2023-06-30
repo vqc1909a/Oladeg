@@ -1,41 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <%- include ('../partials/headView.ejs') %>
-</head>
-<body>
-  <%- include ('../layouts/headerView.ejs') %>
-  <main>
-    <%- include('../layouts/bannerView.ejs') %>
-    <div class="nuestros-servicios">
-      <div class="nuestros-servicios__intro container">
-        <h1>NUESTROS SERVICIOS</h1>
-      </div>
-      <div class="wrapper-nuestros container">
-        <div class="nuestros-servicios__text">
-          <div class="nuestros-servicios__item">
-            <h2>CAPACITACIÓN</h2>
-            <p>Dirigido a los ciudadanos, líderes sociales, autoridades y funcionarios de gobiernos locales y regionales y organizaciones de la sociedad civil, a través de cursos, seminarios, talleres, pasantías Nacional e internacional.</p>
-          </div>
-          <div class="nuestros-servicios__item">
-            <h2>ASISTENCIA TÉCNICA</h2>
-            <p>Oladeg-Perú cuenta con un equipo técnico para el acompañamiento a las gestiones de los ciudadanos y diversas autoridades para conseguir resultados dentro de un tiempo menor previsto. Asesoría y consultorías de acuerdo a las necesidades de las instituciones en Gestión Pública.</p>
-          </div>
-          <div class="nuestros-servicios__item">
-            <h2>DESARROLLO ECONÓMICO RURAL</h2>
-            <p>Promoción, Fomento y capacitación empresarial través de la constitución y apoyo integral del funcionamiento de las empresas comunales y cooperativas  para promover el desarrollo económico rural.</p>
-          </div>
-        </div>
-        <div class="nuestros-servicios__image flex flex-fd-c flex-ai-c">
-          <img src="/images/roberth-servicio.jpg" alt="Nuestros Servicios | Oladeg" width="300px">
-        </div>
-      </div>
-    </div>
+	<head>
+		<%- include ('../partials/headView.ejs') %>
+	</head>
+	<body>
+		<%- include ('../layouts/headerView.ejs') %>
+		<main>
+			<%- include('../layouts/bannerView.ejs') %>
+			<div class="nuestros-servicios">
+				<div class="nuestros-servicios__intro container">
+					<h1>NUESTROS SERVICIOS</h1>
+				</div>
+				<div class="wrapper-nuestros container">
+					<div class="nuestros-servicios__text">
+						<div class="nuestros-servicios__item">
+							<h2>CAPACITACIÓN</h2>
+							<p>
+								Dirigido a los ciudadanos, líderes sociales,
+								autoridades y funcionarios de gobiernos locales
+								y regionales y organizaciones de la sociedad
+								civil, a través de cursos, seminarios, talleres,
+								pasantías Nacional e internacional.
+							</p>
+						</div>
+						<div class="nuestros-servicios__item">
+							<h2>ASISTENCIA TÉCNICA</h2>
+							<p>
+								Oladeg-Perú cuenta con un equipo técnico para el
+								acompañamiento a las gestiones de los ciudadanos
+								y diversas autoridades para conseguir resultados
+								dentro de un tiempo menor previsto. Asesoría y
+								consultorías de acuerdo a las necesidades de las
+								instituciones en Gestión Pública.
+							</p>
+						</div>
+						<div class="nuestros-servicios__item">
+							<h2>DESARROLLO ECONÓMICO RURAL</h2>
+							<p>
+								Promoción, Fomento y capacitación empresarial
+								través de la constitución y apoyo integral del
+								funcionamiento de las empresas comunales y
+								cooperativas para promover el desarrollo
+								económico rural.
+							</p>
+						</div>
+					</div>
+					<div
+						class="nuestros-servicios__image flex flex-fd-c flex-ai-c"
+					>
+						<img
+							src="/dist/images/roberth-servicio.jpg"
+							alt="Nuestros Servicios | Oladeg"
+							width="300px"
+						/>
+					</div>
+				</div>
+			</div>
 
-    <%- include('../layouts/whatsapp.ejs') %>
-  </main> 
-  <%- include('../layouts/footerView.ejs') %>
-  <%- include('../layouts/scriptView.ejs') %>
-
-</body>
+			<%- include('../layouts/whatsapp.ejs') %>
+		</main>
+		<%- include('../layouts/footerView.ejs') %> <%-
+		include('../layouts/scriptView.ejs') %>
+	</body>
 </html>

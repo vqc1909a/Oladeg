@@ -1,38 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <%- include ('../partials/headView.ejs') %>
-</head>
-<body>
-  <%- include ('../layouts/headerView.ejs') %>
-   <main>
-     <h1 style="display: none;">OLADEG &#8211; Desarrollo Rural y Gobiernos Locales</h1>
-     <p style="display: none;">Oladeg es una ONG que va dirigido a los ciudadanos, líderes sociales, autoridades y funcionarios de gobiernos locales, regionales y organizacionales de la sociedad civil, a través de cursos, seminarios, talleres y pasantías a nivel Nacional e Internacional</p>
-     <section class="hero">
-       <div class="hero__wrapper_course">
-         <a class="hero__course" role="link" href="<%= `/cursos/` %>" title="Cursos | Oladeg">
-          <h2 class="hero__title">Cursos</h2>
-          <div class="hero__barra"></div>
-          <img loading="lazy" src="/images/cursos.jpg" alt="Cursos Oladeg">
-         </a>
-       </div>
-       <div class="hero__wrapper_course">
-         <a class="hero__course" role="link" href="<%= `/diplomados/` %>" title="Diplomados | Oladeg">
-          <h2 class="hero__title">Diplomados</h2>
-          <div class="hero__barra"></div>
-          <img loading="lazy" src="/images/diplomados.jpg" alt="Diplomados Oladeg">
-         </a>
-       </div>
-       <div class="hero__wrapper_course">
-         <a class="hero__course" role="link" href="<%= `/especializaciones/` %>" title="Especializaciones | Oladeg">
-          <h2 class="hero__title">Especializaciones</h2>
-          <div class="hero__barra"></div>
-          <img loading="lazy" src="/images/especializaciones.jpg" alt="Especializaciones Oladeg">
-         </a>
-       </div>
+	<head>
+		<%- include ('../partials/headView.ejs') %>
+	</head>
+	<body>
+		<%- include ('../layouts/headerView.ejs') %>
+		<main>
+			<h1 style="display: none">
+				OLADEG &#8211; Desarrollo Rural y Gobiernos Locales
+			</h1>
+			<p style="display: none">
+				Oladeg es una ONG que va dirigido a los ciudadanos, líderes
+				sociales, autoridades y funcionarios de gobiernos locales,
+				regionales y organizacionales de la sociedad civil, a través de
+				cursos, seminarios, talleres y pasantías a nivel Nacional e
+				Internacional
+			</p>
+			<section class="hero">
+				<div class="hero__wrapper_course">
+					<a
+						class="hero__course"
+						role="link"
+						href="<%= `/cursos/` %>"
+						title="Cursos | Oladeg"
+					>
+						<h2 class="hero__title">Cursos</h2>
+						<div class="hero__barra"></div>
+						<img
+							loading="lazy"
+							src="/dist/images/cursos.jpg"
+							alt="Cursos Oladeg"
+						/>
+					</a>
+				</div>
+				<div class="hero__wrapper_course">
+					<a
+						class="hero__course"
+						role="link"
+						href="<%= `/diplomados/` %>"
+						title="Diplomados | Oladeg"
+					>
+						<h2 class="hero__title">Diplomados</h2>
+						<div class="hero__barra"></div>
+						<img
+							loading="lazy"
+							src="/dist/images/diplomados.jpg"
+							alt="Diplomados Oladeg"
+						/>
+					</a>
+				</div>
+				<div class="hero__wrapper_course">
+					<a
+						class="hero__course"
+						role="link"
+						href="<%= `/especializaciones/` %>"
+						title="Especializaciones | Oladeg"
+					>
+						<h2 class="hero__title">Especializaciones</h2>
+						<div class="hero__barra"></div>
+						<img
+							loading="lazy"
+							src="/dist/images/especializaciones.jpg"
+							alt="Especializaciones Oladeg"
+						/>
+					</a>
+				</div>
 
-       <div class="hero__image1">
-        <!-- <svg width="251" height="300" viewBox="0 0 260 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<div class="hero__image1">
+					<!-- <svg width="251" height="300" viewBox="0 0 260 300" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="HOMBRE">
         <g id="flor-izquierda">
         <path id="Vector" d="M143.864 283.065C165.504 298.655 193.548 299.438 220.656 297.523C224.441 297.255 228.199 296.942 231.923 296.604C231.945 296.598 231.975 296.6 231.998 296.594C232.177 296.577 232.356 296.56 232.527 296.55C233.296 296.478 234.065 296.406 234.826 296.334L234.646 296.677L234.082 297.742C234.285 297.386 234.487 297.037 234.69 296.68C234.75 296.573 234.817 296.467 234.876 296.36C241.898 284.14 248.863 271.471 250.64 257.517C252.476 243.033 247.315 226.633 234.568 219.514C232.896 218.583 231.126 217.842 229.29 217.303C228.527 217.072 227.755 216.884 226.973 216.718C222.192 215.656 217.215 215.887 212.553 217.387C207.891 218.886 203.713 221.601 200.448 225.25C197.183 228.9 194.949 233.354 193.975 238.153C193.002 242.953 193.325 247.925 194.91 252.558C184.103 241.476 186.119 223.499 189.847 208.474C193.582 193.449 198.104 176.73 190.507 163.235C186.283 155.724 178.857 151.064 170.522 149.186C170.267 149.131 170.011 149.076 169.755 149.028C159.825 147.017 149.501 148.826 140.847 154.094C124.91 164.136 116.725 183.176 114.069 201.828C109.789 231.843 119.261 265.339 143.864 283.065Z" fill="#992211"/>
@@ -57,10 +92,13 @@
         <path id="piso-izquierda" d="M249.979 299.852H1.18182C1.00863 299.852 0.842544 299.646 0.72008 299.28C0.597617 298.914 0.528809 298.417 0.528809 297.898C0.528809 297.38 0.597617 296.883 0.72008 296.517C0.842544 296.15 1.00863 295.944 1.18182 295.944H249.979C250.152 295.944 250.318 296.15 250.441 296.517C250.563 296.883 250.632 297.38 250.632 297.898C250.632 298.417 250.563 298.914 250.441 299.28C250.318 299.646 250.152 299.852 249.979 299.852Z" fill="#3F3D56"/>
         </g>
         </svg> -->
-        <img src="/images/separator.jpg" alt="Separator | Oladeg">
-       </div>
+					<img
+						src="/dist/images/separator.jpg"
+						alt="Separator | Oladeg"
+					/>
+				</div>
 
-       <!-- <div class="hero__image2">
+				<!-- <div class="hero__image2">
         <svg width="201" height="199" viewBox="0 0 201 199" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="Estudiante-medio">
         <path id="Vector" d="M76.3729 181.841C75.569 179.96 74.807 177.796 75.6109 175.914C76.1357 174.806 77.0371 173.934 78.1446 173.464C79.2405 173.004 80.3956 172.711 81.5736 172.593C85.271 172.094 89.0124 172.042 92.7216 172.437C92.9921 174.64 92.4206 176.874 91.9291 179.003C91.4834 180.963 91.2281 181.253 89.2621 181.355C87.9896 181.426 76.6739 182.535 76.3729 181.841Z" fill="#FBBEBE"/>
@@ -132,7 +170,7 @@
         </svg>
 
        </div> -->
-       <!-- <div class="hero__image3">
+				<!-- <div class="hero__image3">
           <svg width="251" height="299" viewBox="0 0 260 299" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="MUJER">
           <g id="flor-derecha">
@@ -159,88 +197,168 @@
           </g>
           </svg>
        </div> -->
-     </section>
+			</section>
 
-     <section class="nosotros flex flex-ai-c">
-       <div class="wrapper-nosotros container">
-        <h2>Acerca De Nosotros</h2>
-        <div class="nosotros__grid">
-          <div class="nosotros__item">
-            <a href="<%= `/quienes-somos/` %>" class="nosotros__image" role="link" title="¿Quienes Somos? | Oladeg" >
-              <img loading="lazy" src="/images/quienes-somos2.jpg" alt="¿Quienes Somos? Oladeg">
-            </a>
-            <div class="nosotros__text">
-              <h3 class="nosotros__title"><a href="<%= `/quienes-somos/` %>" role="link" title="¿Quienes Somos? | Oladeg">¿Quienes Somos?</a>              
-              </h3>
-            </div>
-          </div>
-          <div class="nosotros__item">
-            <a href="<%= `/nuestra-experiencia/` %>" class="nosotros__image" role="link" title="Nuestra Experiencia | Oladeg">
-              <img loading="lazy"  src="/images/nuestra-experiencia.jpg" alt="Nuestra Experiencia Oladeg">
-            </a>
-            <div class="nosotros__text">
-              <h3 class="nosotros__title"><a href="<%= `/nuestra-experiencia/` %>" role="link" title="Nuestra Experiencia | Oladeg">Nuestra Experiencia</a></h3>
-            </div>
-          </div>
-          <div class="nosotros__item">
-            <a href="<%= `/nuestros-servicios/` %>" class="nosotros__image" role="link" title="Nuestros Servicios | Oladeg">
-              <img loading="lazy" src="/images/banner3.jpg" alt="Nuestros Servicios Oladeg">
-            </a>
-            <div class="nosotros__text">
-              <h3 class="nosotros__title"><a href="<%= `/nuestros-servicios/` %>" role="link" title="Nuestros Servicios | Oladeg">Nuestros Servicios</a></h3>
-            </div>
-          </div>
-        </div>
-       </div>
-     </section>
+			<section class="nosotros flex flex-ai-c">
+				<div class="wrapper-nosotros container">
+					<h2>Acerca De Nosotros</h2>
+					<div class="nosotros__grid">
+						<div class="nosotros__item">
+							<a
+								href="<%= `/quienes-somos/` %>"
+								class="nosotros__image"
+								role="link"
+								title="¿Quienes Somos? | Oladeg"
+							>
+								<img
+									loading="lazy"
+									src="/dist/images/quienes-somos2.jpg"
+									alt="¿Quienes Somos? Oladeg"
+								/>
+							</a>
+							<div class="nosotros__text">
+								<h3 class="nosotros__title">
+									<a
+										href="<%= `/quienes-somos/` %>"
+										role="link"
+										title="¿Quienes Somos? | Oladeg"
+										>¿Quienes Somos?</a
+									>
+								</h3>
+							</div>
+						</div>
+						<div class="nosotros__item">
+							<a
+								href="<%= `/nuestra-experiencia/` %>"
+								class="nosotros__image"
+								role="link"
+								title="Nuestra Experiencia | Oladeg"
+							>
+								<img
+									loading="lazy"
+									src="/dist/images/nuestra-experiencia.jpg"
+									alt="Nuestra Experiencia Oladeg"
+								/>
+							</a>
+							<div class="nosotros__text">
+								<h3 class="nosotros__title">
+									<a
+										href="<%= `/nuestra-experiencia/` %>"
+										role="link"
+										title="Nuestra Experiencia | Oladeg"
+										>Nuestra Experiencia</a
+									>
+								</h3>
+							</div>
+						</div>
+						<div class="nosotros__item">
+							<a
+								href="<%= `/nuestros-servicios/` %>"
+								class="nosotros__image"
+								role="link"
+								title="Nuestros Servicios | Oladeg"
+							>
+								<img
+									loading="lazy"
+									src="/dist/images/banner3.jpg"
+									alt="Nuestros Servicios Oladeg"
+								/>
+							</a>
+							<div class="nosotros__text">
+								<h3 class="nosotros__title">
+									<a
+										href="<%= `/nuestros-servicios/` %>"
+										role="link"
+										title="Nuestros Servicios | Oladeg"
+										>Nuestros Servicios</a
+									>
+								</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 
-     <div class="main">
-       <h2 class="container">Anuncios</h2>
-       <div class="main__content container">
-         <section class="anuncios">
-          <% if(anuncios.length !== 0) { %>
-            <% anuncios.forEach(function(anuncio) {  %>
-              <div class="anuncios__item">
-                <a href="<%= `/anuncio/${anuncio.Url}` %>" class="anuncios__image" role="link" title="<%= `${anuncio.Title} | Oladeg` %>" > 
-                  <img loading="lazy" src="<%= `${anuncio.Portada}` %>" alt="<%= `Anuncio ${anuncio.Title}` %>" />
-                </a>
-                <div class="anuncios__text flex flex-fd-c flex-jc-c">
-                  <h3 class="anuncios__title"><a href="<%= `/anuncio/${anuncio.Url}` %>" title="<%= `${anuncio.Title} | Oladeg` %>" role="link"><%= anuncio.Titulo %></a></h3>
-                  <p class="anuncios__description"><%= anuncio.metadescripcion %>...</p>
-                  <p class="anuncios__time flex flex-ai-c">
-                    <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Oladeg">
-                    <time datetime="<%= anuncio.created_at %>" class="flex flex-ai-c"><%= `${anuncio.month} ${anuncio.date}, ${anuncio.year}`%></time>
-                  </p>
-                  <a href="<%= `/anuncio/${anuncio.Url}` %>" role="link" class="anuncios__link" title="<%= `${anuncio.Title} | Oladeg` %>">Leer Más</a>
-                </div>
-              </div>
-            <% }); %> 
-          <% } %>
+			<div class="main">
+				<h2 class="container">Anuncios</h2>
+				<div class="main__content container">
+					<section class="anuncios">
+						<% if(anuncios.length !== 0) { %> <%
+						anuncios.forEach(function(anuncio) { %>
+						<div class="anuncios__item">
+							<a
+								href="<%= `/anuncio/${anuncio.Url}` %>"
+								class="anuncios__image"
+								role="link"
+								title="<%= `${anuncio.Title} | Oladeg` %>"
+							>
+								<img
+									loading="lazy"
+									src="<%= `${anuncio.Portada}` %>"
+									alt="<%= `Anuncio ${anuncio.Title}` %>"
+								/>
+							</a>
+							<div
+								class="anuncios__text flex flex-fd-c flex-jc-c"
+							>
+								<h3 class="anuncios__title">
+									<a
+										href="<%= `/anuncio/${anuncio.Url}` %>"
+										title="<%= `${anuncio.Title} | Oladeg` %>"
+										role="link"
+										><%= anuncio.Titulo %></a
+									>
+								</h3>
+								<p class="anuncios__description">
+									<%= anuncio.metadescripcion %>...
+								</p>
+								<p class="anuncios__time flex flex-ai-c">
+									<img
+										loading="lazy"
+										src="/dist/icons/Clock.svg"
+										alt="Datetime Oladeg"
+									/>
+									<time
+										datetime="<%= anuncio.created_at %>"
+										class="flex flex-ai-c"
+										><%= `${anuncio.month} ${anuncio.date},
+										${anuncio.year}`%></time
+									>
+								</p>
+								<a
+									href="<%= `/anuncio/${anuncio.Url}` %>"
+									role="link"
+									class="anuncios__link"
+									title="<%= `${anuncio.Title} | Oladeg` %>"
+									>Leer Más</a
+								>
+							</div>
+						</div>
+						<% }); %> <% } %>
 
-          <!-- <div class="anuncios__item">
+						<!-- <div class="anuncios__item">
             <a href="<%= `/anuncio/i-primer-encuentro` %>" class="anuncios__image" role="link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"> 
-              <img loading="lazy" src="/images/anuncio.jpg" alt="Anuncio I Primer Encuentro de Sostenibilidad en las Empresas Comunales">
+              <img loading="lazy" src="/dist/images/anuncio.jpg" alt="Anuncio I Primer Encuentro de Sostenibilidad en las Empresas Comunales">
             </a>
             <div class="anuncios__text flex flex-fd-c flex-jc-c">
               <h3 class="anuncios__title"><a href="<%= `/anuncio/i-primer-encuentro` %>" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg" role="link">I Primer Encuentro de Sostenibilidad en las Empresas Comunales</a></h3>
               <p class="anuncios__description">En el perú existen más de siete mil comunidades que representan más del cuarenta por ciento del territorio nacional en el perú existen más de sietessssssssssssssssssss...</p>
               <p class="anuncios__time flex flex-ai-c">
-                <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Oladeg">
+                <img loading="lazy" src="/dist/icons/Clock.svg" alt="Datetime Oladeg">
                 <time datetime="2008-02-14 20:00" class="flex flex-ai-c">JULY 23, 2019</time>
               </p>
               <a href="<%= `/anuncio/i-primer-encuentro` %>" role="link" class="anuncios__link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg">Leer Más</a>
             </div>
           </div> -->
-          
-          <%- include('../partials/buttonsView.ejs') %>
-         </section>
-        <%- include('../layouts/sidebarView.ejs') %>
-       </div>
-     </div>
-     <%- include('../layouts/whatsapp.ejs') %>
-   </main> 
-  <%- include('../layouts/footerView.ejs') %>
-  <%- include('../layouts/scriptView.ejs') %>
 
-</body>
+						<%- include('../partials/buttonsView.ejs') %>
+					</section>
+					<%- include('../layouts/sidebarView.ejs') %>
+				</div>
+			</div>
+			<%- include('../layouts/whatsapp.ejs') %>
+		</main>
+		<%- include('../layouts/footerView.ejs') %> <%-
+		include('../layouts/scriptView.ejs') %>
+	</body>
 </html>

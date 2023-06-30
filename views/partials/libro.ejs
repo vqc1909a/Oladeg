@@ -1,15 +1,40 @@
 <div class="boletines__item appear-content">
-   <h2 class="boletines__title"><a href="<%= `${protocol}://${host}/libro/${libro.Url}` %>" title="<%= `${libro.Titulo} | Oladeg` %>" role="link">"<%= libro.Titulo %>"</a></h2>
-   <p class="boletines__time flex flex-ai-c">
-     <img loading="lazy" src="/icons/Clock.svg" alt="Datetime Libro">
-     <time datetime="<%= libro.created_at %>" class="flex flex-ai-c"><%= `${libro.fecha_month} ${libro.fecha_date}, ${libro.fecha_year}` %></time>
-   </p>
-   <div class="boletines__image">
-     <a  href="<%= `${protocol}://${host}/libro/${libro.Url}` %>" title="<%= `${libro.Titulo} | Oladeg` %>" role="link">
-       <img loading="lazy" src="<%= libro.Portada %>" alt="<%= `Libro ${libro.Titulo}` %>">
-     </a>
-   </div>
-   <div class="boletines__button">
-     <a  href="<%= `${protocol}://${host}/libro/${libro.Url}` %>" title="<%= `${libro.Titulo} | Oladeg` %>" role="link" type="button" class="button">Más Información</a>
-   </div>
- </div>
+	<h2 class="boletines__title">
+		<a
+			href="<%= `${protocol}://${host}/libro/${libro.Url}` %>"
+			title="<%= `${libro.Titulo} | Oladeg` %>"
+			role="link"
+			>"<%= libro.Titulo %>"</a
+		>
+	</h2>
+	<p class="boletines__time flex flex-ai-c">
+		<img loading="lazy" src="/dist/icons/Clock.svg" alt="Datetime Libro" />
+		<time datetime="<%= libro.created_at %>" class="flex flex-ai-c"
+			><%= `${libro.fecha_month} ${libro.fecha_date}, ${libro.fecha_year}`
+			%></time
+		>
+	</p>
+	<div class="boletines__image">
+		<a
+			href="<%= `${protocol}://${host}/libro/${libro.Url}` %>"
+			title="<%= `${libro.Titulo} | Oladeg` %>"
+			role="link"
+		>
+			<img
+				loading="lazy"
+				src="<%= libro.Portada %>"
+				alt="<%= `Libro ${libro.Titulo}` %>"
+			/>
+		</a>
+	</div>
+	<div class="boletines__button">
+		<a
+			href="<%= `${protocol}://${host}/libro/${libro.Url}` %>"
+			title="<%= `${libro.Titulo} | Oladeg` %>"
+			role="link"
+			type="button"
+			class="button"
+			>Más Información</a
+		>
+	</div>
+</div>
