@@ -4,6 +4,8 @@ import * as dotenv from 'dotenv';
 
 import homeRoute from "./routes/homeRoute.js";
 import infoRoute from "./routes/infoRoute.js";
+import anuncioRoute from "./routes/anuncioRoute.js";
+
 
 dotenv.config({path: ".env"});
 const app = express();
@@ -21,7 +23,7 @@ app.set('views', './views');
 //Routes
 app.use('/', homeRoute);
 app.use('/', infoRoute);
-// app.use('/', require("./routes/anuncioRoute"));
+app.use('/', anuncioRoute);
 // app.use('/', require("./routes/cursoRoute"));
 // app.use('/', require("./routes/diplomadoRoute"));
 // app.use('/', require("./routes/especializacionRoute"));

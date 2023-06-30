@@ -1,6 +1,6 @@
-const axios = require("axios");
-const showdown = require("showdown");
-const { htmlToText } = require("html-to-text");
+import axios from "axios";
+import showdown from "showdown";
+import { htmlToText } from "html-to-text";
 const converter = new showdown.Converter();
 converter.setOption('strikethrough', true);
 converter.setOption('openLinksInNewWindow', true);
@@ -10,7 +10,7 @@ const monthNames = ["Enero", "Febreo", "Marzo", "Abril", "Mayo", "Junio",
   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
 ];
 
-exports.obtenerAnuncios = async () => {
+export const obtenerAnuncios = async () => {
   let {data} = await axios.get(process.env.BACKEND_URI + '/anuncios');
   let anuncios = data.map((anuncio) => {
     let fecha = new Date(anuncio.created_at)
@@ -27,7 +27,7 @@ exports.obtenerAnuncios = async () => {
   return anuncios.reverse();
 }
 
-exports.obtenerCursos = async () => {
+export const obtenerCursos = async () => {
   let {data} = await axios.get(process.env.BACKEND_URI + '/cursos-diplomado-especializaciones');
   let cursos = data.filter(dat => dat.TipoDeContenido === "CURSO");
   cursos = cursos.map(curso => {
@@ -64,7 +64,7 @@ exports.obtenerCursos = async () => {
   return cursos.reverse();
 }
 
-exports.obtenerDiplomados = async () => {
+export const obtenerDiplomados = async () => {
   let {data} = await axios.get(process.env.BACKEND_URI + '/cursos-diplomado-especializaciones');
   let diplomados = data.filter(dat => dat.TipoDeContenido === "DIPLOMADO");
   diplomados = diplomados.map(diplo => {
@@ -102,7 +102,7 @@ exports.obtenerDiplomados = async () => {
 }
 
 
-exports.obtenerEspecializaciones = async () => {
+export const obtenerEspecializaciones = async () => {
   let {data} = await axios.get(process.env.BACKEND_URI + '/cursos-diplomado-especializaciones');
   let especializaciones = data.filter(dat => dat.TipoDeContenido === "ESPECIALIZACION");
   especializaciones = especializaciones.map(espe => {
@@ -139,7 +139,7 @@ exports.obtenerEspecializaciones = async () => {
   return especializaciones.reverse();
 }
 
-exports.obtenerLibros = async () => {
+export const obtenerLibros = async () => {
   let {data} = await axios.get(process.env.BACKEND_URI + '/biblioteca-digitals');
   let libros = data;
   libros = libros.map(lib => {
@@ -157,7 +157,7 @@ exports.obtenerLibros = async () => {
   return libros.reverse();
 }
 
-exports.obtenerBoletines = async () => {
+export const obtenerBoletines = async () => {
   let {data} = await axios.get(process.env.BACKEND_URI + '/boletines');
   let boletines = data;
   boletines = boletines.map(bol => {
@@ -175,7 +175,7 @@ exports.obtenerBoletines = async () => {
   return boletines.reverse();
 }
 
-exports.obtenerUltimaPublicidad = async () => {
+export const obtenerUltimaPublicidad = async () => {
   let {data} = await axios.get(process.env.BACKEND_URI + '/publicidads');
   let publicidad = data.reverse()[0];
   if(publicidad) publicidad.Imagen = process.env.BACKEND_URI + publicidad.Imagen.url;

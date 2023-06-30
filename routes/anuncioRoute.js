@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
 const Router = express.Router();
-const {mostrarAnuncio} = require("../controllers/anuncioController");
+import * as anuncioController from "../controllers/anuncioController.js";
 
-Router.get('/anuncio/:anuncio', mostrarAnuncio);
+Router.get('/anuncio/:anuncio', anuncioController.mostrarAnuncio);
 
-module.exports = Router;
+export default Router;
