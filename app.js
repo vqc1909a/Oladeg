@@ -3,6 +3,7 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 
 import homeRoute from "./routes/homeRoute.js";
+import infoRoute from "./routes/infoRoute.js";
 
 dotenv.config({path: ".env"});
 const app = express();
@@ -19,7 +20,7 @@ app.set('views', './views');
 
 //Routes
 app.use('/', homeRoute);
-// app.use('/', require("./routes/infoRoute"));
+app.use('/', infoRoute);
 // app.use('/', require("./routes/anuncioRoute"));
 // app.use('/', require("./routes/cursoRoute"));
 // app.use('/', require("./routes/diplomadoRoute"));

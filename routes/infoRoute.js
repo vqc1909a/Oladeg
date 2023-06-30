@@ -1,25 +1,13 @@
-const express = require("express");
+import express from "express";
 const Router = express.Router();
-const {
-  mostrarPaginaConsultorias, 
-  mostrarPaginaQuienesSomos,
-  mostrarPaginaNuestraExperiencia,
-  mostrarPaginaNuestrosServicios,
-  mostrarPaginaFormasDePago,
-  mostrarPaginaContacto
-} = require("../controllers/infoController");
+import * as infoController from "../controllers/infoController.js";
 
 
-Router.get('/consultorias', mostrarPaginaConsultorias);
-Router.get('/quienes-somos', mostrarPaginaQuienesSomos);
-Router.get('/nuestra-experiencia', mostrarPaginaNuestraExperiencia);
-Router.get('/nuestros-servicios', mostrarPaginaNuestrosServicios);
-Router.get('/formas-de-pago', mostrarPaginaFormasDePago);
-Router.get('/contacto', mostrarPaginaContacto);
+Router.get('/consultorias', infoController.mostrarPaginaConsultorias);
+Router.get('/quienes-somos', infoController.mostrarPaginaQuienesSomos);
+Router.get('/nuestra-experiencia', infoController.mostrarPaginaNuestraExperiencia);
+Router.get('/nuestros-servicios', infoController.mostrarPaginaNuestrosServicios);
+Router.get('/formas-de-pago', infoController.mostrarPaginaFormasDePago);
+Router.get('/contacto', infoController.mostrarPaginaContacto);
 
-
-
-
-
-
-module.exports = Router;
+export default Router;

@@ -1,5 +1,6 @@
 .formas-de-pago{
-  padding: 3rem 0;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   color: $dark;
   &__intro{
     h1{
@@ -14,6 +15,7 @@
     p{
       font-family: 'Nunito Bold', sans-serif;
       font-size: $font-nm-dt;
+      margin-bottom: 3rem;
       @include breakpoint-up(large) {
         font-size: $font-lg;
       }
@@ -24,9 +26,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 1fr);
     column-gap: 1.5rem;
-    row-gap: 2rem;
-    min-height: 80vh ;
-    margin-top: 2rem;
+    row-gap: 4rem;
     @include breakpoint-up(large) {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
