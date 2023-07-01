@@ -11,10 +11,13 @@ import passport from "./config/passport.js";
 import homeRoute from "./routes/homeRoute.js";
 import infoRoute from "./routes/infoRoute.js";
 import anuncioRoute from "./routes/anuncioRoute.js";
+import authRoute from "./routes/authRoute.js";
+
 
 import {connectDB, sequelize} from "./config/db.js";
 import User from "./models/UserModel.js";
 
+import * as ROUTES from "./config/routes.js";
 
 dotenv.config({path: ".env"});
 
@@ -92,6 +95,8 @@ connectDB().then(async () => {
   app.use('/', homeRoute);
   app.use('/', infoRoute);
   app.use('/', anuncioRoute);
+  app.use('/', authRoute);
+
   // app.use('/', require("./routes/cursoRoute"));
   // app.use('/', require("./routes/diplomadoRoute"));
   // app.use('/', require("./routes/especializacionRoute"));

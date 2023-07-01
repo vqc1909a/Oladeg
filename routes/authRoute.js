@@ -1,6 +1,7 @@
 import express from "express";
-const Router = express.Router();
 import * as authController from "../controllers/authController.js";
+
+const Router = express.Router();
 
 Router.get('/iniciar-sesion', authController.mostrarPaginaInicioSesion);
 Router.post('/iniciar-sesion', authController.iniciarSesion);
