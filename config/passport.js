@@ -12,18 +12,25 @@ passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'passwor
     try{
       const user = await User.findOne({ where: {email}});
       //EL arguemnto info tiene que tener la sigueitne estructura para imprimir mensajes en los redirects
-      if(!user) return done(null, false, {
+      if(!user) return done(null, false, {  
           message: "Email y/o contraseña inválidos"
       });
       if(!user.comparePassword(password)) return done(null, false, {
           message: "Email y/o contraseña inválidos"
       });
-      if(!user.activo){
+      //Esto aplicarlo solamente para el usuario admin
+      if(!user.activo && user.isAdmin){
           const token = uuidv4();
           await enviarEmailConfirmacion(user.nombre, user.email, token, req);
           await establecerTokenPassword(user, token);
           return done(null, false, {
               message: "Tu cuenta no ha sido confirmada. Hemos enviado un E-mail para que confirme su cuenta"
+          });
+      }
+      //Aplicar para los usuarios colaboradores
+      if(!user.activo && !user.isAdmin){
+          return done(null, false, {
+              message: "Tu cuenta no esta activa. Por favor comunicate con el administrador para que active tu cuenta"
           });
       }
       return done(null, user);

@@ -77,6 +77,11 @@ const User = sequelize.define('User', {
     hooks: {
         beforeCreate(usuario){
             usuario.password = User.prototype.hashPassword(usuario.password);
+        },
+        beforeBulkCreate(usuarios){
+            usuarios.forEach((usuario) => {
+                usuario.password = User.prototype.hashPassword(usuario.password)
+            })
         }
     }
 });

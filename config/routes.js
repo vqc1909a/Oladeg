@@ -1,11 +1,14 @@
 //HOME ROUTES
-export const MOSTRAR_HOME = "/";
+export const HOME = "/";
 
 //AUTH ROUTES
-export const CREAR_CUENTA = "/account/register";
-export const INICIAR_SESION = "/account/login";
-export const CONFIRMAR_CUENTA = "/account/confirm/:token";
-export const CERRAR_SESION = "/account/logout";
+export const LOGIN = "/account/login";
+export const REGISTER = "/account/register";
+export const CONFIRM_ACCOUNT = "/account/confirm/:token";
+export const LOGOUT = "/account/logout";
+export const FORGOT_PASSWORD = "/account/forgot-password";
+export const RECOVER_PASSWORD = "/account/recover-password";
+
 
 //INFO ROUTES
 export const MOSTRAR_CONSULTORIAS = "/consultorias";
@@ -33,7 +36,7 @@ export const ELIMINAR_MEETI = "/admin/meeti/:id/delete";
 export const PERFIL = "/admin/profile";
 export const EDITAR_PASSWORD_PERFIL = "/admin/profile/edit-password";
 export const EDITAR_IMAGEN_PERFIL = "/admin/profile/edit-image";
-export const CONFIRMAR_NUEVO_CORREO = "/admin/profile/confirm/:token";
+export const CONFIRM_NEW_EMAIL = "/admin/profile/confirm-email/:token";
 
 //ANUNCIO ROUTES
 export const MOSTRAR_ANUNCIO = "/anuncios/:anuncio";

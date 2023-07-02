@@ -1,10 +1,10 @@
 //Aqui utilizamos dotenv xq no los estamos ejeecutando dentro del server donde instanciamos el dotenv
 import colors from "colors";
 //!Models
-import Category from "./models/CategoryModel.js";
+import User from "./models/UserModel.js";
 
 //!Data
-import categories from "./data/categories.js";
+import users from "./data/users.js";
 
 //!DB
 import { connectDB } from "./config/db.js";
@@ -12,8 +12,8 @@ import { connectDB } from "./config/db.js";
 
 const importData = async () => {
     try{
-        await Promise.all([Category.destroy({where: {}})])
-        await Category.bulkCreate(categories);
+        await Promise.all([User.destroy({where: {}})])
+        await User.bulkCreate(users);
 
         console.log('Data Imported!'.green.inverse);
         process.exit(0);
@@ -25,7 +25,7 @@ const importData = async () => {
 
 const destroyData = async () => {
     try{
-        await Promise.all([Category.destroy({where: {}})])
+        await Promise.all([User.destroy({where: {}})])
         console.log('Data Destroyed!'.green.inverse);
         process.exit(0);
     }catch(err){

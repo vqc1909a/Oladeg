@@ -17,7 +17,7 @@ const transport = nodemailer.createTransport({
 export const enviarEmailConfirmacion = async (nombre, email, token, req) => {
    //El transport se va a autenticar en mailtrap y acceder a sus servicio de mailtrap
    let info = await transport.sendMail({
-    from: '"Meeti 🏡" <vqc1909a@rosec.online>',
+    from: '"Meeti 🏡" <roberth@oladeg.org>',
     to: email,
     subject: "Confirma tu cuenta en Meeti",
     text: `Hola ${nombre}, confirma tu cuenta en Meeti`,
@@ -26,7 +26,7 @@ export const enviarEmailConfirmacion = async (nombre, email, token, req) => {
         <p style="font-family: Arial, Helvetica">Hola ${nombre}, confirma tu cuenta en Meeti</p>
 
         <p style="font-family: Arial, Helvetica">Tu cuenta ya esta lista, estas a un paso de comenzar a crear una comunidad en Meeti, solo debes confirmarla en las próximas 24 horas a través del siguiente enlace:</p>
-        <a style="display: block; font-family: Arial, Helvetica; padding: 1rem; background-color: #00C897; color: white; text-transform: uppercase; text-align: center; text-decoration: none;" href="${req.protocol}://${req.get('host')}${ROUTES.CONFIRMAR_CUENTA.replace(':token', token)}">Confirmar cuenta</a>
+        <a style="display: block; font-family: Arial, Helvetica; padding: 1rem; background-color: #00C897; color: white; text-transform: uppercase; text-align: center; text-decoration: none;" href="${req.protocol}://${req.get('host')}${ROUTES.CONFIRM_ACCOUNT.replace(':token', token)}">Confirmar cuenta</a>
 
         <p>Si tu no creaste esta cuenta, puedes ignorar el mensaje</p >
     `
@@ -37,7 +37,7 @@ export const enviarEmailConfirmacion = async (nombre, email, token, req) => {
 export const enviarEmailRecuperación = async (nombre, email, token, req) => {
    //El transport se va a autenticar en mailtrap y acceder a sus servicio de mailtrap
    let info = await transport.sendMail({
-    from: '"Meeti 🏡" <vqc1909a@rosec.online>', /* "Meeti" <noreply@empresa.com> => en caso de que no esperas respuestas de los destinatarios*/
+    from: '"Meeti 🏡" <roberth@oladeg.org>', /* "Meeti" <noreply@empresa.com> => en caso de que no esperas respuestas de los destinatarios*/
     to: email,
     subject: "Reestablece tu Password en Meeti",
     text: `Hola ${nombre}, reestablece tu password en Meeti`,
@@ -55,7 +55,7 @@ export const enviarEmailRecuperación = async (nombre, email, token, req) => {
 export const enviarEmailConfirmacionNuevoCorreo = async (nombre, email, token, req) => {
    //El transport se va a autenticar en mailtrap y acceder a sus servicio de mailtrap
    let info = await transport.sendMail({
-    from: '"Meeti 🏡" <vqc1909a@rosec.online>',
+    from: '"Meeti 🏡" <roberth@oladeg.org>',
     to: email,
     subject: "Confirma tu nuevo correo en Meeti",
     text: `Hola ${nombre}, confirma tu nuevo correo en Meeti`,
@@ -64,7 +64,7 @@ export const enviarEmailConfirmacionNuevoCorreo = async (nombre, email, token, r
         <p style="font-family: Arial, Helvetica">Hola ${nombre}, confirma tu nuevo correo en Meeti</p>
 
         <p style="font-family: Arial, Helvetica">Tu nuevo correo ya esta lista, solo debes confirmarla en las próximas 24 horas a través del siguiente enlace:</p>
-        <a style="display: block; font-family: Arial, Helvetica; padding: 1rem; background-color: #00C897; color: white; text-transform: uppercase; text-align: center; text-decoration: none;" href="${req.protocol}://${req.get('host')}${ROUTES.CONFIRMAR_NUEVO_CORREO.replace(':token', token)}?email=${email}">Confirmar nuevo correo</a>
+        <a style="display: block; font-family: Arial, Helvetica; padding: 1rem; background-color: #00C897; color: white; text-transform: uppercase; text-align: center; text-decoration: none;" href="${req.protocol}://${req.get('host')}${ROUTES.CONFIRM_NEW_EMAIL.replace(':token', token)}?email=${email}">Confirmar nuevo correo</a>
 
         <p>Si tu no creaste esta cuenta, puedes ignorar el mensaje</p >
     `

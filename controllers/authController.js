@@ -20,7 +20,7 @@ export const crearNuevaCuenta = async (req, res) => {
         if(userSearched){
             req.flash('error', "El usuario ya se encuentra registrado");
             req.flash('fields', { nombre: req.body.nombre, email: req.body.email })
-            return res.redirect(ROUTES.CREAR_CUENTA);
+            return res.redirect(ROUTES.REGISTER);
         }
 
         const user = await User.build(req.body);
@@ -34,7 +34,7 @@ export const crearNuevaCuenta = async (req, res) => {
             const erroresExpress = errorsExpress.array().map(err => err.msg)
             req.flash('error', erroresExpress);
             req.flash('fields', { nombre: req.body.nombre, email: req.body.email })
-            return res.redirect(ROUTES.CREAR_CUENTA);
+            return res.redirect(ROUTES.REGISTER);
         }
         const userSaved = await user.save();
         //Enviar email de confirmación
@@ -45,7 +45,7 @@ export const crearNuevaCuenta = async (req, res) => {
         //Establecemos una hora para la expiración del token
         await establecerTokenPassword(userSaved, token);
         req.flash('success', 'Hemos enviado un E-mail, confirma tu cuenta');
-        return res.redirect(ROUTES.INICIAR_SESION);
+        return res.redirect(ROUTES.LOGIN);
     }catch(err){
         let erroresSequelize = []
         //Vamos a obtener los errores del propio modelo si no cumple laredirects restricciones que le pusimos para cada campo
@@ -56,18 +56,24 @@ export const crearNuevaCuenta = async (req, res) => {
         }
         req.flash('error', erroresSequelize);
         req.flash('fields', { nombre: req.body.nombre, email: req.body.email })
-        return res.redirect(ROUTES.CREAR_CUENTA);
+        return res.redirect(ROUTES.REGISTER);
     }
 }
 
-export const mostrarPaginaInicioSesion = async (req, res) => {
+export const mostrarPaginaIniciarSesion = async (req, res) => {
+    const idAuthenticatedUser = req.cookies.idAuthenticatedUser;
+    const user = await User.findByPk(idAuthenticatedUser)
+    console.log({
+        user
+    })
     try{
-        return res.render("admin/iniciar-sesion", {
+        return res.render("auth/login", {
             nombrePagina: "Iniciar Sesión",
+            cookie: user
         })
     }catch(err){
         req.flash("error", err.message);
-        return res.redirect(ROUTES.PAGINA_HOME);
+        return res.redirect(ROUTES.HOME);
     }
 }
 
@@ -126,32 +132,42 @@ export const iniciarSesion = async (req, res, next) => {
             //   user: false,
             //   info: { message: 'Email y/o contraseña inválidos' }
             // }
-
+           
             if(!user){
                 req.flash("error", info.message === "Missing credentials" ? "Ambos campos son obligatorios" : info.message);
-                return res.redirect(ROUTES.INICIAR_SESION)
+                req.flash('fields', { email: req.body.email });
+                return res.redirect(ROUTES.LOGIN)
             };
-
+            
+            //Verificar si marco la casilla Recordar Datos
+            if(req.body.remember){
+                res.cookie('idAuthenticatedUser', user.id, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production" ? true : false,
+                    sameSite: 'strict',
+                    maxAge: 60 * 60 * 24 * 365 //1 año
+                })
+            }
             const redirecTo = req.session.redirectTo || ROUTES.ADMIN;
             console.log({
-                redirecTo
+                redirecTo,
             })
             delete req.session.redirectTo;
-            //Antes de todo esto, basicamente me ejecuta todo lo que esta en la configuración de passport, solo que apartir de aqui me crea dicha propiedad "passport" en la sesion y su valor es producto de la serialización y me asigna un valor en la propiedad req.user, a esto se llama deserialización y su contenido depende de ello.
 
             //Metodo propio de passport
             req.login(user, err => {
                 if(err) {
-                    req.flash("error", err.toString());1
-                    return res.redirect(ROUTES.INICIAR_SESION)
+                    req.flash("error", err.toString());
+                    req.flash('fields', { email: req.body.email });
+                    return res.redirect(ROUTES.LOGIN)
                 }
-
                 return res.redirect(redirecTo);
             });
         })(req, res, next);
     }catch(err){
         req.flash("error", err.message)
-        return res.redirect(ROUTES.INICIAR_SESION);
+        req.flash('fields', { email: req.body.email });
+        return res.redirect(ROUTES.LOGIN);
     }
 }
 
@@ -164,15 +180,15 @@ export const confirmarCuenta = async (req, res) => {
         
         if(!user){
             req.flash('error', 'Hubo un error al confirmar su cuenta. Inténtelo de nuevo')
-            return res.redirect(ROUTES.INICIAR_SESION);
+            return res.redirect(ROUTES.LOGIN);
         }
         if(user.activo === 1){
             req.flash('error', 'Tu cuenta ya ha sido confirmada')
-            return res.redirect(ROUTES.INICIAR_SESION);
+            return res.redirect(ROUTES.LOGIN);
         }
         if(user.expiraToken.getTime() < new Date().getTime()){
             req.flash('error', 'Lo sentimos, el enlace de confirmación ha caducado. Puede generar un nuevo vínculo de restablecimiento desde la página de inicio de sesión.')
-            return res.redirect(ROUTES.INICIAR_SESION);
+            return res.redirect(ROUTES.LOGIN);
         }
         //Confirmar la cuenta
         user.tokenPassword = null;
@@ -181,10 +197,10 @@ export const confirmarCuenta = async (req, res) => {
         await user.save();
 
         req.flash('success', 'Cuenta confirmada exitosamente');
-        return res.redirect(ROUTES.INICIAR_SESION);
+        return res.redirect(ROUTES.LOGIN);
     }catch(err){
         req.flash('error', err.message);
-        return res.redirect(ROUTES.INICIAR_SESION);
+        return res.redirect(ROUTES.LOGIN);
     }
 }
 
@@ -193,10 +209,100 @@ export const cerrarSesion = async (req, res) => {
     return req.logout(function(err) {
         if (err) { 
             req.flash('error', err.toString());
-            return res.redirect(ROUTES.PAGINA_HOME);
+            return res.redirect(ROUTES.HOME);
         }
         // req.flash('success', 'Cerraste Sesión Correctamente');
-        return res.redirect(ROUTES.PAGINA_HOME);
+        return res.redirect(ROUTES.HOME);
     });
 }
 
+export const mostrarPaginaOlvidePassword = (req, res) => {
+    return res.render('auth/forgot-password', {
+        nombrePagina: "Olvide Password"
+    })
+}
+export const mostrarPaginaRecuperarPassword = async (req, res) => {
+    try{
+        const {token} = req.params;
+        const user = await User.findOne({where: {tokenPassword: token}});
+        if(!user){
+            req.flash('error', 'Hubo un error al reestablecer su cuenta. Inténtelo de nuevo')
+            return res.redirect("/auth/forgot-password");
+        }
+        return res.render('auth/restore-password', {
+            nombrePagina: "Reestablece tu Password"
+        })
+
+    }catch(err){
+        req.flash('error', err.message)
+        return res.redirect("/auth/forgot-password");
+    }
+}
+export const olvidePassword = async (req, res) => {
+    try{
+        const {email} = req.body;
+        let errorsExpress = validationResult(req);
+        //Comprobamos si hay errores de express
+        if(!errorsExpress.isEmpty()){
+            let errors = errorsExpress.errors.map(err => err.msg);
+            req.flash('error', errors);
+            req.flash('fields', { email })
+            return res.redirect("/auth/forgot-password");
+        }
+        const user = await User.findOne({where: {email}});
+        if(!user){
+            req.flash('error', 'El email no pertenece a ningún usuario registrado');
+            req.flash('fields', { email })
+            return res.redirect("/auth/forgot-password");
+        }
+        if(!user.activo){
+            req.flash("error", "Por favor, asegúrese de que ha confirmado su cuenta antes de intentar recuperar su contraseña")
+            req.flash('fields', { email })
+            return res.redirect("/auth/forgot-password");
+        }
+        
+        //Enviar email de recuperación de password
+        const token = uuidv4();
+        await enviarEmailRecuperación(user.nombre, user.email, token);
+        await establecerTokenPassword(user, token);
+        req.flash('success', 'Hemos enviado un E-mail para que recupere su cuenta');
+        res.redirect("/auth/forgot-password");
+    }catch(err){
+        req.flash("error", err.message);
+        res.redirect("/auth/forgot-password");
+    }
+}
+export const recuperarPassword = async (req, res) => {
+    try{
+        const {token} = req.params;
+        const {new_password, confirm_new_password} = req.body;
+        let errorsExpress = validationResult(req);
+        //Comprobamos si hay errores de express
+        if(!errorsExpress.isEmpty()){
+            let errors = errorsExpress.errors.map(err => err.msg);
+            req.flash('error', errors);
+            return res.redirect(`/auth/restore-password/${token}`);
+        }
+        const user = await User.findOne({where: {tokenPassword: token}});
+        if(new_password !== confirm_new_password){
+            req.flash('error', "La confirmación del nuevo password es incorrecto");
+            return res.redirect(`/auth/restore-password/${token}`);
+        }
+
+        if(user.expiraToken.getTime() < new Date().getTime()){
+            req.flash('error', 'Lo sentimos, el enlace de confirmación ha caducado. Puede generar un nuevo vínculo de restablecimiento desde la página de inicio de sesión')
+            return res.redirect("/auth/login");
+        }
+        //Cambiar password
+        user.password = user.hashPassword(new_password);
+        user.tokenPassword = null;
+        user.expiraToken = null;
+        await user.save();
+        req.flash('success', "Password Reestablecido Correctamente");
+        res.redirect(`/auth/login`);
+
+    }catch(err){
+        req.flash('error', err.message)
+        return res.redirect(`/auth/restore-password/${token}`);
+    }
+}
