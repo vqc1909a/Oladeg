@@ -12,6 +12,8 @@ import homeRoute from "./routes/homeRoute.js";
 import infoRoute from "./routes/infoRoute.js";
 import anuncioRoute from "./routes/anuncioRoute.js";
 import authRoute from "./routes/authRoute.js";
+import adminRoute from "./routes/adminRoute.js";
+
 
 import {connectDB, sequelize} from "./config/db.js";
 import User from "./models/UserModel.js";
@@ -40,14 +42,14 @@ connectDB().then(async () => {
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60, 
-        expires: 1000 * 60 * 60 
+        expires: 1000 * 60 * 60, 
     }
   }
   if(process.env.NODE_ENV === "production"){
     app.set('trust proxy', 1) // trust first proxy
     sess.cookie.secure = true // serve secure cookies
   }
-  app.use(session(sess))
+  app.use(session(sess));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());
@@ -58,6 +60,8 @@ connectDB().then(async () => {
   app.use('/', infoRoute);
   app.use('/', anuncioRoute);
   app.use('/', authRoute);
+  app.use('/', adminRoute);
+
 
   // app.use('/', require("./routes/cursoRoute"));
   // app.use('/', require("./routes/diplomadoRoute"));

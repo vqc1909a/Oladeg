@@ -6,11 +6,12 @@ import * as ROUTES from "../config/routes.js";
 const Router = express.Router();
 
 Router.get(ROUTES.LOGIN, authMiddleware.verificarUsuarioNoAutenticado, authController.mostrarPaginaIniciarSesion);
-Router.post(ROUTES.LOGIN, authValidation.iniciarSesion, authController.iniciarSesion);
+Router.post(ROUTES.LOGIN, authMiddleware.verificarUsuarioNoAutenticado, authValidation.iniciarSesion, authController.iniciarSesion);
+Router.get(ROUTES.FORGOT_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, authController.mostrarPaginaOlvidePassword);
+Router.post(ROUTES.FORGOT_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, /* validation  */ authController.olvidePassword);
+Router.get(ROUTES.RECOVER_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, authController.mostrarPaginaRecuperarPassword);
+Router.post(ROUTES.RECOVER_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, /* validation */authController.recuperarPassword);
+
 Router.get(ROUTES.CONFIRM_ACCOUNT, authController.confirmarCuenta);
-Router.get(ROUTES.FORGOT_PASSWORD, authController.mostrarPaginaOlvidePassword);
-Router.post(ROUTES.FORGOT_PASSWORD, authController.olvidePassword);
-Router.get(ROUTES.RECOVER_PASSWORD, authController.mostrarPaginaRecuperarPassword);
-Router.post(ROUTES.RECOVER_PASSWORD, authController.recuperarPassword);
 
 export default Router;

@@ -217,28 +217,14 @@ export const cerrarSesion = async (req, res) => {
 }
 
 export const mostrarPaginaOlvidePassword = (req, res) => {
+    
     return res.render('auth/forgot-password', {
         nombrePagina: "Olvide Password"
     })
 }
-export const mostrarPaginaRecuperarPassword = async (req, res) => {
-    try{
-        const {token} = req.params;
-        const user = await User.findOne({where: {tokenPassword: token}});
-        if(!user){
-            req.flash('error', 'Hubo un error al reestablecer su cuenta. Inténtelo de nuevo')
-            return res.redirect("/auth/forgot-password");
-        }
-        return res.render('auth/restore-password', {
-            nombrePagina: "Reestablece tu Password"
-        })
 
-    }catch(err){
-        req.flash('error', err.message)
-        return res.redirect("/auth/forgot-password");
-    }
-}
 export const olvidePassword = async (req, res) => {
+    //AQui me quede
     try{
         const {email} = req.body;
         let errorsExpress = validationResult(req);
@@ -272,8 +258,27 @@ export const olvidePassword = async (req, res) => {
         res.redirect("/auth/forgot-password");
     }
 }
+
+export const mostrarPaginaRecuperarPassword = async (req, res) => {
+    try{
+        const {token} = req.params;
+        const user = await User.findOne({where: {tokenPassword: token}});
+        if(!user){
+            req.flash('error', 'Hubo un error al reestablecer su cuenta. Inténtelo de nuevo')
+            return res.redirect("/auth/forgot-password");
+        }
+        return res.render('auth/restore-password', {
+            nombrePagina: "Reestablece tu Password"
+        })
+
+    }catch(err){
+        req.flash('error', err.message)
+        return res.redirect("/auth/forgot-password");
+    }
+}
 export const recuperarPassword = async (req, res) => {
     try{
+
         const {token} = req.params;
         const {new_password, confirm_new_password} = req.body;
         let errorsExpress = validationResult(req);

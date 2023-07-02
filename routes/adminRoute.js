@@ -9,7 +9,7 @@ import * as ROUTES from "../config/routes.js";
 
 const router = express.Router();
 
-router.get(ROUTES.ADMIN, authMiddleware.verificarUsuarioAutenticado, adminController.panelAdministracion);
+router.get(ROUTES.ADMIN, authMiddleware.verificarUsuarioAutenticado, adminController.mostrarPanelAdministracion);
 
 
 // PERFIL
