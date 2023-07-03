@@ -1,6 +1,6 @@
 import User from "../models/UserModel.js";
 import { body, validationResult} from "express-validator";
-import { enviarEmailConfirmacion, enviarEmailRecuperación } from "../helpers/email.js";
+import { enviarEmailConfirmacionCuenta, enviarEmailRecuperarPassword } from "../helpers/email.js";
 import { establecerTokenPassword } from "../helpers/user.js";
 import { v4 as uuidv4 } from 'uuid';
 import passport from "passport";
@@ -41,7 +41,7 @@ export const crearNuevaCuenta = async (req, res) => {
         const email = userSaved.email;
         const nombre = userSaved.nombre;
         const token = uuidv4();
-        await enviarEmailConfirmacion(nombre, email, token, req);
+        await enviarEmailConfirmacionCuenta(nombre, email, token, req);
         //Establecemos una hora para la expiración del token
         await establecerTokenPassword(userSaved, token);
         req.flash('success', 'Hemos enviado un E-mail, confirma tu cuenta');
@@ -204,27 +204,18 @@ export const confirmarCuenta = async (req, res) => {
     }
 }
 
-export const cerrarSesion = async (req, res) => {
-    //Metodo propio de passport
-    return req.logout(function(err) {
-        if (err) { 
-            req.flash('error', err.toString());
-            return res.redirect(ROUTES.HOME);
-        }
-        // req.flash('success', 'Cerraste Sesión Correctamente');
-        return res.redirect(ROUTES.HOME);
-    });
-}
-
-export const mostrarPaginaOlvidePassword = (req, res) => {
-    
-    return res.render('auth/forgot-password', {
-        nombrePagina: "Olvide Password"
-    })
+export const mostrarPaginaOlvidePassword = async (req, res) => {
+    try{
+        return res.render('auth/forgot-password', {
+            nombrePagina: "Olvide Password"
+        })
+    }catch(err){
+        req.flash("error", err.message);
+        return res.redirect(ROUTES.LOGIN);
+    }
 }
 
 export const olvidePassword = async (req, res) => {
-    //AQui me quede
     try{
         const {email} = req.body;
         let errorsExpress = validationResult(req);
@@ -233,29 +224,34 @@ export const olvidePassword = async (req, res) => {
             let errors = errorsExpress.errors.map(err => err.msg);
             req.flash('error', errors);
             req.flash('fields', { email })
-            return res.redirect("/auth/forgot-password");
+            return res.redirect(ROUTES.FORGOT_PASSWORD);
         }
         const user = await User.findOne({where: {email}});
         if(!user){
             req.flash('error', 'El email no pertenece a ningún usuario registrado');
             req.flash('fields', { email })
-            return res.redirect("/auth/forgot-password");
+            return res.redirect(ROUTES.FORGOT_PASSWORD);
         }
-        if(!user.activo){
+        if(!user.activo && user.isAdmin){
             req.flash("error", "Por favor, asegúrese de que ha confirmado su cuenta antes de intentar recuperar su contraseña")
             req.flash('fields', { email })
-            return res.redirect("/auth/forgot-password");
+            return res.redirect(ROUTES.FORGOT_PASSWORD);
+        }
+        if(!user.activo && !user.isAdmin){
+            req.flash("error", "Por favor, comuniquese con su administrador para el cambio de su contraseña")
+            req.flash('fields', { email })
+            return res.redirect(ROUTES.FORGOT_PASSWORD);
         }
         
         //Enviar email de recuperación de password
         const token = uuidv4();
-        await enviarEmailRecuperación(user.nombre, user.email, token);
-        await establecerTokenPassword(user, token);
-        req.flash('success', 'Hemos enviado un E-mail para que recupere su cuenta');
-        res.redirect("/auth/forgot-password");
+        await enviarEmailRecuperarPassword(user.nombre, user.email, token, req);
+        await establecerTokenPassword(user, token, req);
+        req.flash('success', 'Hemos enviado un E-mail para que recupere su password');
+        res.redirect(ROUTES.FORGOT_PASSWORD);
     }catch(err){
         req.flash("error", err.message);
-        res.redirect("/auth/forgot-password");
+        res.redirect(ROUTES.FORGOT_PASSWORD);
     }
 }
 
@@ -264,50 +260,50 @@ export const mostrarPaginaRecuperarPassword = async (req, res) => {
         const {token} = req.params;
         const user = await User.findOne({where: {tokenPassword: token}});
         if(!user){
-            req.flash('error', 'Hubo un error al reestablecer su cuenta. Inténtelo de nuevo')
-            return res.redirect("/auth/forgot-password");
+            req.flash('error', 'Hubo un error al recuperar su password. Inténtelo de nuevo')
+            return res.redirect("<%= ROUTES.FORGOT_PASSWORD %>");
         }
-        return res.render('auth/restore-password', {
-            nombrePagina: "Reestablece tu Password"
+        if(user.expiraToken.getTime() < new Date().getTime()){
+            req.flash('error', 'Lo sentimos, el enlace de confirmación ha caducado. Puede generar un nuevo vínculo de restablecimiento desde la página de recuperación de password')
+            return res.redirect(ROUTES.FORGOT_PASSWORD);
+        }
+        return res.render('auth/recover-password', {
+            nombrePagina: "Recupere tu Password"
         })
 
     }catch(err){
         req.flash('error', err.message)
-        return res.redirect("/auth/forgot-password");
+        return res.redirect("<%= ROUTES.FORGOT_PASSWORD %>");
     }
 }
 export const recuperarPassword = async (req, res) => {
     try{
-
         const {token} = req.params;
-        const {new_password, confirm_new_password} = req.body;
+        const new_password = req?.body?.new_password || ""
+        const confirm_new_password = req?.body?.confirm_new_password || ""
+
         let errorsExpress = validationResult(req);
         //Comprobamos si hay errores de express
         if(!errorsExpress.isEmpty()){
             let errors = errorsExpress.errors.map(err => err.msg);
             req.flash('error', errors);
-            return res.redirect(`/auth/restore-password/${token}`);
+            return res.redirect(ROUTES.RECOVER_PASSWORD.replace(":token", token));
         }
-        const user = await User.findOne({where: {tokenPassword: token}});
         if(new_password !== confirm_new_password){
             req.flash('error', "La confirmación del nuevo password es incorrecto");
-            return res.redirect(`/auth/restore-password/${token}`);
+            return res.redirect(ROUTES.RECOVER_PASSWORD.replace(":token", token));
         }
-
-        if(user.expiraToken.getTime() < new Date().getTime()){
-            req.flash('error', 'Lo sentimos, el enlace de confirmación ha caducado. Puede generar un nuevo vínculo de restablecimiento desde la página de inicio de sesión')
-            return res.redirect("/auth/login");
-        }
+        const user = await User.findOne({where: {tokenPassword: token}});
+       
         //Cambiar password
         user.password = user.hashPassword(new_password);
         user.tokenPassword = null;
         user.expiraToken = null;
         await user.save();
         req.flash('success', "Password Reestablecido Correctamente");
-        res.redirect(`/auth/login`);
-
+        res.redirect(ROUTES.LOGIN);
     }catch(err){
         req.flash('error', err.message)
-        return res.redirect(`/auth/restore-password/${token}`);
+        return res.redirect(ROUTES.RECOVER_PASSWORD.replace(":token", token));
     }
 }

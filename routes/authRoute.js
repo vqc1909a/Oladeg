@@ -8,9 +8,9 @@ const Router = express.Router();
 Router.get(ROUTES.LOGIN, authMiddleware.verificarUsuarioNoAutenticado, authController.mostrarPaginaIniciarSesion);
 Router.post(ROUTES.LOGIN, authMiddleware.verificarUsuarioNoAutenticado, authValidation.iniciarSesion, authController.iniciarSesion);
 Router.get(ROUTES.FORGOT_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, authController.mostrarPaginaOlvidePassword);
-Router.post(ROUTES.FORGOT_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, /* validation  */ authController.olvidePassword);
+Router.post(ROUTES.FORGOT_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, authValidation.olvidePassword, authController.olvidePassword);
 Router.get(ROUTES.RECOVER_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, authController.mostrarPaginaRecuperarPassword);
-Router.post(ROUTES.RECOVER_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, /* validation */authController.recuperarPassword);
+Router.post(ROUTES.RECOVER_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, authValidation.recuperarPassword, authController.recuperarPassword);
 
 Router.get(ROUTES.CONFIRM_ACCOUNT, authController.confirmarCuenta);
 

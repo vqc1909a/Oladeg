@@ -2,12 +2,12 @@
 export const HOME = "/";
 
 //AUTH ROUTES
-export const LOGIN = "/account/login";
-export const REGISTER = "/account/register";
-export const CONFIRM_ACCOUNT = "/account/confirm/:token";
-export const LOGOUT = "/account/logout";
-export const FORGOT_PASSWORD = "/account/forgot-password";
-export const RECOVER_PASSWORD = "/account/recover-password";
+export const LOGIN = "/auth/login";
+export const REGISTER = "/auth/register";
+export const CONFIRM_ACCOUNT = "/auth/confirm/:token";
+export const LOGOUT = "/auth/logout";
+export const FORGOT_PASSWORD = "/auth/forgot-password";
+export const RECOVER_PASSWORD = "/auth/recover-password/:token";
 
 
 //INFO ROUTES

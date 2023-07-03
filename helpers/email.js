@@ -14,7 +14,7 @@ const transport = nodemailer.createTransport({
     }
 });
 
-export const enviarEmailConfirmacion = async (nombre, email, token, req) => {
+export const enviarEmailConfirmacionCuenta = async (nombre, email, token, req) => {
    //El transport se va a autenticar en mailtrap y acceder a sus servicio de mailtrap
    let info = await transport.sendMail({
     from: '"Meeti 🏡" <roberth@oladeg.org>',
@@ -34,7 +34,7 @@ export const enviarEmailConfirmacion = async (nombre, email, token, req) => {
     console.log("Message sent: %s", info.messageId);
 }
 
-export const enviarEmailRecuperación = async (nombre, email, token, req) => {
+export const enviarEmailRecuperarPassword = async (nombre, email, token, req) => {
    //El transport se va a autenticar en mailtrap y acceder a sus servicio de mailtrap
    let info = await transport.sendMail({
     from: '"Meeti 🏡" <roberth@oladeg.org>', /* "Meeti" <noreply@empresa.com> => en caso de que no esperas respuestas de los destinatarios*/
@@ -44,7 +44,7 @@ export const enviarEmailRecuperación = async (nombre, email, token, req) => {
     html: `
         <p>Hola ${nombre}, has solicitado reestablecer tu password en Meeti</p>
 
-        <p>Sigue el siguiente enlace para recuperar su cuenta: <a href="${req.protocol}://${req.get('host')}/account/reset-password/${token}">Reestablecer Password</a></p>
+        <p>Sigue el siguiente enlace para reestablecer su password: <a href="${req.protocol}://${req.get('host')}${ROUTES.RECOVER_PASSWORD.replace(':token', token)}">Reestablecer Password</a></p>
 
         <p>Si tu no solicitaste el cambio de password, puedes ignorar el mensaje</p >
     `

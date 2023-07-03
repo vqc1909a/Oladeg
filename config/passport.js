@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 //Iniciar sesión en la base de datos, esta es la estrategia local
 import PassportLocal from "passport-local";
 import User from "../models/UserModel.js";
-import {enviarEmailConfirmacion} from "../helpers/email.js";
+import {enviarEmailConfirmacionCuenta} from "../helpers/email.js";
 import { establecerTokenPassword} from "../helpers/user.js";
 
 const LocalStrategy = PassportLocal.Strategy;
@@ -21,7 +21,7 @@ passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'passwor
       //Esto aplicarlo solamente para el usuario admin
       if(!user.activo && user.isAdmin){
           const token = uuidv4();
-          await enviarEmailConfirmacion(user.nombre, user.email, token, req);
+          await enviarEmailConfirmacionCuenta(user.nombre, user.email, token, req);
           await establecerTokenPassword(user, token);
           return done(null, false, {
               message: "Tu cuenta no ha sido confirmada. Hemos enviado un E-mail para que confirme su cuenta"
@@ -42,7 +42,7 @@ passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'passwor
   }
 ));
 
-passport.serializeUser((user, done) => {
+passport.serializeUser((user, done) => {2
   done(null, user.id);
 });
 
