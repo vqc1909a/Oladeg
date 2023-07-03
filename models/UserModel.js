@@ -1,5 +1,6 @@
 import {DataTypes} from "sequelize";
 import bcrypt from "bcryptjs"
+import validator from "validator";
 
 import { sequelize } from "../config/db.js";
 
@@ -76,11 +77,16 @@ const User = sequelize.define('User', {
     timestamps: true,
     hooks: {
         beforeCreate(usuario){
+            usuario.email = validator.normalizeEmail(usuario.email);
             usuario.password = User.prototype.hashPassword(usuario.password);
+        },
+        beforeSave(usuario){
+            usuario.email = validator.normalizeEmail(usuario.email);
         },
         beforeBulkCreate(usuarios){
             usuarios.forEach((usuario) => {
-                usuario.password = User.prototype.hashPassword(usuario.password)
+                usuario.email = validator.normalizeEmail(usuario.email);
+                usuario.password = User.prototype.hashPassword(usuario.password);
             })
         }
     }

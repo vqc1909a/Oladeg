@@ -6,10 +6,15 @@ import { v4 as uuidv4 } from 'uuid';
 import passport from "passport";
 import * as ROUTES from "../config/routes.js";
 
-export const formCrearCuenta = (req, res) =>{
-    res.render("crear-cuenta", {
-        nombrePagina: "Crea tu cuenta",
-    })
+export const formCrearCuenta = async (req, res) =>{
+    try{
+        return res.render("crear-cuenta", {
+            nombrePagina: "Crea tu cuenta",
+        })
+    }catch(err){
+        req.flash('error', err.message);
+        return res.redirect(ROUTES.ADMIN);
+    }
 }
 
 export const crearNuevaCuenta = async (req, res) => {
@@ -63,9 +68,6 @@ export const crearNuevaCuenta = async (req, res) => {
 export const mostrarPaginaIniciarSesion = async (req, res) => {
     const idAuthenticatedUser = req.cookies.idAuthenticatedUser;
     const user = await User.findByPk(idAuthenticatedUser)
-    console.log({
-        user
-    })
     try{
         return res.render("auth/login", {
             nombrePagina: "Iniciar Sesión",
@@ -259,12 +261,16 @@ export const mostrarPaginaRecuperarPassword = async (req, res) => {
     try{
         const {token} = req.params;
         const user = await User.findOne({where: {tokenPassword: token}});
+        console.log({
+            user,
+            token
+        })
         if(!user){
             req.flash('error', 'Hubo un error al recuperar su password. Inténtelo de nuevo')
-            return res.redirect("<%= ROUTES.FORGOT_PASSWORD %>");
+            return res.redirect(ROUTES.FORGOT_PASSWORD);
         }
         if(user.expiraToken.getTime() < new Date().getTime()){
-            req.flash('error', 'Lo sentimos, el enlace de confirmación ha caducado. Puede generar un nuevo vínculo de restablecimiento desde la página de recuperación de password')
+            req.flash('error', 'Lo sentimos, el enlace de confirmación ha caducado. Puede generar un nuevo vínculo de restablecimiento desde la página de recuperación de password');
             return res.redirect(ROUTES.FORGOT_PASSWORD);
         }
         return res.render('auth/recover-password', {
@@ -273,16 +279,21 @@ export const mostrarPaginaRecuperarPassword = async (req, res) => {
 
     }catch(err){
         req.flash('error', err.message)
-        return res.redirect("<%= ROUTES.FORGOT_PASSWORD %>");
+        return res.redirect(ROUTES.FORGOT_PASSWORD);
     }
 }
 export const recuperarPassword = async (req, res) => {
     try{
         const {token} = req.params;
-        const new_password = req?.body?.new_password || ""
-        const confirm_new_password = req?.body?.confirm_new_password || ""
+        const new_password = req?.body?.new_password || "";
+        const confirm_new_password = req?.body?.confirm_new_password || "";
 
         let errorsExpress = validationResult(req);
+        console.log({
+            body: req.body,
+            errorsExpress: errorsExpress.errors
+        })
+
         //Comprobamos si hay errores de express
         if(!errorsExpress.isEmpty()){
             let errors = errorsExpress.errors.map(err => err.msg);
