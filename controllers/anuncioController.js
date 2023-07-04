@@ -1,5 +1,8 @@
-
+import Anuncio from "../models/AnuncioModel.js";
+import User from "../models/UserModel.js";
+import * as ROUTES from "../config/routes.js";
 import {obtenerAnuncios, obtenerUltimaPublicidad} from "../helpers.js";
+
 
 export const mostrarAnuncio = async (req, res) => {
   // const url = req.params.anuncio;
@@ -16,7 +19,7 @@ export const mostrarAnuncio = async (req, res) => {
   // anterior = anuncios[ubicacion + 1];
   // despues = anuncios[ubicacion - 1];
 
-  return res.render('pages/anuncio', {
+  return res.render('anuncio/mostrar-anuncio', {
     // title: `${anuncio.Titulo} &#8211; OLADEG`,
     title: `I Primer Encuentro de Sostenibilidad en las Empresas Comunales &#8211; OLADEG`,
     // description: anuncio.metadescripcion,
@@ -24,4 +27,35 @@ export const mostrarAnuncio = async (req, res) => {
     publicidad: ''
   })
 }
+
+export const mostrarPaginaAgregarAnuncio = async(req, res) => {
+  const user = await User.findByPk(1);
+  try{
+    return res.render('anuncio/agregar-anuncio', {
+      nombrePagina: "Agregar Anuncio",
+      user,
+      req
+    })
+  }catch(err){
+    req.flash("error", err.message);
+    return res.redirect(ROUTES.ANUNCIOS)
+  }
+}
+
+export const agregarAnuncio = async(req, res) => {
+
+}
+
+export const mostrarPaginaEditarAnuncio = async(req, res) => {
+
+}
+
+export const editarAnuncio = async(req, res) => {
+
+}
+
+export const eliminarAnuncio = async(req, res) => {
+
+}
+
 

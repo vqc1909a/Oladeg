@@ -17,6 +17,7 @@ import adminRoute from "./routes/adminRoute.js";
 
 import {connectDB, sequelize} from "./config/db.js";
 import User from "./models/UserModel.js";
+import Anuncio from "./models/AnuncioModel.js";
 
 
 dotenv.config({path: ".env"});

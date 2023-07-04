@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<%- include ('../partials/headView.ejs') %>
-	</head>
+	<%- include ('../partials/headView.ejs') %>
 	<body>
 		<%- include ('../layouts/headerView.ejs') %>
 		<main>
@@ -99,7 +97,6 @@
 						/>
 					</div>
 				</div>
-			
 
 				<!-- <div class="hero__image2">
         <svg width="201" height="199" viewBox="0 0 201 199" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -288,84 +285,162 @@
 						<h2>Anuncios</h2>
 						<% if(anuncios.length !== 0) { %> <%
 						anuncios.forEach(function(anuncio) { %>
-							<div class="anuncios__item">
-								<a
-									href="/anuncio/${anuncio.Url}"
-									class="anuncios__image"
-									role="link"
-									title="${anuncio.Title} | Oladeg"
-								>
-									<img
-										loading="lazy"
-										src="${anuncio.Portada}"
-										alt="Anuncio ${anuncio.Title}"
-									/>
-								</a>
-								<div
-									class="anuncios__text flex flex-fd-c flex-jc-c"
-								>
-									<h3 class="anuncios__title">
-										<a
-											href="/anuncio/${anuncio.Url}"
-											title="${anuncio.Title} | Oladeg"
-											role="link"
-											><%= anuncio.Titulo %></a
-										>
-									</h3>
-									<p class="anuncios__description">
-										<%= anuncio.metadescripcion %>...
-									</p>
-									<p class="anuncios__time flex flex-ai-c">
-										<img
-											loading="lazy"
-											src="/dist/icons/Clock.svg"
-											alt="Datetime Oladeg"
-										/>
-										<time
-											datetime="<%= anuncio.created_at %>"
-											class="flex flex-ai-c"
-											>${anuncio.month} ${anuncio.date},
-											${anuncio.year}`%></time
-										>
-									</p>
+						<div class="anuncios__item">
+							<a
+								href="/anuncio/${anuncio.Url}"
+								class="anuncios__image"
+								role="link"
+								title="${anuncio.Title} | Oladeg"
+							>
+								<img
+									loading="lazy"
+									src="${anuncio.Portada}"
+									alt="Anuncio ${anuncio.Title}"
+								/>
+							</a>
+							<div
+								class="anuncios__text flex flex-fd-c flex-jc-c"
+							>
+								<h3 class="anuncios__title">
 									<a
 										href="/anuncio/${anuncio.Url}"
-										role="link"
-										class="anuncios__link"
 										title="${anuncio.Title} | Oladeg"
-										>Leer Más</a
+										role="link"
+										><%= anuncio.Titulo %></a
 									>
-								</div>
+								</h3>
+								<p class="anuncios__description">
+									<%= anuncio.metadescripcion %>...
+								</p>
+								<p class="anuncios__time flex flex-ai-c">
+									<img
+										loading="lazy"
+										src="/dist/icons/Clock.svg"
+										alt="Datetime Oladeg"
+									/>
+									<time
+										datetime="<%= anuncio.created_at %>"
+										class="flex flex-ai-c"
+										>${anuncio.month} ${anuncio.date},
+										${anuncio.year}`%></time
+									>
+								</p>
+								<a
+									href="/anuncio/${anuncio.Url}"
+									role="link"
+									class="anuncios__link"
+									title="${anuncio.Title} | Oladeg"
+									>Leer Más</a
+								>
 							</div>
+						</div>
 						<% }); %> <% } %>
 
 						<div class="anuncios__item">
-							<a href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':anuncio', 'i-primer-encuentro') %>" class="anuncios__image" role="link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"> 
-								<img loading="lazy" src="/dist/images/anuncio.jpg" alt="Anuncio I Primer Encuentro de Sostenibilidad en las Empresas Comunales">
+							<a
+								href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
+								class="anuncios__image"
+								role="link"
+								title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"
+							>
+								<img
+									loading="lazy"
+									src="/dist/images/anuncio.jpg"
+									alt="Anuncio I Primer Encuentro de Sostenibilidad en las Empresas Comunales"
+								/>
 							</a>
-							<div class="anuncios__text flex flex-fd-c flex-jc-c">
-								<h3 class="anuncios__title"><a href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':anuncio', 'i-primer-encuentro') %>" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg" role="link">I Primer Encuentro de Sostenibilidad en las Empresas Comunales</a></h3>
-								<p class="anuncios__description">En el perú existen más de siete mil comunidades que representan más del cuarenta por ciento del territorio nacional en el perú existen más de sietessssssssssssssssssss...</p>
-								<p class="anuncios__time flex flex-ai-c">
-									<img loading="lazy" src="/dist/icons/Clock.svg" alt="Datetime Oladeg">
-									<time datetime="2008-02-14 20:00" class="flex flex-ai-c">JULY 23, 2019</time>
+							<div
+								class="anuncios__text flex flex-fd-c flex-jc-c"
+							>
+								<h3 class="anuncios__title">
+									<a
+										href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
+										title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"
+										role="link"
+										>I Primer Encuentro de Sostenibilidad en
+										las Empresas Comunales</a
+									>
+								</h3>
+								<p class="anuncios__description">
+									En el perú existen más de siete mil
+									comunidades que representan más del cuarenta
+									por ciento del territorio nacional en el
+									perú existen más de
+									sietessssssssssssssssssss...
 								</p>
-								<a href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':anuncio', 'i-primer-encuentro') %>" role="link" class="anuncios__link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg">Leer Más</a>
+								<p class="anuncios__time flex flex-ai-c">
+									<img
+										loading="lazy"
+										src="/dist/icons/Clock.svg"
+										alt="Datetime Oladeg"
+									/>
+									<time
+										datetime="2008-02-14 20:00"
+										class="flex flex-ai-c"
+										>JULY 23, 2019</time
+									>
+								</p>
+								<a
+									href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
+									role="link"
+									class="anuncios__link"
+									title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"
+									>Leer Más</a
+								>
 							</div>
 						</div>
 
 						<div class="anuncios__item">
-							<a href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':anuncio', 'i-primer-encuentro') %>" class="anuncios__image" role="link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"> 
-								<img loading="lazy" src="/dist/images/anuncio.jpg" alt="Anuncio I Primer Encuentro de Sostenibilidad en las Empresas Comunales">
+							<a
+								href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
+								class="anuncios__image"
+								role="link"
+								title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"
+							>
+								<img
+									loading="lazy"
+									src="/dist/images/anuncio.jpg"
+									alt="Anuncio I Primer Encuentro de Sostenibilidad en las Empresas Comunales"
+								/>
 							</a>
-							<div class="anuncios__text flex flex-fd-c flex-jc-c">
-								<h3 class="anuncios__title"><a href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':anuncio', 'i-primer-encuentro') %>" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg" role="link">I Primer Encuentro de Sostenibilidad en las Empresas Comunales</a></h3>
-								<p class="anuncios__description">En el perú existen más de siete mil comunidades que representan más del cuarenta por ciento del territorio nacional en el perú existen más de sietessssssssssssssssssss...</p>
-								<p class="anuncios__time flex flex-ai-c">
-									<img loading="lazy" src="/dist/icons/Clock.svg" alt="Datetime Oladeg">
-									<time datetime="2008-02-14 20:00" class="flex flex-ai-c">JULY 23, 2019</time>
+							<div
+								class="anuncios__text flex flex-fd-c flex-jc-c"
+							>
+								<h3 class="anuncios__title">
+									<a
+										href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
+										title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"
+										role="link"
+										>I Primer Encuentro de Sostenibilidad en
+										las Empresas Comunales</a
+									>
+								</h3>
+								<p class="anuncios__description">
+									En el perú existen más de siete mil
+									comunidades que representan más del cuarenta
+									por ciento del territorio nacional en el
+									perú existen más de
+									sietessssssssssssssssssss...
 								</p>
-								<a href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':anuncio', 'i-primer-encuentro') %>" role="link" class="anuncios__link" title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg">Leer Más</a>
+								<p class="anuncios__time flex flex-ai-c">
+									<img
+										loading="lazy"
+										src="/dist/icons/Clock.svg"
+										alt="Datetime Oladeg"
+									/>
+									<time
+										datetime="2008-02-14 20:00"
+										class="flex flex-ai-c"
+										>JULY 23, 2019</time
+									>
+								</p>
+								<a
+									href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
+									role="link"
+									class="anuncios__link"
+									title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"
+									>Leer Más</a
+								>
 							</div>
 						</div>
 

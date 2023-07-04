@@ -42,7 +42,6 @@ const mostrarBoletin = async (req, res) => {
   });
   anterior = boletines[ubicacion + 1];
   despues = boletines[ubicacion - 1];
-  console.log(boletin);
   return res.render('pages/boletinView', {
     title: `${boletin.Titulo} &#8211; OLADEG`,
     description: boletin.metadescripcion,

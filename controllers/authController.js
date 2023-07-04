@@ -261,10 +261,6 @@ export const mostrarPaginaRecuperarPassword = async (req, res) => {
     try{
         const {token} = req.params;
         const user = await User.findOne({where: {tokenPassword: token}});
-        console.log({
-            user,
-            token
-        })
         if(!user){
             req.flash('error', 'Hubo un error al recuperar su password. Inténtelo de nuevo')
             return res.redirect(ROUTES.FORGOT_PASSWORD);
@@ -289,11 +285,6 @@ export const recuperarPassword = async (req, res) => {
         const confirm_new_password = req?.body?.confirm_new_password || "";
 
         let errorsExpress = validationResult(req);
-        console.log({
-            body: req.body,
-            errorsExpress: errorsExpress.errors
-        })
-
         //Comprobamos si hay errores de express
         if(!errorsExpress.isEmpty()){
             let errors = errorsExpress.errors.map(err => err.msg);

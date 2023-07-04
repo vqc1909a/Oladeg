@@ -47,6 +47,9 @@ const User = sequelize.define('User', {
             }
         }
     },
+    imagen: {
+        type: DataTypes.TEXT,
+    },
     password: {
         type: DataTypes.STRING(60),
         allowNull: false,

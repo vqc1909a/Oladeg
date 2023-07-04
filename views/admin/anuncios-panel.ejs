@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title><%= nombrePagina %>&#8211; OLADEG</title>
+
+		<!-- Google Font: Source Sans Pro -->
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+		/>
+		<!-- Font Awesome -->
+		<link
+			rel="stylesheet"
+			href="/adminlte/plugins/fontawesome-free/css/all.min.css"
+		/>
+		<!-- Theme style -->
+		<link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css" />
+	</head>
+	<body class="hold-transition sidebar-mini layout-navbar-fixed">
+		<!-- Site wrapper -->
+		<div class="wrapper">
+			<%- include ('../../views/layouts/navbarAdmin.ejs', {user}) %> <%-
+			include('../../views/layouts/sidebarAdmin.ejs', {user}) %>
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Anuncios</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.ADMIN %>">Home</a>
+									</li>
+									<li class="breadcrumb-item active">
+										Anuncios
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">
+											Listado de Anuncios
+										</h3>
+
+										<div class="card-tools">
+											<div
+												class="row align-items-center justify-content-center"
+											>
+												<div
+													class="input-group input-group-sm"
+													style="width: 250px"
+												>
+													<input
+														type="text"
+														name="table_search"
+														class="form-control float-right"
+														placeholder="Search"
+													/>
+
+													<div
+														class="input-group-append"
+													>
+														<button
+															type="submit"
+															class="btn btn-default"
+														>
+															<i
+																class="fas fa-search"
+															></i>
+														</button>
+													</div>
+												</div>
+												<a
+													href="/admin/anuncio"
+													type="button"
+													class="btn btn-sm bg-primary ml-2"
+												>
+													<i class="fas fa-plus"></i>
+													Agregar
+												</a>
+											</div>
+										</div>
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body table-responsive p-0">
+										<table
+											class="table table-hover text-nowrap"
+										>
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Titulo</th>
+													<th>Portada</th>
+													<th>Fecha del Evento</th>
+													<th>Hora del Evento</th>
+													<th>Acciones</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td>
+														I Primer Encuentro de
+														Sostenibilidad en las
+														Empresas Comunales
+													</td>
+													<td>
+														<img
+															src="/dist/images/banner3.jpg"
+															alt=""
+															class="img-fluid"
+															style="
+																max-height: 150px;
+															"
+														/>
+													</td>
+													<td>
+														Sábado, 29 de julio de
+														2023
+													</td>
+													<td>21:47:00</td>
+													<td>
+														<a
+															href="/admin/anuncio/:id/delete"
+															type="button"
+															class="btn btn-sm bg-danger"
+														>
+															<i
+																class="fas fa-trash"
+															></i>
+														</a>
+														<a
+															href="/admin/anuncio/:id/edit"
+															type="button"
+															class="btn btn-sm bg-info"
+														>
+															<i
+																class="fas fa-edit"
+															></i>
+														</a>
+														<a
+															href="/anuncios/sdsd"
+															type="button"
+															class="btn btn-sm bg-warning"
+														>
+															<i
+																class="fas fa-eye"
+															></i>
+														</a>
+													</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>
+														I Primer Encuentro de
+														Sostenibilidad en las
+														Empresas Comunales
+													</td>
+													<td>
+														<img
+														src="/dist/images/banner.jpg"
+														alt="" class="img-fluid"
+														style="width: 200px"
+														max-height: 150px;">
+													</td>
+													<td>
+														Sábado, 29 de julio de
+														2023
+													</td>
+													<td>21:47:00</td>
+													<td>
+														<a
+															href="#"
+															type="button"
+															class="btn btn-sm bg-danger"
+														>
+															<i
+																class="fas fa-trash"
+															></i>
+														</a>
+														<a
+															href="#"
+															type="button"
+															class="btn btn-sm bg-info"
+														>
+															<i
+																class="fas fa-edit"
+															></i>
+														</a>
+														<a
+															href="#"
+															type="button"
+															class="btn btn-sm bg-warning"
+														>
+															<i
+																class="fas fa-eye"
+															></i>
+														</a>
+													</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>
+														I Primer Encuentro de
+														Sostenibilidad en las
+														Empresas Comunales
+													</td>
+													<td>
+														<img
+														src="/dist/images/banner2.jpg"
+														alt="" class="img-fluid"
+														style="width: 200px"
+														max-height: 150px;">
+													</td>
+													<td>
+														Sábado, 29 de julio de
+														2023
+													</td>
+													<td>21:47:00</td>
+													<td>
+														<a
+															href="#"
+															type="button"
+															class="btn btn-sm bg-danger"
+														>
+															<i
+																class="fas fa-trash"
+															></i>
+														</a>
+														<a
+															href="#"
+															type="button"
+															class="btn btn-sm bg-info"
+														>
+															<i
+																class="fas fa-edit"
+															></i>
+														</a>
+														<a
+															href="#"
+															type="button"
+															class="btn btn-sm bg-warning"
+														>
+															<i
+																class="fas fa-eye"
+															></i>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-5 text-left pl-4 mb-2">
+                        <div
+                          class="dataTables_info"
+                          id="example2_info"
+                          role="status"
+                          aria-live="polite"
+                        >
+                          Mostrando 11 - 20 de 60 anuncios
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-7 d-flex justify-content-end pr-4">
+                        <div
+                          class="dataTables_paginate paging_simple_numbers"
+                          id="example2_paginate"
+                        >
+                          <ul class="pagination">
+                            <li
+                              class="paginate_button page-item previous"
+                              id="example2_previous"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="example2"
+                                data-dt-idx="0"
+                                tabindex="0"
+                                class="page-link"
+                                >Previous</a
+                              >
+                            </li>
+                            <li
+                              class="paginate_button page-item"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="example2"
+                                data-dt-idx="1"
+                                tabindex="0"
+                                class="page-link"
+                                >1</a
+                              >
+                            </li>
+                            <li
+                              class="paginate_button page-item active"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="example2"
+                                data-dt-idx="2"
+                                tabindex="0"
+                                class="page-link"
+                                >2</a
+                              >
+                            </li>
+                            <li
+                              class="paginate_button page-item"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="example2"
+                                data-dt-idx="3"
+                                tabindex="0"
+                                class="page-link"
+                                >3</a
+                              >
+                            </li>
+                            <li
+                              class="paginate_button page-item"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="example2"
+                                data-dt-idx="4"
+                                tabindex="0"
+                                class="page-link"
+                                >4</a
+                              >
+                            </li>
+                            <li
+                              class="paginate_button page-item"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="example2"
+                                data-dt-idx="5"
+                                tabindex="0"
+                                class="page-link"
+                                >5</a
+                              >
+                            </li>
+                            <li
+                              class="paginate_button page-item"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="example2"
+                                data-dt-idx="6"
+                                tabindex="0"
+                                class="page-link"
+                                >6</a
+                              >
+                            </li>
+                            <li
+                              class="paginate_button page-item next"
+                              id="example2_next"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="example2"
+                                data-dt-idx="7"
+                                tabindex="0"
+                                class="page-link"
+                                >Next</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+									</div>
+									<!-- /.card-body -->
+
+									
+									<!-- /.card-body -->
+								</div>
+								<!-- /.card -->
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+
+		<!-- jQuery -->
+		<script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+		<!-- Bootstrap 4 -->
+		<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- AdminLTE App -->
+		<script src="/adminlte/dist/js/adminlte.min.js"></script>
+		<!-- AdminLTE for demo purposes -->
+		<script src="/adminlte/dist/js/demo.js"></script>
+	</body>
+</html>
