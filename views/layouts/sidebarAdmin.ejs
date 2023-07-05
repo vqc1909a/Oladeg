@@ -1,14 +1,14 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
-	<a href="/adminlte/index3.html" class="brand-link elevation-4">
+	<a href="<%= ROUTES.ADMIN %>" class="brand-link elevation-4">
 		<img
-			src="/adminlte/dist/img/AdminLTELogo.png"
+			src="/dist/icons/favicon.jpg"
 			alt="AdminLTE Logo"
 			class="brand-image img-circle elevation-3"
 			style="opacity: 0.8"
 		/>
-		<span class="brand-text font-weight-light">AdminLTE 3</span>
+		<span class="brand-text font-weight-light">Oladeg</span>
 	</a>
 	<!-- Sidebar -->
 	<div class="sidebar">
@@ -100,8 +100,8 @@
 				</li>
 				<li class="nav-item">
 					<a
-						href="<%= ROUTES.USERS %>"
-						class="nav-link <%= req.path === ROUTES.USERS ? 'active' : '' %>"
+						href="<%= ROUTES.USERS_ADMIN %>"
+						class="nav-link <%= req.path === ROUTES.USERS_ADMIN ? 'active' : '' %>"
 					>
 						<i class="nav-icon fas fa-users"></i>
 						<p>Usuarios</p>
@@ -110,8 +110,8 @@
 				<li class="nav-header">WEB INSTITUCIONAL</li>
 				<li class="nav-item">
 					<a
-						href="<%= ROUTES.ANUNCIOS %>"
-						class="nav-link <%= req.path === ROUTES.ANUNCIOS ? 'active' : '' %>"
+						href="<%= ROUTES.ANUNCIOS_ADMIN %>"
+						class="nav-link <%= req.path === ROUTES.ANUNCIOS_ADMIN ? 'active' : '' %>"
 					>
 						<i class="nav-icon fas fa-globe"></i>
 						<p>Anuncios</p>

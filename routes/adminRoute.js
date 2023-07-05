@@ -9,8 +9,8 @@ import * as ROUTES from "../config/routes.js";
 const router = express.Router();
 
 router.get(ROUTES.ADMIN, /* authMiddleware.verificarUsuarioAutenticado, */ adminController.mostrarPanelAdministracion);
-router.get(ROUTES.USERS, /* authMiddleware.verificarUsuarioAutenticado, */ adminController.mostrarPanelUsuarios);
-router.get(ROUTES.ANUNCIOS, /* authMiddleware.verificarUsuarioAutenticado, */ adminController.mostrarPanelAnuncios);
+router.get(ROUTES.USERS_ADMIN, /* authMiddleware.verificarUsuarioAutenticado, */ adminController.mostrarPanelUsuarios);
+router.get(ROUTES.ANUNCIOS_ADMIN, /* authMiddleware.verificarUsuarioAutenticado, */ adminController.mostrarPanelAnuncios);
 
 
 

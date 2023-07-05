@@ -19,14 +19,17 @@ export const MOSTRAR_CONTACTO = "/contacto";
 
 //ADMIN ROUTES
 export const ADMIN = "/admin";
-export const USERS = "/admin/users";
-export const ANUNCIOS = "/admin/anuncios";
+export const USERS_ADMIN = "/admin/users";
+export const ANUNCIOS_ADMIN = "/admin/anuncios";
 
 //ANUNCIO ROUTES
 export const MOSTRAR_ANUNCIO = "/anuncios/:slug";
 export const AGREGAR_ANUNCIO = "/admin/anuncio";
 export const EDITAR_ANUNCIO = "/admin/anuncio/:id/edit";
+export const EDITAR_IMAGEN_ANUNCIO = "/admin/anuncio/:id/edit-image";
 export const ELIMINAR_ANUNCIO = "/admin/anuncio/:id/delete";
+
+
 
 export const NUEVO_GRUPO = "/admin/group";
 export const EDITAR_GRUPO = "/admin/group/:id/edit";

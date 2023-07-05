@@ -28,7 +28,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const __filename = url.fileURLToPath(import.meta.url);
 
 connectDB().then(async () => {
-  await sequelize.sync();
+  await sequelize.sync({alter: true});
   console.log("All models were synchronized successfully.");
   app.use(express.json());    
   app.use(express.urlencoded({ extended: true }));

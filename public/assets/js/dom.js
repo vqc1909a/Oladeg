@@ -10,6 +10,9 @@ export const hero = document.querySelector('.hero');
 export const menu_overlay = document.querySelector('.header__menu-overlay');
 
 
+//Admin
+export const $inputDescriptionQuill = document.querySelector("#inputDescriptionQuill");
+
 //Hero
 export const nosotros = document.querySelector(".nosotros");
 export const nosotros_items = document.querySelectorAll(".nosotros__item");
@@ -46,6 +49,9 @@ export const curso_contents = document.querySelectorAll('.detalles__content');
 
 //Anuncio
 export const main = document.querySelector('.main');
+export const $fileInputAnuncio = document.querySelector('#fileInputAnuncio');
+export const $imagePreviewAnuncio = document.querySelector('#imagePreviewAnuncio');
+
 
 //Modal
 export const modal_buttons = document.querySelectorAll('.modal-button');

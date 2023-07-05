@@ -12,7 +12,7 @@ const Anuncio = sequelize.define('Anuncio', {
         autoIncrement: true
     },
     titulo: {
-        type: DataTypes.STRING(60),
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
             notNull: {
@@ -47,6 +47,11 @@ const Anuncio = sequelize.define('Anuncio', {
             },
             notEmpty: {
                 msg: 'La fecha del anuncio es obligatorio'
+            },
+            isAfter: {
+                //Con el new DAte, establezco zona UTC, y para obtener zona horaria pongo toLocaleString si es toda la fecha si es solo date => toLocaleDateString si es solo hora => toLocaleTimeString
+                args: new Date().toLocaleDateString('es-ES', { timeZone: 'America/Lima' }).split("/").reverse().join('/'),
+                msg: 'La fecha debe ser posterior a la actual'
             }
         }
     },
@@ -63,18 +68,19 @@ const Anuncio = sequelize.define('Anuncio', {
         }
     },
     fechaYHora: DataTypes.DATE,
+    slug: DataTypes.TEXT,
 }, {
     timestamps: true,
     hooks: {
         beforeCreate(anuncio){
             const url = `${slug(anuncio.titulo).toLowerCase()}-${shortid.generate()}`
-            anuncio.titulo = url;
-            anuncio.fechaYHora = `${anuncio.fecha}T${anuncio.hora}`;
+            anuncio.slug = url;
+            anuncio.fechaYHora = new Date(`${anuncio.fecha} ${anuncio.hora}`);
         },
         beforeSave(anuncio){
             const url = `${slug(anuncio.titulo).toLowerCase()}-${shortid.generate()}`
-            anuncio.titulo = url;
-            anuncio.fechaYHora = `${anuncio.fecha}T${anuncio.hora}`;        
+            anuncio.slug = url;
+            anuncio.fechaYHora = new Date(`${anuncio.fecha} ${anuncio.hora}`);
         }
     }
 });

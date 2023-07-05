@@ -17,6 +17,13 @@
 		/>
 		<!-- Theme style -->
 		<link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css" />
+		<style>
+			.disabled-link{
+				pointer-events: none; /* Evita eventos de puntero */
+				cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+				opacity: 0.5; /* Reduce la opacidad para indicar que está deshabilitado */
+			}
+		</style>
 	</head>
 	<body class="hold-transition sidebar-mini layout-navbar-fixed">
 		<!-- Site wrapper -->
@@ -53,6 +60,7 @@
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-12">
+								<%- include('../partials/mensajesFlash.ejs') %>
 								<div class="card">
 									<div class="card-header">
 										<h3 class="card-title">
@@ -114,281 +122,341 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>1</td>
-													<td>
-														I Primer Encuentro de
-														Sostenibilidad en las
-														Empresas Comunales
-													</td>
-													<td>
-														<img
-															src="/dist/images/banner3.jpg"
-															alt=""
-															class="img-fluid"
-															style="
-																max-height: 150px;
-															"
-														/>
-													</td>
-													<td>
-														Sábado, 29 de julio de
-														2023
-													</td>
-													<td>21:47:00</td>
-													<td>
-														<a
-															href="/admin/anuncio/:id/delete"
-															type="button"
-															class="btn btn-sm bg-danger"
-														>
-															<i
-																class="fas fa-trash"
-															></i>
-														</a>
-														<a
-															href="/admin/anuncio/:id/edit"
-															type="button"
-															class="btn btn-sm bg-info"
-														>
-															<i
-																class="fas fa-edit"
-															></i>
-														</a>
-														<a
-															href="/anuncios/sdsd"
-															type="button"
-															class="btn btn-sm bg-warning"
-														>
-															<i
-																class="fas fa-eye"
-															></i>
-														</a>
-													</td>
-												</tr>
-												<tr>
-													<td>1</td>
-													<td>
-														I Primer Encuentro de
-														Sostenibilidad en las
-														Empresas Comunales
-													</td>
-													<td>
-														<img
-														src="/dist/images/banner.jpg"
-														alt="" class="img-fluid"
-														style="width: 200px"
-														max-height: 150px;">
-													</td>
-													<td>
-														Sábado, 29 de julio de
-														2023
-													</td>
-													<td>21:47:00</td>
-													<td>
-														<a
-															href="#"
-															type="button"
-															class="btn btn-sm bg-danger"
-														>
-															<i
-																class="fas fa-trash"
-															></i>
-														</a>
-														<a
-															href="#"
-															type="button"
-															class="btn btn-sm bg-info"
-														>
-															<i
-																class="fas fa-edit"
-															></i>
-														</a>
-														<a
-															href="#"
-															type="button"
-															class="btn btn-sm bg-warning"
-														>
-															<i
-																class="fas fa-eye"
-															></i>
-														</a>
-													</td>
-												</tr>
-												<tr>
-													<td>1</td>
-													<td>
-														I Primer Encuentro de
-														Sostenibilidad en las
-														Empresas Comunales
-													</td>
-													<td>
-														<img
-														src="/dist/images/banner2.jpg"
-														alt="" class="img-fluid"
-														style="width: 200px"
-														max-height: 150px;">
-													</td>
-													<td>
-														Sábado, 29 de julio de
-														2023
-													</td>
-													<td>21:47:00</td>
-													<td>
-														<a
-															href="#"
-															type="button"
-															class="btn btn-sm bg-danger"
-														>
-															<i
-																class="fas fa-trash"
-															></i>
-														</a>
-														<a
-															href="#"
-															type="button"
-															class="btn btn-sm bg-info"
-														>
-															<i
-																class="fas fa-edit"
-															></i>
-														</a>
-														<a
-															href="#"
-															type="button"
-															class="btn btn-sm bg-warning"
-														>
-															<i
-																class="fas fa-eye"
-															></i>
-														</a>
-													</td>
-												</tr>
+												<% if(anuncios.length){ %>
+													<% anuncios.forEach((anuncio, i) => { %>
+														<% const fecha = DateTime.fromISO(anuncio.fecha, { locale: 'es' }) %>
+														<% const fechaFormateada = fecha.toFormat('EEEE, dd \'de\' MMMM \'de\' yyyy') %>
+														<tr>
+															<td><%= i+1 %></td>
+															<td>
+																<%= anuncio.titulo %>
+															</td>
+															<td>
+																<img
+																	src="<%= anuncio.portada %>"
+																	alt=""
+																	class="img-fluid"
+																	style="
+																		max-height: 100px;
+																	"
+																/>
+															</td>
+															<td>
+																<%= convertirPrimeraLetraMayuscula(fechaFormateada) %>
+															</td>
+															<td><%= anuncio.hora %></td>
+															<td>
+																<a
+																	href="<%= ROUTES.ELIMINAR_ANUNCIO.replace(':id', anuncio.id) %>"
+																	type="button"
+																	class="btn btn-sm bg-danger"
+																>
+																	<i
+																		class="fas fa-trash"
+																	></i>
+																</a>
+																<a
+																	href="<%= ROUTES.EDITAR_ANUNCIO.replace(':id', anuncio.id) %>"
+																	type="button"
+																	class="btn btn-sm bg-primary"
+																>
+																	<i
+																		class="fas fa-edit"
+																	></i>
+																</a>
+																<a
+																	href="<%= ROUTES.EDITAR_IMAGEN_ANUNCIO.replace(':id', anuncio.id) %>"
+																	type="button"
+																	class="btn btn-sm bg-success"
+																>
+																	<i
+																		class="fas fa-image"
+																	></i>
+																</a>
+																<a
+																	href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', anuncio.slug) %>"
+																	type="button"
+																	class="btn btn-sm bg-warning"
+																>
+																	<i
+																		class="fas fa-eye"
+																	></i>
+																</a>
+															</td>
+														</tr>
+													<% }) %>
+												<% }else{ %>
+													<tr>
+														<td>-</td>
+														<td>
+															-
+														</td>
+														<td>
+															-
+														</td>
+														<td>
+															-
+														</td>
+														<td>-</td>
+														<td>
+															-
+														</td>
+													</tr>
+												<% } %>
 											</tbody>
 										</table>
-                    <div class="row">
-                      <div class="col-sm-12 col-md-5 text-left pl-4 mb-2">
-                        <div
-                          class="dataTables_info"
-                          id="example2_info"
-                          role="status"
-                          aria-live="polite"
-                        >
-                          Mostrando 11 - 20 de 60 anuncios
-                        </div>
-                      </div>
-                      <div class="col-sm-12 col-md-7 d-flex justify-content-end pr-4">
-                        <div
-                          class="dataTables_paginate paging_simple_numbers"
-                          id="example2_paginate"
-                        >
-                          <ul class="pagination">
-                            <li
-                              class="paginate_button page-item previous"
-                              id="example2_previous"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example2"
-                                data-dt-idx="0"
-                                tabindex="0"
-                                class="page-link"
-                                >Previous</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example2"
-                                data-dt-idx="1"
-                                tabindex="0"
-                                class="page-link"
-                                >1</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item active"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example2"
-                                data-dt-idx="2"
-                                tabindex="0"
-                                class="page-link"
-                                >2</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example2"
-                                data-dt-idx="3"
-                                tabindex="0"
-                                class="page-link"
-                                >3</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example2"
-                                data-dt-idx="4"
-                                tabindex="0"
-                                class="page-link"
-                                >4</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example2"
-                                data-dt-idx="5"
-                                tabindex="0"
-                                class="page-link"
-                                >5</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example2"
-                                data-dt-idx="6"
-                                tabindex="0"
-                                class="page-link"
-                                >6</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item next"
-                              id="example2_next"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example2"
-                                data-dt-idx="7"
-                                tabindex="0"
-                                class="page-link"
-                                >Next</a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-									</div>
-									<!-- /.card-body -->
+										<div class="row">
+											<div class="col-sm-12 col-md-5 text-left pl-4 mb-2">
+												<div
+												class="dataTables_info"
+												id="example2_info"
+												role="status"
+												aria-live="polite"
+												>
+												Mostrando 11 - 20 de 60 anuncios
+												</div>
+											</div>
+											<div class="col-sm-12 col-md-7 d-flex justify-content-end pr-4">
+												<div
+												class="dataTables_paginate paging_simple_numbers"
+												id="example2_paginate"
+												>
+												<ul class="pagination">
+													<li
+													class="paginate_button page-item previous"
+													id="example2_previous"
+													>
+													<a
+														href="?page=<%= paginaActual - 1 %>"
+														aria-controls="example2"
+														data-dt-idx="0"
+														tabindex="0"
+														class="page-link <%= !isPaginacionAnterior ? 'disabled-link' : '' %>"
+														>Anterior</a
+													>
+													</li>
+													<% if(isPaginacionesNormal) {%>
+														<% arrayPaginas.forEach((pagina, i) => { %>
+															<li
+																class="paginate_button page-item <%= paginaActual === pagina ? 'active': '' %>"
+															>
+															<a
+																href="?page=<%= pagina %>"
+																aria-controls="example2"
+																data-dt-idx="<%= i + 1 %>"
+																tabindex="0"
+																class="page-link"
+																>1</a
+															>
+															</li>
+														<% })%>
+													<% } %>
+													<% if(isPaginacionesIzquierda) {%>
+														<li
+															class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
+														>
+															<a
+																href="?page=1"
+																aria-controls="example2"
+																data-dt-idx="1"
+																tabindex="0"
+																class="page-link"
+																>1</a
+															>
+														</li>
+														<li
+															class="paginate_button page-item <%= paginaActual === 2 ? 'active': '' %>"
+														>
+															<a
+																href="?page=2"
+																aria-controls="example2"
+																data-dt-idx="2"
+																tabindex="0"
+																class="page-link"
+																>2</a
+															>
+														</li>
+														<li
+															class="paginate_button page-item <%= paginaActual === 3 ? 'active': '' %>"
+														>
+															<a
+																href="?page=3"
+																aria-controls="example2"
+																data-dt-idx="3"
+																tabindex="0"
+																class="page-link"
+																>3</a
+															>
+														</li>
+														<li
+															class="paginate_button page-item"
+														>
+															<a
+																href="#"
+																aria-controls="example2"
+																data-dt-idx="4"
+																tabindex="0"
+																class="page-link disabled-link"
+																>...</a
+															>
+														</li>
+														<li
+															class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
+														>
+															<a
+																href="?page=<%= cantidadPaginas %>"
+																aria-controls="example2"
+																data-dt-idx="5"
+																tabindex="0"
+																class="page-link"
+																><%= cantidadPaginas %></a
+															>
+														</li>
+													<% } %>
 
-									
+													<% if(isPaginacionesMedia) {%>
+														<li
+															class="paginate_button page-item"
+														>
+															<a
+																href="?page=1"
+																aria-controls="example2"
+																data-dt-idx="1"
+																tabindex="0"
+																class="page-link"
+																>1</a
+															>
+														</li>
+														<li
+															class="paginate_button page-item"
+														>
+															<a
+																href="#"
+																aria-controls="example2"
+																data-dt-idx="2"
+																tabindex="0"
+																class="page-link disabled-link"
+																>...</a
+															>
+														</li>
+														<li
+															class="paginate_button page-item active"
+														>
+															<a
+																href="?page=<%= paginaActual %>"
+																aria-controls="example2"
+																data-dt-idx="3"
+																tabindex="0"
+																class="page-link"
+																><%= paginaActual %></a
+															>
+														</li>
+														<li
+															class="paginate_button page-item"
+														>
+															<a
+																href="#"
+																aria-controls="example2"
+																data-dt-idx="4"
+																tabindex="0"
+																class="page-link disabled-link"
+																>...</a
+															>
+														</li>
+														<li
+															class="paginate_button page-item" 
+														>
+															<a
+																href="?page=<%= cantidadPaginas %>"
+																aria-controls="example2"
+																data-dt-idx="5"
+																tabindex="0"
+																class="page-link"
+																><%= cantidadPaginas %></a
+															>
+														</li>
+													<% } %>
+
+													<% if(isPaginacionesDerecha) {%>
+														<li
+															class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
+														>
+															<a
+																href="?page=1"
+																aria-controls="example2"
+																data-dt-idx="1"
+																tabindex="0"
+																class="page-link"
+																>1</a
+															>
+														</li>
+														<li
+															class="paginate_button page-item"
+														>
+															<a
+																href="#"
+																aria-controls="example2"
+																data-dt-idx="2"
+																tabindex="0"
+																class="page-link disabled-link"
+																>...</a
+															>
+														</li>
+														<li
+															class="paginate_button page-item <%= paginaActual === cantidadPaginas - 2 ? 'active': '' %>" 
+														>
+															<a
+																href="?page=<%= cantidadPaginas - 2 %>"
+																aria-controls="example2"
+																data-dt-idx="3"
+																tabindex="0"
+																class="page-link"
+																><%= cantidadPaginas - 2 %></a
+															>
+														</li>
+														<li
+															class="paginate_button page-item <%= paginaActual === cantidadPaginas - 1 ? 'active': '' %>" 
+														>
+															<a
+																href="?page=<%= cantidadPaginas - 1 %>"
+																aria-controls="example2"
+																data-dt-idx="4"
+																tabindex="0"
+																class="page-link"
+																><%= cantidadPaginas - 1 %></a
+															>
+														</li>
+														<li
+															class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
+														>
+															<a
+																href="?page=<%= cantidadPaginas %>"
+																aria-controls="example2"
+																data-dt-idx="5"
+																tabindex="0"
+																class="page-link"
+																><%= cantidadPaginas %></a
+															>
+														</li>
+													<% } %>
+													<li
+													class="paginate_button page-item next"
+													id="example2_next"
+													>
+													<a
+														href="?page=<%= paginaActual + 1 %>"
+														aria-controls="example2"
+														data-dt-idx="6"
+														tabindex="0"
+														class="page-link <%= !isPaginacionSiguiente ? 'disabled-link' : '' %>"
+														>Siguiente</a
+													>
+													</li>
+												</ul>
+												</div>
+											</div>
+											</div>
+									</div>
 									<!-- /.card-body -->
 								</div>
 								<!-- /.card -->
@@ -408,13 +476,6 @@
 		</div>
 		<!-- ./wrapper -->
 
-		<!-- jQuery -->
-		<script src="/adminlte/plugins/jquery/jquery.min.js"></script>
-		<!-- Bootstrap 4 -->
-		<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- AdminLTE App -->
-		<script src="/adminlte/dist/js/adminlte.min.js"></script>
-		<!-- AdminLTE for demo purposes -->
-		<script src="/adminlte/dist/js/demo.js"></script>
+		<%- include('../layouts/scriptAdmin.ejs') %>
 	</body>
 </html>

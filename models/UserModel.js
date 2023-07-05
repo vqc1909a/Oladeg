@@ -37,14 +37,17 @@ const User = sequelize.define('User', {
     email: {
         type: DataTypes.STRING(60),
         allowNull: false,
-        unique: true,
+        unique: 'email',
         validate: {
             isEmail: {
                 msg: 'El correo electrónico debe ser válido'
             },
             notNull: {
                 msg: 'El correo electrónico es obligatorio'
-            }
+            },
+            notEmpty: {
+                msg: 'El correo electrónico es obligatorio'
+            },
         }
     },
     imagen: {
