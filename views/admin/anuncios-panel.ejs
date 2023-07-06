@@ -118,6 +118,7 @@
 													<th>Portada</th>
 													<th>Fecha del Evento</th>
 													<th>Hora del Evento</th>
+													<th>Creado por</th>
 													<th>Acciones</th>
 												</tr>
 											</thead>
@@ -145,43 +146,52 @@
 																<%= convertirPrimeraLetraMayuscula(fechaFormateada) %>
 															</td>
 															<td><%= anuncio.hora %></td>
+															<td><%= anuncio.User.nombre + ' ' + anuncio.User.apellido %></td>
 															<td>
-																<a
-																	href="<%= ROUTES.ELIMINAR_ANUNCIO.replace(':id', anuncio.id) %>"
-																	type="button"
-																	class="btn btn-sm bg-danger"
-																>
-																	<i
-																		class="fas fa-trash"
-																	></i>
-																</a>
-																<a
-																	href="<%= ROUTES.EDITAR_ANUNCIO.replace(':id', anuncio.id) %>"
-																	type="button"
-																	class="btn btn-sm bg-primary"
-																>
-																	<i
-																		class="fas fa-edit"
-																	></i>
-																</a>
-																<a
-																	href="<%= ROUTES.EDITAR_IMAGEN_ANUNCIO.replace(':id', anuncio.id) %>"
-																	type="button"
-																	class="btn btn-sm bg-success"
-																>
-																	<i
-																		class="fas fa-image"
-																	></i>
-																</a>
-																<a
-																	href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', anuncio.slug) %>"
-																	type="button"
-																	class="btn btn-sm bg-warning"
-																>
-																	<i
-																		class="fas fa-eye"
-																	></i>
-																</a>
+																<div class="row justify-content-center align-items-center text-center">
+
+																	<div class="col-12 mb-1">
+																		<button
+																			type="button"
+																			data-id="<%= anuncio.id %>"
+																			class="btn btn-sm bg-danger button-delete-anuncio"
+																		>
+																			<i
+																				class="fas fa-trash"
+																			></i>
+																		</button>
+																		<a
+																			href="<%= ROUTES.EDITAR_ANUNCIO.replace(':id', anuncio.id) %>"
+																			type="button"
+																			class="btn btn-sm bg-primary"
+																		>
+																			<i
+																				class="fas fa-edit"
+																			></i>
+																		</a>
+																	</div>
+																	<div class="col-12">
+																		<a
+																			href="<%= ROUTES.EDITAR_IMAGEN_ANUNCIO.replace(':id', anuncio.id) %>"
+																			type="button"
+																			class="btn btn-sm bg-success"
+																		>
+																			<i
+																				class="fas fa-image"
+																			></i>
+																		</a>
+																		<a
+																			href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', anuncio.slug) %>"
+																			type="button"
+																			class="btn btn-sm bg-warning"
+																			target="_blank"
+																		>
+																			<i
+																				class="fas fa-eye"
+																			></i>
+																		</a>
+																	</div>
+																</div>
 															</td>
 														</tr>
 													<% }) %>
@@ -213,7 +223,7 @@
 												role="status"
 												aria-live="polite"
 												>
-												Mostrando 11 - 20 de 60 anuncios
+												Mostrando <%= (cantidadAnunciosPagina * (paginaActual - 1)) + 1 %> - <%=  paginaActual === cantidadPaginas ? totalAnuncios : cantidadAnunciosPagina * paginaActual %> de <%= totalAnuncios %> anuncios
 												</div>
 											</div>
 											<div class="col-sm-12 col-md-7 d-flex justify-content-end pr-4">

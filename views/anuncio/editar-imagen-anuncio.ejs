@@ -38,7 +38,7 @@
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-8">
-								<h1>Editar Anuncio: <%= anuncio.titulo%></h1>
+								<h1>Editar Imagen Anuncio: <%= anuncio.titulo%></h1>
 							</div>
 							<div class="col-sm-4">
 								<ol class="breadcrumb float-sm-right">
@@ -51,7 +51,7 @@
 										>
 									</li>
 									<li class="breadcrumb-item active">
-										Editar Anuncio
+										Editar Imagen Anuncio
 									</li>
 								</ol>
 							</div>
@@ -73,68 +73,51 @@
 									<!-- /.card-header -->
 									<!-- form start -->
 									<form
+										action="<%= ROUTES.EDITAR_IMAGEN_ANUNCIO.replace(':id', req.params.id) + '?_csrf=' + csrfToken %>"
 										method="POST"
+										enctype="multipart/form-data"
 									>
-                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 										<div class="card-body">
 											<div class="form-group">
-												<label for="exampleInputEmail1"
-													>Título *</label
+												<label for="portada"
+													>Portada *</label
 												>
-												<input
-													type="text"
-													class="form-control"
-													id="exampleInputEmail1"
-													placeholder="Ingrese Título"
-													name="titulo"
-													value="<%= fields ? fields.titulo : anuncio ? anuncio.titulo : '' %>"
-												/>
-											</div>
-
-											<div class="form-group row">
-												<div class="col-12 col-md-6">
-													<div class="form-group">
-														<label for="fecha"
-															>Fecha *</label
-														>
+												<div class="input-group">
+													<div class="custom-file">
 														<input
-															type="date"
-															name="fecha"
-															placeholder="Fecha Anuncio"
-															value="<%= fields ? fields.fecha : anuncio ? anuncio.fecha : '' %>"
+															type="file"
+															class="custom-file-input"
+															id="fileInputAnuncio"
+															name="portada"
+															accept="image/*"
 														/>
+														<label
+															class="custom-file-label"
+															for="portada"
+															>Elige una
+															imagen</label
+														>
+													</div>
+													<div
+														class="input-group-append"
+													>
+														<span
+															class="input-group-text"
+															>Subir</span
+														>
 													</div>
 												</div>
-												<div class="col-12 col-md-6">
-													<div class="form-group">
-														<label for="hora"
-															>Hora *</label
-														>
-
-														<input
-															type="time"
-															name="hora"
-															placeholder="Hora Anuncio"
-															value="<%= fields ? fields.hora : anuncio ? anuncio.hora : '' %>"
-														/>
-													</div>
-												</div>
+												<div
+													id="imagePreviewAnuncio"
+													class="col-12 col-md-7 col-xl-5 mt-2 p-0"
+												></div>
 											</div>
-
-											<div class="form-group contenido">
-												<label for="contenido"
-													>Descripción *</label
+											<div class="form-group mt-4">
+												<label for="portada"
+													>Portada Actual</label
 												>
-												<div class="contenedor-editor">
-													<input
-														type="hidden"
-														name="contenido"
-														id="inputDescriptionQuill"
-														value="<%= fields ? fields.contenido : anuncio ? anuncio.contenido : '' %>"
-													/>
-													<div id="editor">
-														<%- fields ? fields.contenido : anuncio ? anuncio.contenido : '' %>
-													</div>
+												<div class="col-12 col-md-7 col-xl-5 p-0">
+													<img src="<%= anuncio.portada %>" alt="<%= anuncio.titulo%>" style="width: 100%; height: 300px">
 												</div>
 											</div>
 										</div>
@@ -145,7 +128,7 @@
 												type="submit"
 												class="btn btn-primary"
 											>
-												Editar Anuncio
+												Cambiar Portada
 											</button>
 										</div>
 									</form>

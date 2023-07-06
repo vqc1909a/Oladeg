@@ -51,7 +51,7 @@ export const curso_contents = document.querySelectorAll('.detalles__content');
 export const main = document.querySelector('.main');
 export const $fileInputAnuncio = document.querySelector('#fileInputAnuncio');
 export const $imagePreviewAnuncio = document.querySelector('#imagePreviewAnuncio');
-
+export const $buttonsDeleteAnuncio = document.querySelectorAll(".button-delete-anuncio");
 
 //Modal
 export const modal_buttons = document.querySelectorAll('.modal-button');

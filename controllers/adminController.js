@@ -42,10 +42,19 @@ export const mostrarPanelUsuarios = async (req, res) => {
 
 export const mostrarPanelAnuncios = async (req, res) => {
      try{
-        // const user = req.user;
-        const user = await User.findByPk(1);
-        const anuncios = await Anuncio.findAll({order: [["fechaYHora", "ASC"]]});
-       
+        const user = req.user;
+        let anuncios;
+        if(user.isAdmin){
+            anuncios = await Anuncio.findAll({
+                include: [{model: User, attributes: ['nombre', 'apellido']}],
+                order: [["fechaYHora", "ASC"]]
+            });
+        }
+        anuncios = await Anuncio.findAll({
+            where: {userId: user.id}, 
+            include: [{model: User, attributes: ['nombre', 'apellido']}], 
+            order: [["fechaYHora", "ASC"]]
+        });
             
         //PAGINACION
         // const anuncios = await Anuncio.findAll({limit: cantidadAnunciosPagina, offset: cantidadAnunciosPagina * (paginaActual - 1), order: [["fechaYHora", "ASC"]]});
@@ -82,7 +91,9 @@ export const mostrarPanelAnuncios = async (req, res) => {
             DateTime,
             convertirPrimeraLetraMayuscula,
             paginaActual,
+            cantidadAnunciosPagina,
             cantidadPaginas,
+            totalAnuncios,
             arrayPaginas,
             isPaginacionesNormal,
             isPaginacionesIzquierda,

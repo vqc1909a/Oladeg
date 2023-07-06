@@ -1,16 +1,15 @@
 import express from "express";
 import * as adminController from "../controllers/adminController.js";
-// import * as profileController from "../controllers/profileController.js";
-// import * as profileValidation from "../validations/profileValidation.js";
+import * as authMiddleware from "../middlewares/authMiddleware.js";
 
 
 import * as ROUTES from "../config/routes.js";
 
 const router = express.Router();
 
-router.get(ROUTES.ADMIN, /* authMiddleware.verificarUsuarioAutenticado, */ adminController.mostrarPanelAdministracion);
-router.get(ROUTES.USERS_ADMIN, /* authMiddleware.verificarUsuarioAutenticado, */ adminController.mostrarPanelUsuarios);
-router.get(ROUTES.ANUNCIOS_ADMIN, /* authMiddleware.verificarUsuarioAutenticado, */ adminController.mostrarPanelAnuncios);
+router.get(ROUTES.ADMIN, authMiddleware.verificarUsuarioAutenticado, adminController.mostrarPanelAdministracion);
+router.get(ROUTES.USERS_ADMIN, authMiddleware.verificarUsuarioAutenticado, adminController.mostrarPanelUsuarios);
+router.get(ROUTES.ANUNCIOS_ADMIN, authMiddleware.verificarUsuarioAutenticado, adminController.mostrarPanelAnuncios);
 
 
 
