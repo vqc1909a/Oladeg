@@ -12,6 +12,8 @@ Router.post(ROUTES.FORGOT_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado
 Router.get(ROUTES.RECOVER_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, authController.mostrarPaginaRecuperarPassword);
 Router.post(ROUTES.RECOVER_PASSWORD, authMiddleware.verificarUsuarioNoAutenticado, authValidation.recuperarPassword, authController.recuperarPassword);
 
+Router.post(ROUTES.LOGOUT, authMiddleware.verificarUsuarioAutenticado, authController.cerrarSesion)
+
 Router.get(ROUTES.CONFIRM_ACCOUNT, authController.confirmarCuenta);
 
 export default Router;

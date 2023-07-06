@@ -1,6 +1,7 @@
 import {
-    $inputDescriptionQuill,
+    $inputDescriptionQuill
 } from "../dom.js";
+
 import Quill from 'quill';
 let Delta = Quill.import('delta');
 
@@ -42,3 +43,5 @@ if(editor){
 
 
 }
+
+

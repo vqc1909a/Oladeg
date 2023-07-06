@@ -173,6 +173,18 @@ export const iniciarSesion = async (req, res, next) => {
     }
 }
 
+export const cerrarSesion = async (req, res) => {
+    //Metodo propio de passport
+    return req.logout(function(err) {
+        if (err) { 
+            req.flash('error', err.toString());
+            return res.redirect(ROUTES.ADMIN);
+        }
+        // req.flash('success', 'Cerraste Sesión Correctamente');
+        return res.redirect(ROUTES.LOGIN);
+    });
+}
+
 export const confirmarCuenta = async (req, res) => {
     try{
         const token = req.params.token;
