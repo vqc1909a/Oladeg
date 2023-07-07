@@ -30,17 +30,6 @@ export const EDITAR_IMAGEN_ANUNCIO = "/admin/anuncio/:id/edit-image";
 export const ELIMINAR_ANUNCIO = "/admin/anuncio/:id/delete";
 
 
-
-export const NUEVO_GRUPO = "/admin/group";
-export const EDITAR_GRUPO = "/admin/group/:id/edit";
-export const EDITAR_IMAGEN_GRUPO = "/admin/group/:id/edit-image";
-export const ELIMINAR_GRUPO = "/admin/group/:id/delete";
-
-export const NUEVO_MEETI = "/admin/meeti";
-export const ASISTENTES_MEETI = "/admin/meeti/:id/assistants";
-export const EDITAR_MEETI = "/admin/meeti/:id/edit";
-export const ELIMINAR_MEETI = "/admin/meeti/:id/delete";
-
 export const PERFIL = "/admin/profile";
 export const CHANGE_PASSWORD_PERFIL = "/admin/profile/edit-password";
 export const CHANGE_IMAGEN_PERFIL = "/admin/profile/edit-image";

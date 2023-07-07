@@ -1,9 +1,12 @@
+import Sequelize from "sequelize";
 import Anuncio from "../models/AnuncioModel.js";
 import User from "../models/UserModel.js";
 import {DateTime} from "luxon";
 import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 
 import * as ROUTES from "../config/routes.js";
+
+const Op = Sequelize.Op; 
 
 export const mostrarPanelAdministracion = async (req, res) =>{
     try{
@@ -41,20 +44,48 @@ export const mostrarPanelUsuarios = async (req, res) => {
 }
 
 export const mostrarPanelAnuncios = async (req, res) => {
-     try{
+    try{
+        const {titulo, userId, fecha, hora} = req.query;
+        
         const user = req.user;
+        const users = await User.findAll({});
         let anuncios;
+
+        let conditions = {};
+        let urlConditions = ''
+        if(titulo){
+            conditions.titulo = {[Op.like]: `%${titulo}%`}
+            urlConditions+=`&titulo=${titulo}`
+        }
+        if(userId){
+            conditions.userId = userId
+            urlConditions+=`&userId=${userId}`
+        }
+        if(fecha){
+            conditions.fecha = fecha
+            urlConditions+=`&fecha=${fecha}`
+        }
+        if(hora){
+            conditions.hora = hora
+            urlConditions+=`&hora=${hora}`
+        }
+        console.log({
+            urlConditions
+        })
         if(user.isAdmin){
             anuncios = await Anuncio.findAll({
-                include: [{model: User, attributes: ['nombre', 'apellido']}],
+                where: conditions,
+                include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
+                order: [["fechaYHora", "ASC"]]
+            });
+        }else{
+            conditions.userId = user.id;
+            anuncios = await Anuncio.findAll({
+                where: conditions,
+                include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
                 order: [["fechaYHora", "ASC"]]
             });
         }
-        anuncios = await Anuncio.findAll({
-            where: {userId: user.id}, 
-            include: [{model: User, attributes: ['nombre', 'apellido']}], 
-            order: [["fechaYHora", "ASC"]]
-        });
             
         //PAGINACION
         // const anuncios = await Anuncio.findAll({limit: cantidadAnunciosPagina, offset: cantidadAnunciosPagina * (paginaActual - 1), order: [["fechaYHora", "ASC"]]});
@@ -78,7 +109,7 @@ export const mostrarPanelAnuncios = async (req, res) => {
         }
 
         //ANUNCIOS
-        const anunciosFiltrados = anuncios.slice(cantidadAnunciosPagina * (paginaActual - 1), cantidadAnunciosPagina * paginaActual)
+        const anunciosFiltrados = anuncios.slice(cantidadAnunciosPagina * (paginaActual - 1), cantidadAnunciosPagina * paginaActual);
         // const ultimoAnuncio = anuncios[anuncios.length - 1];
         // let fechaYHora = ultimoAnuncio.fechaYHora;
         // let fechaYHoraFormateado = fechaYHora.toLocaleString('es-ES', { timeZone: 'America/Lima' });;
@@ -86,6 +117,7 @@ export const mostrarPanelAnuncios = async (req, res) => {
         return res.render("admin/anuncios-panel", {
             nombrePagina: "Panel de Anuncios",
             user,
+            users,
             anuncios: anunciosFiltrados,
             req,
             DateTime,
@@ -100,7 +132,8 @@ export const mostrarPanelAnuncios = async (req, res) => {
             isPaginacionesMedia,
             isPaginacionesDerecha,
             isPaginacionAnterior,
-            isPaginacionSiguiente
+            isPaginacionSiguiente,
+            urlConditions
         })
     }catch(err){
         req.flash("error", err.message);

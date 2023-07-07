@@ -38,7 +38,7 @@
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h1>Anuncios</h1>
+								<h1>Listado de Anuncios</h1>
 							</div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-right">
@@ -63,46 +63,90 @@
 								<%- include('../partials/mensajesFlash.ejs') %>
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">
-											Listado de Anuncios
-										</h3>
-
-										<div class="card-tools">
-											<div
-												class="row align-items-center justify-content-center"
-											>
-												<div
-													class="input-group input-group-sm"
-													style="width: 250px"
-												>
-													<input
-														type="text"
-														name="table_search"
-														class="form-control float-right"
-														placeholder="Search"
-													/>
-
-													<div
-														class="input-group-append"
-													>
+										<div class="row mb-2">
+											<div class="col-12">
+												<h3 class="card-title">
+													Filtros de Búsqueda
+												</h3>
+											</div>
+										</div>
+										<div class="row align-items-center">
+											<div class="col-12 col-md-10 mb-2">
+												<form action="<%= ROUTES.ANUNCIOS_ADMIN %>">
+													<div class="input-group input-group-sm">
+														<input
+															type="text"
+															class="form-control"
+															placeholder="Titulo"
+															name="titulo"
+														/>
+														<% if(user.isAdmin){ %>
+															<select class="form-control" name="userId" >
+																<option value="">-- Elige un Autor --</option>
+																<% users.forEach((user) => { %>
+																	<option value="<%= user.id %>"><%= user.nombre + ' ' + user.apellido %></option>	
+																<% }) %>
+															</select>															
+														<% } %>
+														<input
+															type="date"
+															class="form-control"
+															name="fecha"
+															placeholder="Fecha"
+														/>
+														<input
+															type="time"
+															class="form-control"
+															name="hora"
+															placeholder="Hora Anuncio"
+														/>
+														
 														<button
 															type="submit"
-															class="btn btn-default"
+															class="btn btn-sm btn-secondary"
 														>
-															<i
-																class="fas fa-search"
-															></i>
+															Buscar
 														</button>
 													</div>
+												</form>
+												
+											</div>
+											<div class="col-12 col-md-2 mb-2">
+												<div class="row justify-content-end">
+													<a
+														href="/admin/anuncio"
+														type="button"
+														class="btn btn-sm bg-primary ml-2"
+													>
+														<i class="fas fa-plus"></i>
+														Agregar
+													</a>
+
 												</div>
-												<a
-													href="/admin/anuncio"
-													type="button"
-													class="btn btn-sm bg-primary ml-2"
-												>
-													<i class="fas fa-plus"></i>
-													Agregar
-												</a>
+											</div>
+											<div class="col-12">
+												<% let titulo = req.query.titulo %>
+												<% let userId = req.query.userId %>
+												<% let fecha = req.query.fecha %>
+												<% let hora = req.query.hora %>
+
+												<% if(titulo || userId || fecha || hora){ %>
+													<p class="mb-1"><small>Filtros</small></p>	
+													<% if(titulo){ %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Título: <%= titulo %></button>
+													<% } %>	
+													<% if(userId){ %>
+														<% let user = users.find(user => Number(user.id) === Number(userId)) %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Author: <%= user.nombre + ' ' + user.apellido %></button>
+													<% } %>
+													<% if(fecha){ %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Fecha: <%= fecha %></button>
+													<% } %>
+													<% if(hora){ %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Hora: <%= hora %></button>
+													<% } %>		
+
+												<% } %>									
 											</div>
 										</div>
 									</div>
@@ -118,7 +162,9 @@
 													<th>Portada</th>
 													<th>Fecha del Evento</th>
 													<th>Hora del Evento</th>
-													<th>Creado por</th>
+													<% if(user.isAdmin){ %>
+														<th>Creado por</th>
+													<%}%>
 													<th>Acciones</th>
 												</tr>
 											</thead>
@@ -146,7 +192,10 @@
 																<%= convertirPrimeraLetraMayuscula(fechaFormateada) %>
 															</td>
 															<td><%= anuncio.hora %></td>
-															<td><%= anuncio.User.nombre + ' ' + anuncio.User.apellido %></td>
+															<% if(user.isAdmin){ %>
+																<td><%= anuncio.User.nombre + ' ' + anuncio.User.apellido %></td>
+															<% } %>
+
 															<td>
 																<div class="row justify-content-center align-items-center text-center">
 
@@ -197,275 +246,266 @@
 													<% }) %>
 												<% }else{ %>
 													<tr>
-														<td>-</td>
 														<td>
-															-
-														</td>
-														<td>
-															-
-														</td>
-														<td>
-															-
-														</td>
-														<td>-</td>
-														<td>
-															-
+															Sin anuncios
 														</td>
 													</tr>
 												<% } %>
 											</tbody>
 										</table>
-										<div class="row">
-											<div class="col-sm-12 col-md-5 text-left pl-4 mb-2">
-												<div
-												class="dataTables_info"
-												id="example2_info"
-												role="status"
-												aria-live="polite"
-												>
-												Mostrando <%= (cantidadAnunciosPagina * (paginaActual - 1)) + 1 %> - <%=  paginaActual === cantidadPaginas ? totalAnuncios : cantidadAnunciosPagina * paginaActual %> de <%= totalAnuncios %> anuncios
+										<% if(anuncios.length){ %>
+											<div class="row">
+												<div class="col-sm-12 col-md-5 text-left pl-4 mb-2">
+													<div
+													class="dataTables_info"
+													id="example2_info"
+													role="status"
+													aria-live="polite"
+													>
+													Mostrando <%= (cantidadAnunciosPagina * (paginaActual - 1)) + 1 %> - <%=  paginaActual === cantidadPaginas ? totalAnuncios : cantidadAnunciosPagina * paginaActual %> de <%= totalAnuncios %> anuncios
+													</div>
 												</div>
-											</div>
-											<div class="col-sm-12 col-md-7 d-flex justify-content-end pr-4">
-												<div
-												class="dataTables_paginate paging_simple_numbers"
-												id="example2_paginate"
-												>
-												<ul class="pagination">
-													<li
-													class="paginate_button page-item previous"
-													id="example2_previous"
+												<div class="col-sm-12 col-md-7 d-flex justify-content-end pr-4">
+													<div
+													class="dataTables_paginate paging_simple_numbers"
+													id="example2_paginate"
 													>
-													<a
-														href="?page=<%= paginaActual - 1 %>"
-														aria-controls="example2"
-														data-dt-idx="0"
-														tabindex="0"
-														class="page-link <%= !isPaginacionAnterior ? 'disabled-link' : '' %>"
-														>Anterior</a
-													>
-													</li>
-													<% if(isPaginacionesNormal) {%>
-														<% arrayPaginas.forEach((pagina, i) => { %>
+													<ul class="pagination">
+														<li
+														class="paginate_button page-item previous"
+														id="example2_previous"
+														>
+														<a
+															href="?page=<%= (paginaActual - 1) + urlConditions %>"
+															aria-controls="example2"
+															data-dt-idx="0"
+															tabindex="0"
+															class="page-link <%= !isPaginacionAnterior ? 'disabled-link' : '' %>"
+															>Anterior</a
+														>
+														</li>
+														<% if(isPaginacionesNormal) {%>
+															<% arrayPaginas.forEach((pagina, i) => { %>
+																<li
+																	class="paginate_button page-item <%= paginaActual === pagina ? 'active': '' %>"
+																>
+																<a
+																	href="?page=<%= pagina + urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="<%= i + 1 %>"
+																	tabindex="0"
+																	class="page-link"
+																	><%= pagina %></a
+																>
+																</li>
+															<% })%>
+														<% } %>
+														<% if(isPaginacionesIzquierda) {%>
 															<li
-																class="paginate_button page-item <%= paginaActual === pagina ? 'active': '' %>"
+																class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
 															>
-															<a
-																href="?page=<%= pagina %>"
-																aria-controls="example2"
-																data-dt-idx="<%= i + 1 %>"
-																tabindex="0"
-																class="page-link"
-																>1</a
-															>
+																<a
+																	href="?page=1<%= urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="1"
+																	tabindex="0"
+																	class="page-link"
+																	>1</a
+																>
 															</li>
-														<% })%>
-													<% } %>
-													<% if(isPaginacionesIzquierda) {%>
-														<li
-															class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
-														>
-															<a
-																href="?page=1"
-																aria-controls="example2"
-																data-dt-idx="1"
-																tabindex="0"
-																class="page-link"
-																>1</a
+															<li
+																class="paginate_button page-item <%= paginaActual === 2 ? 'active': '' %>"
 															>
-														</li>
-														<li
-															class="paginate_button page-item <%= paginaActual === 2 ? 'active': '' %>"
-														>
-															<a
-																href="?page=2"
-																aria-controls="example2"
-																data-dt-idx="2"
-																tabindex="0"
-																class="page-link"
-																>2</a
+																<a
+																	href="?page=2<%= urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="2"
+																	tabindex="0"
+																	class="page-link"
+																	>2</a
+																>
+															</li>
+															<li
+																class="paginate_button page-item <%= paginaActual === 3 ? 'active': '' %>"
 															>
-														</li>
-														<li
-															class="paginate_button page-item <%= paginaActual === 3 ? 'active': '' %>"
-														>
-															<a
-																href="?page=3"
-																aria-controls="example2"
-																data-dt-idx="3"
-																tabindex="0"
-																class="page-link"
-																>3</a
+																<a
+																	href="?page=3<%= urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="3"
+																	tabindex="0"
+																	class="page-link"
+																	>3</a
+																>
+															</li>
+															<li
+																class="paginate_button page-item"
 															>
-														</li>
-														<li
-															class="paginate_button page-item"
-														>
-															<a
-																href="#"
-																aria-controls="example2"
-																data-dt-idx="4"
-																tabindex="0"
-																class="page-link disabled-link"
-																>...</a
+																<a
+																	href="#"
+																	aria-controls="example2"
+																	data-dt-idx="4"
+																	tabindex="0"
+																	class="page-link disabled-link"
+																	>...</a
+																>
+															</li>
+															<li
+																class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
 															>
-														</li>
-														<li
-															class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
-														>
-															<a
-																href="?page=<%= cantidadPaginas %>"
-																aria-controls="example2"
-																data-dt-idx="5"
-																tabindex="0"
-																class="page-link"
-																><%= cantidadPaginas %></a
-															>
-														</li>
-													<% } %>
+																<a
+																	href="?page=<%= cantidadPaginas + urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="5"
+																	tabindex="0"
+																	class="page-link"
+																	><%= cantidadPaginas %></a
+																>
+															</li>
+														<% } %>
 
-													<% if(isPaginacionesMedia) {%>
-														<li
-															class="paginate_button page-item"
-														>
-															<a
-																href="?page=1"
-																aria-controls="example2"
-																data-dt-idx="1"
-																tabindex="0"
-																class="page-link"
-																>1</a
+														<% if(isPaginacionesMedia) {%>
+															<li
+																class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
 															>
-														</li>
-														<li
-															class="paginate_button page-item"
-														>
-															<a
-																href="#"
-																aria-controls="example2"
-																data-dt-idx="2"
-																tabindex="0"
-																class="page-link disabled-link"
-																>...</a
+																<a
+																	href="?page=1<%= urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="1"
+																	tabindex="0"
+																	class="page-link"
+																	>1</a
+																>
+															</li>
+															<li
+																class="paginate_button page-item"
 															>
-														</li>
-														<li
-															class="paginate_button page-item active"
-														>
-															<a
-																href="?page=<%= paginaActual %>"
-																aria-controls="example2"
-																data-dt-idx="3"
-																tabindex="0"
-																class="page-link"
-																><%= paginaActual %></a
+																<a
+																	href="#"
+																	aria-controls="example2"
+																	data-dt-idx="2"
+																	tabindex="0"
+																	class="page-link disabled-link"
+																	>...</a
+																>
+															</li>
+															<li
+																class="paginate_button page-item active"
 															>
-														</li>
-														<li
-															class="paginate_button page-item"
-														>
-															<a
-																href="#"
-																aria-controls="example2"
-																data-dt-idx="4"
-																tabindex="0"
-																class="page-link disabled-link"
-																>...</a
+																<a
+																	href="?page=<%= paginaActual + urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="3"
+																	tabindex="0"
+																	class="page-link"
+																	><%= paginaActual %></a
+																>
+															</li>
+															<li
+																class="paginate_button page-item"
 															>
-														</li>
-														<li
-															class="paginate_button page-item" 
-														>
-															<a
-																href="?page=<%= cantidadPaginas %>"
-																aria-controls="example2"
-																data-dt-idx="5"
-																tabindex="0"
-																class="page-link"
-																><%= cantidadPaginas %></a
+																<a
+																	href="#"
+																	aria-controls="example2"
+																	data-dt-idx="4"
+																	tabindex="0"
+																	class="page-link disabled-link"
+																	>...</a
+																>
+															</li>
+															<li
+																class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
 															>
-														</li>
-													<% } %>
+																<a
+																	href="?page=<%= cantidadPaginas + urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="5"
+																	tabindex="0"
+																	class="page-link"
+																	><%= cantidadPaginas %></a
+																>
+															</li>
+														<% } %>
 
-													<% if(isPaginacionesDerecha) {%>
-														<li
-															class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
-														>
-															<a
-																href="?page=1"
-																aria-controls="example2"
-																data-dt-idx="1"
-																tabindex="0"
-																class="page-link"
-																>1</a
+														<% if(isPaginacionesDerecha) {%>
+															<li
+																class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
 															>
-														</li>
-														<li
-															class="paginate_button page-item"
-														>
-															<a
-																href="#"
-																aria-controls="example2"
-																data-dt-idx="2"
-																tabindex="0"
-																class="page-link disabled-link"
-																>...</a
+																<a
+																	href="?page=1<%= urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="1"
+																	tabindex="0"
+																	class="page-link"
+																	>1</a
+																>
+															</li>
+															<li
+																class="paginate_button page-item"
 															>
-														</li>
-														<li
-															class="paginate_button page-item <%= paginaActual === cantidadPaginas - 2 ? 'active': '' %>" 
-														>
-															<a
-																href="?page=<%= cantidadPaginas - 2 %>"
-																aria-controls="example2"
-																data-dt-idx="3"
-																tabindex="0"
-																class="page-link"
-																><%= cantidadPaginas - 2 %></a
+																<a
+																	href="#"
+																	aria-controls="example2"
+																	data-dt-idx="2"
+																	tabindex="0"
+																	class="page-link disabled-link"
+																	>...</a
+																>
+															</li>
+															<li
+																class="paginate_button page-item <%= paginaActual === cantidadPaginas - 2 ? 'active': '' %>" 
 															>
-														</li>
-														<li
-															class="paginate_button page-item <%= paginaActual === cantidadPaginas - 1 ? 'active': '' %>" 
-														>
-															<a
-																href="?page=<%= cantidadPaginas - 1 %>"
-																aria-controls="example2"
-																data-dt-idx="4"
-																tabindex="0"
-																class="page-link"
-																><%= cantidadPaginas - 1 %></a
+																<a
+																	href="?page=<%= (cantidadPaginas - 2) + urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="3"
+																	tabindex="0"
+																	class="page-link"
+																	><%= cantidadPaginas - 2 %></a
+																>
+															</li>
+															<li
+																class="paginate_button page-item <%= paginaActual === cantidadPaginas - 1 ? 'active': '' %>" 
 															>
-														</li>
-														<li
-															class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
-														>
-															<a
-																href="?page=<%= cantidadPaginas %>"
-																aria-controls="example2"
-																data-dt-idx="5"
-																tabindex="0"
-																class="page-link"
-																><%= cantidadPaginas %></a
+																<a
+																	href="?page=<%= (cantidadPaginas - 1) + urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="4"
+																	tabindex="0"
+																	class="page-link"
+																	><%= cantidadPaginas - 1 %></a
+																>
+															</li>
+															<li
+																class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
 															>
+																<a
+																	href="?page=<%= cantidadPaginas + urlConditions %>"
+																	aria-controls="example2"
+																	data-dt-idx="5"
+																	tabindex="0"
+																	class="page-link"
+																	><%= cantidadPaginas %></a
+																>
+															</li>
+														<% } %>
+														<li
+														class="paginate_button page-item next"
+														id="example2_next"
+														>
+														<a
+															href="?page=<%= (paginaActual + 1) + urlConditions %>"
+															aria-controls="example2"
+															data-dt-idx="6"
+															tabindex="0"
+															class="page-link <%= !isPaginacionSiguiente ? 'disabled-link' : '' %>"
+															>Siguiente</a
+														>
 														</li>
-													<% } %>
-													<li
-													class="paginate_button page-item next"
-													id="example2_next"
-													>
-													<a
-														href="?page=<%= paginaActual + 1 %>"
-														aria-controls="example2"
-														data-dt-idx="6"
-														tabindex="0"
-														class="page-link <%= !isPaginacionSiguiente ? 'disabled-link' : '' %>"
-														>Siguiente</a
-													>
-													</li>
-												</ul>
+													</ul>
+													</div>
 												</div>
 											</div>
-											</div>
+										<% } %>
 									</div>
 									<!-- /.card-body -->
 								</div>

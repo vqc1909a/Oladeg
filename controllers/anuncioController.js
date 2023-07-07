@@ -145,9 +145,14 @@ export const agregarAnuncio = async(req, res) => {
 
 export const mostrarPaginaEditarAnuncio = async(req, res) => {
     const user = req.user;
-    
+    const users = await User.findAll({});
     try{
-        const anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+        let anuncio;
+        if(user.isAdmin){
+            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+        }else{
+            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+        }
         if(!anuncio){
             req.flash('error', 'Acceso denegado');
             return res.redirect(ROUTES.ANUNCIOS_ADMIN);
@@ -156,7 +161,8 @@ export const mostrarPaginaEditarAnuncio = async(req, res) => {
             nombrePagina: "Editar Anuncio",
             user,
             req,
-            anuncio
+            anuncio,
+            users
         })
     }catch(err){
         req.flash("error", err.message);
@@ -168,7 +174,12 @@ export const editarAnuncio = async(req, res) => {
     const body = req.body;
     const user = req.user;
     try{
-        const anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+        let anuncio;
+        if(user.isAdmin){
+            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+        }else{
+            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+        }
 
         //Editar un anuncio que no le pertenece al usuario
         if(!anuncio){
@@ -187,7 +198,11 @@ export const editarAnuncio = async(req, res) => {
         anuncio.titulo = body.titulo;
         anuncio.fecha = body.fecha;
         anuncio.hora = body.hora;
-        anuncio.contenido = body.contenido
+        anuncio.contenido = body.contenido;
+        //SOlo el admin puede cambiar el autor de las entradas
+        if(req.user.isAdmin){
+            anuncio.userId = body.userId;
+        }
         
         await anuncio.save();
         req.flash('success', 'Anuncio editado correctamente');
@@ -211,7 +226,13 @@ export const mostrarPaginaEditarImagenAnuncio = async (req, res) => {
     const user = req.user;
 
     try{
-        const anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}})
+        let anuncio;
+        if(user.isAdmin){
+            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+        }else{
+            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+        }
+
         if(!anuncio){
             req.flash('error', 'Acceso denegado');
             return res.redirect(ROUTES.ANUNCIOS_ADMIN);
@@ -239,7 +260,13 @@ export const editarImagenAnuncio = async (req, res) => {
     }
     body.portada = `/dist/uploads/anuncios/${req.file.filename}`;
     try{
-        const anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}})
+        let anuncio;
+        if(user.isAdmin){
+            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+        }else{
+            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+        }
+
         if(!anuncio){
             req.flash('error', 'Acceso denegado');
             return res.redirect(ROUTES.ANUNCIOS_ADMIN);
@@ -279,7 +306,12 @@ export const editarImagenAnuncio = async (req, res) => {
 export const eliminarAnuncio = async(req, res) => {
     const user = req.user;
     try{
-        const anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}})
+        let anuncio;
+        if(user.isAdmin){
+            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+        }else{
+            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+        }
         if(!anuncio){
             return res.status(401).json({message: "Acceso denegado"});
         }
