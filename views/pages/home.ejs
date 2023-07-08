@@ -283,114 +283,68 @@
 				<div class="main__content container">
 					<section class="anuncios">
 						<h2>Anuncios</h2>
-						<% if(anuncios.length !== 0) { %> <%
-						anuncios.forEach(function(anuncio) { %>
-						<div class="anuncios__item">
-							<a
-								href="/anuncio/${anuncio.Url}"
-								class="anuncios__image"
-								role="link"
-								title="${anuncio.Title} | Oladeg"
-							>
-								<img
-									loading="lazy"
-									src="${anuncio.Portada}"
-									alt="Anuncio ${anuncio.Title}"
-								/>
-							</a>
-							<div
-								class="anuncios__text flex flex-fd-c flex-jc-c"
-							>
-								<h3 class="anuncios__title">
+						<% if(anuncios.length) { %> 
+							<% anuncios.forEach(function(anuncio) { %>
+								<div class="anuncios__item">
 									<a
-										href="/anuncio/${anuncio.Url}"
-										title="${anuncio.Title} | Oladeg"
+										href="<%= anuncio.slug %>"
+										class="anuncios__image"
 										role="link"
-										><%= anuncio.Titulo %></a
+										title="<%= anuncio.titulo %>"
 									>
-								</h3>
-								<p class="anuncios__description">
-									<%= anuncio.metadescripcion %>...
-								</p>
-								<p class="anuncios__time flex flex-ai-c">
-									<img
-										loading="lazy"
-										src="/dist/icons/Clock.svg"
-										alt="Datetime Oladeg"
-									/>
-									<time
-										datetime="<%= anuncio.created_at %>"
-										class="flex flex-ai-c"
-										>${anuncio.month} ${anuncio.date},
-										${anuncio.year}`%></time
+										<img
+											loading="lazy"
+											src="<%= anuncio.portada %>"
+											alt="Anuncio <%= anuncio.titulo %>"
+										/>
+									</a>
+									<div
+										class="anuncios__text flex flex-fd-c flex-jc-c"
 									>
-								</p>
-								<a
-									href="/anuncio/${anuncio.Url}"
-									role="link"
-									class="anuncios__link"
-									title="${anuncio.Title} | Oladeg"
-									>Leer Más</a
-								>
-							</div>
-						</div>
-						<% }); %> <% } %>
+										<h3 class="anuncios__title">
+											<a
+												href="<%= anuncio.slug %>"
+												title="<%= anuncio.titulo %>"
+												role="link"
+												><%= anuncio.titulo %></a
+											>
+										</h3>
+										<p class="anuncios__description">
+											<%= anuncio.extracto %>...
+											
+										</p>
+										<p class="anuncios__time flex flex-ai-c">
+											<img
+												loading="lazy"
+												src="/dist/icons/Clock.svg"
+												alt="Datetime Oladeg"
+											/>
+											<% let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; %>
+											<% let datetime = anuncio.fechaYHora.toLocaleString('es', { timeZone: timeZone }) %>
+											<% const fecha = DateTime.fromISO(anuncio.fecha, { locale: 'es' }) %>
+											<% const fechaFormateada = fecha.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
+											
+											<time
+												datetime="<%= datetime %>"
+												class="flex flex-ai-c"
+												><%= convertirPrimeraLetraMayuscula(fechaFormateada) %></time
+											>
+										</p>
+										<a
+											href="<%= anuncio.slug %>"
+											role="link"
+											class="anuncios__link"
+											title="<%= anuncio.titulo %>"
+											>Leer Más</a
+										>
+									</div>
+								</div>
+							<% }) %> 
+						<% }else{ %>
+							<h3 class="anuncios__title">Sin anuncios</h3>
+						<% } %>
 
-						<div class="anuncios__item">
-							<a
-								href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
-								class="anuncios__image"
-								role="link"
-								title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"
-							>
-								<img
-									loading="lazy"
-									src="/dist/images/anuncio.jpg"
-									alt="Anuncio I Primer Encuentro de Sostenibilidad en las Empresas Comunales"
-								/>
-							</a>
-							<div
-								class="anuncios__text flex flex-fd-c flex-jc-c"
-							>
-								<h3 class="anuncios__title">
-									<a
-										href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
-										title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"
-										role="link"
-										>I Primer Encuentro de Sostenibilidad en
-										las Empresas Comunales</a
-									>
-								</h3>
-								<p class="anuncios__description">
-									En el perú existen más de siete mil
-									comunidades que representan más del cuarenta
-									por ciento del territorio nacional en el
-									perú existen más de
-									sietessssssssssssssssssss...
-								</p>
-								<p class="anuncios__time flex flex-ai-c">
-									<img
-										loading="lazy"
-										src="/dist/icons/Clock.svg"
-										alt="Datetime Oladeg"
-									/>
-									<time
-										datetime="2008-02-14 20:00"
-										class="flex flex-ai-c"
-										>JULY 23, 2019</time
-									>
-								</p>
-								<a
-									href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
-									role="link"
-									class="anuncios__link"
-									title="I Primer Encuentro de Sostenibilidad en las Empresas Comunales | Oladeg"
-									>Leer Más</a
-								>
-							</div>
-						</div>
-
-						<div class="anuncios__item">
+						<!-- <div class="anuncios__item">
 							<a
 								href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', 'i-primer-encuentro') %>"
 								class="anuncios__image"
@@ -442,8 +396,7 @@
 									>Leer Más</a
 								>
 							</div>
-						</div>
-
+						</div> -->
 						<%- include('../partials/buttonsView.ejs') %>
 					</section>
 					<%- include('../layouts/sidebarView.ejs') %>

@@ -69,9 +69,6 @@ export const mostrarPanelAnuncios = async (req, res) => {
             conditions.hora = hora
             urlConditions+=`&hora=${hora}`
         }
-        console.log({
-            urlConditions
-        })
         if(user.isAdmin){
             anuncios = await Anuncio.findAll({
                 where: conditions,
@@ -112,7 +109,7 @@ export const mostrarPanelAnuncios = async (req, res) => {
         const anunciosFiltrados = anuncios.slice(cantidadAnunciosPagina * (paginaActual - 1), cantidadAnunciosPagina * paginaActual);
         // const ultimoAnuncio = anuncios[anuncios.length - 1];
         // let fechaYHora = ultimoAnuncio.fechaYHora;
-        // let fechaYHoraFormateado = fechaYHora.toLocaleString('es-ES', { timeZone: 'America/Lima' });;
+        // let fechaYHoraFormateado = fechaYHora.toLocaleString('es', { timeZone: 'America/Lima' });;
 
         return res.render("admin/anuncios-panel", {
             nombrePagina: "Panel de Anuncios",

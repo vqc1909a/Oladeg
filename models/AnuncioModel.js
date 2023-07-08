@@ -23,6 +23,24 @@ const Anuncio = sequelize.define('Anuncio', {
             }
         }
     },  
+    extracto: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+            notNull: {
+                msg: 'El extracto del anuncio es obligatorio'
+            },
+            notEmpty: {
+                msg: 'El extracto del anuncio es obligatorio'
+            },
+            tieneMaximo30Palabras(value) {
+                const palabras = value.trim().split(/\s+/);
+                if (palabras.length > 30) {
+                    throw new Error('El extracto debe tener como máximo 35 palabras.');
+                }
+            }
+        }
+    },
     portada: {
         type: DataTypes.TEXT,
     },
@@ -48,11 +66,12 @@ const Anuncio = sequelize.define('Anuncio', {
             notEmpty: {
                 msg: 'La fecha del anuncio es obligatorio'
             },
-            isAfter: {
+            // isAfter: {
                 //Con el new DAte, establezco zona UTC, y para obtener zona horaria pongo toLocaleString si es toda la fecha si es solo date => toLocaleDateString si es solo hora => toLocaleTimeString
-                args: new Date().toLocaleDateString('es-ES', { timeZone: 'America/Lima' }).split("/").reverse().join('/'),
-                msg: 'La fecha debe ser posterior a la actual'
-            }
+                // args: new Date().toLocaleDateString('es', { timeZone: 'America/Lima' }).split("/").reverse().join('/'),
+                // args: new Date().toLocaleDateString('es').split("/").reverse().join('/'),
+                // msg: 'La fecha debe ser posterior a la actual'
+            // }
         }
     },
     hora: {

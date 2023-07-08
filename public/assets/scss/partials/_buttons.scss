@@ -8,7 +8,7 @@
     padding: .5rem 1rem;
     background-color: $white;
     color: $dark;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, .5);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, .3);
     font-family: 'Nunito SemiBold',
       sans-serif;
     font-size: $font-sm;
@@ -17,13 +17,18 @@
       background-color: $rojoOxido;
       color: $white;
     }
-
+    &.pagination{
+      background-color: #F3464A;
+      opacity: 1;
+      color: white;
+    }
     &:not(:last-child) {
       margin-right: .5rem;
     }
 
     &.disabled {
       pointer-events: none;
+      opacity: .5;
     }
 
     @include breakpoint-up(medium) {

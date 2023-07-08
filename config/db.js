@@ -17,7 +17,7 @@ export const sequelize = new Sequelize(db, user, password, {
     timezone: '+00:00' // Configuración de la zona horaria UTC
     // Almacenamiento de fechas y horas en UTC: Al guardar fechas y horas en la base de datos, asegúrate de que estén en formato UTC. Puedes utilizar la función new Date() de JavaScript para obtener una fecha y hora en UTC => const fechaActual = new Date(); // Obtiene la fecha y hora actual en UTC
 
-    //  Al mostrar fechas y horas en la interfaz de usuario, puedes utilizar métodos o funciones de conversión para ajustarlas a la zona horaria del usuario. Por ejemplo, en JavaScript puedes utilizar el método toLocaleString() para obtener la representación de fecha y hora en la zona horaria del usuario => const fecha = model.fecha.toLocaleString('es-ES', { timeZone: 'America/Lima' });
+    //  Al mostrar fechas y horas en la interfaz de usuario, puedes utilizar métodos o funciones de conversión para ajustarlas a la zona horaria del usuario. Por ejemplo, en JavaScript puedes utilizar el método toLocaleString() para obtener la representación de fecha y hora en la zona horaria del usuario => const fecha = model.fecha.toLocaleString('es', { timeZone: 'America/Lima' });
     
     //CONCLUSIÓN: GUARDAR FECHAS EN ZONA HORARIA UTC Y CONVERTIR LAS FECHAS EN ZONAS HORARIAS SEGÚN LA ZONAS HORARIA DEL CLIENTE, ESTO SOLAMENTE SI VAS A TRABAJAR CON FECHAS COMPLETAS O SEA FECHA Y HORA INCLUIDAS, PERO SI TRABAJAS DE MANERA INDEPENDIENTE FECHA Y HORA NO HYA PROBLEMA, SE GUARDA LA FECHA Y HORA TAL COMO PONES EN LOS INPUTS, PERO ESO DEL UTC, SIEMPRE HAY QUE PONERLO
 });

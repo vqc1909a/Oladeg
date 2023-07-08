@@ -78,19 +78,34 @@
                                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 										<div class="card-body">
 											<div class="form-group">
-												<label for="exampleInputEmail1"
+												<label for="titulo"
 													>Título *</label
 												>
 												<input
 													type="text"
 													class="form-control"
-													id="exampleInputEmail1"
+													id="titulo"
 													placeholder="Ingrese Título"
 													name="titulo"
 													value="<%= fields ? fields.titulo : anuncio ? anuncio.titulo : '' %>"
 												/>
 											</div>
-
+											<div class="form-group">
+												<label for="extracto"
+													>Extracto * (max 35 palabras)</label
+												>
+												<div class="row">
+													<div class="col-12 col-md-6">
+														<textarea
+															rows="3"
+															class="form-control"
+															id="extracto"
+															placeholder="Ingrese un extracto o resumen a mostrar"
+															name="extracto"
+														><%= fields ? fields.extracto : anuncio ? anuncio.extracto : '' %></textarea>
+													</div>
+												</div>
+											</div>
 											<div class="form-group row">
 												<div class="col-12 col-md-6">
 													<div class="form-group">
@@ -101,6 +116,7 @@
 															class="form-control"
 															type="date"
 															name="fecha"
+															id="fecha"
 															placeholder="Fecha Anuncio"
 															value="<%= fields ? fields.fecha : anuncio ? anuncio.fecha : '' %>"
 														/>
@@ -115,6 +131,7 @@
 															class="form-control"
 															type="time"
 															name="hora"
+															id="hora"
 															placeholder="Hora Anuncio"
 															value="<%= fields ? fields.hora : anuncio ? anuncio.hora : '' %>"
 														/>
@@ -123,7 +140,7 @@
 											</div>
 											<%if(user.isAdmin){ %>
 												<div class="form-group">
-													<label for="fecha"
+													<label for="userId"
 														>Autor *</label
 													>
 													<select class="form-control" name="userId" >

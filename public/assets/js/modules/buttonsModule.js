@@ -4,7 +4,7 @@ import {
 
 buttons.forEach((button) => {
   button.addEventListener('click', (e) => {
-    let number = e.target.dataset.number;
-    window.location.href = `?page=${number}`;
+    let url = e.target.dataset.url;
+    window.location.href = url;
   })
 })

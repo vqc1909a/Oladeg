@@ -4,13 +4,11 @@ import path from "path";
 import { validationResult } from "express-validator";
 import multer from "multer";
 import fse from "fs-extra";
-import {DateTime} from "luxon";
 import { storageAnuncios } from "../config/multer.js";
 
 import Anuncio from "../models/AnuncioModel.js";
 import User from "../models/UserModel.js";
 import * as ROUTES from "../config/routes.js";
-import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -97,7 +95,9 @@ export const mostrarPaginaAgregarAnuncio = async(req, res) => {
 export const agregarAnuncio = async(req, res) => {
   const body = req.body;
   body.userId = req.user.id;
-
+    console.log({
+        body
+    })
   //Verificar que el usuario sube un archivo
   if(!req.file){
       req.flash('error', 'La imagen del anuncio es obligatorio');
@@ -128,7 +128,7 @@ export const agregarAnuncio = async(req, res) => {
       let erroresSequelize = []
       //Vamos a obtener los errores del propio modelo si no cumple las restricciones que le pusimos para cada campo
       if(err.errors){
-          erroresSequelize = err.errors.map(err => err.message);
+        erroresSequelize = err.errors.map(err => err.message);
       }else{
           erroresSequelize.push(err.message);
       }
@@ -196,6 +196,7 @@ export const editarAnuncio = async(req, res) => {
             return res.redirect(ROUTES.EDITAR_ANUNCIO.replace(':id', req.params.id));
         }
         anuncio.titulo = body.titulo;
+        anuncio.extracto = body.extracto;
         anuncio.fecha = body.fecha;
         anuncio.hora = body.hora;
         anuncio.contenido = body.contenido;

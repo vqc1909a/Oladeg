@@ -7,7 +7,7 @@ import './modules/anuncioModule.js';
 // import './modules/cursoModule.js';
 // import './modules/modalModule.js';
 // import './modules/formularioModule.js';
-// import './modules/buttonsModule.js';
+import './modules/buttonsModule.js';
 // import './modules/pdfModule.js';
 
 

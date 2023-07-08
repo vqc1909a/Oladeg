@@ -1,56 +1,38 @@
 <div class="buttons flex flex-jc-c">
-  <% if(pagina_actual > 1){ %>
-    <span class="anuncios__button activo" data-number="<%= pagina_actual - 1 %>"> &laquo;</span>
-  <% }else{ %>
-    <span class="anuncios__button disabled" data-number="<%= pagina_actual - 1 %>"> &laquo;</span>
+  <span data-url="?page=<%= paginaActual - 1 %>" class="anuncios__button pagination <%= !isPaginacionAnterior ? 'disabled' : '' %>"> &laquo;</span>
+
+  <% if(isPaginacionesNormal) {%>
+    <% arrayPaginas.forEach(pagina => { %>
+      <span data-url="?page=<%= pagina %>" class="anuncios__button <%= paginaActual === pagina ? 'activo': 'disabled' %>"><%= pagina %></span>
+    <% })%>
   <% } %>
-  <% if (total_paginas <= 5) {%>
-    <% for(let i = 0; i < total_paginas; i++) { %>
-      <% if(i + 1 === pagina_actual){ %>
-        <span class="anuncios__button activo" data-number="<%= i + 1 %>"><%= i + 1 %></span>
-      <% }else{ %>
-        <span class="anuncios__button" data-number="<%= i + 1 %>"><%= i + 1 %></span>
-      <% } %>
-    <% } %>
-  <% }else{ %>
-    <%if(pagina_actual <= 3 ){%>
-      <% for(let i = 0; i < pagina_actual + 1; i++) { %>
-        <% if(i + 1 === pagina_actual){ %>
-          <span class="anuncios__button activo" data-number="<%= i + 1 %>"><%= i + 1 %></span>
-        <% }else{ %>
-          <span class="anuncios__button" data-number="<%= i + 1 %>"><%= i + 1 %></span>
-        <% } %>
-      <% } %>
-      <span class="anuncios__button disabled" >...</span>
-      <span class="anuncios__button" data-number="<%= total_paginas %>" ><%= total_paginas %></span>
-    <%}else if(pagina_actual >= total_paginas - 2) {%>
-      <span class="anuncios__button" data-number="1" >1</span>
-      <span class="anuncios__button disabled" >...</span>
-      <% for(let i = pagina_actual - 2; i < total_paginas; i++) { %>
-        <% if(i + 1 === pagina_actual){ %>
-          <span class="anuncios__button activo" data-number="<%= i + 1 %>"><%= i + 1 %></span>
-        <% }else{ %>
-          <span class="anuncios__button" data-number="<%= i + 1 %>"><%= i + 1 %></span>
-        <% } %>
-      <% } %>
-    <% }else{ %>
-      <span class="anuncios__button" data-number="1" >1</span>
-      <span class="anuncios__button disabled" >...</span>
-      <% for(let i = pagina_actual - 2; i < pagina_actual + 1; i++) { %>
-        <% if(i + 1 === pagina_actual){ %>
-          <span class="anuncios__button activo" data-number="<%= i + 1 %>"><%= i + 1 %></span>
-        <% }else{ %>
-          <span class="anuncios__button" data-number="<%= i + 1 %>"><%= i + 1 %></span>
-        <% } %>
-      <% } %>
-      <span class="anuncios__button disabled" >...</span>
-      <span class="anuncios__button" data-number="<%= total_paginas %>" ><%= total_paginas %></span>
-    <%} %>
+
+  <% if(isPaginacionesIzquierda) { %>
+    <span data-url="?page=1" class="anuncios__button <%= paginaActual === 1 ? 'activo': '' %>">1</span>
+    <span data-url="?page=2" class="anuncios__button <%= paginaActual === 2 ? 'activo': '' %>">2</span>
+    <span data-url="?page=3" class="anuncios__button <%= paginaActual === 3 ? 'activo': '' %>">3</span>
+    <span data-url="#" class="anuncios__button disabled">...</span>
+    <span data-url="?page=<%= cantidadPaginas %>" class="anuncios__button <%= paginaActual === cantidadPaginas ? 'activo': '' %>"><%= cantidadPaginas %></span>
   <% } %>
-  
-  <% if(pagina_actual < total_paginas){ %>
-    <span class="anuncios__button activo" data-number="<%= pagina_actual + 1 %>"> &raquo;</span>
-  <% }else{ %>
-    <span class="anuncios__button disabled" data-number="<%= pagina_actual + 1 %>"> &raquo;</span>
+
+  <% if(isPaginacionesMedia) {%>
+    <span data-url="?page=1" class="anuncios__button <%= paginaActual === 1 ? 'activo': '' %>">1</span>
+    <span data-url="#" class="anuncios__button disabled">...</span>
+    <span data-url="?page=<%= paginaActual %>" class="anuncios__button activo"><%= paginaActual %></span>
+    <span data-url="#" class="anuncios__button disabled">...</span>
+    <span data-url="?page=<%= cantidadPaginas %>" class="anuncios__button <%= paginaActual === cantidadPaginas ? 'activo': '' %>"><%= cantidadPaginas %></span>
   <% } %>
+
+  <% if(isPaginacionesDerecha) {%>
+    <span data-url="?page=1" class="anuncios__button <%= paginaActual === 1 ? 'activo': '' %>">1</span>
+    <span data-url="#" class="anuncios__button disabled">...</span>
+
+    <span data-url="?page=<%= cantidadPaginas - 2 %>" class="anuncios__button <%= paginaActual === cantidadPaginas - 2 ? 'activo': '' %>"><%= cantidadPaginas - 2 %></span>
+
+    <span data-url="?page=<%= cantidadPaginas - 1 %>" class="anuncios__button <%= paginaActual === cantidadPaginas - 1 ? 'activo': '' %>"><%= cantidadPaginas - 1 %></span>
+
+    <span data-url="?page=<%= cantidadPaginas %>" class="anuncios__button <%= paginaActual === cantidadPaginas ? 'activo': '' %>"><%= cantidadPaginas %></span>
+  <% } %>
+
+  <span data-url="?page=<%= paginaActual + 1 %>" class="anuncios__button pagination <%= !isPaginacionSiguiente ? 'disabled' : '' %>"> &raquo;</span>
 </div>
