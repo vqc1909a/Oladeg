@@ -20,7 +20,7 @@
     img{
       width: 100%;
       @include breakpoint-up(medium) {
-        width: 80%;
+        width: 85%;
       }
     }
     margin-bottom: 2rem;
@@ -41,6 +41,9 @@
       span{
         color: $pinkOxido;
         margin-right: .5rem;
+      }
+      time{
+        color: $dark;
       }
       margin-bottom: 0rem;
     }

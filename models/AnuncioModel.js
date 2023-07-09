@@ -36,13 +36,22 @@ const Anuncio = sequelize.define('Anuncio', {
             tieneMaximo30Palabras(value) {
                 const palabras = value.trim().split(/\s+/);
                 if (palabras.length > 30) {
-                    throw new Error('El extracto debe tener como máximo 35 palabras.');
+                    throw new Error('El extracto del anuncio debe tener como máximo 35 palabras.');
                 }
             }
         }
     },
     portada: {
         type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+            notNull: {
+                msg: 'La imagen del anuncio es obligaotrio'
+            },
+            notEmpty: {
+                msg: 'La imagen del anuncio es obligaotrio'
+            }
+        }
     },
     contenido: {
         type: DataTypes.TEXT,

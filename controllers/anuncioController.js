@@ -112,14 +112,9 @@ export const mostrarPaginaAgregarAnuncio = async(req, res) => {
 export const agregarAnuncio = async(req, res) => {
   const body = req.body;
   body.userId = req.user.id;
-  //Verificar que el usuario sube un archivo
-  if(!req.file){
-      req.flash('error', 'La imagen del anuncio es obligatorio');
-      req.flash('fields', body);        
-      return res.redirect(ROUTES.AGREGAR_ANUNCIO);
+  if(req.file){
+    body.portada = `/dist/uploads/anuncios/${req.file.filename}`
   }
-  body.portada = `/dist/uploads/anuncios/${req.file.filename}`
-
   try{
       let errorsExpress = validationResult(req);
       //Comprobamos si hay errores de express
@@ -269,11 +264,9 @@ export const editarImagenAnuncio = async (req, res) => {
     const body = req.body; 
     const user = req.user;
     //Verificar que el usuario sube una imagen
-    if(!req.file){
-        req.flash('error', 'Por favor sube una imagen');
-        return res.redirect(ROUTES.EDITAR_IMAGEN_ANUNCIO.replace(':id', req.params.id));
+    if(req.file){
+        body.portada = `/dist/uploads/anuncios/${req.file.filename}`
     }
-    body.portada = `/dist/uploads/anuncios/${req.file.filename}`;
     try{
         let anuncio;
         if(user.isAdmin){

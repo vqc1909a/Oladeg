@@ -29,6 +29,11 @@ export const EDITAR_ANUNCIO = "/admin/anuncio/:id/edit";
 export const EDITAR_IMAGEN_ANUNCIO = "/admin/anuncio/:id/edit-image";
 export const ELIMINAR_ANUNCIO = "/admin/anuncio/:id/delete";
 
+//CURSOS ROUTES
+export const MOSTRAR_CURSOS = "/cursos";
+export const MOSTRAR_CURSO = "/cursos/:curso";
+
+
 
 export const PERFIL = "/admin/profile";
 export const CHANGE_PASSWORD_PERFIL = "/admin/profile/edit-password";
@@ -36,25 +41,6 @@ export const CHANGE_IMAGEN_PERFIL = "/admin/profile/edit-image";
 export const CONFIRM_NEW_EMAIL = "/admin/profile/confirm-email/:token";
 
 
-
-
-//GROUP ROUTES
-export const MOSTRAR_GRUPO = "/groups/:slug";
-
-//MEETI ROUTES
-export const MOSTRAR_MEETI = "/meetis/:slug";
-export const MOSTRAR_ASISTENTES_MEETI = "/meetis/:slug/asistentes"
-export const MOSTRAR_MEETIS_CATEGORIA = "/categorias/:slug/meetis";
-//->RUTA PROTEGIDA
-export const ASISTIR_MEETI = "/meeti/:slug/asistir";
-export const COMENTAR_MEETI = "/meeti/:slug/comentar";
-export const ELIMINAR_COMENTARIO_MEETI = "/meeti/:idMeeti/comentario/:idComentario";
-
-//USER ROUTES
-export const MOSTRAR_USUARIO = "/users/:slug"
-
-//BUSQUEDA ROUTES
-export const BUSQUEDA = "/busqueda";
 
 
 
