@@ -104,6 +104,9 @@
     text-align: center;
     margin-bottom: 2rem 0;
     position: relative;
+    &:hover{
+      color: $white;
+    }
     &::after{
       content: "";
       position: absolute;

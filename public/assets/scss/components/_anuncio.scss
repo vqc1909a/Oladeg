@@ -13,6 +13,7 @@
     @include breakpoint-up(medium) {
       margin-bottom: 2rem;
     }
+    font-weight: bolder;
   }
   &__image{
     text-align: center;
@@ -23,6 +24,26 @@
       }
     }
     margin-bottom: 2rem;
+  }
+  &__fecha{
+    h2{
+      display: flex;
+      span{
+        color: $pinkOxido;
+        margin-right: .5rem;
+      }
+      margin-bottom: 1rem;
+    }
+  }
+  &__hora{
+    h2{
+      display: flex;
+      span{
+        color: $pinkOxido;
+        margin-right: .5rem;
+      }
+      margin-bottom: 0rem;
+    }
   }
   &__buttons{
     display: grid;
@@ -41,9 +62,9 @@
     background-color: $rojoOxido;
     color: $white;
     flex: 1;
-    cursor: pointer;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 
     &--before{
       @include breakpoint-up(medium) {
@@ -61,12 +82,14 @@
     }
     &--disabled{
       pointer-events: none;
+      opacity: .5;
+    }
+    &:hover{
+      color: $white;
     }
 
   }
   &__content{
-    text-align: justify;
-    margin-bottom: 2rem;
     h2{
       font-size: $font-nm-dt;
       @include breakpoint-up(medium){
@@ -94,19 +117,11 @@
 
     h2,h3,h4,h5,h6{
       color: $dark;
-      margin-top: 1.5rem;
       margin-bottom: .25rem;
     }
-    p{
-      margin-bottom: .5rem;
-   }
     img{
       display: block;
       width: 100%;
-    }
-    ul, ol {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
     }
     li {
       margin-bottom: .5rem;

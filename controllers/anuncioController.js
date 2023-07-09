@@ -9,6 +9,8 @@ import { storageAnuncios } from "../config/multer.js";
 import Anuncio from "../models/AnuncioModel.js";
 import User from "../models/UserModel.js";
 import * as ROUTES from "../config/routes.js";
+import {DateTime} from "luxon";
+import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -55,27 +57,42 @@ export const subirImagen = (req, res, next) => {
 }
 
 export const mostrarAnuncio = async (req, res) => {
-  // const url = req.params.anuncio;
-  // let anuncios = await obtenerAnuncios();
-  // let anuncio = anuncios.find((anuncio) => anuncio.Url === url );
-  // let anterior;
-  // let despues;
-  // let ubicacion
-  // anuncios.forEach((anu, i) => {
-  //   if(anu.Titulo === anuncio.Titulo){
-  //     ubicacion = i;
-  //   }
-  // });
-  // anterior = anuncios[ubicacion + 1];
-  // despues = anuncios[ubicacion - 1];
 
-  return res.render('anuncio/mostrar-anuncio', {
-    // title: `${anuncio.Titulo} &#8211; OLADEG`,
-    title: `I Primer Encuentro de Sostenibilidad en las Empresas Comunales &#8211; OLADEG`,
-    // description: anuncio.metadescripcion,
-    description: "",
-    publicidad: ''
-  })
+  try{
+    const slug = req.params.slug
+    const [anuncios, anuncio] = await Promise.all([Anuncio.findAll({
+        order: [["fechaYHora", "ASC"]]
+    }), Anuncio.findOne({where: {slug}, order: [["fechaYHora", "ASC"]]})])
+    if(!anuncio){
+        req.flash("error", "El anuncio no existe");
+        return res.redirect(ROUTES.HOME)
+    }
+    const index = anuncios.findIndex(a => a.id === anuncio.id);
+    const indexAnterior = index === 0 ? 0 : index - 1;
+    const indexSiguiente = (index === anuncios.length - 1) ? index : index + 1;
+
+    const isButtonAnterior = index > 0;
+    const isButtonSiguiente = index < anuncios.length - 1
+
+    let anuncioAnterior = isButtonAnterior ? anuncios.slice(indexAnterior, indexAnterior  + 1)[0] : undefined;
+    let anuncioSiguiente = isButtonSiguiente ? anuncios.slice(indexSiguiente, indexSiguiente  + 1)[0] : undefined;
+    
+    return res.render('anuncio/mostrar-anuncio', {
+        title: `${anuncio.titulo} &#8211; OLADEG`,
+        description: anuncio.extracto,
+        publicidad: '',
+        anuncio,
+        isButtonAnterior,
+        isButtonSiguiente,
+        anuncioAnterior,
+        anuncioSiguiente,
+        DateTime,
+        convertirPrimeraLetraMayuscula
+    })
+  }catch(err){
+    req.flash("error", err.message);
+    return res.redirect(ROUTES.HOME);
+  }
 }
 
 export const mostrarPaginaAgregarAnuncio = async(req, res) => {
@@ -95,9 +112,6 @@ export const mostrarPaginaAgregarAnuncio = async(req, res) => {
 export const agregarAnuncio = async(req, res) => {
   const body = req.body;
   body.userId = req.user.id;
-    console.log({
-        body
-    })
   //Verificar que el usuario sube un archivo
   if(!req.file){
       req.flash('error', 'La imagen del anuncio es obligatorio');

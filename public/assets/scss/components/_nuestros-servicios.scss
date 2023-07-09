@@ -5,7 +5,11 @@
       display: flex;
     }
   }
-
+  &__intro{
+    h1{
+      font-weight: bolder;
+    }
+  }
   &__text {
     flex: 1;
   }
@@ -37,6 +41,7 @@
     h2 {
       margin-bottom: 1rem;
       font-size: $font-nm-dt;
+      font-weight: bolder;
       @include breakpoint-up(large) {
         font-size: $font-lg;
       }

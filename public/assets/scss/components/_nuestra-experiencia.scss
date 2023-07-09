@@ -5,12 +5,18 @@
        display: flex;
      }
   }
+  &__intro{
+    h1{
+      font-weight: bolder;
+    }
+  }
   &__text {
     flex: 1;
     h2{
       margin-top: 1rem;
       margin-bottom: .5rem;
       font-size: $font-nm-dt;
+      font-weight: bolder;
       @include breakpoint-up(large) {
         font-size: $font-lg;
       }

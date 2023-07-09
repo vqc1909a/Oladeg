@@ -1,24 +1,25 @@
-
 <div class="anuncio__buttons">
-  <% if (anterior || despues) { %>
-    <% if (anterior) { %>
-      <a href="<%= `${protocol}://${host}/${tipo}/${anterior.Url}` %>" role="link" class="anuncio__button anuncio__button--before" title="<%= `${anterior.Titulo} | Oladeg` %>">
+    <% if (isButtonAnterior) { %>
+      <a href="/anuncios/<%= anuncioAnterior.slug %>" role="link" class="anuncio__button anuncio__button--before" title="<%= anuncioAnterior.titulo %>">
         <span>&lt;</span>
-        <p><%= `${anterior.Titulo}` %></p>
+        <p><%= anuncioAnterior.titulo %></p>
       </a>
     <% } else { %>
       <a href="" role="link" class="anuncio__button anuncio__button--before anuncio__button--disabled" title="">
+          <span>&lt;</span>
+          <p>Sin anuncio anterior</p>
       </a>
     <% } %>
   
-    <% if (despues) { %>
-      <a href="<%= `${protocol}://${host}/${tipo}/${despues.Url}` %>" role="link" class="anuncio__button anuncio__button--after" title="<%= `${despues.Titulo} | Oladeg` %>">
-        <p><%= `${despues.Titulo}` %></p>
+    <% if (isButtonSiguiente) { %>
+      <a href="/anuncios/<%= anuncioSiguiente.slug %>" role="link" class="anuncio__button anuncio__button--after" title="<%= anuncioSiguiente.titulo %>">
+        <p><%= anuncioSiguiente.titulo %></p>
         <span>&gt;</span>
       </a>
     <% } else { %>
       <a href="" role="link" class="anuncio__button anuncio__button--after anuncio__button--disabled" title="">
+        <p>Sin anuncio siguiente</p>
+        <span>&gt;</span>
       </a>
     <% } %>
-  <% } %>
 </div>

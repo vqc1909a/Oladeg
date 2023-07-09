@@ -3,7 +3,7 @@
 
   <% if(isPaginacionesNormal) {%>
     <% arrayPaginas.forEach(pagina => { %>
-      <span data-url="?page=<%= pagina %>" class="anuncios__button <%= paginaActual === pagina ? 'activo': 'disabled' %>"><%= pagina %></span>
+      <span data-url="?page=<%= pagina %>" class="anuncios__button <%= paginaActual === pagina ? 'activo': '' %>"><%= pagina %></span>
     <% })%>
   <% } %>
 
