@@ -123,6 +123,22 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
             }
         }
     },
+    tipo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+             notNull: {
+                msg: 'El tipo del programa académico es obligatorio'
+            },
+            notEmpty: {
+                msg: 'El tipo del programa académico es obligatorio'
+            },
+            isIn: {
+                args: [["curso", "diplomado", "especializacion"]],
+                msg: "El tipo del programa académico es obligatorio"   
+            }
+        }
+    },
     inscripcion: {
         type: DataTypes.TEXT,
     },
@@ -171,22 +187,6 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
             },
             notEmpty: {
                 msg: 'La imagen del expositor del programa académico es obligatorio'
-            }
-        }
-    },
-    tipo: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-             notNull: {
-                msg: 'El tipo del programa académico es obligatorio'
-            },
-            notEmpty: {
-                msg: 'El tipo del programa académico es obligatorio'
-            },
-            isIn: {
-                args: [["curso", "diplomado", "especializacion"]],
-                msg: "El tipo del programa académico es obligatorio"   
             }
         }
     },

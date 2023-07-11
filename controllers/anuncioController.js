@@ -121,7 +121,7 @@ export const agregarAnuncio = async(req, res) => {
       if(!errorsExpress.isEmpty()){
           //Si hay algun error, pues obviamente borramos el archivo subido
           const filePathImage = path.join(__dirname, `../public/${body.portada}`);
-          if(req.file && fse.existsSync(filePathImage)){
+          if(fse.existsSync(filePathImage)){
               fse.unlinkSync(filePathImage);
           }
 
@@ -143,7 +143,7 @@ export const agregarAnuncio = async(req, res) => {
       }
       //Si hay algun error, pues obviamente borramos el archivo subido
       const filePathImage = path.join(__dirname, `../public/${body.portada}`);
-      if(req.file && fse.existsSync(filePathImage)){
+      if(fse.existsSync(filePathImage)){
           fse.unlinkSync(filePathImage);
       }
       req.flash('error', erroresSequelize);
@@ -295,7 +295,7 @@ export const editarImagenAnuncio = async (req, res) => {
     }catch(err){
         //Si algo ocurrio, borramos la nueva imagen que se subio
         const filePathImage = path.join(__dirname, `../public/${body.portada}`);
-        if(req.file && fse.existsSync(filePathImage)){
+        if(fse.existsSync(filePathImage)){
             fse.unlinkSync(filePathImage);
         }
         

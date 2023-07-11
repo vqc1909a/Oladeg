@@ -6,7 +6,8 @@ import multer from "multer";
 import fse from "fs-extra";
 import { storageProgramasAcademicos } from "../config/multer.js";
 
-import Anuncio from "../models/AnuncioModel.js";
+import ProgramaAcademico from "../models/ProgramaAcademicoModel.js";
+
 import User from "../models/UserModel.js";
 import * as ROUTES from "../config/routes.js";
 import {DateTime} from "luxon";
@@ -21,7 +22,7 @@ const upload = multer({
     limits: {
         fileSize: 1024 * 1024, // 1 MB
         fieldSize: 1024 * 1024,
-        files: 1 // Máximo 5 archivos
+        files: 2 // Máximo 5 archivos
     }
 }).fields([
     {name: 'portada', maxCount: 1},
@@ -76,27 +77,38 @@ export const mostrarPaginaAgregarPrograma = async(req, res) => {
 export const agregarPrograma = async(req, res) => {
   const body = req.body;
   body.userId = req.user.id;
-  if(req.file){
-    body.portada = `/dist/uploads/anuncios/${req.file.filename}`
+  if(req.files.portada){
+    body.portada = `/dist/uploads/programas/portada/${req.files.portada[0].filename}`
   }
+  if(req.files.expositorImagen){
+    body.expositorImagen = `/dist/uploads/programas/expositor/${req.files.expositorImagen[0].filename}`
+  }
+
+  console.log({
+    body
+  })
   try{
       let errorsExpress = validationResult(req);
       //Comprobamos si hay errores de express
       if(!errorsExpress.isEmpty()){
-          //Si hay algun error, pues obviamente borramos el archivo subido
-          const filePathImage = path.join(__dirname, `../public/${body.portada}`);
-          if(req.file && fse.existsSync(filePathImage)){
-              fse.unlinkSync(filePathImage);
+          //Si hay algun error, pues obviamente borramos los archivos subido
+          const filePathPortada = path.join(__dirname, `../public/${body.portada}`);
+          if(fse.existsSync(filePathPortada)){
+              fse.unlinkSync(filePathPortada);
+          }
+          const filePathExpositor = path.join(__dirname, `../public/${body.expositorImagen}`);
+          if(fse.existsSync(filePathExpositor)){
+              fse.unlinkSync(filePathExpositor);
           }
 
           const erroresExpress = errorsExpress.array().map(err => err.msg)
           req.flash('error', erroresExpress);
           req.flash('fields', body);        
-          return res.redirect(ROUTES.AGREGAR_ANUNCIO);
+          return res.redirect(ROUTES.AGREGAR_PROGRAMA);
       }
-      await Anuncio.create(body);
-      req.flash('success', 'Anuncio creado correctamente');
-      return res.redirect(ROUTES.ANUNCIOS_ADMIN);
+      await ProgramaAcademico.create(body);
+      req.flash('success', 'Programa creado correctamente');
+      return res.redirect(ROUTES.PROGRAMAS_ADMIN);
   }catch(err){
       let erroresSequelize = []
       //Vamos a obtener los errores del propio modelo si no cumple las restricciones que le pusimos para cada campo
@@ -105,14 +117,18 @@ export const agregarPrograma = async(req, res) => {
       }else{
           erroresSequelize.push(err.message);
       }
-      //Si hay algun error, pues obviamente borramos el archivo subido
-      const filePathImage = path.join(__dirname, `../public/${body.portada}`);
-      if(req.file && fse.existsSync(filePathImage)){
-          fse.unlinkSync(filePathImage);
+      //Si hay algun error, pues obviamente borramos los archivos subido
+      const filePathPortada = path.join(__dirname, `../public/${body.portada}`);
+      if(fse.existsSync(filePathPortada)){
+          fse.unlinkSync(filePathPortada);
+      }
+      const filePathExpositor = path.join(__dirname, `../public/${body.expositorImagen}`);
+      if(fse.existsSync(filePathExpositor)){
+          fse.unlinkSync(filePathExpositor);
       }
       req.flash('error', erroresSequelize);
       req.flash('fields', body)
-      return res.redirect(ROUTES.AGREGAR_ANUNCIO);
+      return res.redirect(ROUTES.AGREGAR_PROGRAMA);
   }
 }
 
@@ -122,13 +138,13 @@ export const mostrarPaginaEditarPrograma = async(req, res) => {
     try{
         let anuncio;
         if(user.isAdmin){
-            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
         if(!anuncio){
             req.flash('error', 'Acceso denegado');
-            return res.redirect(ROUTES.ANUNCIOS_ADMIN);
+            return res.redirect(ROUTES.PROGRAMAS_ADMIN);
         }
         return res.render('anuncio/editar-anuncio', {
             nombrePagina: "Editar Anuncio",
@@ -139,7 +155,7 @@ export const mostrarPaginaEditarPrograma = async(req, res) => {
         })
     }catch(err){
         req.flash("error", err.message);
-        return res.redirect(ROUTES.ANUNCIOS_ADMIN)
+        return res.redirect(ROUTES.PROGRAMAS_ADMIN)
     }
 }
 
@@ -149,15 +165,15 @@ export const editarPrograma = async(req, res) => {
     try{
         let anuncio;
         if(user.isAdmin){
-            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
 
         //Editar un anuncio que no le pertenece al usuario
         if(!anuncio){
             req.flash('error', 'Operación no válida');
-            return res.redirect(ROUTES.ANUNCIOS_ADMIN);
+            return res.redirect(ROUTES.PROGRAMAS_ADMIN);
         }
 
         let errorsExpress = validationResult(req);
@@ -166,7 +182,7 @@ export const editarPrograma = async(req, res) => {
             const erroresExpress = errorsExpress.array().map(err => err.msg)
             req.flash('error', erroresExpress);
             req.flash('fields', body);        
-            return res.redirect(ROUTES.EDITAR_ANUNCIO.replace(':id', req.params.id));
+            return res.redirect(ROUTES.EDITAR_PROGRAMA.replace(':id', req.params.id));
         }
         anuncio.titulo = body.titulo;
         anuncio.extracto = body.extracto;
@@ -180,7 +196,7 @@ export const editarPrograma = async(req, res) => {
         
         await anuncio.save();
         req.flash('success', 'Anuncio editado correctamente');
-        return res.redirect(ROUTES.ANUNCIOS_ADMIN);
+        return res.redirect(ROUTES.PROGRAMAS_ADMIN);
     }catch(err){
         let erroresSequelize = []
         //Vamos a obtener los errores del propio modelo si no cumple las restricciones que le pusimos para cada campo
@@ -191,7 +207,7 @@ export const editarPrograma = async(req, res) => {
         }
         req.flash('error', erroresSequelize);
         req.flash('fields', body)
-        return res.redirect(ROUTES.EDITAR_ANUNCIO.replace(':id', req.params.id));
+        return res.redirect(ROUTES.EDITAR_PROGRAMA.replace(':id', req.params.id));
     }
 }
 
@@ -202,14 +218,14 @@ export const mostrarPaginaEditarImagenPrograma = async (req, res) => {
     try{
         let anuncio;
         if(user.isAdmin){
-            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
 
         if(!anuncio){
             req.flash('error', 'Acceso denegado');
-            return res.redirect(ROUTES.ANUNCIOS_ADMIN);
+            return res.redirect(ROUTES.PROGRAMAS_ADMIN);
         }
         return res.render('anuncio/editar-imagen-anuncio', {
             nombrePagina: `Editar Imagen Anuncio: ${anuncio.titulo}`,
@@ -219,7 +235,7 @@ export const mostrarPaginaEditarImagenPrograma = async (req, res) => {
         })
     }catch(err){
         req.flash('error', err.message);
-        return res.redirect(ROUTES.ANUNCIOS_ADMIN);
+        return res.redirect(ROUTES.PROGRAMAS_ADMIN);
     }
 }
 
@@ -234,14 +250,14 @@ export const editarImagenPrograma = async (req, res) => {
     try{
         let anuncio;
         if(user.isAdmin){
-            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
 
         if(!anuncio){
             req.flash('error', 'Acceso denegado');
-            return res.redirect(ROUTES.ANUNCIOS_ADMIN);
+            return res.redirect(ROUTES.PROGRAMAS_ADMIN);
         }
        
         let previousImage = anuncio.portada;
@@ -255,7 +271,7 @@ export const editarImagenPrograma = async (req, res) => {
             fse.unlinkSync(filePathPreviousImage);
         }
         req.flash('success', 'Portada cambiado correctamente');
-        return res.redirect(ROUTES.ANUNCIOS_ADMIN);
+        return res.redirect(ROUTES.PROGRAMAS_ADMIN);
     }catch(err){
         //Si algo ocurrio, borramos la nueva imagen que se subio
         const filePathImage = path.join(__dirname, `../public/${body.portada}`);
@@ -271,7 +287,7 @@ export const editarImagenPrograma = async (req, res) => {
             erroresSequelize.push(err.message);
         }
         req.flash('error', erroresSequelize);
-        return res.redirect(ROUTES.EDITAR_IMAGEN_ANUNCIO.replace(':id', req.params.id));
+        return res.redirect(ROUTES.EDITAR_IMAGEN_PROGRAMA.replace(':id', req.params.id));
     }
 }
 
@@ -280,9 +296,9 @@ export const eliminarPrograma = async(req, res) => {
     try{
         let anuncio;
         if(user.isAdmin){
-            anuncio = await Anuncio.findOne({where: {id: req.params.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await Anuncio.findOne({where: {id: req.params.id, userId: user.id}});
+            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
         if(!anuncio){
             return res.status(401).json({message: "Acceso denegado"});
@@ -292,7 +308,7 @@ export const eliminarPrograma = async(req, res) => {
             fse.unlinkSync(filePathImage);
         }
 
-        await Anuncio.destroy({where: {id: req.params.id}});
+        await ProgramaAcademico.destroy({where: {id: req.params.id}});
         return res.status(200).json({message: "El anuncio ha sido eliminado."});
     }catch(err){
         const message = err.message;

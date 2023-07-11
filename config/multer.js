@@ -70,11 +70,11 @@ export const storageProgramasAcademicos = multer.diskStorage({
   destination: (req, file, cb) => {
     let folder = ''
     if(file.fieldname === 'portada'){
-      folder = path.join(__dirname, '../public/dist/uploads/anuncios/')
+      folder = path.join(__dirname, '../public/dist/uploads/programas/portada/')
     }else if(file.fieldname === 'expositorImagen'){
-
+      folder = path.join(__dirname, '../public/dist/uploads/programas/expositor/')
     }
-    cb(null, path.join(__dirname, '../public/dist/uploads/anuncios/'));
+    cb(null, folder);
   },
   filename: (req, file, cb) => {
     // {
