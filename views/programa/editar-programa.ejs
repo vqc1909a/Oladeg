@@ -228,15 +228,19 @@
 												<label for="inscripcion"
 													>Inscripción</label
 												>
-												<div class="contenedor-editor">
-													<input
-														type="hidden"
-														name="inscripcion"
-														id="inputInscripcionQuill"
-														value="<%= fields ? fields.inscripcion : programa ? programa.inscripcion : '' %>"
-													/>
-													<div id="editorInscripcion">
-														<%- fields ? fields.inscripcion : programa ? programa.inscripcion : '' %>
+												<div class="row">
+													<div class="col-12 col-md-8">
+														<div class="contenedor-editor">
+															<input
+																type="hidden"
+																name="inscripcion"
+																id="inputInscripcionQuill"
+																value="<%= fields ? fields.inscripcion : programa ? programa.inscripcion : '' %>"
+															/>
+															<div id="editorInscripcion">
+																<%- fields ? fields.inscripcion : programa ? programa.inscripcion : '' %>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -244,15 +248,19 @@
 												<label for="temario"
 													>Temario</label
 												>
-												<div class="contenedor-editor">
-													<input
-														type="hidden"
-														name="temario"
-														id="inputTemarioQuill"
-														value="<%= fields ? fields.temario : programa ? programa.temario : '' %>"
-													/>
-													<div id="editorTemario">
-														<%- fields ? fields.temario : programa ? programa.temario : '' %>
+												<div class="row">
+													<div class="col-12 col-md-8">
+														<div class="contenedor-editor">
+															<input
+																type="hidden"
+																name="temario"
+																id="inputTemarioQuill"
+																value="<%= fields ? fields.temario : programa ? programa.temario : '' %>"
+															/>
+															<div id="editorTemario">
+																<%- fields ? fields.temario : programa ? programa.temario : '' %>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -260,15 +268,19 @@
 												<label for="materiales"
 													>Materiales</label
 												>
-												<div class="contenedor-editor">
-													<input
-														type="hidden"
-														name="materiales"
-														id="inputMaterialesQuill"
-														value="<%= fields ? fields.materiales : programa ? programa.materiales : '' %>"
-													/>
-													<div id="editorMateriales">
-														<%- fields ? fields.materiales : programa ? programa.materiales : '' %>
+												<div class="row">
+													<div class="col-12 col-md-8">
+														<div class="contenedor-editor">
+															<input
+																type="hidden"
+																name="materiales"
+																id="inputMaterialesQuill"
+																value="<%= fields ? fields.materiales : programa ? programa.materiales : '' %>"
+															/>
+															<div id="editorMateriales">
+																<%- fields ? fields.materiales : programa ? programa.materiales : '' %>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -276,15 +288,19 @@
 												<label for="promocion"
 													>Promocion</label
 												>
-												<div class="contenedor-editor">
-													<input
-														type="hidden"
-														name="promocion"
-														id="inputPromocionQuill"
-														value="<%= fields ? fields.promocion : programa ? programa.promocion : '' %>"
-													/>
-													<div id="editorPromocion">
-														<%- fields ? fields.promocion : programa ? programa.promocion : '' %>
+												<div class="row">
+													<div class="col-12 col-md-8">
+														<div class="contenedor-editor">
+															<input
+																type="hidden"
+																name="promocion"
+																id="inputPromocionQuill"
+																value="<%= fields ? fields.promocion : programa ? programa.promocion : '' %>"
+															/>
+															<div id="editorPromocion">
+																<%- fields ? fields.promocion : programa ? programa.promocion : '' %>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -292,16 +308,20 @@
 												<label for="metodologia"
 													>Metodologia</label
 												>
-												<div class="contenedor-editor">
-													<input
-														type="hidden"
-														name="metodologia"
-														id="inputMetodologiaQuill"
-														value="<%= fields ? fields.metodologia : programa ? programa.metodologia : '' %>"
-													/>
-													<div id="editorMetodologia">
-														<%- fields ?
-														fields.metodologia : programa ? programa.metodologia : '' %>
+												<div class="row">
+													<div class="col-12 col-md-8">
+														<div class="contenedor-editor">
+															<input
+																type="hidden"
+																name="metodologia"
+																id="inputMetodologiaQuill"
+																value="<%= fields ? fields.metodologia : programa ? programa.metodologia : '' %>"
+															/>
+															<div id="editorMetodologia">
+																<%- fields ?
+																fields.metodologia : programa ? programa.metodologia : '' %>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -311,14 +331,18 @@
 												<label for="expositorNombre"
 													>Nombre del Expositor *</label
 												>
-												<input
-													type="text"
-													class="form-control"
-													id="expositorNombre"
-													placeholder="Ej. Ing. Remigio López Daga"
-													name="expositorNombre"
-													value="<%= fields ? fields.expositorNombre : programa ? programa.expositorNombre : '' %>"
-												/>
+												<div class="row">
+													<div class="col-12 col-md-6">
+														<input
+															type="text"
+															class="form-control"
+															id="expositorNombre"
+															placeholder="Ej. Ing. Remigio López Daga"
+															name="expositorNombre"
+															value="<%= fields ? fields.expositorNombre : programa ? programa.expositorNombre : '' %>"
+														/>
+													</div>
+												</div>		
 											</div>
 											<div class="form-group">
 												<label for="expositorDescripcion"

@@ -159,15 +159,15 @@ export const editarPrograma = async(req, res) => {
     const body = req.body;
     const user = req.user;
     try{
-        let anuncio;
+        let programa;
         if(user.isAdmin){
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
+            programa = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
+            programa = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
 
-        //Editar un anuncio que no le pertenece al usuario
-        if(!anuncio){
+        //Editar un programa que no le pertenece al usuario
+        if(!programa){
             req.flash('error', 'Operación no válida');
             return res.redirect(ROUTES.PROGRAMAS_ADMIN);
         }
@@ -180,18 +180,38 @@ export const editarPrograma = async(req, res) => {
             req.flash('fields', body);        
             return res.redirect(ROUTES.EDITAR_PROGRAMA.replace(':id', req.params.id));
         }
-        anuncio.titulo = body.titulo;
-        anuncio.extracto = body.extracto;
-        anuncio.fecha = body.fecha;
-        anuncio.hora = body.hora;
-        anuncio.contenido = body.contenido;
+        
+        let newProgram = body;
+        // programa.titulo = body.titulo;
+        // programa.descripcion = body.descripcion;
+        // programa.inversion = body.inversion;
+        // programa.duracion = body.duracion;
+        // programa.fecha = body.fecha;
+        // programa.hora = body.hora;
+        // programa.modalidad = body.modalidad;
+        // programa.tipo = body.tipo;
+
+        // programa.inscripcion = body.inscripcion;
+        // programa.temario = body.temario;
+        // programa.materiales = body.materiales;
+        // programa.promocion = body.promocion;
+        // programa.metodologia = body.metodologia;
+        // programa.expositorNombre = body.expositorNombre;
+        // programa.expositorDescripcion = body.expositorDescripcion;
+
         //SOlo el admin puede cambiar el autor de las entradas
         if(req.user.isAdmin){
-            anuncio.userId = body.userId;
+            newProgram.userId = body.userId;
         }
+
+        await ProgramaAcademico.update(newProgram, {
+            where: {
+                id: req.params.id
+            }
+        })
         
-        await anuncio.save();
-        req.flash('success', 'Anuncio editado correctamente');
+        // await programa.save();
+        req.flash('success', 'Programa académico editado correctamente');
         return res.redirect(ROUTES.PROGRAMAS_ADMIN);
     }catch(err){
         let erroresSequelize = []
