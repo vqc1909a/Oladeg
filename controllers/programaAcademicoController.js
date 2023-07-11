@@ -83,10 +83,6 @@ export const agregarPrograma = async(req, res) => {
   if(req.files.expositorImagen){
     body.expositorImagen = `/dist/uploads/programas/expositor/${req.files.expositorImagen[0].filename}`
   }
-
-  console.log({
-    body
-  })
   try{
       let errorsExpress = validationResult(req);
       //Comprobamos si hay errores de express

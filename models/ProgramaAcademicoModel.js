@@ -61,6 +61,7 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
                 msg: 'La inversión del programa académico debe ser un número válido'
             },
             min: {
+                args: 1,
                 msg: 'Ingrese un valor válido para la inversión del programa'
             }
         }

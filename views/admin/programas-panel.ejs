@@ -183,10 +183,10 @@
 																	"
 																/>
 															</td>
-															<td><%= programa.tipo %></td>
-															<td><%= programa.modalidad %></td>
+															<td><%= convertirPrimeraLetraMayuscula(programa.tipo) %></td>
+															<td><%= convertirPrimeraLetraMayuscula(programa.modalidad) %></td>
 															<td>
-																<%= convertirPrimeraLetraMayuscula(fechaFormateada) + ' ' + programa.hora %>
+																<%= convertirPrimeraLetraMayuscula(fechaFormateada) %>
 															</td>
 															<% if(user.isAdmin){ %>
 																<td><%= programa.User.nombre + ' ' + programa.User.apellido %></td>
