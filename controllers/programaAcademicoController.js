@@ -132,21 +132,21 @@ export const mostrarPaginaEditarPrograma = async(req, res) => {
     const user = req.user;
     const users = await User.findAll({});
     try{
-        let anuncio;
+        let programa;
         if(user.isAdmin){
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
+            programa = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
+            programa = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
-        if(!anuncio){
+        if(!programa){
             req.flash('error', 'Acceso denegado');
             return res.redirect(ROUTES.PROGRAMAS_ADMIN);
         }
-        return res.render('anuncio/editar-anuncio', {
-            nombrePagina: "Editar Anuncio",
+        return res.render('programa/editar-programa', {
+            nombrePagina: "Editar Programa",
             user,
             req,
-            anuncio,
+            programa,
             users
         })
     }catch(err){

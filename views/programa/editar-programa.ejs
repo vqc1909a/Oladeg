@@ -16,7 +16,7 @@
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h1>Agregar Programa Académico</h1>
+								<h1>Editar Programa Académico</h1>
 							</div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-right">
@@ -29,7 +29,7 @@
 										>
 									</li>
 									<li class="breadcrumb-item active">
-										Agregar Programa Académico
+										Editar Programa Académico
 									</li>
 								</ol>
 							</div>
@@ -52,9 +52,8 @@
 									<!-- form start -->
 									<form
 										method="POST"
-										action="<%= ROUTES.AGREGAR_PROGRAMA + '?_csrf=' + csrfToken %>"
-										enctype="multipart/form-data"
 									>
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 										<div class="card-body">
 											<div class="form-group">
 												<label for="titulo"
@@ -66,42 +65,8 @@
 													id="titulo"
 													placeholder="Ingrese Título"
 													name="titulo"
-													value="<%= fields ? fields.titulo : '' %>"
+													value="<%= fields ? fields.titulo : programa ? programa.titulo : '' %>"
 												/>
-											</div>
-											<div class="form-group">
-												<label for="portada"
-													>Portada *</label
-												>
-												<div class="input-group">
-													<div class="custom-file">
-														<input
-															type="file"
-															class="custom-file-input"
-															id="fileInputPrograma1"
-															name="portada"
-															accept="image/*"
-														/>
-														<label
-															class="custom-file-label"
-															for="portada"
-															>Elige una
-															imagen</label
-														>
-													</div>
-													<div
-														class="input-group-append"
-													>
-														<span
-															class="input-group-text"
-															>Subir</span
-														>
-													</div>
-												</div>
-												<div
-													id="imagePreviewPrograma1"
-													class="col-12 col-md-7 col-xl-5 mt-2 p-0"
-												></div>
 											</div>
 											<div class="form-group">
 												<label for="descripcion"
@@ -118,7 +83,7 @@
 															placeholder="Ingrese la descripción"
 															name="descripcion"
 														>
-<%= fields ? fields.descripcion : '' %></textarea
+<%= fields ? fields.descripcion : programa ? programa.descripcion : '' %></textarea
 														>
 													</div>
 												</div>
@@ -136,7 +101,7 @@
 															name="inversion"
 															id="inversion"
 															placeholder="Ej. 150"
-															value="<%= fields ? fields.inversion : '' %>"
+															value="<%= fields ? fields.inversion : programa ? programa.inversion : '' %>"
 														/>
 													</div>
 												</div>
@@ -152,7 +117,7 @@
 															name="duracion"
 															id="duracion"
 															placeholder="Ej. 07 Módulos - 07 Semanas"
-															value="<%= fields ? fields.duracion : '' %>"
+															value="<%= fields ? fields.duracion : programa ? programa.duracion : '' %>"
 														/>
 													</div>
 												</div>
@@ -169,7 +134,7 @@
 															name="fecha"
 															id="fecha"
 															placeholder="Ingrese fecha de inicio"
-															value="<%= fields ? fields.fecha : '' %>"
+															value="<%= fields ? fields.fecha : programa ? programa.fecha : '' %>"
 														/>
 													</div>
 												</div>
@@ -184,11 +149,31 @@
 															name="hora"
 															id="hora"
 															placeholder="Ingrese hora de inicio"
-															value="<%= fields ? fields.hora : '' %>"
+															value="<%= fields ? fields.hora : programa ? programa.hora : '' %>"
 														/>
 													</div>
 												</div>
 											</div>
+											<%if(user.isAdmin){ %>
+												<div class="form-group">
+													<label for="userId"
+														>Autor *</label
+													>
+													<select class="form-control" name="userId" >
+														<option value="" selected disabled>-- Elige un Autor --</option>
+														<% users.forEach((user) => { %>
+															<% if(fields){ %>
+																<option value="<%= user.id %>" <%= String(fields.userId) === String(user.id) ? 'selected' : '' %>><%= user.nombre + ' ' + user.apellido %></option>
+															<% }else if(programa){ %>
+																<option value="<%= user.id %>" <%= String(programa.userId) === String(user.id) ? 'selected' : '' %>><%= user.nombre + ' ' + user.apellido %></option>                        
+															<% } else { %>
+																<option value="<%= user.id %>"><%= user.nombre + ' ' + user.apellido %></option>	
+															<% } %>
+														<% }) %>
+													</select>
+												</div>
+											<% } %>
+
 											<div class="form-group row">
 												<div class="col-12 col-md-6">
 													<div class="form-group">
@@ -201,6 +186,10 @@
 																	<option value="presencial" <%= String(fields.modalidad) === 'presencial' ? 'selected' : '' %>>Presencial</option>
 																	<option value="virtual" <%= String(fields.modalidad) === 'virtual' ? 'selected' : '' %>>Virtual</option>
 																	<option value="semipresencial" <%= String(fields.modalidad) === 'semipresencial' ? 'selected' : '' %>>Semipresencial</option>
+																<% } else if(programa) {%>
+																	<option value="presencial" <%= String(programa.modalidad) === 'presencial' ? 'selected' : '' %>>Presencial</option>
+																	<option value="virtual" <%= String(programa.modalidad) === 'virtual' ? 'selected' : '' %>>Virtual</option>
+																	<option value="semipresencial" <%= String(programa.modalidad) === 'semipresencial' ? 'selected' : '' %>>Semipresencial</option>
 																<% } else { %>
 																	<option value="presencial">Presencial</option>
 																	<option value="virtual">Virtual</option>
@@ -220,6 +209,10 @@
 																	<option value="curso" <%= String(fields.tipo) === 'curso' ? 'selected' : '' %>>Curso</option>
 																	<option value="diplomado" <%= String(fields.tipo) === 'diplomado' ? 'selected' : '' %>>Diplomado</option>
 																	<option value="especializacion" <%= String(fields.tipo) === 'especializacion' ? 'selected' : '' %>>Especializacion</option>
+																<% } else if(programa) {%>
+																	<option value="curso" <%= String(programa.tipo) === 'curso' ? 'selected' : '' %>>Curso</option>
+																	<option value="diplomado" <%= String(programa.tipo) === 'diplomado' ? 'selected' : '' %>>Diplomado</option>
+																	<option value="especializacion" <%= String(programa.tipo) === 'especializacion' ? 'selected' : '' %>>Especializacion</option>
 																<% } else { %>
 																	<option value="curso">Curso</option>
 																	<option value="diplomado">Diplomado</option>
@@ -240,11 +233,10 @@
 														type="hidden"
 														name="inscripcion"
 														id="inputInscripcionQuill"
-														value="<%= fields ? fields.inscripcion : '' %>"
+														value="<%= fields ? fields.inscripcion : programa ? programa.inscripcion : '' %>"
 													/>
 													<div id="editorInscripcion">
-														<%- fields ?
-														fields.inscripcion : '' %>
+														<%- fields ? fields.inscripcion : programa ? programa.inscripcion : '' %>
 													</div>
 												</div>
 											</div>
@@ -257,11 +249,10 @@
 														type="hidden"
 														name="temario"
 														id="inputTemarioQuill"
-														value="<%= fields ? fields.temario : '' %>"
+														value="<%= fields ? fields.temario : programa ? programa.temario : '' %>"
 													/>
 													<div id="editorTemario">
-														<%- fields ?
-														fields.temario : '' %>
+														<%- fields ? fields.temario : programa ? programa.temario : '' %>
 													</div>
 												</div>
 											</div>
@@ -274,11 +265,10 @@
 														type="hidden"
 														name="materiales"
 														id="inputMaterialesQuill"
-														value="<%= fields ? fields.materiales : '' %>"
+														value="<%= fields ? fields.materiales : programa ? programa.materiales : '' %>"
 													/>
 													<div id="editorMateriales">
-														<%- fields ?
-														fields.materiales : '' %>
+														<%- fields ? fields.materiales : programa ? programa.materiales : '' %>
 													</div>
 												</div>
 											</div>
@@ -291,11 +281,10 @@
 														type="hidden"
 														name="promocion"
 														id="inputPromocionQuill"
-														value="<%= fields ? fields.promocion : '' %>"
+														value="<%= fields ? fields.promocion : programa ? programa.promocion : '' %>"
 													/>
 													<div id="editorPromocion">
-														<%- fields ?
-														fields.promocion : '' %>
+														<%- fields ? fields.promocion : programa ? programa.promocion : '' %>
 													</div>
 												</div>
 											</div>
@@ -308,11 +297,11 @@
 														type="hidden"
 														name="metodologia"
 														id="inputMetodologiaQuill"
-														value="<%= fields ? fields.Metodologia : '' %>"
+														value="<%= fields ? fields.metodologia : programa ? programa.metodologia : '' %>"
 													/>
 													<div id="editorMetodologia">
 														<%- fields ?
-														fields.metodologia : '' %>
+														fields.metodologia : programa ? programa.metodologia : '' %>
 													</div>
 												</div>
 											</div>
@@ -328,7 +317,7 @@
 													id="expositorNombre"
 													placeholder="Ej. Ing. Remigio López Daga"
 													name="expositorNombre"
-													value="<%= fields ? fields.expositorNombre : '' %>"
+													value="<%= fields ? fields.expositorNombre : programa ? programa.expositorNombre : '' %>"
 												/>
 											</div>
 											<div class="form-group">
@@ -346,44 +335,10 @@
 															placeholder="Ingrese la descripción del expositor"
 															name="expositorDescripcion"
 														>
-<%= fields ? fields.expositorDescripcion : '' %></textarea
+<%= fields ? fields.expositorDescripcion : programa ? programa.expositorDescripcion : '' %></textarea
 														>
 													</div>
 												</div>
-											</div>
-											<div class="form-group">
-												<label for="expositorImagen"
-													>Imagen del expositor *</label
-												>
-												<div class="input-group">
-													<div class="custom-file">
-														<input
-															type="file"
-															class="custom-file-input"
-															id="fileInputPrograma2"
-															name="expositorImagen"
-															accept="image/*"
-														/>
-														<label
-															class="custom-file-label"
-															for="expositorImagen"
-															>Elige una
-															imagen</label
-														>
-													</div>
-													<div
-														class="input-group-append"
-													>
-														<span
-															class="input-group-text"
-															>Subir</span
-														>
-													</div>
-												</div>
-												<div
-													id="imagePreviewPrograma2"
-													class="col-12 col-md-5 col-xl-3 mt-2 p-0"
-												></div>
 											</div>
 										</div>
 										<!-- /.card-body -->
@@ -393,7 +348,7 @@
 												type="submit"
 												class="btn btn-primary"
 											>
-												Agregar Programa Académico
+												Editar Programa Académico
 											</button>
 										</div>
 									</form>
