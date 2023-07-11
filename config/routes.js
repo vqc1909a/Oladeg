@@ -21,6 +21,8 @@ export const MOSTRAR_CONTACTO = "/contacto";
 export const ADMIN = "/admin";
 export const USERS_ADMIN = "/admin/users";
 export const ANUNCIOS_ADMIN = "/admin/anuncios";
+export const PROGRAMAS_ADMIN = "/admin/programas";
+
 
 //ANUNCIO ROUTES
 export const MOSTRAR_ANUNCIO = "/anuncios/:slug";
@@ -29,9 +31,20 @@ export const EDITAR_ANUNCIO = "/admin/anuncio/:id/edit";
 export const EDITAR_IMAGEN_ANUNCIO = "/admin/anuncio/:id/edit-image";
 export const ELIMINAR_ANUNCIO = "/admin/anuncio/:id/delete";
 
-//CURSOS ROUTES
+//PROGRAMAS ROUTES
 export const MOSTRAR_CURSOS = "/cursos";
 export const MOSTRAR_CURSO = "/cursos/:curso";
+export const MOSTRAR_DIPLOMADOS = "/diplomados";
+export const MOSTRAR_DIPLOMADO = "/diplomados/:diplomado";
+export const MOSTRAR_ESPECIALIZACIONES = "/especializaciones";
+export const MOSTRAR_ESPECIALIZACION = "/especializaciones/:especializacion";
+
+export const AGREGAR_PROGRAMA = "/admin/programa";
+export const EDITAR_PROGRAMA = "/admin/programa/:id/edit";
+export const EDITAR_IMAGEN_PROGRAMA = "/admin/programa/:id/edit-image";
+export const ELIMINAR_PROGRAMA = "/admin/programa/:id/delete";
+
+
 
 
 

@@ -23,7 +23,7 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
             }
         }
     },  
-    contenido: {
+    descripcion: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
@@ -59,10 +59,13 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
             },
             isDecimal: {
                 msg: 'La inversión del programa académico debe ser un número válido'
+            },
+            min: {
+                msg: 'Ingrese un valor válido para la inversión del programa'
             }
         }
     },
-    duración: {
+    duracion: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -122,7 +125,6 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
     },
     inscripcion: {
         type: DataTypes.TEXT,
-       
     },
     temario: {
         type: DataTypes.TEXT,
@@ -137,7 +139,7 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
         type: DataTypes.TEXT,
     },
     expositorNombre: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notNull: {
@@ -165,10 +167,26 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'La imagen del programa académico es obligaotrio'
+                msg: 'La imagen del expositor del programa académico es obligatorio'
             },
             notEmpty: {
-                msg: 'La imagen del programa académico es obligaotrio'
+                msg: 'La imagen del expositor del programa académico es obligatorio'
+            }
+        }
+    },
+    tipo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+             notNull: {
+                msg: 'El tipo del programa académico es obligatorio'
+            },
+            notEmpty: {
+                msg: 'El tipo del programa académico es obligatorio'
+            },
+            isIn: {
+                args: [["curso", "diplomado", "especializacion"]],
+                msg: "El tipo del programa académico es obligatorio"   
             }
         }
     },

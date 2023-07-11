@@ -117,6 +117,15 @@
 						<p>Anuncios</p>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a
+						href="<%= ROUTES.PROGRAMAS_ADMIN %>"
+						class="nav-link <%= req.path === ROUTES.PROGRAMAS_ADMIN ? 'active' : '' %>"
+					>
+						<i class="nav-icon fas fa-globe"></i>
+						<p>Programas Académicos</p>
+					</a>
+				</li>
 				<li class="nav-header">CERRAR SESIÓN</li>
 				<li class="nav-item">
 					<form method="POST" action="<%= ROUTES.LOGOUT %>">

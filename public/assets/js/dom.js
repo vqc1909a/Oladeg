@@ -10,8 +10,17 @@ export const hero = document.querySelector('.hero');
 export const menu_overlay = document.querySelector('.header__menu-overlay');
 
 
-//Admin
-export const $inputDescriptionQuill = document.querySelector("#inputDescriptionQuill");
+//Programas Academicos
+export const $inputInscripcionQuill = document.querySelector("#inputInscripcionQuill");
+export const $inputTemarioQuill = document.querySelector("#inputTemarioQuill");
+export const $inputMaterialesQuill = document.querySelector("#inputMaterialesQuill");
+export const $inputPromocionQuill = document.querySelector("#inputPromocionQuill");
+export const $inputMetodologiaQuill = document.querySelector("#inputMetodologiaQuill");
+
+export const $fileInputPrograma1 = document.querySelector('#fileInputPrograma1');
+export const $imagePreviewPrograma1 = document.querySelector('#imagePreviewPrograma1');
+export const $fileInputPrograma2 = document.querySelector('#fileInputPrograma2');
+export const $imagePreviewPrograma2 = document.querySelector('#imagePreviewPrograma2');
 
 //Hero
 export const nosotros = document.querySelector(".nosotros");
@@ -48,6 +57,7 @@ export const curso_triggers = document.querySelectorAll('.detalles__trigger');
 export const curso_contents = document.querySelectorAll('.detalles__content');
 
 //Anuncio
+export const $inputDescriptionQuill = document.querySelector("#inputDescriptionQuill");
 export const main = document.querySelector('.main');
 export const $fileInputAnuncio = document.querySelector('#fileInputAnuncio');
 export const $imagePreviewAnuncio = document.querySelector('#imagePreviewAnuncio');

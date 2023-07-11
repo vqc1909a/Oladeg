@@ -1,5 +1,7 @@
 import './modules/adminModule.js';
 import './modules/anuncioModule.js';
+import './modules/programaAcademicoModule.js';
+
 
 // import './modules/inicioModule.js';
 // import './modules/depositosModule.js';

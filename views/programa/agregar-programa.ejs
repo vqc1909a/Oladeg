@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('../partials/headAdmin.ejs') %>
+	</head>
+	<body class="hold-transition sidebar-mini layout-navbar-fixed">
+		<!-- Site wrapper -->
+		<div class="wrapper">
+			<%- include ('../../views/layouts/navbarAdmin.ejs') %> <%-
+			include('../../views/layouts/sidebarAdmin.ejs') %>
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Agregar Programa Académico</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.ADMIN %>">Home</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.PROGRAMAS_ADMIN %>"
+											>Programas Académicos</a
+										>
+									</li>
+									<li class="breadcrumb-item active">
+										Agregar Programa Académico
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<%- include('../partials/mensajesFlash.ejs') %>
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">Formulario</h3>
+									</div>
+									<!-- /.card-header -->
+									<!-- form start -->
+									<form
+										method="POST"
+										action="<%= ROUTES.AGREGAR_PROGRAMA + '?_csrf=' + csrfToken %>"
+										enctype="multipart/form-data"
+									>
+										<div class="card-body">
+											<div class="form-group">
+												<label for="titulo"
+													>Título *</label
+												>
+												<input
+													type="text"
+													class="form-control"
+													id="titulo"
+													placeholder="Ingrese Título"
+													name="titulo"
+													value="<%= fields ? fields.titulo : '' %>"
+												/>
+											</div>
+											<div class="form-group">
+												<label for="portada"
+													>Portada *</label
+												>
+												<div class="input-group">
+													<div class="custom-file">
+														<input
+															type="file"
+															class="custom-file-input"
+															id="fileInputPrograma1"
+															name="portada"
+															accept="image/*"
+														/>
+														<label
+															class="custom-file-label"
+															for="portada"
+															>Elige una
+															imagen</label
+														>
+													</div>
+													<div
+														class="input-group-append"
+													>
+														<span
+															class="input-group-text"
+															>Subir</span
+														>
+													</div>
+												</div>
+												<div
+													id="imagePreviewPrograma1"
+													class="col-12 col-md-7 col-xl-5 mt-2 p-0"
+												></div>
+											</div>
+											<div class="form-group">
+												<label for="descripcion"
+													>Descripcion *</label
+												>
+												<div class="row">
+													<div
+														class="col-12 col-md-6"
+													>
+														<textarea
+															rows="9"
+															class="form-control"
+															id="descripcion"
+															placeholder="Ingrese la descripción"
+															name="descripcion"
+														>
+<%= fields ? fields.descripcion : '' %></textarea
+														>
+													</div>
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="inversion"
+															>Inversion *</label
+														>
+														<input
+															class="form-control"
+															type="text"
+															name="inversion"
+															id="inversion"
+															placeholder="Ej. 150"
+															value="<%= fields ? fields.inversion : '' %>"
+														/>
+													</div>
+												</div>
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="duracion"
+															>Duracion *</label
+														>
+
+														<input
+															class="form-control"
+															type="text"
+															name="duracion"
+															id="duracion"
+															placeholder="Ej. 07 Módulos - 07 Semanas"
+															value="<%= fields ? fields.duracion : '' %>"
+														/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="fecha"
+															>Fecha *</label
+														>
+														<input
+															class="form-control"
+															type="date"
+															name="fecha"
+															id="fecha"
+															placeholder="Ingrese fecha de inicio"
+															value="<%= fields ? fields.fecha : '' %>"
+														/>
+													</div>
+												</div>
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="hora"
+															>Hora *</label
+														>
+														<input
+															class="form-control"
+															type="time"
+															name="hora"
+															id="hora"
+															placeholder="Ingrese hora de inicio"
+															value="<%= fields ? fields.hora : '' %>"
+														/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="modalidad"
+															>Modalidad *</label
+														>
+														<select class="form-control" name="modalidad" >
+															<option value="" selected disabled>-- Elige una Modalidad --</option>
+																<% if(fields){ %>
+																	<option value="presencial" <%= String(fields.modalidad) === 'presencial' ? 'selected' : '' %>>Presencial</option>
+																	<option value="virtual" <%= String(fields.modalidad) === 'virtual' ? 'selected' : '' %>>Virtual</option>
+																	<option value="semipresencial" <%= String(fields.modalidad) === 'semipresencial' ? 'selected' : '' %>>Semipresencial</option>
+																<% } else { %>
+																	<option value="presencial">Presencial</option>
+																	<option value="virtual">Virtual</option>
+																	<option value="semipresencial">Semipresencial</option>	
+																<% } %>
+														</select>
+													</div>
+												</div>
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="tipo"
+															>Tipo *</label
+														>
+														<select class="form-control" name="tipo" >
+															<option value="" selected disabled>-- Elige un tipo de programa académico --</option>
+																<% if(fields){ %>
+																	<option value="curso" <%= String(fields.tipo) === 'curso' ? 'selected' : '' %>>Curso</option>
+																	<option value="diplomado" <%= String(fields.tipo) === 'diplomado' ? 'selected' : '' %>>Diplomado</option>
+																	<option value="especializacion" <%= String(fields.tipo) === 'especializacion' ? 'selected' : '' %>>Especializacion</option>
+																<% } else { %>
+																	<option value="curso">Curso</option>
+																	<option value="diplomado">Diplomado</option>
+																	<option value="especializacion">Especializacion</option>	
+																<% } %>
+														</select>
+													</div>
+												</div>
+											</div>
+
+											<hr />
+											<div class="form-group">
+												<label for="inscripcion"
+													>Inscripción</label
+												>
+												<div class="contenedor-editor">
+													<input
+														type="hidden"
+														name="inscripcion"
+														id="inputInscripcionQuill"
+														value="<%= fields ? fields.inscripcion : '' %>"
+													/>
+													<div id="editorInscripcion">
+														<%- fields ?
+														fields.inscripcion : '' %>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="temario"
+													>Temario</label
+												>
+												<div class="contenedor-editor">
+													<input
+														type="hidden"
+														name="temario"
+														id="inputTemarioQuill"
+														value="<%= fields ? fields.temario : '' %>"
+													/>
+													<div id="editorTemario">
+														<%- fields ?
+														fields.temario : '' %>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="materiales"
+													>Materiales</label
+												>
+												<div class="contenedor-editor">
+													<input
+														type="hidden"
+														name="materiales"
+														id="inputMaterialesQuill"
+														value="<%= fields ? fields.materiales : '' %>"
+													/>
+													<div id="editorMateriales">
+														<%- fields ?
+														fields.materiales : '' %>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="promocion"
+													>Promocion</label
+												>
+												<div class="contenedor-editor">
+													<input
+														type="hidden"
+														name="promocion"
+														id="inputPromocionQuill"
+														value="<%= fields ? fields.promocion : '' %>"
+													/>
+													<div id="editorPromocion">
+														<%- fields ?
+														fields.promocion : '' %>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="metodologia"
+													>Metodologia</label
+												>
+												<div class="contenedor-editor">
+													<input
+														type="hidden"
+														name="metodologia"
+														id="inputMetodologiaQuill"
+														value="<%= fields ? fields.Metodologia : '' %>"
+													/>
+													<div id="editorMetodologia">
+														<%- fields ?
+														fields.metodologia : '' %>
+													</div>
+												</div>
+											</div>
+
+											<hr />
+											<div class="form-group">
+												<label for="expositorNombre"
+													>Nombre del Expositor *</label
+												>
+												<input
+													type="text"
+													class="form-control"
+													id="expositorNombre"
+													placeholder="Ingrese el nombre del expositor"
+													name="expositorNombre"
+													value="<%= fields ? fields.expositorNombre : '' %>"
+												/>
+											</div>
+											<div class="form-group">
+												<label for="expositorDescripcion"
+													>Descripcion del Expositor *</label
+												>
+												<div class="row">
+													<div
+														class="col-12 col-md-6"
+													>
+														<textarea
+															rows="9"
+															class="form-control"
+															id="expositorDescripcion"
+															placeholder="Ingrese la descripción del expositor"
+															name="expositorDescripcion"
+														>
+<%= fields ? fields.expositorDescripcion : '' %></textarea
+														>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="expositorImagen"
+													>Imagen del expositor *</label
+												>
+												<div class="input-group">
+													<div class="custom-file">
+														<input
+															type="file"
+															class="custom-file-input"
+															id="fileInputPrograma2"
+															name="expositorImagen"
+															accept="image/*"
+														/>
+														<label
+															class="custom-file-label"
+															for="expositorImagen"
+															>Elige una
+															imagen</label
+														>
+													</div>
+													<div
+														class="input-group-append"
+													>
+														<span
+															class="input-group-text"
+															>Subir</span
+														>
+													</div>
+												</div>
+												<div
+													id="imagePreviewPrograma2"
+													class="col-12 col-md-7 col-xl-5 mt-2 p-0"
+												></div>
+											</div>
+										</div>
+										<!-- /.card-body -->
+
+										<div class="card-footer">
+											<button
+												type="submit"
+												class="btn btn-primary"
+											>
+												Agregar Anuncio
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+
+		<%- include('../layouts/scriptAdmin.ejs') %>
+	</body>
+</html>

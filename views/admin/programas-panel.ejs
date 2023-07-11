@@ -13,8 +13,9 @@
 	<body class="hold-transition sidebar-mini layout-navbar-fixed">
 		<!-- Site wrapper -->
 		<div class="wrapper">
-			<%- include ('../../views/layouts/navbarAdmin.ejs') %> <%-
-			include('../../views/layouts/sidebarAdmin.ejs') %>
+			<%- include ('../../views/layouts/navbarAdmin.ejs') %> 
+			<%- include('../../views/layouts/sidebarAdmin.ejs') %>
+
 
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
@@ -23,7 +24,7 @@
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h1>Listado de Anuncios</h1>
+								<h1>Listado de Programas Académicos</h1>
 							</div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-right">
@@ -31,7 +32,7 @@
 										<a href="<%= ROUTES.ADMIN %>">Home</a>
 									</li>
 									<li class="breadcrumb-item active">
-										Anuncios
+										Programas Académicos
 									</li>
 								</ol>
 							</div>
@@ -57,7 +58,7 @@
 										</div>
 										<div class="row align-items-center">
 											<div class="col-12 col-md-10 mb-2">
-												<form action="<%= ROUTES.ANUNCIOS_ADMIN %>">
+												<form action="<%= ROUTES.PROGRAMAS_ADMIN %>">
 													<div class="input-group input-group-sm">
 														<input
 															type="text"
@@ -73,17 +74,23 @@
 																<% }) %>
 															</select>															
 														<% } %>
+														<select class="form-control" name="tipo" >
+															<option value="">-- Elige el tipo de programa --</option>
+															<option value="curso">Curso</option>	
+															<option value="diplomado">Diplomado</option>
+															<option value="especializacion">Especialización</option>	
+														</select>	
+														<select class="form-control" name="modalidad" >
+															<option value="">-- Elige el tipo de modalidad --</option>
+															<option value="presencial">Presencial</option>	
+															<option value="virtual">Virtual</option>
+															<option value="semipresencial">Semipresencial</option>	
+														</select>		
 														<input
 															type="date"
 															class="form-control"
 															name="fecha"
 															placeholder="Fecha"
-														/>
-														<input
-															type="time"
-															class="form-control"
-															name="hora"
-															placeholder="Hora Anuncio"
 														/>
 														
 														<button
@@ -99,23 +106,23 @@
 											<div class="col-12 col-md-2 mb-2">
 												<div class="row justify-content-end">
 													<a
-														href="<%= ROUTES.AGREGAR_ANUNCIO %>"
+														href="<%= ROUTES.AGREGAR_PROGRAMA %>"
 														type="button"
 														class="btn btn-sm bg-primary ml-2"
 													>
 														<i class="fas fa-plus"></i>
 														Agregar
 													</a>
-
 												</div>
 											</div>
 											<div class="col-12">
 												<% let titulo = req.query.titulo %>
 												<% let userId = req.query.userId %>
+												<% let tipo = (req.query.tipo !== "diplomado" && req.query.tipo !== "especializacion") ? 'curso' : req.query.tipo %>
+												<% let modalidad = req.query.modalidad %>
 												<% let fecha = req.query.fecha %>
-												<% let hora = req.query.hora %>
 
-												<% if(titulo || userId || fecha || hora){ %>
+												<% if(titulo || userId || tipo || modalidad || fecha ){ %>
 													<p class="mb-1"><small>Filtros</small></p>	
 													<% if(titulo){ %>
 														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Título: <%= titulo %></button>
@@ -124,13 +131,15 @@
 														<% let user = users.find(user => Number(user.id) === Number(userId)) %>
 														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Author: <%= user.nombre + ' ' + user.apellido %></button>
 													<% } %>
+													<% if(tipo){ %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Tipo: <%= tipo %></button>
+													<% } %>
+													<% if(modalidad){ %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Modalidad: <%= modalidad %></button>
+													<% } %>
 													<% if(fecha){ %>
 														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Fecha: <%= fecha %></button>
 													<% } %>
-													<% if(hora){ %>
-														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Hora: <%= hora %></button>
-													<% } %>		
-
 												<% } %>									
 											</div>
 										</div>
@@ -145,8 +154,9 @@
 													<th>ID</th>
 													<th>Titulo</th>
 													<th>Portada</th>
-													<th>Fecha del Evento</th>
-													<th>Hora del Evento</th>
+													<th>Tipo</th>
+													<th>Modalidad</th>
+													<th>Fecha de Inicio</th>
 													<% if(user.isAdmin){ %>
 														<th>Creado por</th>
 													<%}%>
@@ -154,18 +164,18 @@
 												</tr>
 											</thead>
 											<tbody>
-												<% if(anuncios.length){ %>
-													<% anuncios.forEach((anuncio, i) => { %>
-														<% const fecha = DateTime.fromISO(anuncio.fecha, { locale: 'es' }) %>
+												<% if(programas.length){ %>
+													<% programas.forEach((programa, i) => { %>
+														<% const fecha = DateTime.fromISO(programa.fecha, { locale: 'es' }) %>
 														<% const fechaFormateada = fecha.toFormat('EEEE, dd \'de\' MMMM \'de\' yyyy') %>
 														<tr>
 															<td><%= i+1 %></td>
 															<td>
-																<%= anuncio.titulo %>
+																<%= programa.titulo %>
 															</td>
 															<td>
 																<img
-																	src="<%= anuncio.portada %>"
+																	src="<%= programa.portada %>"
 																	alt=""
 																	class="img-fluid"
 																	style="
@@ -173,12 +183,13 @@
 																	"
 																/>
 															</td>
+															<td><%= programa.tipo %></td>
+															<td><%= programa.modalidad %></td>
 															<td>
-																<%= convertirPrimeraLetraMayuscula(fechaFormateada) %>
+																<%= convertirPrimeraLetraMayuscula(fechaFormateada) + ' ' + programa.hora %>
 															</td>
-															<td><%= anuncio.hora %></td>
 															<% if(user.isAdmin){ %>
-																<td><%= anuncio.User.nombre + ' ' + anuncio.User.apellido %></td>
+																<td><%= programa.User.nombre + ' ' + programa.User.apellido %></td>
 															<% } %>
 
 															<td>
@@ -187,15 +198,15 @@
 																	<div class="col-12 mb-1">
 																		<button
 																			type="button"
-																			data-id="<%= anuncio.id %>"
-																			class="btn btn-sm bg-danger button-delete-anuncio"
+																			data-id="<%= programa.id %>"
+																			class="btn btn-sm bg-danger button-delete-programa"
 																		>
 																			<i
 																				class="fas fa-trash"
 																			></i>
 																		</button>
 																		<a
-																			href="<%= ROUTES.EDITAR_ANUNCIO.replace(':id', anuncio.id) %>"
+																			href="<%= ROUTES.EDITAR_PROGRAMA.replace(':id', programa.id) %>"
 																			type="button"
 																			class="btn btn-sm bg-primary"
 																		>
@@ -206,7 +217,7 @@
 																	</div>
 																	<div class="col-12">
 																		<a
-																			href="<%= ROUTES.EDITAR_IMAGEN_ANUNCIO.replace(':id', anuncio.id) %>"
+																			href="<%= ROUTES.EDITAR_IMAGEN_PROGRAMA.replace(':id', programa.id) %>"
 																			type="button"
 																			class="btn btn-sm bg-success"
 																		>
@@ -215,7 +226,7 @@
 																			></i>
 																		</a>
 																		<a
-																			href="<%= ROUTES.MOSTRAR_ANUNCIO.replace(':slug', anuncio.slug) %>"
+																			href="<%= programa.tipo === 'curso' ? ROUTES.MOSTRAR_CURSO.replace(':slug', programa.slug) : programa.tipo === 'diplomado' ? ROUTES.MOSTRAR_DIPLOMADO : ROUTES.MOSTRAR_ESPECIALIZACION %>"
 																			type="button"
 																			class="btn btn-sm bg-warning"
 																			target="_blank"
@@ -232,13 +243,14 @@
 												<% }else{ %>
 													<tr>
 														<td>
-															Sin anuncios
+															<% let tipo = req.query.tipo || 'curso' %>												
+															<%= tipo === 'curso' ? 'Sin cursos' : tipo === 'diplomado' ? 'Sin diplomados' : 'Sin especializaciones' %>
 														</td>
 													</tr>
 												<% } %>
 											</tbody>
 										</table>
-										<% if(anuncios.length){ %>
+										<% if(programas.length){ %>
 											<div class="row">
 												<div class="col-sm-12 col-md-5 text-left pl-4 mb-2">
 													<div
@@ -247,7 +259,8 @@
 													role="status"
 													aria-live="polite"
 													>
-													Mostrando <%= (cantidadAnunciosPagina * (paginaActual - 1)) + 1 %> - <%=  paginaActual === cantidadPaginas ? totalAnuncios : cantidadAnunciosPagina * paginaActual %> de <%= totalAnuncios %> anuncios
+													<% let tipo = req.query.tipo || 'curso' %>
+													Mostrando <%= (cantidadProgramasPagina * (paginaActual - 1)) + 1 %> - <%=  paginaActual === cantidadPaginas ? totalProgramas : cantidadProgramasPagina * paginaActual %> de <%= totalProgramas %> <%= tipo === 'curso' ? 'cursos' : tipo === 'diplomado' ? 'diplomados' : 'especializaciones' %>
 													</div>
 												</div>
 												<div class="col-sm-12 col-md-7 d-flex justify-content-end pr-4">

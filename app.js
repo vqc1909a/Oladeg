@@ -13,11 +13,15 @@ import infoRoute from "./routes/infoRoute.js";
 import anuncioRoute from "./routes/anuncioRoute.js";
 import authRoute from "./routes/authRoute.js";
 import adminRoute from "./routes/adminRoute.js";
+import programaAcademicoRoute from "./routes/programaAcademicoRoute.js";
+
 
 
 import {connectDB, sequelize} from "./config/db.js";
 import User from "./models/UserModel.js";
 import Anuncio from "./models/AnuncioModel.js";
+import ProgramaAcademico from "./models/ProgramaAcademicoModel.js";
+
 
 
 dotenv.config({path: ".env"});
@@ -56,13 +60,14 @@ connectDB().then(async () => {
   app.use(flash());
   app.use(establecerVariablesGlobales);
   app.use(establecerProteccionCSRF);
+
   //Routes
   app.use('/', homeRoute);
   app.use('/', infoRoute);
   app.use('/', anuncioRoute);
   app.use('/', authRoute);
   app.use('/', adminRoute);
-
+  app.use('/', programaAcademicoRoute);
 
   // app.use('/', require("./routes/cursoRoute"));
   // app.use('/', require("./routes/diplomadoRoute"));

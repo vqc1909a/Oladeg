@@ -64,3 +64,37 @@ export const storageProfiles = multer.diskStorage({
     }
   }
 });
+
+export const storageProgramasAcademicos = multer.diskStorage({
+  // La función cb acepta dos parámetros: error y destino.
+  destination: (req, file, cb) => {
+    let folder = ''
+    if(file.fieldname === 'portada'){
+      folder = path.join(__dirname, '../public/dist/uploads/anuncios/')
+    }else if(file.fieldname === 'expositorImagen'){
+
+    }
+    cb(null, path.join(__dirname, '../public/dist/uploads/anuncios/'));
+  },
+  filename: (req, file, cb) => {
+    // {
+    //   file: {
+    //     fieldname: 'imagen',
+    //     originalname: 'adventure-time-dark-souls-theme.jpg',
+    //     encoding: '7bit',
+    //     mimetype: 'image/jpeg'
+    //   }
+    // }
+    const fileArray = file.originalname.split('.');
+    const fileExtension = fileArray[fileArray.length - 1];
+    const fileName =  fileArray[fileArray.length - 2]
+    const allowedExtensions = /jpeg|jpg|png|gif/i;
+    const isImage = allowedExtensions.test(fileExtension) && allowedExtensions.test(file.mimetype);
+    if(isImage){
+      const fullName = fileName + '-' + shortid.generate() + '.' + fileExtension;
+      cb(null, fullName)
+    }else{
+        cb(new Error('El archivo no es un tipo de imagen válido'))
+    }
+  }
+})
