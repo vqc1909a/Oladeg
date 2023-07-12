@@ -199,7 +199,7 @@ export const editarPrograma = async(req, res) => {
         // programa.expositorNombre = body.expositorNombre;
         // programa.expositorDescripcion = body.expositorDescripcion;
 
-        //SOlo el admin puede cambiar el autor de las entradas
+        //Solo el admin puede cambiar el autor de las entradas
         if(req.user.isAdmin){
             newProgram.userId = body.userId;
         }
@@ -232,20 +232,20 @@ export const mostrarPaginaEditarImagenPrograma = async (req, res) => {
     const user = req.user;
 
     try{
-        let anuncio;
+        let programa;
         if(user.isAdmin){
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
+            programa = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
+            programa = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
 
-        if(!anuncio){
+        if(!programa){
             req.flash('error', 'Acceso denegado');
             return res.redirect(ROUTES.PROGRAMAS_ADMIN);
         }
-        return res.render('anuncio/editar-imagen-anuncio', {
-            nombrePagina: `Editar Imagen Anuncio: ${anuncio.titulo}`,
-            anuncio,
+        return res.render('programa/editar-imagen-programa', {
+            nombrePagina: `Editar Imagen Programa: ${programa.titulo}`,
+            programa,
             user,
             req
         })
@@ -260,39 +260,57 @@ export const editarImagenPrograma = async (req, res) => {
     const body = req.body; 
     const user = req.user;
     //Verificar que el usuario sube una imagen
-    if(req.file){
-        body.portada = `/dist/uploads/anuncios/${req.file.filename}`
+    if(req.files.portada){
+        body.portada = `/dist/uploads/programas/portada/${req.files.portada[0].filename}`
+    }
+    if(req.files.expositorImagen){
+        body.expositorImagen = `/dist/uploads/programas/expositor/${req.files.expositorImagen[0].filename}`
     }
     try{
-        let anuncio;
+        let programa;
         if(user.isAdmin){
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
+            programa = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
+            programa = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
 
-        if(!anuncio){
+        if(!programa){
             req.flash('error', 'Acceso denegado');
             return res.redirect(ROUTES.PROGRAMAS_ADMIN);
         }
        
-        let previousImage = anuncio.portada;
-        //Si hemos subido la imagen, lo cambiamos 
-        anuncio.portada = body.portada
-        await anuncio.save();
+        let previousPortada = programa.portada;
+        let previousExpositorImagen = programa.expositorImagen;
 
-        //Si existe una imagen previa, borramos la imagen del servidor, lo ponemos aqui para asegurarno que guardo la nueva imagen en el servidor y su ruta en base de datos
-        const filePathPreviousImage = path.join(__dirname, `../public/${previousImage}`);
-        if(previousImage && fse.existsSync(filePathPreviousImage)){
-            fse.unlinkSync(filePathPreviousImage);
+        //Si hemos subido la imagen, lo cambiamos 
+        programa.portada = body.portada
+        programa.expositorImagen = body.expositorImagen
+
+        await programa.save();
+
+        //Si existe una imagen previa, borramos las imagenes del servidor, lo ponemos aqui para asegurarno que guardo la nueva imagen en el servidor y su ruta en base de datos
+        const filePathPreviousPortada = path.join(__dirname, `../public/${previousPortada}`);
+        const filePathPreviousExpositorImagen = path.join(__dirname, `../public/${previousExpositorImagen}`);
+
+        if(fse.existsSync(filePathPreviousPortada)){
+            fse.unlinkSync(filePathPreviousPortada);
         }
-        req.flash('success', 'Portada cambiado correctamente');
+        if(fse.existsSync(filePathPreviousExpositorImagen)){
+            fse.unlinkSync(filePathPreviousExpositorImagen);
+        }
+
+        req.flash('success', 'Imagenes cambiadas correctamente');
         return res.redirect(ROUTES.PROGRAMAS_ADMIN);
     }catch(err){
-        //Si algo ocurrio, borramos la nueva imagen que se subio
-        const filePathImage = path.join(__dirname, `../public/${body.portada}`);
-        if(req.file && fse.existsSync(filePathImage)){
-            fse.unlinkSync(filePathImage);
+        //Si algo ocurrio, borramos las imagenes que se subio
+        const filePathPreviousPortada = path.join(__dirname, `../public/${body.portada}`);
+        const filePathPreviousExpositorImagen = path.join(__dirname, `../public/${body.expositorImagen}`);
+
+        if(fse.existsSync(filePathPreviousPortada)){
+            fse.unlinkSync(filePathPreviousPortada);
+        }
+        if(fse.existsSync(filePathPreviousExpositorImagen)){
+            fse.unlinkSync(filePathPreviousExpositorImagen);
         }
         
         let erroresSequelize = []

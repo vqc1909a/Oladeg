@@ -40,10 +40,10 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'La imagen del programa académico es obligatorio'
+                msg: 'La portada del programa académico es obligatorio'
             },
             notEmpty: {
-                msg: 'La imagen del programa académico es obligatorio'
+                msg: 'La portada del programa académico es obligatorio'
             }
         }
     },
@@ -160,10 +160,10 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'El nombre del expositor del programa académico es obligatorio'
+                msg: 'El nombre del expositor es obligatorio'
             },
             notEmpty: {
-                msg: 'El nombre del expositor del programa académico es obligatorio'
+                msg: 'El nombre del expositor es obligatorio'
             }
         }
     },
@@ -172,10 +172,10 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'La descripcion del expositor del programa académico es obligatorio'
+                msg: 'La descripcion del expositor es obligatorio'
             },
             notEmpty: {
-                msg: 'La descripcion del expositor del programa académico es obligatorio'
+                msg: 'La descripcion del expositor es obligatorio'
             }
         }
     },
@@ -184,10 +184,10 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'La imagen del expositor del programa académico es obligatorio'
+                msg: 'La imagen del expositor es obligatorio'
             },
             notEmpty: {
-                msg: 'La imagen del expositor del programa académico es obligatorio'
+                msg: 'La imagen del expositor es obligatorio'
             }
         }
     },

@@ -13,7 +13,7 @@ Router.get(ROUTES.EDITAR_PROGRAMA, authMiddleware.verificarUsuarioAutenticado, p
 Router.post(ROUTES.EDITAR_PROGRAMA, authMiddleware.verificarUsuarioAutenticado, programaAcademicoValidation.editarPrograma, programaAcademicoController.editarPrograma);
 
 Router.get(ROUTES.EDITAR_IMAGEN_PROGRAMA, authMiddleware.verificarUsuarioAutenticado, programaAcademicoController.mostrarPaginaEditarImagenPrograma);
-Router.post(ROUTES.EDITAR_IMAGEN_PROGRAMA, authMiddleware.verificarUsuarioAutenticado,programaAcademicoController.subirImagen, programaAcademicoController.editarImagenPrograma);
+Router.post(ROUTES.EDITAR_IMAGEN_PROGRAMA, authMiddleware.verificarUsuarioAutenticado, programaAcademicoController.subirImagen, programaAcademicoController.editarImagenPrograma);
 
 Router.delete(ROUTES.ELIMINAR_PROGRAMA, authMiddleware.verificarUsuarioAutenticado, programaAcademicoController.eliminarPrograma);
 

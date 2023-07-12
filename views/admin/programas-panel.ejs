@@ -226,7 +226,7 @@
 																			></i>
 																		</a>
 																		<a
-																			href="<%= programa.tipo === 'curso' ? ROUTES.MOSTRAR_CURSO.replace(':slug', programa.slug) : programa.tipo === 'diplomado' ? ROUTES.MOSTRAR_DIPLOMADO : ROUTES.MOSTRAR_ESPECIALIZACION %>"
+																			href="<%= programa.tipo === 'curso' ? ROUTES.MOSTRAR_CURSO.replace(':slug', programa.slug) : programa.tipo === 'diplomado' ? ROUTES.MOSTRAR_DIPLOMADO.replace(':slug', programa.slug) : ROUTES.MOSTRAR_ESPECIALIZACION.replace(':slug', programa.slug) %>"
 																			type="button"
 																			class="btn btn-sm bg-warning"
 																			target="_blank"

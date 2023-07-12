@@ -33,11 +33,11 @@ export const ELIMINAR_ANUNCIO = "/admin/anuncio/:id/delete";
 
 //PROGRAMAS ROUTES
 export const MOSTRAR_CURSOS = "/cursos";
-export const MOSTRAR_CURSO = "/cursos/:curso";
+export const MOSTRAR_CURSO = "/cursos/:slug";
 export const MOSTRAR_DIPLOMADOS = "/diplomados";
-export const MOSTRAR_DIPLOMADO = "/diplomados/:diplomado";
+export const MOSTRAR_DIPLOMADO = "/diplomados/:slug";
 export const MOSTRAR_ESPECIALIZACIONES = "/especializaciones";
-export const MOSTRAR_ESPECIALIZACION = "/especializaciones/:especializacion";
+export const MOSTRAR_ESPECIALIZACION = "/especializaciones/:slug";
 
 export const AGREGAR_PROGRAMA = "/admin/programa";
 export const EDITAR_PROGRAMA = "/admin/programa/:id/edit";

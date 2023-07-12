@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('../partials/headAdmin.ejs') %>
+	</head>
+	<body class="hold-transition sidebar-mini layout-navbar-fixed">
+		<!-- Site wrapper -->
+		<div class="wrapper">
+			<%- include ('../../views/layouts/navbarAdmin.ejs') %> <%-
+			include('../../views/layouts/sidebarAdmin.ejs') %>
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-8">
+								<h1>
+									Editar Imagen: <%= programa.titulo%>
+								</h1>
+							</div>
+							<div class="col-sm-4">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.ADMIN %>">Home</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.PROGRAMAS_ADMIN %>"
+											>Programas Académicos</a
+										>
+									</li>
+									<li class="breadcrumb-item active">
+										Editar Imagen
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<%- include('../partials/mensajesFlash.ejs') %>
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">Formulario</h3>
+									</div>
+									<!-- /.card-header -->
+									<!-- form start -->
+									<form
+										action="<%= ROUTES.EDITAR_IMAGEN_PROGRAMA.replace(':id', req.params.id) + '?_csrf=' + csrfToken %>"
+										method="POST"
+										enctype="multipart/form-data"
+									>
+										<div class="card-body">
+											<div class="form-group">
+												<label for="portada"
+													>Portada *</label
+												>
+												<div class="input-group">
+													<div class="custom-file">
+														<input
+															type="file"
+															class="custom-file-input"
+															id="fileInputPrograma1"
+															name="portada"
+															accept="image/*"
+														/>
+														<label
+															class="custom-file-label"
+															for="portada"
+															>Elige una
+															imagen</label
+														>
+													</div>
+													<div
+														class="input-group-append"
+													>
+														<span
+															class="input-group-text"
+															>Subir</span
+														>
+													</div>
+												</div>
+												<div
+													id="imagePreviewPrograma1"
+													class="col-12 col-md-7 col-xl-5 mt-2 p-0"
+												></div>
+											</div>
+											<div class="form-group mt-4">
+												<label for="portada"
+													>Portada Actual</label
+												>
+												<div
+													class="col-12 col-md-7 col-xl-5 p-0"
+												>
+													<img
+														src="<%= programa.portada %>"
+														alt="<%= programa.titulo %>"
+														style="
+															width: 100%;
+															height: 300px;
+														"
+													/>
+												</div>
+											</div>
+
+											<div class="my-3" style="border-top: 2px solid #bbb; border-bottom: 2px solid #bbb; border-radius: 3px;"></div>
+
+                                            <div class="form-group">
+												<label for="expositorImagen"
+													>Imagen del Expositor *</label
+												>
+												<div class="input-group">
+													<div class="custom-file">
+														<input
+															type="file"
+															class="custom-file-input"
+															id="fileInputPrograma2"
+															name="expositorImagen"
+															accept="image/*"
+														/>
+														<label
+															class="custom-file-label"
+															for="expositorImagen"
+															>Elige una
+															imagen</label
+														>
+													</div>
+													<div
+														class="input-group-append"
+													>
+														<span
+															class="input-group-text"
+															>Subir</span
+														>
+													</div>
+												</div>
+												<div
+													id="imagePreviewPrograma2"
+													class="col-12 col-md-5 col-xl-3 mt-2 p-0"
+												></div>
+											</div>
+											<div class="form-group mt-4">
+												<label for="expositorImagen"
+													>Imagen Expositor Actual</label
+												>
+												<div
+													class="col-12 col-md-5 col-xl-3 p-0"
+												>
+													<img
+														src="<%= programa.expositorImagen %>"
+														alt="<%= programa.titulo %>"
+														style="
+															width: 100%;
+															height: 300px;
+														"
+													/>
+												</div>
+											</div>
+										</div>
+										<!-- /.card-body -->
+
+										<div class="card-footer">
+											<button
+												type="submit"
+												class="btn btn-primary"
+											>
+												Cambiar Imagenes
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+
+		<%- include('../layouts/scriptAdmin.ejs') %>
+	</body>
+</html>

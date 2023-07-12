@@ -287,7 +287,7 @@ export const editarImagenAnuncio = async (req, res) => {
 
         //Si existe una imagen previa, borramos la imagen del servidor, lo ponemos aqui para asegurarno que guardo la nueva imagen en el servidor y su ruta en base de datos
         const filePathPreviousImage = path.join(__dirname, `../public/${previousImage}`);
-        if(previousImage && fse.existsSync(filePathPreviousImage)){
+        if(fse.existsSync(filePathPreviousImage)){
             fse.unlinkSync(filePathPreviousImage);
         }
         req.flash('success', 'Portada cambiado correctamente');
