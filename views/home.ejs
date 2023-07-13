@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-	<%- include ('../partials/headView.ejs') %>
+	<%- include ('./partials/head.ejs') %>
 	<body>
-		<%- include ('../layouts/headerView.ejs') %>
+		<%- include ('./layouts/headerView.ejs') %>
 		<main>
-
 			<h1 style="display: none">
 				OLADEG &#8211; Desarrollo Rural y Gobiernos Locales
 			</h1>
@@ -15,7 +14,7 @@
 				cursos, seminarios, talleres y pasantías a nivel Nacional e
 				Internacional
 			</p>
-			<%- include('../partials/mensajesFlash.ejs') %>
+			<%- include('./partials/mensajesFlash.ejs') %>
 			<section class="hero">
 				<div class="hero__wrapper container">
 					<div class="hero__wrapper_course">
@@ -285,65 +284,70 @@
 				<div class="main__content container">
 					<section class="anuncios">
 						<h2>Anuncios</h2>
-						<% if(anuncios.length) { %> 
-							<% anuncios.forEach(function(anuncio) { %>
-								<div class="anuncios__item">
+						<% if(anuncios.length) { %> <%
+						anuncios.forEach(function(anuncio) { %>
+						<div class="anuncios__item">
+							<a
+								href="/anuncios/<%= anuncio.slug %>"
+								class="anuncios__image"
+								role="link"
+								title="<%= anuncio.titulo %>"
+							>
+								<img
+									loading="lazy"
+									src="<%= anuncio.portada %>"
+									alt="Anuncio <%= anuncio.titulo %>"
+								/>
+							</a>
+							<div
+								class="anuncios__text flex flex-fd-c flex-jc-c"
+							>
+								<h3 class="anuncios__title">
 									<a
 										href="/anuncios/<%= anuncio.slug %>"
-										class="anuncios__image"
-										role="link"
 										title="<%= anuncio.titulo %>"
+										role="link"
+										><%= anuncio.titulo %></a
 									>
-										<img
-											loading="lazy"
-											src="<%= anuncio.portada %>"
-											alt="Anuncio <%= anuncio.titulo %>"
-										/>
-									</a>
-									<div
-										class="anuncios__text flex flex-fd-c flex-jc-c"
+								</h3>
+								<p class="anuncios__description">
+									<%= anuncio.extracto %>...
+								</p>
+								<p class="anuncios__time flex flex-ai-c">
+									<img
+										loading="lazy"
+										src="/dist/icons/Clock.svg"
+										alt="Datetime Oladeg"
+									/>
+									<% let timeZone =
+									Intl.DateTimeFormat().resolvedOptions().timeZone;
+									%> <% let datetime =
+									anuncio.fechaYHora.toLocaleString('es', {
+									timeZone: timeZone }) %> <% const fecha =
+									DateTime.fromISO(anuncio.fecha, { locale:
+									'es' }) %> <% const fechaFormateada =
+									fecha.toFormat('dd \'de\' MMMM \'de\' yyyy')
+									%>
+
+									<time
+										datetime="<%= datetime %>"
+										class="flex flex-ai-c"
+										><%=
+										convertirPrimeraLetraMayuscula(fechaFormateada)
+										%></time
 									>
-										<h3 class="anuncios__title">
-											<a
-												href="/anuncios/<%= anuncio.slug %>"
-												title="<%= anuncio.titulo %>"
-												role="link"
-												><%= anuncio.titulo %></a
-											>
-										</h3>
-										<p class="anuncios__description">
-											<%= anuncio.extracto %>...
-											
-										</p>
-										<p class="anuncios__time flex flex-ai-c">
-											<img
-												loading="lazy"
-												src="/dist/icons/Clock.svg"
-												alt="Datetime Oladeg"
-											/>
-											<% let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; %>
-											<% let datetime = anuncio.fechaYHora.toLocaleString('es', { timeZone: timeZone }) %>
-											<% const fecha = DateTime.fromISO(anuncio.fecha, { locale: 'es' }) %>
-											<% const fechaFormateada = fecha.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
-											
-											<time
-												datetime="<%= datetime %>"
-												class="flex flex-ai-c"
-												><%= convertirPrimeraLetraMayuscula(fechaFormateada) %></time
-											>
-										</p>
-										<a
-											href="/anuncios/<%= anuncio.slug %>"
-											role="link"
-											class="anuncios__link"
-											title="<%= anuncio.titulo %>"
-											>Leer Más</a
-										>
-									</div>
-								</div>
-							<% }) %> 
-						<% }else{ %>
-							<h3 class="anuncios__title">Sin anuncios</h3>
+								</p>
+								<a
+									href="/anuncios/<%= anuncio.slug %>"
+									role="link"
+									class="anuncios__link"
+									title="<%= anuncio.titulo %>"
+									>Leer Más</a
+								>
+							</div>
+						</div>
+						<% }) %> <% }else{ %>
+						<h3 class="anuncios__title">Sin anuncios</h3>
 						<% } %>
 
 						<!-- <div class="anuncios__item">
@@ -399,14 +403,14 @@
 								>
 							</div>
 						</div> -->
-						<%- include('../partials/buttonsView.ejs') %>
+						<%- include('./partials/buttons.ejs') %>
 					</section>
-					<%- include('../layouts/sidebarView.ejs') %>
+					<%- include('./layouts/sidebarView.ejs') %>
 				</div>
 			</div>
-			<%- include('../layouts/whatsapp.ejs') %>
+			<%- include('./layouts/whatsapp.ejs') %>
 		</main>
-		<%- include('../layouts/footerView.ejs') %> <%-
-		include('../layouts/scriptView.ejs') %>
+		<%- include('./layouts/footerView.ejs') %> <%-
+		include('./layouts/scriptView.ejs') %>
 	</body>
 </html>

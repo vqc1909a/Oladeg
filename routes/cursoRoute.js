@@ -1,8 +1,10 @@
-const express = require("express");
+import express from "express";
+import {mostrarCursos, mostrarCurso} from "../controllers/cursoController.js";
+import * as ROUTES from "../config/routes.js";
+
 const Router = express.Router();
-const {mostrarCursos, mostrarCurso} = require("../controllers/cursoController");
 
-Router.get('/cursos', mostrarCursos);
-Router.get('/curso/:curso', mostrarCurso);
+Router.get(ROUTES.MOSTRAR_CURSOS, mostrarCursos);
+Router.get(ROUTES.MOSTRAR_CURSO, mostrarCurso);
 
-module.exports = Router;
+export default Router;
