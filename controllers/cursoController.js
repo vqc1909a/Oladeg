@@ -7,7 +7,7 @@ import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 export const mostrarCursos = async (req, res) => {
 
   try{
-    const cursos = await ProgramaAcademico.findAll({order: [["fechaYHora", "ASC"]], tipo: 'curso'});
+    const cursos = await ProgramaAcademico.findAll({where: {tipo: 'curso'}, order: [["fechaYHora", "ASC"]]});
     const cantidadCursosPagina = 4;
     const totalCursos = cursos.length;
     const cantidadPaginas = Math.ceil(totalCursos / cantidadCursosPagina)

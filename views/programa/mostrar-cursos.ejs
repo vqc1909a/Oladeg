@@ -8,65 +8,59 @@
 			<div class="main__content container">
 				<section class="cursos">
 					<h1 class="cursos__intro">Cursos</h1>
-					<% if(cursos.length !== 0) { %>
+					<% if(cursos.length) { %>
 					<div class="cursos__grid">
 						<% cursos.forEach(function(curso) { %>
-						<div class="cursos__item appear-content">
-							<h2 class="cursos__title">
-								<a
-									href="/curso/<%= curso.slug %>"
-									title="<%= curso.titulo %>"
-									role="link"
-									><%= curso.titulo %></a
-								>
-							</h2>
-							<p class="cursos__time flex flex-ai-c">
-								<img
-									loading="lazy"
-									src="/dist/icons/Clock.svg"
-									alt="Datetime Curso"
-								/>
-								<% let timeZone =
-								Intl.DateTimeFormat().resolvedOptions().timeZone;
-								%> <% let datetime =
-								curso.fechaYHora.toLocaleString('es', {
-								timeZone: timeZone }) %> <% const fecha =
-								DateTime.fromISO(curso.fecha, { locale: 'es' })
-								%> <% const fechaFormateada = fecha.toFormat('dd
-								\'de\' MMMM \'de\' yyyy') %>
-
-								<time
-									datetime="<%= datetime %>"
-									class="flex flex-ai-c"
-									><%=
-									convertirPrimeraLetraMayuscula(fechaFormateada)
-									%></time
-								>
-							</p>
-							<div class="cursos__image">
-								<a
-									href="/curso/<%= curso.slug %>"
-									title="<%= curso.titulo %>"
-									role="link"
-								>
+							<div class="cursos__item appear-content">
+								<h2 class="cursos__title">
+									<a
+										href="/cursos/<%= curso.slug %>"
+										title="<%= curso.titulo %>"
+										role="link"
+										><%= curso.titulo %></a
+									>
+								</h2>
+								<p class="cursos__time flex flex-ai-c">
 									<img
 										loading="lazy"
-										src="<%= curso.portada %>"
-										alt="Curso <%= curso.titulo %>"
+										src="/dist/icons/Clock.svg"
+										alt="Datetime Curso"
 									/>
-								</a>
+									<% let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone %> 
+									<% let datetime = curso.fechaYHora.toLocaleString('es', {timeZone: timeZone }) %> 
+									<% const fecha = DateTime.fromISO(curso.fecha, { locale: 'es' }) %> 
+									<% const fechaFormateada = fecha.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
+									<time
+										datetime="<%= datetime %>"
+										class="flex flex-ai-c"
+										><%=
+										convertirPrimeraLetraMayuscula(fechaFormateada)
+										%></time>
+								</p>
+								<div class="cursos__image">
+									<a
+										href="/cursos/<%= curso.slug %>"
+										title="<%= curso.titulo %>"
+										role="link"
+									>
+										<img
+											loading="lazy"
+											src="<%= curso.portada %>"
+											alt="Curso <%= curso.titulo %>"
+										/>
+									</a>
+								</div>
+								<div class="cursos__button">
+									<a
+										href="/cursos/<%= curso.slug %>"
+										title="<%= curso.titulo %>"
+										role="link"
+										type="button"
+										class="button"
+										>Más Información</a
+									>
+								</div>
 							</div>
-							<div class="cursos__button">
-								<a
-									href="/curso/<%= curso.slug %>"
-									title="<%= curso.titulo %>"
-									role="link"
-									type="button"
-									class="button"
-									>Más Información</a
-								>
-							</div>
-						</div>
 						<% }) %>
 						<!-- <div class="cursos__item appear-content">
 				<h2 class="cursos__title"><a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
