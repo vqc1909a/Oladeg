@@ -57,7 +57,6 @@ export const subirImagen = (req, res, next) => {
 }
 
 export const mostrarAnuncio = async (req, res) => {
-
   try{
     const slug = req.params.slug
     const [anuncios, anuncio] = await Promise.all([Anuncio.findAll({
@@ -74,8 +73,8 @@ export const mostrarAnuncio = async (req, res) => {
     const isButtonAnterior = index > 0;
     const isButtonSiguiente = index < anuncios.length - 1
 
-    let anuncioAnterior = isButtonAnterior ? anuncios.slice(indexAnterior, indexAnterior  + 1)[0] : undefined;
-    let anuncioSiguiente = isButtonSiguiente ? anuncios.slice(indexSiguiente, indexSiguiente  + 1)[0] : undefined;
+    let contenidoAnterior = isButtonAnterior ? anuncios.slice(indexAnterior, indexAnterior  + 1)[0] : undefined;
+    let contenidoSiguiente = isButtonSiguiente ? anuncios.slice(indexSiguiente, indexSiguiente  + 1)[0] : undefined;
     
     return res.render('anuncio/mostrar-anuncio', {
         title: `${anuncio.titulo} &#8211; OLADEG`,
@@ -84,8 +83,8 @@ export const mostrarAnuncio = async (req, res) => {
         anuncio,
         isButtonAnterior,
         isButtonSiguiente,
-        anuncioAnterior,
-        anuncioSiguiente,
+        contenidoAnterior,
+        contenidoSiguiente,
         DateTime,
         convertirPrimeraLetraMayuscula
     })

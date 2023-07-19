@@ -7,15 +7,17 @@
     <section class="curso">
       <div class="curso__image flex flex-ai-c flex-jc-c">
         <div class="curso__image-subcontainer">
-          <img loading="lazy" src="<%= curso.Portada %>" alt="<%= `Curso ${curso.Titulo}` %>"> 
+          <img loading="lazy" src="<%= curso.portada %>" alt="<%= `Curso ${curso.titulo}` %>"> 
         </div>
       </div>
       <div class="curso__text flex flex-ai-c flex-jc-c">
         <div class="curso__text-subcontainer">
           <div class="curso__intro">CURSO</div>
-          <h1 class="curso__title">"<%= curso.Titulo %>"</h1>
+          <h1 class="curso__title">"<%= curso.titulo %>"</h1>
           <div class="curso__description"> 
-            <%- curso.Descripcion %>
+              <div class="ql-editor" style="padding: 0">
+                <%- curso.descripcion %>
+              </div>
           </div>
         </div>
       </div>
@@ -45,18 +47,18 @@
               </div>
               <div>
                 <h3>INVERSIÓN:</h3>
-                <p><%= curso.Inversion %></p>
+                <p>S/. <%= parseFloat(curso.inversion) %></p>
               </div>
             </div>
             <div class="detalles__duracion flex flex-ai-c">
               <div class="">
                 <div class="flex flex-jc-c flex-ai-c">
-                  <img src="/dist/images/Duracion.svg" alt="Inversion Oladeg">
+                  <img src="/dist/images/Duracion.svg" alt="Duración Oladeg">
                 </div>
               </div>
               <div>
                 <h3>DURACIÓN:</h3>
-                <p><%= curso.Duracion %></p>
+                <p><%= curso.duracion %></p>
               </div>
             </div>
             <div class="detalles__fecha flex flex-ai-c">
@@ -67,7 +69,9 @@
               </div>
               <div>
                 <h3>FECHA DE INICIO:</h3>
-                <p><%= `${curso.inicio_date} de ${curso.inicio_month} del ${curso.inicio_year} Hora: ${curso.inicio_hour}:${curso.inicio_minute} ${curso.inicio_horario}` %></p>
+                <% const fecha = DateTime.fromISO(curso.fecha, { locale: 'es' }) %>
+                <% const fechaFormateada = fecha.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
+                <time datetime="<%= curso.fechaYHora %>" class="flex flex-ai-c" ></time><%= convertirPrimeraLetraMayuscula(fechaFormateada) + " " + curso.hora %></time>
               </div>
             </div>
             <div class="detalles__modalidad flex flex-ai-c">
@@ -78,7 +82,7 @@
               </div>
               <div>
                 <h3>MODALIDAD:</h3>
-                <p><%= curso.Modalidad %></p>
+                <p><%= curso.modalidad %></p>
               </div>
             </div>
           </div>
@@ -86,7 +90,9 @@
         <div class="detalles__dropdown">
           <h2 class="detalles__trigger" data-target="inscripcion">INSCRIPCIÓN<span class="detalles__span">&#62;</span></h2>
           <div class="detalles__content detalles__content--inscripcion">
-            <%- curso.Inscripcion %>
+            <div class="ql-editor" style="padding: 0">
+              <%- curso.inscripcion %>
+            </div>
             <!-- <h3>PASOS PARA INSCRIBIRSE</h3>
             <ul>
               <li>Realizar el pago vía agente, ventanilla o cajero en alguna de nuestras cuentas bancarias disponibles en: <a href="">https://www.oladeg.org/forma-de-pago/</a></li>
@@ -100,7 +106,9 @@
         <div class="detalles__dropdown">
           <h2 class="detalles__trigger" data-target="temario">TEMARIO<span class="detalles__span">&#62;</span></h2>
           <div class="detalles__content detalles__content--temario">
-            <%- curso.Temario %>
+            <div class="ql-editor" style="padding: 0">
+              <%- curso.temario %>
+            </div>
 
             <!-- <h3>MODULO I</h3>
             <ul>
@@ -125,7 +133,9 @@
         <div class="detalles__dropdown">
           <h2 class="detalles__trigger" data-target="materiales">MATERIALES<span class="detalles__span">&#62;</span></h2>
           <div class="detalles__content detalles__content--materiales">
-            <%- curso.Materiales %>
+            <div class="ql-editor" style="padding: 0">
+              <%- curso.materiales %>
+            </div>
            <!-- <h3>MATERIALES A ENTREGAR</h3>
            <ul>
              <li>Guía del participante</li>
@@ -138,7 +148,9 @@
         <div class="detalles__dropdown">
           <h2 class="detalles__trigger" data-target="promocion">PROMOCIÓN<span class="detalles__span">&#62;</span></h2>
           <div class="detalles__content detalles__content--promocion">
-            <%- curso.Promocion %>
+            <div class="ql-editor" style="padding: 0">
+              <%- curso.promocion %>
+            </div>
            <!-- <h3>BECA OLADEG</h3>
            <p>Con el interés de promover y facilitar, LA BECA OLADEG financia el 50% del costo total del Curso, bjo las siguientes modalidades</p><br>
            <ul>
@@ -151,7 +163,10 @@
         <div class="detalles__dropdown">
           <h2 class="detalles__trigger" data-target="metodologia">METODOLOGÍA<span class="detalles__span">&#62;</span></h2>
           <div class="detalles__content detalles__content--metodologia">
-            <%- curso.Metodologia %>
+            <div class="ql-editor" style="padding: 0">
+              <%- curso.metodologia %>
+            </div>
+
            <!-- <ul>
              <li>Mediante el uso de la herramienta del Internet Ud. Interactuará en el lugar de su
    trabajo, domicilio o lugar donde se encuentra, Sistema a Distancia Virtual mediante
@@ -170,13 +185,13 @@
           <div class="detalles__content detalles__content--expositor">
             <div class="wrapper">
               <div class="image flex flex-fd-c flex-jc-c flex-ai-c">
-                <img loading="lazy" src="<%= curso.ImagenExpositor %>" alt="Expositor Curso Oladeg">
-                <% if(curso.NombreExpositor) {%>
-                  <h2><%= curso.NombreExpositor %></h1>
-                <% } %>
+                <img loading="lazy" src="<%= curso.expositorImagen %>" alt="<%= curso.expositorNombre %>">
+                  <h2><%= curso.expositorNombre %></h1>
               </div>
               <div class="description">
-                <%- curso.DescripcionExpositor %>
+                <div class="ql-editor" style="padding: 0">
+                  <%- curso.expositorDescripcion %>
+                </div>
                 <!-- <p>Especialista en SSOMAC. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor erat vel neque sodales aliquet. Phasellus maximus elit eget felis fermentum semper. Pellentesque lectus odio, hendrerit interdum interdum a, sagittis quis nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse vestibulum viverra sollicitudin. </p> -->
               </div>
             </div>
@@ -184,12 +199,10 @@
         </div>
       </div>
       <div class="detalles__image flex flex-ai-c flex-jc-c">
-        <% if(curso.Certificado) { %>
-          <img src="<%= curso.Certificado %>" alt="<% `Certificado Curso ${curso.Titulo}  ` %>">
-        <% } %>
+        <img src="/dist/images/certificado.jpg" alt="<% `Certificado Curso ${curso.titulo}  ` %>">
       </div>
     </section>
-    <%- include('../partials/twobuttons.ejs', {tipo: "curso"}) %>
+    <%- include('../partials/twobuttons.ejs', {tipo: "curso", url: "cursos"}) %>
     <%- include('../layouts/whatsapp.ejs') %>
   </main> 
   <%- include('../layouts/footerView.ejs') %>

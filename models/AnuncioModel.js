@@ -33,9 +33,9 @@ const Anuncio = sequelize.define('Anuncio', {
             notEmpty: {
                 msg: 'El extracto del anuncio es obligatorio'
             },
-            tieneMaximo30Palabras(value) {
+            tieneMaximo35Palabras(value) {
                 const palabras = value.trim().split(/\s+/);
-                if (palabras.length > 30) {
+                if (palabras.length > 35) {
                     throw new Error('El extracto del anuncio debe tener como máximo 35 palabras.');
                 }
             }

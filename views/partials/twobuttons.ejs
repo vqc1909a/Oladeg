@@ -1,24 +1,24 @@
 <div class="anuncio__buttons">
     <% if (isButtonAnterior) { %>
-      <a href="/anuncios/<%= anuncioAnterior.slug %>" role="link" class="anuncio__button anuncio__button--before" title="<%= anuncioAnterior.titulo %>">
+      <a href="/<%= url %>/<%= contenidoAnterior.slug %>" role="link" class="anuncio__button anuncio__button--before" title="<%= contenidoAnterior.titulo %>">
         <span>&lt;</span>
-        <p><%= anuncioAnterior.titulo %></p>
+        <p><%= contenidoAnterior.titulo %></p>
       </a>
     <% } else { %>
       <a href="" role="link" class="anuncio__button anuncio__button--before anuncio__button--disabled" title="">
           <span>&lt;</span>
-          <p>Sin anuncio anterior</p>
+          <p>Sin <%= tipo %> anterior</p>
       </a>
     <% } %>
   
     <% if (isButtonSiguiente) { %>
-      <a href="/anuncios/<%= anuncioSiguiente.slug %>" role="link" class="anuncio__button anuncio__button--after" title="<%= anuncioSiguiente.titulo %>">
-        <p><%= anuncioSiguiente.titulo %></p>
+      <a href="/<%= url %>/<%= contenidoSiguiente.slug %>" role="link" class="anuncio__button anuncio__button--after" title="<%= contenidoSiguiente.titulo %>">
+        <p><%= contenidoSiguiente.titulo %></p>
         <span>&gt;</span>
       </a>
     <% } else { %>
       <a href="" role="link" class="anuncio__button anuncio__button--after anuncio__button--disabled" title="">
-        <p>Sin anuncio siguiente</p>
+        <p>Sin <%= tipo %> siguiente</p>
         <span>&gt;</span>
       </a>
     <% } %>

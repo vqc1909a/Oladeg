@@ -56,28 +56,49 @@ export const mostrarCursos = async (req, res) => {
 }
 
 export const mostrarCurso = async (req, res) => {
-  const url = req.params.curso;
-  let cursos = await obtenerCursos();
-  let curso = cursos.find((anuncio) => anuncio.Url === url);
-  let anterior;
-  let despues;
-  let ubicacion;
-  cursos.forEach((cur, i) => {
-    if(cur.Titulo === curso.Titulo){
-      ubicacion = i;
+  try{
+    const slug = req.params.slug
+    const [cursos, curso] = await Promise.all([
+      ProgramaAcademico.findAll({
+        where: {tipo: "curso"},
+        order: [["fechaYHora", "ASC"]]
+      }), 
+      ProgramaAcademico.findOne({
+        where: {slug, tipo: 'curso'}, 
+        order: [["fechaYHora", "ASC"]]
+      })
+    ])
+    if(!curso){
+        req.flash("error", "El curso no existe");
+        return res.redirect(ROUTES.HOME)
     }
-  });
-  anterior = cursos[ubicacion + 1];
-  despues = cursos[ubicacion - 1];
-  return res.render('programa/mostrar-curso', {
-    title: `${curso.Titulo} &#8211; OLADEG`,
-    description: curso.metadescripcion,
-    protocol: req.protocol, 
-    host: req.headers.host,
-    curso,
-    anterior,
-    despues,
-    publicidad: ''
-  })
+    const index = cursos.findIndex(a => a.id === curso.id);
+    const indexAnterior = index === 0 ? 0 : index - 1;
+    const indexSiguiente = (index === cursos.length - 1) ? index : index + 1;
+
+    const isButtonAnterior = index > 0;
+    const isButtonSiguiente = index < cursos.length - 1
+
+    let contenidoAnterior = isButtonAnterior ? cursos.slice(indexAnterior, indexAnterior  + 1)[0] : undefined;
+    let contenidoSiguiente = isButtonSiguiente ? cursos.slice(indexSiguiente, indexSiguiente  + 1)[0] : undefined;
+    
+
+    const extracto = curso.descripcion.trim().split(/\s+/).slice(0, 35).join(' ');
+    return res.render('programa/mostrar-curso', {
+        title: `${curso.titulo} &#8211; OLADEG`,
+        description: extracto,
+        publicidad: '',
+        curso,
+        isButtonAnterior,
+        isButtonSiguiente,
+        contenidoAnterior,
+        contenidoSiguiente,
+        DateTime,
+        convertirPrimeraLetraMayuscula
+    })
+  }catch(err){
+    req.flash("error", err.message);
+    return res.redirect(ROUTES.HOME);
+  }
 }
 
