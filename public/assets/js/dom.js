@@ -53,8 +53,8 @@ export const $banner2_title = document.querySelector('.banner2__title');
 //Curso
 export const $curso = document.querySelector('.curso');
 export const $cursos = document.querySelector('.cursos');
-export const curso_triggers = document.querySelectorAll('.detalles__trigger');
-export const curso_contents = document.querySelectorAll('.detalles__content');
+export const $curso_triggers = document.querySelectorAll('.detalles__trigger');
+export const $curso_contents = document.querySelectorAll('.detalles__content');
 
 //Anuncio
 export const $inputDescriptionQuill = document.querySelector("#inputDescriptionQuill");

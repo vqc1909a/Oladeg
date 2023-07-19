@@ -1,10 +1,10 @@
 import {
-  curso_triggers,
-  curso_contents
+  $curso_triggers,
+  $curso_contents
 } from '../dom.js';
 
-const curso_triggers_array = Array.from(curso_triggers);
-const curso_contents_array = Array.from(curso_contents);
+const curso_triggers_array = Array.from($curso_triggers);
+const curso_contents_array = Array.from($curso_contents);
 curso_triggers_array.forEach((trigger) => {
   trigger.addEventListener('click', () => {
     let target = trigger.dataset.target;
