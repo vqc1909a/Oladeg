@@ -199,7 +199,7 @@
         </div>
       </div>
       <div class="detalles__image flex flex-ai-c flex-jc-c">
-        <img src="/dist/images/certificado.jpg" alt="<% `Certificado Curso ${curso.titulo}  ` %>">
+        <img src="<%= curso.certificado %>" alt="<% `Certificado Curso ${curso.titulo}  ` %>">
       </div>
     </section>
     <%- include('../partials/twobuttons.ejs', {tipo: "curso", url: "cursos"}) %>

@@ -22,11 +22,12 @@ const upload = multer({
     limits: {
         fileSize: 1024 * 1024, // 1 MB
         fieldSize: 1024 * 1024,
-        files: 2 // Máximo 5 archivos
+        files: 3 // Máximo 5 archivos
     }
 }).fields([
     {name: 'portada', maxCount: 1},
-    {name: 'expositorImagen', maxCount: 1}
+    {name: 'expositorImagen', maxCount: 1},
+    {name: 'certificado', maxCount: 1}
 ]);
 
 export const subirImagen = (req, res, next) => {
@@ -83,6 +84,9 @@ export const agregarPrograma = async(req, res) => {
   if(req.files.expositorImagen){
     body.expositorImagen = `/dist/uploads/programas/expositor/${req.files.expositorImagen[0].filename}`
   }
+  if(req.files.certificado){
+    body.certificado = `/dist/uploads/programas/certificado/${req.files.certificado[0].filename}`
+  }
   try{
       let errorsExpress = validationResult(req);
       //Comprobamos si hay errores de express
@@ -96,7 +100,10 @@ export const agregarPrograma = async(req, res) => {
           if(fse.existsSync(filePathExpositor)){
               fse.unlinkSync(filePathExpositor);
           }
-
+          const filePathCertificado = path.join(__dirname, `../public/${body.certificado}`);
+          if(fse.existsSync(filePathCertificado)){
+              fse.unlinkSync(filePathCertificado);
+          }
           const erroresExpress = errorsExpress.array().map(err => err.msg)
           req.flash('error', erroresExpress);
           req.flash('fields', body);        
@@ -121,6 +128,10 @@ export const agregarPrograma = async(req, res) => {
       const filePathExpositor = path.join(__dirname, `../public/${body.expositorImagen}`);
       if(fse.existsSync(filePathExpositor)){
           fse.unlinkSync(filePathExpositor);
+      }
+      const filePathCertificado = path.join(__dirname, `../public/${body.certificado}`);
+      if(fse.existsSync(filePathCertificado)){
+          fse.unlinkSync(filePathCertificado);
       }
       req.flash('error', erroresSequelize);
       req.flash('fields', body)
@@ -266,6 +277,9 @@ export const editarImagenPrograma = async (req, res) => {
     if(req.files.expositorImagen){
         body.expositorImagen = `/dist/uploads/programas/expositor/${req.files.expositorImagen[0].filename}`
     }
+    if(req.files.certificado){
+        body.certificado = `/dist/uploads/programas/certificado/${req.files.certificado[0].filename}`
+    }
     try{
         let programa;
         if(user.isAdmin){
@@ -281,30 +295,41 @@ export const editarImagenPrograma = async (req, res) => {
        
         let previousPortada = programa.portada;
         let previousExpositorImagen = programa.expositorImagen;
+        let previousCertificado = programa.certificado;
+
 
         //Si hemos subido la imagen, lo cambiamos 
         programa.portada = body.portada
         programa.expositorImagen = body.expositorImagen
-
+        programa.certificado = body.certificado
         await programa.save();
 
         //Si existe una imagen previa, borramos las imagenes del servidor, lo ponemos aqui para asegurarno que guardo la nueva imagen en el servidor y su ruta en base de datos
         const filePathPreviousPortada = path.join(__dirname, `../public/${previousPortada}`);
         const filePathPreviousExpositorImagen = path.join(__dirname, `../public/${previousExpositorImagen}`);
+        const filePathPreviousCertificado = path.join(__dirname, `../public/${previousCertificado}`);
+
 
         if(fse.existsSync(filePathPreviousPortada)){
             fse.unlinkSync(filePathPreviousPortada);
         }
         if(fse.existsSync(filePathPreviousExpositorImagen)){
             fse.unlinkSync(filePathPreviousExpositorImagen);
+        }
+        if(fse.existsSync(filePathPreviousCertificado)){
+            fse.unlinkSync(filePathPreviousCertificado);
         }
 
         req.flash('success', 'Imagenes cambiadas correctamente');
         return res.redirect(ROUTES.PROGRAMAS_ADMIN);
     }catch(err){
+        console.log({
+            body
+        })
         //Si algo ocurrio, borramos las imagenes que se subio
         const filePathPreviousPortada = path.join(__dirname, `../public/${body.portada}`);
         const filePathPreviousExpositorImagen = path.join(__dirname, `../public/${body.expositorImagen}`);
+        const filePathPreviousCertificado = path.join(__dirname, `../public/${body.certificado}`);
 
         if(fse.existsSync(filePathPreviousPortada)){
             fse.unlinkSync(filePathPreviousPortada);
@@ -312,7 +337,9 @@ export const editarImagenPrograma = async (req, res) => {
         if(fse.existsSync(filePathPreviousExpositorImagen)){
             fse.unlinkSync(filePathPreviousExpositorImagen);
         }
-        
+        if(fse.existsSync(filePathPreviousCertificado)){
+            fse.unlinkSync(filePathPreviousCertificado);
+        }
         let erroresSequelize = []
         //Vamos a obtener los errores del propio modelo si no cumple las restricciones que le pusimos para cada campo
         if(err.errors){
@@ -328,22 +355,33 @@ export const editarImagenPrograma = async (req, res) => {
 export const eliminarPrograma = async(req, res) => {
     const user = req.user;
     try{
-        let anuncio;
+        let programaAcademico;
         if(user.isAdmin){
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id}});
+            programaAcademico = await ProgramaAcademico.findOne({where: {id: req.params.id}});
         }else{
-            anuncio = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
+            programaAcademico = await ProgramaAcademico.findOne({where: {id: req.params.id, userId: user.id}});
         }
-        if(!anuncio){
+
+        if(!programaAcademico){
             return res.status(401).json({message: "Acceso denegado"});
         }
-        const filePathImage = path.join(__dirname, `../public/${anuncio.portada}`);
-        if(anuncio.portada && fse.existsSync(filePathImage)){
-            fse.unlinkSync(filePathImage);
+
+        const filePathPreviousPortada = path.join(__dirname, `../public/${programaAcademico.portada}`);
+        const filePathPreviousExpositorImagen = path.join(__dirname, `../public/${programaAcademico.expositorImagen}`);
+        const filePathPreviousCertificado = path.join(__dirname, `../public/${programaAcademico.certificado}`);
+
+        if(fse.existsSync(filePathPreviousPortada)){
+            fse.unlinkSync(filePathPreviousPortada);
+        }
+        if(fse.existsSync(filePathPreviousExpositorImagen)){
+            fse.unlinkSync(filePathPreviousExpositorImagen);
+        }
+        if(fse.existsSync(filePathPreviousCertificado)){
+            fse.unlinkSync(filePathPreviousCertificado);
         }
 
         await ProgramaAcademico.destroy({where: {id: req.params.id}});
-        return res.status(200).json({message: "El anuncio ha sido eliminado."});
+        return res.status(200).json({message: "El programa académico ha sido eliminado."});
     }catch(err){
         const message = err.message;
         return res.status(400).json({message});

@@ -46,10 +46,10 @@ const Anuncio = sequelize.define('Anuncio', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'La portada del anuncio es obligaotrio'
+                msg: 'La imagen de la portada es obligatorio'
             },
             notEmpty: {
-                msg: 'La portada del anuncio es obligaotrio'
+                msg: 'La imagen de la portada es obligatorio'
             }
         }
     },

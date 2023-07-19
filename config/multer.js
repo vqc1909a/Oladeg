@@ -73,6 +73,8 @@ export const storageProgramasAcademicos = multer.diskStorage({
       folder = path.join(__dirname, '../public/dist/uploads/programas/portada/')
     }else if(file.fieldname === 'expositorImagen'){
       folder = path.join(__dirname, '../public/dist/uploads/programas/expositor/')
+    }else if(file.fieldname === 'certificado'){
+      folder = path.join(__dirname, '../public/dist/uploads/programas/certificado/')
     }
     cb(null, folder);
   },

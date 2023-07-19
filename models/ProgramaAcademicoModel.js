@@ -40,10 +40,10 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'La portada del programa académico es obligatorio'
+                msg: 'La imagen de la portada es obligatorio'
             },
             notEmpty: {
-                msg: 'La portada del programa académico es obligatorio'
+                msg: 'La imagen de la portada es obligatorio'
             }
         }
     },
@@ -188,6 +188,18 @@ const ProgramaAcademico = sequelize.define('ProgramaAcademico', {
             },
             notEmpty: {
                 msg: 'La imagen del expositor es obligatorio'
+            }
+        }
+    },
+    certificado: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+            notNull: {
+                msg: 'La imagen del certificado es obligatorio'
+            },
+            notEmpty: {
+                msg: 'La imagen del certificado es obligatorio'
             }
         }
     },

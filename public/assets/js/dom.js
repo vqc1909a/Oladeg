@@ -21,6 +21,8 @@ export const $fileInputPrograma1 = document.querySelector('#fileInputPrograma1')
 export const $imagePreviewPrograma1 = document.querySelector('#imagePreviewPrograma1');
 export const $fileInputPrograma2 = document.querySelector('#fileInputPrograma2');
 export const $imagePreviewPrograma2 = document.querySelector('#imagePreviewPrograma2');
+export const $fileInputPrograma3 = document.querySelector('#fileInputPrograma3');
+export const $imagePreviewPrograma3 = document.querySelector('#imagePreviewPrograma3');
 
 //Hero
 export const $nosotros = document.querySelector(".nosotros");
