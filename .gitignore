@@ -1,9 +1,8 @@
 node_modules/
-*.jpg
-*.png
-*.pdf
-*.docx
-*.pptx
-*.ppt
-*.doc
 .env
+/public/dist/js/*
+/public/dist/uploads/anuncios/*
+/public/dist/uploads/programas/certificado/*
+/public/dist/uploads/programas/expositor/*
+/public/dist/uploads/programas/portada/*
+
