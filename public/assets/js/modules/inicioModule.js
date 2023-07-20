@@ -95,7 +95,7 @@ $hamburguer.addEventListener('click', function(){
     height_main_nav = $main_nav.getBoundingClientRect().height;
 
 
-    if(window.location.pathname.search(/cursos/) !== -1 || window.location.pathname.search(/diplomados/) !== -1 || window.location.pathname.search(/especializaciones/) !== -1 || window.location.pathname.search(/boletines/) !== -1 || window.location.pathname.search(/libros/) !== -1){
+    if(window.location.pathname.search(/^\/cursos\/?$/) !== -1 || window.location.pathname.search(/diplomados/) !== -1 || window.location.pathname.search(/especializaciones/) !== -1 || window.location.pathname.search(/boletines/) !== -1 || window.location.pathname.search(/libros/) !== -1){
       $banner2_title.style.transform = `translate3d(0px, ${.5 * window.scrollY}px, 0px)`;
       $banner2_title.style.opacity = 1 - window.scrollY/500;
     }
@@ -134,9 +134,9 @@ $hamburguer.addEventListener('click', function(){
           $nuestros_servicios.style.marginTop = "8vh";
         }   
       }
-      if(window.location.pathname.search(/cursos/) !== -1 || window.location.pathname.search(/diplomados/) !== -1 || window.location.pathname.search(/especializaciones/) !== -1 || window.location.pathname.search(/boletines/) !== -1 || window.location.pathname.search(/libros/) !== -1){
+      if(window.location.pathname.search(/^\/cursos\/?$/) !== -1 || window.location.pathname.search(/diplomados/) !== -1 || window.location.pathname.search(/especializaciones/) !== -1 || window.location.pathname.search(/boletines/) !== -1 || window.location.pathname.search(/libros/) !== -1){
         $banner2.style.marginTop = "8vh";
-        if(window.location.pathname.search(/cursos/) !== -1 && window.innerWidth < 1024){
+        if(window.location.pathname.search(/^\/cursos\/?$/) !== -1 && window.innerWidth < 1024){
           $cursos.style.marginTop = "8vh";
         }
         if(window.location.pathname.search(/diplomados/) !== -1 && window.innerWidth < 1024){
@@ -194,9 +194,9 @@ $hamburguer.addEventListener('click', function(){
         }   
       }
 
-      if(window.location.pathname.search(/cursos/) !== -1  || window.location.pathname.search(/diplomados/) !== -1 || window.location.pathname.search(/especializaciones/) !== -1 || window.location.pathname.search(/boletines/) !== -1 || window.location.pathname.search(/libros/) !== -1){
+      if(window.location.pathname.search(/^\/cursos\/?$/) !== -1  || window.location.pathname.search(/diplomados/) !== -1 || window.location.pathname.search(/especializaciones/) !== -1 || window.location.pathname.search(/boletines/) !== -1 || window.location.pathname.search(/libros/) !== -1){
         $banner2.style.marginTop = "0rem";
-        if(window.location.pathname.search(/cursos/) !== -1  && window.innerWidth < 1024){
+        if(window.location.pathname.search(/^\/cursos\/?$/) !== -1  && window.innerWidth < 1024){
           $cursos.style.marginTop = "0rem";
         }
         if(window.location.pathname.search(/diplomados/) !== -1 && window.innerWidth < 1024){

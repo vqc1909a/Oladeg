@@ -186,7 +186,7 @@
             <div class="wrapper">
               <div class="image flex flex-fd-c flex-jc-c flex-ai-c">
                 <img loading="lazy" src="<%= curso.expositorImagen %>" alt="<%= curso.expositorNombre %>">
-                  <h2><%= curso.expositorNombre %></h1>
+                <h2><%= curso.expositorNombre %></h1>
               </div>
               <div class="description">
                 <div class="ql-editor" style="padding: 0">
@@ -199,7 +199,7 @@
         </div>
       </div>
       <div class="detalles__image flex flex-ai-c flex-jc-c">
-        <img src="<%= curso.certificado %>" alt="<% `Certificado Curso ${curso.titulo}  ` %>">
+        <img src="<%= curso.certificado || '/dist/images/certificado.jpg' %>" alt="<% `Certificado Curso ${curso.titulo}  ` %>">
       </div>
     </section>
     <%- include('../partials/twobuttons.ejs', {tipo: "curso", url: "cursos"}) %>
