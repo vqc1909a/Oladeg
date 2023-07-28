@@ -1,56 +1,100 @@
-const {obtenerEspecializaciones} = require("../helpers");
+import ProgramaAcademico from "../models/ProgramaAcademicoModel.js";
+import * as ROUTES from "../config/routes.js";
+import {DateTime} from "luxon";
+import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 
-const mostrarEspecializaciones = async (req, res) => {
-  let especializaciones = await obtenerEspecializaciones();
-  let pagina_actual = req.query.page ? parseInt(req.query.page) : 1;
-  let total_elementos = especializaciones.length;
-  let elementos_por_pagina = 4;
-  let elementos_hasta_ahora = elementos_por_pagina;
-  let total_paginas = Math.ceil(total_elementos / elementos_por_pagina)
-  if(!isNaN(pagina_actual) & pagina_actual >= 1 & pagina_actual <= total_paginas){
-    elementos_hasta_ahora = pagina_actual * elementos_por_pagina;
-  }else{
-    pagina_actual = 1;
-  }
-  especializaciones = especializaciones.slice(elementos_hasta_ahora - elementos_por_pagina, elementos_hasta_ahora)
-  return res.render('pages/especializacionesView', {
-    title: "Especializaciones &#8211; OLADEG",
-    description: "Oladeg te invita a participar de las Especializaciones de Capacitación a Distancia Virtual mediante su Escuela de Gestión Pública.",
-    protocol: req.protocol, 
-    host: req.headers.host,
-    especializaciones,
-    pagina_actual,
-    total_elementos,
-    elementos_por_pagina,
-    total_paginas,
-    publicidad: ''
-  })
-}
+export const mostrarEspecializaciones = async (req, res) => {
+  try{
+    const especializaciones = await ProgramaAcademico.findAll({where: {tipo: 'especializacion'}, order: [["fechaYHora", "ASC"]]});
+    const cantidadEspecializacionesPagina = 4;
+    const totalEspecializaciones = especializaciones.length;
+    const cantidadPaginas = Math.ceil(totalEspecializaciones / cantidadEspecializacionesPagina)
+    const paginaActual = Number(req.query.page ? (req.query.page >= 1 && req.query.page <= cantidadPaginas) ? req.query.page : 1 : 1)
 
-const mostrarEspecializacion = async (req, res) => {
-  const url = req.params.especializacion;
-  let especializaciones = await obtenerEspecializaciones();
-  let especializacion = especializaciones.find((espe) => espe.Url === url);
-  let anterior;
-  let despues;
-  let ubicacion;
-  especializaciones.forEach((espe, i) => {
-    if(espe.Titulo === especializacion.Titulo){
-      ubicacion = i;
+    const isPaginacionesNormal = (cantidadPaginas <= 5) && (paginaActual <= 5) // 5 paginaciones del 1 al 5 o menos según la cantidad de paginas
+    const isPaginacionesIzquierda = (cantidadPaginas > 5) && (paginaActual <= 3); // 5 paginaciones del 1 2 3 ... final
+    const isPaginacionesMedia = (cantidadPaginas > 5) && (paginaActual > 3) && (paginaActual < cantidadPaginas - 2) // 5 paginaciones del 1 ... 4 ... final
+    const isPaginacionesDerecha = (cantidadPaginas > 5) && (paginaActual >= cantidadPaginas - 2)
+
+    const isPaginacionAnterior = paginaActual > 1;
+    const isPaginacionSiguiente = paginaActual < cantidadPaginas;
+    const arrayPaginas = [];
+    for (var i = 1; i <= cantidadPaginas; i++) {
+      arrayPaginas.push(i); // Agrega cada número al array
     }
-  });
-  anterior = especializaciones[ubicacion + 1];
-  despues = especializaciones[ubicacion - 1];
-  return res.render('pages/especializacionView', {
-    title: `${especializacion.Titulo} &#8211; OLADEG`,
-    description: especializacion.metadescripcion,
-    protocol: req.protocol, 
-    host: req.headers.host,
-    especializacion,
-    anterior,
-    despues,
-    publicidad: ''
-  })
+
+    const especializacionesFiltrados = especializaciones.slice(cantidadEspecializacionesPagina * (paginaActual - 1), cantidadEspecializacionesPagina * paginaActual);
+
+    return res.render("programa/mostrar-especializaciones", {
+      title: "Especializaciones &#8211; OLADEG",
+      description: "Oladeg te invita a participar de las Especializaciones de Capacitación a Distancia Virtual mediante su Escuela de Gestión Pública.",
+      publicidad: '',
+      especializaciones: especializacionesFiltrados,
+      req,
+      DateTime,
+      convertirPrimeraLetraMayuscula,
+      paginaActual,
+      cantidadEspecializacionesPagina,
+      cantidadPaginas,
+      totalEspecializaciones,
+      arrayPaginas,
+      isPaginacionesNormal,
+      isPaginacionesIzquierda,
+      isPaginacionesMedia,
+      isPaginacionesDerecha,
+      isPaginacionAnterior,
+      isPaginacionSiguiente,
+    });
+  }catch(err){
+    req.flash("error", err.message);
+    return res.redirect(ROUTES.HOME);
+  }
 }
 
-module.exports = {mostrarEspecializaciones, mostrarEspecializacion};
+export const mostrarEspecializacion = async (req, res) => {
+  try{
+    const slug = req.params.slug
+    const [especializaciones, especializacion] = await Promise.all([
+      ProgramaAcademico.findAll({
+        where: {tipo: "especializacion"},
+        order: [["fechaYHora", "ASC"]]
+      }), 
+      ProgramaAcademico.findOne({
+        where: {slug, tipo: 'especializacion'}, 
+        order: [["fechaYHora", "ASC"]]
+      })
+    ])
+    if(!especializacion){
+        req.flash("error", "La especializacion no existe");
+        return res.redirect(ROUTES.HOME)
+    }
+    const index = especializaciones.findIndex(a => a.id === especializacion.id);
+    const indexAnterior = index === 0 ? 0 : index - 1;
+    const indexSiguiente = (index === especializaciones.length - 1) ? index : index + 1;
+
+    const isButtonAnterior = index > 0;
+    const isButtonSiguiente = index < especializaciones.length - 1
+
+    let contenidoAnterior = isButtonAnterior ? especializaciones.slice(indexAnterior, indexAnterior  + 1)[0] : undefined;
+    let contenidoSiguiente = isButtonSiguiente ? especializaciones.slice(indexSiguiente, indexSiguiente  + 1)[0] : undefined;
+    
+
+    const extracto = especializacion.descripcion.trim().split(/\s+/).slice(0, 35).join(' ');
+    return res.render('programa/mostrar-especializacion', {
+        title: `${especializacion.titulo} &#8211; OLADEG`,
+        description: extracto,
+        publicidad: '',
+        especializacion,
+        isButtonAnterior,
+        isButtonSiguiente,
+        contenidoAnterior,
+        contenidoSiguiente,
+        DateTime,
+        convertirPrimeraLetraMayuscula
+    })
+  }catch(err){
+    req.flash("error", err.message);
+    return res.redirect(ROUTES.HOME);
+  }
+}
+

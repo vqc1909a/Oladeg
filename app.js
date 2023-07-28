@@ -16,6 +16,8 @@ import adminRoute from "./routes/adminRoute.js";
 import programaAcademicoRoute from "./routes/programaAcademicoRoute.js";
 import cursoRoute from "./routes/cursoRoute.js";
 import dipĺomadoRoute from "./routes/diplomadoRoute.js";
+import especializacionRoute from "./routes/especializacionRoute.js" 
+
 
 
 
@@ -74,7 +76,7 @@ connectDB().then(async () => {
   app.use('/', programaAcademicoRoute);
   app.use('/', cursoRoute);
   app.use('/', dipĺomadoRoute);
-  // app.use('/', require("./routes/especializacionRoute"));
+  app.use('/', especializacionRoute);
   // app.use('/', require("./routes/libroRoute"));
   // app.use('/', require("./routes/boletinRoute"));
   // app.use('/', require("./routes/publicidadRoute"));

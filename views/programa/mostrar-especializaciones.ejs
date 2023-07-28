@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+	<%- include ('../partials/head.ejs') %>
+	<body>
+		<%- include ('../layouts/headerView.ejs') %>
+		<main>
+			<%- include('../layouts/banner2View.ejs', {variant: 'Especializaciones'}); %>
+			<div class="main__content container">
+				<section class="cursos">
+					<h1 class="cursos__intro">Especializaciones</h1>
+					<% if(especializaciones.length) { %>
+					<div class="cursos__grid">
+						<% especializaciones.forEach(function(especializacion) { %>
+							<div class="cursos__item appear-content">
+								<h2 class="cursos__title">
+									<a
+										href="/especializaciones/<%= especializacion.slug %>"
+										title="<%= especializacion.titulo %>"
+										role="link"
+										><%= especializacion.titulo %></a
+									>
+								</h2>
+								<p class="cursos__time flex flex-ai-c">
+									<img
+										loading="lazy"
+										src="/dist/icons/Clock.svg"
+										alt="Datetime Diplomado"
+									/>
+									<% let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone %> 
+									<% let datetime = especializacion.fechaYHora.toLocaleString('es', {timeZone: timeZone }) %> 
+									<% const fecha = DateTime.fromISO(especializacion.fecha, { locale: 'es' }) %> 
+									<% const fechaFormateada = fecha.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
+									<time
+										datetime="<%= datetime %>"
+										class="flex flex-ai-c"
+										><%=
+										convertirPrimeraLetraMayuscula(fechaFormateada)
+										%></time>
+								</p>
+								<div class="cursos__image">
+									<a
+										href="/especializaciones/<%= especializacion.slug %>"
+										title="<%= especializacion.titulo %>"
+										role="link"
+									>
+										<img
+											loading="lazy"
+											src="<%= especializacion.portada %>"
+											alt="Diplomado <%= especializacion.titulo %>"
+										/>
+									</a>
+								</div>
+								<div class="cursos__button">
+									<a
+										href="/especializaciones/<%= especializacion.slug %>"
+										title="<%= especializacion.titulo %>"
+										role="link"
+										type="button"
+										class="button"
+										>Más Información</a
+									>
+								</div>
+							</div>
+						<% }) %>
+						<!-- <div class="cursos__item appear-content">
+				<h2 class="cursos__title"><a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
+				<p class="cursos__time flex flex-ai-c">
+					<img loading="lazy" src="/dist/icons/Clock.svg" alt="Datetime Curso">
+					<time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
+				</p>
+				<div class="cursos__image">
+					<a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">
+					<img loading="lazy" src="/dist/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
+					</a>
+				</div>
+				<div class="cursos__button">
+					<a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link" type="button" class="button">Más Información</a>
+				</div>
+				</div>
+				<div class="cursos__item appear-content" >
+				<h2 class="cursos__title"><a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
+				<p class="cursos__time flex flex-ai-c">
+					<img loading="lazy" src="/dist/icons/Clock.svg" alt="Datetime Curso">
+					<time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
+				</p>
+				<div class="cursos__image">
+					<a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">
+					<img loading="lazy" src="/dist/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
+					</a>
+				</div>
+				<div class="cursos__button">
+					<a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link" type="button" class="button">Más Información</a>
+				</div>
+				</div>
+				<div class="cursos__item appear-content">
+				<h2 class="cursos__title"><a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
+				<p class="cursos__time flex flex-ai-c">
+					<img loading="lazy" src="/dist/icons/Clock.svg" alt="Datetime Curso">
+					<time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
+				</p>
+				<div class="cursos__image">
+					<a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">
+					<img loading="lazy" src="/dist/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
+					</a>
+				</div>
+				<div class="cursos__button">
+					<a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link" type="button" class="button">Más Información</a>
+				</div>
+				</div>
+				<div class="cursos__item appear-content">
+				<h2 class="cursos__title"><a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
+				<p class="cursos__time flex flex-ai-c">
+					<img loading="lazy" src="/dist/icons/Clock.svg" alt="Datetime Curso">
+					<time datetime="2008-02-14 20:00" class="flex flex-ai-c"> AUGUST 31, 2016</time>
+				</p>
+				<div class="cursos__image">
+					<a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">
+					<img loading="lazy" src="/dist/images/curso.jpg" alt="Curso Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional">
+					</a>
+				</div>
+				<div class="cursos__button">
+					<a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link" type="button" class="button">Más Información</a>
+				</div>
+				</div> -->
+					</div>
+					<% } else { %>
+					<h3 class="anuncios__title">Sin especializaciones</h3>
+					<% } %> <%- include('../partials/buttons.ejs') %>
+				</section>
+				<%- include('../layouts/sidebarView.ejs') %>
+			</div>
+			<%- include('../layouts/whatsapp.ejs') %>
+		</main>
+		<%- include('../layouts/footerView.ejs') %> <%-
+		include('../layouts/scriptView.ejs') %>
+	</body>
+</html>
