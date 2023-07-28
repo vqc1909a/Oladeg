@@ -1,8 +1,10 @@
-const express = require("express");
+import express from "express";
+import {mostrarDiplomados, mostrarDiplomado} from "../controllers/diplomadoController.js";
+import * as ROUTES from "../config/routes.js";
+
 const Router = express.Router();
-const {mostrarDiplomados, mostrarDiplomado} = require("../controllers/diplomadoController");
 
-Router.get('/diplomados', mostrarDiplomados);
-Router.get('/diplomado/:diplomado', mostrarDiplomado);
+Router.get(ROUTES.MOSTRAR_DIPLOMADOS, mostrarDiplomados);
+Router.get(ROUTES.MOSTRAR_DIPLOMADO, mostrarDiplomado);
 
-module.exports = Router;
+export default Router;

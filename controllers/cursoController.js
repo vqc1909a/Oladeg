@@ -5,7 +5,6 @@ import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 
 
 export const mostrarCursos = async (req, res) => {
-
   try{
     const cursos = await ProgramaAcademico.findAll({where: {tipo: 'curso'}, order: [["fechaYHora", "ASC"]]});
     const cantidadCursosPagina = 4;
@@ -52,7 +51,6 @@ export const mostrarCursos = async (req, res) => {
     req.flash("error", err.message);
     return res.redirect(ROUTES.HOME);
   }
- 
 }
 
 export const mostrarCurso = async (req, res) => {

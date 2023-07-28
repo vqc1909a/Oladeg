@@ -10,96 +10,9 @@ const monthNames = ["Enero", "Febreo", "Marzo", "Abril", "Mayo", "Junio",
   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
 ];
 
-export const obtenerAnuncios = async () => {
-  let {data} = await axios.get(process.env.BACKEND_URI + '/anuncios');
-  let anuncios = data.map((anuncio) => {
-    let fecha = new Date(anuncio.created_at)
-    anuncio.Contenido = converter.makeHtml(anuncio.Contenido);
-    anuncio.Portada = process.env.BACKEND_URI + anuncio.Portada.url;
-    anuncio.month = monthNames[fecha.getMonth()];
-    anuncio.date = fecha.getDate();
-    anuncio.year = fecha.getFullYear();
-    anuncio.metadescripcion = htmlToText(anuncio.Contenido, {
-      wordwrap: 130
-    }).replaceAll(/\n/g,' ').slice(0, 170);
-    return anuncio;
-  })
-  return anuncios.reverse();
-}
 
-export const obtenerCursos = async () => {
-  let {data} = await axios.get(process.env.BACKEND_URI + '/cursos-diplomado-especializaciones');
-  let cursos = data.filter(dat => dat.TipoDeContenido === "CURSO");
-  cursos = cursos.map(curso => {
-    curso.Portada = process.env.BACKEND_URI + curso.Portada.url;
-    curso.Certificado = curso.Certificado ? process.env.BACKEND_URI + curso.Certificado.url : '';
-    curso.fecha_month = monthNames[new Date(curso.created_at).getMonth()];
-    curso.fecha_year = new Date(curso.created_at).getFullYear();
-    curso.fecha_date = new Date(curso.created_at).getDate();
-    curso.inicio_month = monthNames[new Date(curso.FechaDeInicio).getMonth()];
-    curso.inicio_year = new Date(curso.FechaDeInicio).getFullYear();
-    curso.inicio_date = new Date(curso.FechaDeInicio).getDate();
-    let inicio_hour = new Date(curso.FechaDeInicio).getHours();
-    let inicio_horario = "am";
-    curso.inicio_hour =inicio_hour;
-    curso.inicio_horario = inicio_horario
-    if(inicio_hour > 12 ){
-      curso.inicio_hour = inicio_hour - 12
-      curso.inicio_horario = "pm";
-    }
-    curso.inicio_minute = new Date(curso.FechaDeInicio).getMinutes();
-    curso.ImagenExpositor = curso.ImagenExpositor ? process.env.BACKEND_URI + curso.ImagenExpositor.url : '';
-    curso.Descripcion = converter.makeHtml(curso.Descripcion);
-    curso.DescripcionExpositor = curso.DescripcionExpositor ? converter.makeHtml(curso.DescripcionExpositor) : '';
-    curso.Inscripcion = curso.Inscripcion ? converter.makeHtml(curso.Inscripcion) : '';
-    curso.Temario = curso.Temario ? converter.makeHtml(curso.Temario) : '';
-    curso.Materiales = curso.Materiales ? converter.makeHtml(curso.Materiales) : '';
-    curso.Promocion = curso.Promocion ? converter.makeHtml(curso.Promocion) : '';
-    curso.Metodologia = curso.Metodologia ? converter.makeHtml(curso.Metodologia) : '';
-    curso.metadescripcion = htmlToText(curso.Descripcion, {
-      wordwrap: 130
-    }).replaceAll(/\n/g,' ').slice(0, 170);
-    return curso;
-  })
-  return cursos.reverse();
-}
 
-export const obtenerDiplomados = async () => {
-  let {data} = await axios.get(process.env.BACKEND_URI + '/cursos-diplomado-especializaciones');
-  let diplomados = data.filter(dat => dat.TipoDeContenido === "DIPLOMADO");
-  diplomados = diplomados.map(diplo => {
-    diplo.Portada = process.env.BACKEND_URI + diplo.Portada.url;
-    diplo.Certificado = diplo.Certificado ? process.env.BACKEND_URI + diplo.Certificado.url : '';
-    diplo.fecha_month = monthNames[new Date(diplo.created_at).getMonth()];
-    diplo.fecha_year = new Date(diplo.created_at).getFullYear();
-    diplo.fecha_date = new Date(diplo.created_at).getDate();
-    diplo.inicio_month = monthNames[new Date(diplo.FechaDeInicio).getMonth()];
-    diplo.inicio_year = new Date(diplo.FechaDeInicio).getFullYear();
-    diplo.inicio_date = new Date(diplo.FechaDeInicio).getDate();
-    let inicio_hour = new Date(diplo.FechaDeInicio).getHours();
-    let inicio_horario = "am";
-    diplo.inicio_hour =inicio_hour;
-    diplo.inicio_horario = inicio_horario
-    if(inicio_hour > 12 ){
-      diplo.inicio_hour = inicio_hour - 12
-      diplo.inicio_horario = "pm";
-    }
-    diplo.inicio_minute = new Date(diplo.FechaDeInicio).getMinutes();
-    diplo.ImagenExpositor = diplo.ImagenExpositor ? process.env.BACKEND_URI + diplo.ImagenExpositor: ''.url;
-    diplo.Descripcion = converter.makeHtml(diplo.Descripcion);
-    diplo.DescripcionExpositor = diplo.DescripcionExpositor ? converter.makeHtml(diplo.DescripcionExpositor) : '';
-    diplo.Inscripcion = diplo.Inscripcion ? converter.makeHtml(diplo.Inscripcion) : '';
-    diplo.Temario = diplo.Temario ? converter.makeHtml(diplo.Temario) : '';
-    diplo.Materiales = diplo.Materiales ? converter.makeHtml(diplo.Materiales) : '';
-    diplo.Promocion = diplo.Promocion ? converter.makeHtml(diplo.Promocion) : '';
-    diplo.Metodologia = diplo.Metodologia ? converter.makeHtml(diplo.Metodologia) : '';
-    diplo.metadescripcion = htmlToText(diplo.Descripcion, {
-      wordwrap: 130
-    }).replaceAll(/\n/g,' ').slice(0, 170);
-    return diplo;
-  })
-  return diplomados.reverse();
-}
+
 
 
 export const obtenerEspecializaciones = async () => {
