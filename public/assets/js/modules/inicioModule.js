@@ -47,16 +47,17 @@ let links_array_animation = tl.to(links_array, {duration: 1, scale: 1.2, stagger
 $hamburguer.addEventListener('click', function(){
   console.log("click $hamburguer")
   if( $header.classList.contains('open')){
-      $header.classList.remove('open');
-      $header.classList.add('close');
-    }else{
-      $header.classList.remove('close');
-      $header.classList.add('open');
-      links1_array_animation.restart();
-      links2_array_animation.restart();
-      links_array_animation.restart();
-    }
-  })
+    $header.classList.remove('open');
+    $header.classList.add('close');
+  }else{
+    $header.classList.remove('close');
+    $header.classList.add('open');
+    links1_array_animation.restart();
+    links2_array_animation.restart();
+    links_array_animation.restart();
+  }
+})
+
   let distance_bottom_sec_nav = $sec_nav.getBoundingClientRect().bottom;
   let distance_bottom_main_nav = $main_nav.getBoundingClientRect().bottom;
   let height_sec_nav = $sec_nav.getBoundingClientRect().height;
@@ -93,7 +94,6 @@ $hamburguer.addEventListener('click', function(){
     distance_bottom_main_nav = $main_nav.getBoundingClientRect().bottom;
     height_sec_nav = $sec_nav.getBoundingClientRect().height;
     height_main_nav = $main_nav.getBoundingClientRect().height;
-
 
     if(window.location.pathname.search(/^\/cursos\/?$/) !== -1 || window.location.pathname.search(/diplomados/) !== -1 || window.location.pathname.search(/especializaciones/) !== -1 || window.location.pathname.search(/boletines/) !== -1 || window.location.pathname.search(/libros/) !== -1){
       $banner2_title.style.transform = `translate3d(0px, ${.5 * window.scrollY}px, 0px)`;
@@ -218,7 +218,6 @@ $hamburguer.addEventListener('click', function(){
         
         $main.style.marginTop = "0rem"
       }
-    
     }
     
     //Nosotros Section

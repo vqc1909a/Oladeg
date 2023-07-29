@@ -42,10 +42,7 @@ export const whatsapp__close = document.querySelector('.whatsapp__close');
 export const $banner = document.querySelector('.banner');
 
 //Depostios
-export const deposito_button_1 = document.querySelector('.forma1');
-export const deposito_button_2 = document.querySelector('.forma2');
-export const deposito_button_3 = document.querySelector('.forma3');
-export const deposito_input = document.querySelector('.formas-de-pago__input');
+export const $deposito_buttons = document.querySelectorAll('.formas-de-pago__button');
 export const $formas_de_pago = document.querySelector('.formas-de-pago');
 
 //Cursos
