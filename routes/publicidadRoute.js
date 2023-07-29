@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import {mostrarPaginaPublicidad} from '../controllers/publicidadController.js';
+
 const Router = express.Router();
-const {mostrarPaginaPublicidad} = require('../controllers/publicidadController');
 
 Router.get('/publicidad/', mostrarPaginaPublicidad);
 
-module.exports = Router;
+export default Router;

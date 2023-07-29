@@ -2,9 +2,9 @@
 <html lang="es">
 	<%- include ('../partials/head.ejs') %>
 	<body>
-		<%- include ('../layouts/headerView.ejs') %>
+		<%- include ('../layouts/header.ejs') %>
 		<main>
-			<%- include('../layouts/bannerView.ejs') %>
+			<%- include('../layouts/banner.ejs') %>
 
 			<div class="main">
 				<h1 class="container">Publicidad</h1>
@@ -62,7 +62,6 @@
 							<b
 								><a
 									href="<%= `${protocol}://${host}/formas-de-pago/` %>"
-									target="_blank"
 									title="Formas de Pago | Oladeg"
 									role="link"
 									>Formas de Pago</a
@@ -110,13 +109,13 @@
 						</ul>
 					</div>
 
-					<%- include('../layouts/sidebarView.ejs') %>
+					<%- include('../layouts/sidebar.ejs') %>
 				</div>
 			</div>
 
 			<%- include('../layouts/whatsapp.ejs') %>
 		</main>
-		<%- include('../layouts/footerView.ejs') %> <%-
-		include('../layouts/scriptView.ejs') %>
+		<%- include('../layouts/footer.ejs') %> <%-
+		include('../layouts/script.ejs') %>
 	</body>
 </html>

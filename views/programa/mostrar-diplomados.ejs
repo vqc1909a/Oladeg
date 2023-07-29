@@ -2,65 +2,70 @@
 <html lang="es">
 	<%- include ('../partials/head.ejs') %>
 	<body>
-		<%- include ('../layouts/headerView.ejs') %>
+		<%- include ('../layouts/header.ejs') %>
 		<main>
-			<%- include('../layouts/banner2View.ejs', {variant: 'Diplomados'}); %>
+			<%- include('../layouts/banner2.ejs', {variant: 'Diplomados'}); %>
 			<div class="main__content container">
 				<section class="cursos">
 					<h1 class="cursos__intro">Diplomados</h1>
 					<% if(diplomados.length) { %>
 					<div class="cursos__grid">
 						<% diplomados.forEach(function(diplomado) { %>
-							<div class="cursos__item appear-content">
-								<h2 class="cursos__title">
-									<a
-										href="/diplomados/<%= diplomado.slug %>"
-										title="<%= diplomado.titulo %>"
-										role="link"
-										><%= diplomado.titulo %></a
-									>
-								</h2>
-								<p class="cursos__time flex flex-ai-c">
+						<div class="cursos__item appear-content">
+							<h2 class="cursos__title">
+								<a
+									href="/diplomados/<%= diplomado.slug %>"
+									title="<%= diplomado.titulo %>"
+									role="link"
+									><%= diplomado.titulo %></a
+								>
+							</h2>
+							<p class="cursos__time flex flex-ai-c">
+								<img
+									loading="lazy"
+									src="/dist/icons/Clock.svg"
+									alt="Datetime Diplomado"
+								/>
+								<% let timeZone =
+								Intl.DateTimeFormat().resolvedOptions().timeZone
+								%> <% let datetime =
+								diplomado.fechaYHora.toLocaleString('es',
+								{timeZone: timeZone }) %> <% const fecha =
+								DateTime.fromISO(diplomado.fecha, { locale: 'es'
+								}) %> <% const fechaFormateada =
+								fecha.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
+								<time
+									datetime="<%= datetime %>"
+									class="flex flex-ai-c"
+									><%=
+									convertirPrimeraLetraMayuscula(fechaFormateada)
+									%></time
+								>
+							</p>
+							<div class="cursos__image">
+								<a
+									href="/diplomados/<%= diplomado.slug %>"
+									title="<%= diplomado.titulo %>"
+									role="link"
+								>
 									<img
 										loading="lazy"
-										src="/dist/icons/Clock.svg"
-										alt="Datetime Diplomado"
+										src="<%= diplomado.portada %>"
+										alt="Diplomado <%= diplomado.titulo %>"
 									/>
-									<% let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone %> 
-									<% let datetime = diplomado.fechaYHora.toLocaleString('es', {timeZone: timeZone }) %> 
-									<% const fecha = DateTime.fromISO(diplomado.fecha, { locale: 'es' }) %> 
-									<% const fechaFormateada = fecha.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
-									<time
-										datetime="<%= datetime %>"
-										class="flex flex-ai-c"
-										><%=
-										convertirPrimeraLetraMayuscula(fechaFormateada)
-										%></time>
-								</p>
-								<div class="cursos__image">
-									<a
-										href="/diplomados/<%= diplomado.slug %>"
-										title="<%= diplomado.titulo %>"
-										role="link"
-									>
-										<img
-											loading="lazy"
-											src="<%= diplomado.portada %>"
-											alt="Diplomado <%= diplomado.titulo %>"
-										/>
-									</a>
-								</div>
-								<div class="cursos__button">
-									<a
-										href="/diplomados/<%= diplomado.slug %>"
-										title="<%= diplomado.titulo %>"
-										role="link"
-										type="button"
-										class="button"
-										>Más Información</a
-									>
-								</div>
+								</a>
 							</div>
+							<div class="cursos__button">
+								<a
+									href="/diplomados/<%= diplomado.slug %>"
+									title="<%= diplomado.titulo %>"
+									role="link"
+									type="button"
+									class="button"
+									>Más Información</a
+								>
+							</div>
+						</div>
 						<% }) %>
 						<!-- <div class="cursos__item appear-content">
 				<h2 class="cursos__title"><a  href="<%= `/curso/implementación-del-sistema-de-gestión-de-seguridad-y-salud-ocupacional` %>" title="Implementación del Sistema de Gestion de Seguridad y Salud Ocupacional" role="link">"Implementación del Sistema de Gestión de Seguridad y Salud Ocupacional en Minería"</a></h2>
@@ -127,11 +132,11 @@
 					<h3 class="anuncios__title">Sin diplomados</h3>
 					<% } %> <%- include('../partials/buttons.ejs') %>
 				</section>
-				<%- include('../layouts/sidebarView.ejs') %>
+				<%- include('../layouts/sidebar.ejs') %>
 			</div>
 			<%- include('../layouts/whatsapp.ejs') %>
 		</main>
-		<%- include('../layouts/footerView.ejs') %> <%-
-		include('../layouts/scriptView.ejs') %>
+		<%- include('../layouts/footer.ejs') %> <%-
+		include('../layouts/script.ejs') %>
 	</body>
 </html>

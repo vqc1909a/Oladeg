@@ -2,9 +2,9 @@
 <html lang="es">
 	<%- include ('../partials/head.ejs') %>
 	<body>
-		<%- include ('../layouts/headerView.ejs') %>
+		<%- include ('../layouts/header.ejs') %>
 		<main>
-			<%- include('../layouts/banner2View.ejs', {variant: 'Biblioteca
+			<%- include('../layouts/banner2.ejs', {variant: 'Biblioteca
 			Digital'}); %>
 			<div class="main__content container">
 				<section class="boletines">
@@ -63,12 +63,12 @@
 					</div>
 					<%- include('../partials/buttons.ejs') %> <% } %>
 				</section>
-				<%- include('../layouts/sidebarView.ejs') %>
+				<%- include('../layouts/sidebar.ejs') %>
 			</div>
 
 			<%- include('../layouts/whatsapp.ejs') %>
 		</main>
-		<%- include('../layouts/footerView.ejs') %> <%-
-		include('../layouts/scriptView.ejs') %>
+		<%- include('../layouts/footer.ejs') %> <%-
+		include('../layouts/script.ejs') %>
 	</body>
 </html>
