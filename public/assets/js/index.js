@@ -5,9 +5,9 @@ import './modules/whatsappModule.js';
 import './modules/buttonsModule.js';
 import './modules/cursoModule.js';
 import './modules/depositosModule.js';
+import './modules/contactModule.js';
 
 // import './modules/modalModule.js';
-// import './modules/formularioModule.js';
 // import './modules/pdfModule.js';
 
 

@@ -21,6 +21,10 @@ export const establecerVariablesGlobales = (req, res, next) => {
 }
 
 export const establecerProteccionCSRF = (req, res, next) => {
+    const body = req.body;
+    console.log({
+        body
+    })
     //Añadir Protección CSRF
     if(!req.session.csrfToken){
         req.session.csrfToken = uuidv4();

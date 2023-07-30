@@ -1,3 +1,4 @@
+import { enviarEmailContacto } from "../helpers/email.js";
 
 export const mostrarPaginaConsultorias = (req, res) => {
   return res.render("pages/consultorias", {
@@ -33,8 +34,6 @@ export const mostrarPaginaFormasDePago = (req, res) => {
   return res.render("pages/formasDePago", {
     title: "Formas de Pago &#8211; OLADEG",
     description: "Usted puede hacer sus pagos en las siguientes Cuentas Bancarias: Banco BBVA, Banco de Crédito BCP y Banco de la Nación a nombre de OLADEG-Perú.",
-    protocol: req.protocol, 
-    host: req.headers.host,
     publicidad: ''
   });
 }
@@ -42,11 +41,20 @@ export const mostrarPaginaContacto = (req, res) => {
   return res.render("pages/contactoView", {
     title: "Contacto &#8211; OLADEG",
     description: "Contáctanos, Jr Apurimac N° 463 Oficina 402 'F' Lima 1",
-    protocol: req.protocol, 
-    host: req.headers.host,
-    send_info: false,
     publicidad: ''
   });
+}
+export const enviarMensaje = async (req, res) => {
+  const body = req.body;
+  console.log({
+    body
+  })
+  try{
+    await enviarEmailContacto(body);
+    return res.status(200).json({message: "Correo enviado exitosamente"})
+  }catch(err){
+    return res.status(500).json({message: err.message})
+  }
 }
 
 

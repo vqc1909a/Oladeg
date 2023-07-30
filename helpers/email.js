@@ -1,28 +1,23 @@
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
 import * as ROUTES from "../config/routes.js";
+import { transport, transportNoReply } from "../config/email.js";
 
-dotenv.config({path: ".env"});
-
-const transport = nodemailer.createTransport({
-    host: process.env.NODE_ENV === "production" ?  process.env.EMAIL_HOST :  process.env.EMAIL_HOST_DEV,
-    port: process.env.NODE_ENV === "production" ?  process.env.EMAIL_PORT :  process.env.EMAIL_PORT_DEV,
-    secure: process.env.NODE_ENV === "production" ? true : false,
-    auth: {
-        user: process.env.NODE_ENV === "production" ? process.env.EMAIL_USER : process.env.EMAIL_USER_DEV,
-        pass: process.env.NODE_ENV === "production" ? process.env.EMAIL_PASS : process.env.EMAIL_PASS_DEV 
-    }
-});
-
-const transportNoReply = nodemailer.createTransport({
-    host: process.env.NODE_ENV === "production" ?  process.env.EMAIL_NOREPLY_HOST :  process.env.EMAIL_NOREPLY_HOST_DEV,
-    port: process.env.NODE_ENV === "production" ?  process.env.EMAIL_NOREPLY_PORT :  process.env.EMAIL_NOREPLY_PORT_DEV,
-    secure: process.env.NODE_ENV === "production" ? true : false,
-    auth: {
-        user: process.env.NODE_ENV === "production" ? process.env.EMAIL_NOREPLY_USER : process.env.EMAIL_NOREPLY_USER_DEV,
-        pass: process.env.NODE_ENV === "production" ? process.env.EMAIL_NOREPLY_PASS : process.env.EMAIL_NOREPLY_PASS_DEV 
-    }
-});
+export const enviarEmailContacto = async ({nombres, correo, celular, mensaje}) => {
+   let info = await transport.sendMail({
+    from: '"Oladeg 🏡" <roberth@oladeg.org>',
+    to: 'roberth@oladeg.org',
+    replyTo: correo,
+    subject: "oladeg.org Formulario página de contacto",
+    text: `oladeg.org Formulario página de contacto`,
+    html: `
+        <h1 style="text-align: center; font-family: Arial, Helvetica;">Formulario recibido desde la página de contacto de oladeg.org</h1>
+        <p style="font-family: Arial, Helvetica">Nombres: ${nombres}</p>
+        <p style="font-family: Arial, Helvetica">Correo: ${correo}</p>
+        <p style="font-family: Arial, Helvetica">Whatsapp: ${celular}</p>
+        <p style="font-family: Arial, Helvetica">Mensaje: ${mensaje}</p>
+    `
+   })
+    console.log("Message sent: %s", info.messageId);
+}
 
 export const enviarEmailConfirmacionCuenta = async (nombre, email, token, req) => {
    //El transport se va a autenticar en mailtrap y acceder a sus servicio de mailtrap

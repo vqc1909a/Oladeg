@@ -9,5 +9,6 @@ Router.get(ROUTES.MOSTRAR_NUESTRA_EXPERIENCIA, infoController.mostrarPaginaNuest
 Router.get(ROUTES.MOSTRAR_NUESTROS_SERVICIOS, infoController.mostrarPaginaNuestrosServicios);
 Router.get(ROUTES.MOSTRAR_FORMAS_DE_PAGO, infoController.mostrarPaginaFormasDePago);
 Router.get(ROUTES.MOSTRAR_CONTACTO, infoController.mostrarPaginaContacto);
+Router.post(ROUTES.ENVIAR_MENSAJE, infoController.enviarMensaje);
 
 export default Router;

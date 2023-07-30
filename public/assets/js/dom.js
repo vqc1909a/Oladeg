@@ -90,12 +90,12 @@ export const $nuestra_experiencia = document.querySelector(".nuestra-experiencia
 export const $nuestros_servicios = document.querySelector(".nuestros-servicios");
 export const $wrapper_banner = document.querySelector(".wrapper-banner")
 
-//Formulario
-export const formulario1 = document.querySelector(".formulario1");
-export const formulario2 = document.querySelector(".formulario2");
+//Contact
+export const $formulario1 = document.querySelector(".formulario1");
+export const $formulario2 = document.querySelector(".formulario2");
 
-export const inputs_contact = document.querySelectorAll(".formulario1 input");
-export const inputs_modal = document.querySelectorAll(".formulario2 input");
+export const $inputs_contact = document.querySelectorAll(".formulario1 input");
+export const $inputs_modal = document.querySelectorAll(".formulario2 input");
 
 export const textarea = document.querySelector("textarea");
 

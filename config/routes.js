@@ -16,6 +16,7 @@ export const MOSTRAR_NUESTRA_EXPERIENCIA = "/nuestra-experiencia";
 export const MOSTRAR_NUESTROS_SERVICIOS = "/nuestros-servicios";
 export const MOSTRAR_FORMAS_DE_PAGO = "/formas-de-pago";
 export const MOSTRAR_CONTACTO = "/contacto";
+export const ENVIAR_MENSAJE = "/enviar-mensaje";
 
 //ADMIN ROUTES
 export const ADMIN = "/admin";
@@ -43,10 +44,6 @@ export const AGREGAR_PROGRAMA = "/admin/programa";
 export const EDITAR_PROGRAMA = "/admin/programa/:id/edit";
 export const EDITAR_IMAGEN_PROGRAMA = "/admin/programa/:id/edit-image";
 export const ELIMINAR_PROGRAMA = "/admin/programa/:id/delete";
-
-
-
-
 
 export const PERFIL = "/admin/profile";
 export const CHANGE_PASSWORD_PERFIL = "/admin/profile/edit-password";
