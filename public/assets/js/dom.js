@@ -76,6 +76,7 @@ export const $appear_contents = document.querySelectorAll(".appear-content");
 
 //Contacto;
 export const $contact = document.querySelector(".contact");
+export const $contact_button = document.querySelector("#contact_button");
 
 //Boletines
 export const $boletines = document.querySelectorAll(".boletines");
@@ -97,7 +98,7 @@ export const $formulario2 = document.querySelector(".formulario2");
 export const $inputs_contact = document.querySelectorAll(".formulario1 input");
 export const $inputs_modal = document.querySelectorAll(".formulario2 input");
 
-export const textarea = document.querySelector("textarea");
+export const $textarea = document.querySelector("textarea");
 
 //Buttons
 export const $buttons = document.querySelectorAll(".anuncios__button");

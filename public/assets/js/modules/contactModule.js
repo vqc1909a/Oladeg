@@ -3,7 +3,8 @@ import {
   $formulario2,
   $inputs_contact,
   $inputs_modal,
-  textarea
+  $textarea,
+  $contact_button
 } from '../dom.js';
 import axios from 'axios';
 
@@ -70,8 +71,8 @@ const resetearCampos = (campos) => {
 $inputs_contact.forEach((input) => {
   input.addEventListener('keyup', validarFormulario);
   input.addEventListener('blur', validarFormulario);
-  textarea.addEventListener('keyup', validarFormulario);
-  textarea.addEventListener('blur', validarFormulario);
+  $textarea.addEventListener('keyup', validarFormulario);
+  $textarea.addEventListener('blur', validarFormulario);
 })
 
 $inputs_modal.forEach((input) => {
@@ -87,6 +88,8 @@ if(window.location.pathname.search(/contacto/) !== -1){
     if(nombres & correo & celular & mensaje){
       (async ()=>{
         try{
+          $contact_button.textContent = "Cargando...";
+          $contact_button.disabled = false;
           await axios.post(`/enviar-mensaje?_csrf=${csrfToken}`, {
             nombres: document.querySelector(".formulario1 input[name='nombres']").value,
             correo: document.querySelector(".formulario1 input[name='correo']").value,
@@ -100,12 +103,15 @@ if(window.location.pathname.search(/contacto/) !== -1){
           }) 
           $formulario1.reset();
           resetearCampos(campos);
-          
+          $contact_button.disabled = true;
+          $contact_button.textContent = "SOLICITAR INFORMACIÓN";
         }catch(err){
           const message = err.response ? err.response.data.message : err.message;
           document.querySelector(".formulario1 .input-group__mensaje-exito").classList.remove("input-group__mensaje-exito--active");
           document.querySelector(".formulario1 .input-group__mensaje").classList.add("input-group__mensaje--active");
           document.querySelector(".formulario1 .input-group__mensaje").textContent = message
+          $contact_button.disabled = true;
+          $contact_button.textContent = "SOLICITAR INFORMACIÓN";
         }
         
       })();

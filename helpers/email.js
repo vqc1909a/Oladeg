@@ -1,21 +1,57 @@
 import * as ROUTES from "../config/routes.js";
 import { transport, transportNoReply } from "../config/email.js";
 
-export const enviarEmailContacto = async ({nombres, correo, celular, mensaje}) => {
-   let info = await transport.sendMail({
-    from: '"Oladeg 🏡" <roberth@oladeg.org>',
-    to: 'roberth@oladeg.org',
-    replyTo: correo,
-    subject: "oladeg.org Formulario página de contacto",
-    text: `oladeg.org Formulario página de contacto`,
-    html: `
-        <h1 style="text-align: center; font-family: Arial, Helvetica;">Formulario recibido desde la página de contacto de oladeg.org</h1>
-        <p style="font-family: Arial, Helvetica">Nombres: ${nombres}</p>
-        <p style="font-family: Arial, Helvetica">Correo: ${correo}</p>
-        <p style="font-family: Arial, Helvetica">Whatsapp: ${celular}</p>
-        <p style="font-family: Arial, Helvetica">Mensaje: ${mensaje}</p>
-    `
-   })
+
+
+
+export const enviarEmailContacto = async (body, req) => {
+    const {nombres, correo, celular, mensaje} = body;
+    const nombreDestinatario = "Roberth";
+    const sitioWeb = "oladeg.org"
+    const correoEmisor = "roberth@oladeg.org";
+
+    const textBody = `
+    <div style="padding: 10px;">
+        <div style="display: flex; justify-content: center; align-items: center">
+            <img src="${req.protocol}://${req.get('host')}/dist/images/logo.jpg" width="300" alt="Logo Oladeg" />
+        </div>
+        <p>¡Estimado/a ${nombreDestinatario}!</p>
+
+        <p>Espero que te encuentres bien. Quería informarte que hemos recibido un nuevo mensaje de contacto a través del formulario del sitio web ${sitioWeb}.</p>
+
+        <p><strong>Detalles del mensaje:</strong></p>
+
+        <p><strong>Nombres:</strong> ${nombres}<br/>
+        <strong>Correo:</strong> ${correo}<br/>
+        <strong>Whatsapp:</strong> ${celular}<br/>
+        <strong>Mensaje: </strong> ${mensaje}</p>
+
+        <p>Por favor, responde a este correo o ponte en contacto con el usuario lo antes posible para atender su consulta o solicitud.</p>
+
+        <p>¡Gracias por tu atención!</p>
+    </div>
+    `;
+
+    const htmlBody = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Nuevo mensaje de contacto de ${sitioWeb}</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: rgba(0, 0, 0, 1); background-color: rgba(247, 245, 245, 1));">
+        ${textBody}
+    </body>
+    </html>
+    `;
+
+    let info = await transport.sendMail({
+        from: `"Oladeg 🏡" <${correoEmisor}>`,
+        to: `${correoEmisor}`,
+        replyTo: correo,
+        subject: `Nuevo mensaje de contacto de ${sitioWeb}`,
+        text: textBody,
+        html: htmlBody
+    })
     console.log("Message sent: %s", info.messageId);
 }
 
@@ -63,6 +99,7 @@ export const enviarEmailConfirmacionNuevoCorreo = async (nombre, email, token, r
     from: '"Oladeg 🏡" <no-reply@oladeg.org>',
     to: email,
     subject: "Confirma tu nuevo correo en Oladeg",
+    
     text: `Hola ${nombre}, confirma tu nuevo correo en Oladeg`,
     html: `
         <h1 style="text-align: center; font-family: Arial, Helvetica;">Confirma tu nuevo correo</h1>

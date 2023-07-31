@@ -46,11 +46,8 @@ export const mostrarPaginaContacto = (req, res) => {
 }
 export const enviarMensaje = async (req, res) => {
   const body = req.body;
-  console.log({
-    body
-  })
   try{
-    await enviarEmailContacto(body);
+    await enviarEmailContacto(body, req);
     return res.status(200).json({message: "Correo enviado exitosamente"})
   }catch(err){
     return res.status(500).json({message: err.message})
