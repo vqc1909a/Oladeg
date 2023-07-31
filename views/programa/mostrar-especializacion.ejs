@@ -69,9 +69,11 @@
               </div>
               <div>
                 <h3>FECHA DE INICIO:</h3>
+                <% let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone %> 
+                <% let datetime = especializacion.fechaYHora.toLocaleString('es', {timeZone: timeZone }) %> 
                 <% const fecha = DateTime.fromISO(especializacion.fecha, { locale: 'es' }) %>
                 <% const fechaFormateada = fecha.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
-                <time datetime="<%= especializacion.fechaYHora %>" class="flex flex-ai-c" ></time><%= convertirPrimeraLetraMayuscula(fechaFormateada) + " " + especializacion.hora %></time>
+                <time datetime="<%= datetime %>" class="flex flex-ai-c" ></time><%= convertirPrimeraLetraMayuscula(fechaFormateada) + " " + especializacion.hora %></time>
               </div>
             </div>
             <div class="detalles__modalidad flex flex-ai-c">

@@ -2,10 +2,10 @@ import {DataTypes} from "sequelize";
 import slug from "slug";
 import shortid from "shortid";
 
-import User from "../models/UserModel.js";
+import User from "./UserModel.js";
 import { sequelize } from "../config/db.js";
 
-const Anuncio = sequelize.define('Anuncio', {
+const Libro = sequelize.define('Libro', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -16,29 +16,23 @@ const Anuncio = sequelize.define('Anuncio', {
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'Por favor ingrese el título del anuncio'
+                msg: 'Por favor ingrese el título del libro'
             },
             notEmpty: {
-                msg: 'Por favor ingrese el título del anuncio'
+                msg: 'Por favor ingrese el título del libro'
             }
         }
     },  
-    extracto: {
+    contenido: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'El extracto del anuncio es obligatorio'
+                msg: 'El contenido del libro es obligatorio'
             },
             notEmpty: {
-                msg: 'El extracto del anuncio es obligatorio'
+                msg: 'El contenido del libro es obligatorio'
             },
-            tieneMaximo35Palabras(value) {
-                const palabras = value.trim().split(/\s+/);
-                if (palabras.length > 35) {
-                    throw new Error('El extracto del anuncio debe tener como máximo 35 palabras.');
-                }
-            }
         }
     },
     portada: {
@@ -53,27 +47,27 @@ const Anuncio = sequelize.define('Anuncio', {
             }
         }
     },
-    contenido: {
+    autor: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'La descripción del anuncio es obligatorio'
+                msg: 'El autor del libro es obligatorio'
             },
             notEmpty: {
-                msg: 'La descripción del anuncio es obligatorio'
-            }
+                msg: 'El autor del libro es obligatorio'
+            },
         }
     },
-    fecha: {
+    fechaPublicacion: {
         type: DataTypes.DATEONLY,
         allowNull: false,
         validate: {
             notNull: {
-             msg: 'La fecha del anuncio es obligatorio'
+             msg: 'El año del libro es obligatorio'
             },
             notEmpty: {
-                msg: 'La fecha del anuncio es obligatorio'
+                msg: 'El año del libro es obligatorio'
             },
             // isAfter: {
                 //Con el new DAte, establezco zona UTC, y para obtener zona horaria pongo toLocaleString si es toda la fecha si es solo date => toLocaleDateString si es solo hora => toLocaleTimeString
@@ -83,19 +77,18 @@ const Anuncio = sequelize.define('Anuncio', {
             // }
         }
     },
-    hora: {
-        type: DataTypes.TIME,
+    archivo: {
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
-             notNull: {
-                msg: 'La hora del anuncio es obligatorio'
+            notNull: {
+                msg: 'El archivo es obligatorio'
             },
             notEmpty: {
-                msg: 'La hora del anuncio es obligatorio'
+                msg: 'El archivo es obligatorio'
             }
         }
     },
-    fechaYHora: DataTypes.DATE,
     slug: DataTypes.TEXT,
 }, {
     timestamps: true,
@@ -103,35 +96,32 @@ const Anuncio = sequelize.define('Anuncio', {
         beforeCreate(anuncio){
             const url = `${slug(anuncio.titulo).toLowerCase()}-${shortid.generate()}`
             anuncio.slug = url;
-            anuncio.fechaYHora = new Date(`${anuncio.fecha} ${anuncio.hora}`);
         },
         beforeSave(anuncio){
             const url = `${slug(anuncio.titulo).toLowerCase()}-${shortid.generate()}`
             anuncio.slug = url;
-            anuncio.fechaYHora = new Date(`${anuncio.fecha} ${anuncio.hora}`);
         },
         beforeUpdate(anuncio){
             const url = `${slug(anuncio.titulo).toLowerCase()}-${shortid.generate()}`
             anuncio.slug = url;
-            anuncio.fechaYHora = new Date(`${anuncio.fecha} ${anuncio.hora}`);
         }
     }
 });
 
 
-Anuncio.belongsTo(User, {
+Libro.belongsTo(User, {
     foreignKey: {
         name: 'userId',
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'El usuario del anuncio es obligatorio'
+                msg: 'El usuario del libro es obligatorio'
             },
             notEmpty: {
-                msg: 'El usuario del anuncio es obligatorio'
+                msg: 'El usuario del libro es obligatorio'
             }
         }
     }
 })
-export default Anuncio;
+export default Libro;

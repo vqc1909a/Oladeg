@@ -1,8 +1,9 @@
 import Sequelize from "sequelize";
 import Anuncio from "../models/AnuncioModel.js";
 import ProgramaAcademico from "../models/ProgramaAcademicoModel.js";
-
+import Libro from "../models/LibroModel.js";
 import User from "../models/UserModel.js";
+
 import {DateTime} from "luxon";
 import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 
@@ -235,6 +236,98 @@ export const mostrarPanelProgramas = async (req, res) => {
             isPaginacionAnterior,
             isPaginacionSiguiente,
             urlConditions,
+        })
+    }catch(err){
+        req.flash("error", err.message);
+        return res.redirect(ROUTES.ADMIN);
+    }
+}
+
+export const mostrarPanelLibros = async (req, res) => {
+    try{
+        const {titulo, userId, autor, fechaPublicacion} = req.query;
+        
+        const user = req.user;
+        const users = await User.findAll({});
+        let libros;
+
+        let conditions = {};
+        let urlConditions = ''
+        if(titulo){
+            conditions.titulo = {[Op.like]: `%${titulo}%`}
+            urlConditions+=`&titulo=${titulo}`
+        }
+        if(userId){
+            conditions.userId = userId
+            urlConditions+=`&userId=${userId}`
+        }
+        if(autor){
+            conditions.autor = autor
+            urlConditions+=`&autor=${autor}`
+        }
+        if(fechaPublicacion){
+            conditions.fechaPublicacion = fechaPublicacion
+            urlConditions+=`&fechaPublicacion=${fechaPublicacion}`
+        }
+        if(user.isAdmin){
+            libros = await Libro.findAll({
+                where: conditions,
+                include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
+                order: [["fechaYHora", "ASC"]]
+            });
+        }else{
+            conditions.userId = user.id;
+            libros = await Libro.findAll({
+                where: conditions,
+                include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
+                order: [["fechaYHora", "ASC"]]
+            });
+        }
+            
+        //PAGINACION
+        // const libros = await Libro.findAll({limit: cantidadLibrosPagina, offset: cantidadLibrosPagina * (paginaActual - 1), order: [["fechaYHora", "ASC"]]});
+
+        const cantidadLibrosPagina = 5;
+        const totalLibros = libros.length;
+        const cantidadPaginas = Math.ceil(totalLibros / cantidadLibrosPagina)
+        const paginaActual = Number(req.query.page ? (req.query.page >= 1 && req.query.page <= cantidadPaginas) ? req.query.page : 1 : 1) ;
+
+        const isPaginacionesNormal = (cantidadPaginas <= 5) && (paginaActual <= 5) // 5 paginaciones del 1 al 5 o menos según la cantidad de paginas
+        const isPaginacionesIzquierda = (cantidadPaginas > 5) && (paginaActual <= 3); // 5 paginaciones del 1 2 3 ... final
+        const isPaginacionesMedia = (cantidadPaginas > 5) && (paginaActual > 3) && (paginaActual < cantidadPaginas - 2) // 5 paginaciones del 1 ... 4 ... final
+        const isPaginacionesDerecha = (cantidadPaginas > 5) && (paginaActual >= cantidadPaginas - 2)
+
+        const isPaginacionAnterior = paginaActual > 1;
+        const isPaginacionSiguiente = paginaActual < cantidadPaginas;
+
+        const arrayPaginas = [];
+        for (var i = 1; i <= cantidadPaginas; i++) {
+            arrayPaginas.push(i); // Agrega cada número al array
+        }
+
+        //LIBROS
+        const librosFiltrados = libros.slice(cantidadLibrosPagina * (paginaActual - 1), cantidadLibrosPagina * paginaActual);
+
+        return res.render("admin/libros-panel", {
+            nombrePagina: "Panel de Libros",
+            user,
+            users,
+            libros: librosFiltrados,
+            req,
+            DateTime,
+            convertirPrimeraLetraMayuscula,
+            paginaActual,
+            cantidadLibrosPagina,
+            cantidadPaginas,
+            totalLibros,
+            arrayPaginas,
+            isPaginacionesNormal,
+            isPaginacionesIzquierda,
+            isPaginacionesMedia,
+            isPaginacionesDerecha,
+            isPaginacionAnterior,
+            isPaginacionSiguiente,
+            urlConditions
         })
     }catch(err){
         req.flash("error", err.message);

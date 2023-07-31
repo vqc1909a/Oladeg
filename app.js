@@ -28,6 +28,8 @@ import {connectDB, sequelize} from "./config/db.js";
 import User from "./models/UserModel.js";
 import Anuncio from "./models/AnuncioModel.js";
 import ProgramaAcademico from "./models/ProgramaAcademicoModel.js";
+import Libro from "./models/LibroModel.js";
+
 
 
 

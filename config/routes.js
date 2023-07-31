@@ -23,6 +23,8 @@ export const ADMIN = "/admin";
 export const USERS_ADMIN = "/admin/users";
 export const ANUNCIOS_ADMIN = "/admin/anuncios";
 export const PROGRAMAS_ADMIN = "/admin/programas";
+export const LIBROS_ADMIN = "/admin/libros";
+
 
 
 //ANUNCIO ROUTES
@@ -49,6 +51,10 @@ export const PERFIL = "/admin/profile";
 export const CHANGE_PASSWORD_PERFIL = "/admin/profile/edit-password";
 export const CHANGE_IMAGEN_PERFIL = "/admin/profile/edit-image";
 export const CONFIRM_NEW_EMAIL = "/admin/profile/confirm-email/:token";
+
+//LIBROS Y BOLETINES
+export const MOSTRAR_LIBROS = "/libros";
+export const MOSTRAR_LIBRO = "/libros/:slug";
 
 
 

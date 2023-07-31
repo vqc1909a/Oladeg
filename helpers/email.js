@@ -19,7 +19,7 @@ export const enviarEmailContacto = async (body, req) => {
 
         <p>Espero que te encuentres bien. Quería informarte que hemos recibido un nuevo mensaje de contacto a través del formulario del sitio web ${sitioWeb}.</p>
 
-        <p><strong>Detalles del mensaje:</strong></p>
+<        <p><strong>Detalles del mensaje:</strong></p>
 
         <p><strong>Nombres:</strong> ${nombres}<br/>
         <strong>Correo:</strong> ${correo}<br/>

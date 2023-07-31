@@ -1,8 +1,10 @@
-const express = require("express");
+import express from "express";
+import * as ROUTES from "../config/routes.js";
+
+const {mostrarLibros, mostrarLibro} = require('../controllers/libroController.js');
+
 const Router = express.Router();
-const {mostrarLibros, mostrarLibro} = require('../controllers/libroController');
+Router.get(ROUTES.MOSTRAR_LIBROS, mostrarLibros);
+Router.get(ROUTES.MOSTRAR_LIBRO, mostrarLibro);
 
-Router.get('/libros/', mostrarLibros);
-
-Router.get('/libro/:libro', mostrarLibro)
-module.exports = Router;
+export default Router;

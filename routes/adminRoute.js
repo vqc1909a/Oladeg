@@ -11,6 +11,8 @@ router.get(ROUTES.ADMIN, authMiddleware.verificarUsuarioAutenticado, adminContro
 router.get(ROUTES.USERS_ADMIN, authMiddleware.verificarUsuarioAutenticado, adminController.mostrarPanelUsuarios);
 router.get(ROUTES.ANUNCIOS_ADMIN, authMiddleware.verificarUsuarioAutenticado, adminController.mostrarPanelAnuncios);
 router.get(ROUTES.PROGRAMAS_ADMIN, authMiddleware.verificarUsuarioAutenticado, adminController.mostrarPanelProgramas);
+router.get(ROUTES.MOSTRAR_LIBROS, authMiddleware.verificarUsuarioAutenticado, adminController.mostrarPanelLibros);
+
 
 
 

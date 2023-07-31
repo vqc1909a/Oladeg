@@ -214,14 +214,13 @@ export const editarPrograma = async(req, res) => {
         if(req.user.isAdmin){
             newProgram.userId = body.userId;
         }
-
         await ProgramaAcademico.update(newProgram, {
             where: {
                 id: req.params.id
-            }
+            },
+            individualHooks: true,
         })
         
-        // await programa.save();
         req.flash('success', 'Programa académico editado correctamente');
         return res.redirect(ROUTES.PROGRAMAS_ADMIN);
     }catch(err){

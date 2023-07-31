@@ -89,6 +89,9 @@ const User = sequelize.define('User', {
         beforeSave(usuario){
             usuario.email = validator.normalizeEmail(usuario.email);
         },
+        beforeUpdate(usuario){
+            usuario.email = validator.normalizeEmail(usuario.email);
+        },
         beforeBulkCreate(usuarios){
             usuarios.forEach((usuario) => {
                 usuario.email = validator.normalizeEmail(usuario.email);
