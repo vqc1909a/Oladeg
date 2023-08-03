@@ -1,0 +1,12 @@
+.large-pdf-libro{
+    display: none;
+    @include breakpoint-up(medium) {
+      display: initial;
+    }
+}
+.small-pdf-libro{
+    display: initial;
+    @include breakpoint-up(medium) {
+      display: none;
+    }
+}

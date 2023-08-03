@@ -75,7 +75,7 @@
         transition: transform 600ms ease-in-out;
 
         @include breakpoint-up(medium) {
-          height: 350px;
+          height: 400px;
         }
 
       }

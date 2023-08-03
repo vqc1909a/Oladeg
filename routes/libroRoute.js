@@ -17,7 +17,7 @@ Router.get(ROUTES.EDITAR_LIBRO, authMiddleware.verificarUsuarioAutenticado, libr
 Router.post(ROUTES.EDITAR_LIBRO, authMiddleware.verificarUsuarioAutenticado, libroValidation.editarLibro, libroController.editarLibro);
 
 Router.get(ROUTES.EDITAR_IMAGEN_LIBRO, authMiddleware.verificarUsuarioAutenticado, libroController.mostrarPaginaEditarImagenLibro);
-Router.post(ROUTES.EDITAR_IMAGEN_LIBRO, authMiddleware.verificarUsuarioAutenticado,libroController.subirImagen, libroController.editarImagenLibro);
+Router.post(ROUTES.EDITAR_IMAGEN_LIBRO, authMiddleware.verificarUsuarioAutenticado, libroController.subirImagen, libroController.editarImagenLibro);
 
 Router.delete(ROUTES.ELIMINAR_LIBRO, authMiddleware.verificarUsuarioAutenticado, libroController.eliminarLibro);
 

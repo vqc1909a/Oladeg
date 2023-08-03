@@ -64,7 +64,9 @@ export const $buttonsDeleteAnuncio = document.querySelectorAll(".button-delete-a
 
 //Libro
 export const $fileInputLibro = document.querySelector('#fileInputLibro');
+export const $fileInputArchivoLibro = document.querySelector('#fileInputArchivoLibro');
 export const $imagePreviewLibro = document.querySelector('#imagePreviewLibro');
+export const $imagePreviewArchivoLibro = document.querySelector("#imagePreviewArchivoLibro");
 export const $buttonsDeleteLibro = document.querySelectorAll(".button-delete-libro");
 
 //Modal

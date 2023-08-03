@@ -2,6 +2,19 @@
 <html lang="en">
 	<head>
 		<%- include('../partials/headAdmin.ejs') %>
+		<style>
+			.large-pdf-libro{
+				display: none;
+			}
+			@media only screen and (min-width: 640px){
+				.large-pdf-libro{
+					display: initial;
+				}
+				.small-pdf-libro{
+					display: none;
+				}
+			} 
+		</style>}
 	</head>
 	<body class="hold-transition sidebar-mini layout-navbar-fixed">
 		<!-- Site wrapper -->
@@ -17,7 +30,7 @@
 						<div class="row mb-2">
 							<div class="col-sm-8">
 								<h1>
-									Editar Imagen Anuncio: <%= anuncio.titulo%>
+									Editar Imagen y Archivo del Libro: <%= libro.titulo%>
 								</h1>
 							</div>
 							<div class="col-sm-4">
@@ -26,12 +39,12 @@
 										<a href="<%= ROUTES.ADMIN %>">Home</a>
 									</li>
 									<li class="breadcrumb-item">
-										<a href="<%= ROUTES.ANUNCIOS_ADMIN %>"
-											>Anuncios</a
+										<a href="<%= ROUTES.LIBROS_ADMIN %>"
+											>Libros</a
 										>
 									</li>
 									<li class="breadcrumb-item active">
-										Editar Imagen Anuncio
+										Editar Imagen y Archivo Libro
 									</li>
 								</ol>
 							</div>
@@ -53,7 +66,7 @@
 									<!-- /.card-header -->
 									<!-- form start -->
 									<form
-										action="<%= ROUTES.EDITAR_IMAGEN_ANUNCIO.replace(':id', req.params.id) + '?_csrf=' + csrfToken %>"
+										action="<%= ROUTES.EDITAR_IMAGEN_LIBRO.replace(':id', req.params.id) + '?_csrf=' + csrfToken %>"
 										method="POST"
 										enctype="multipart/form-data"
 									>
@@ -67,7 +80,7 @@
 														<input
 															type="file"
 															class="custom-file-input"
-															id="fileInputAnuncio"
+															id="fileInputLibro"
 															name="portada"
 															accept="image/*"
 														/>
@@ -88,8 +101,8 @@
 													</div>
 												</div>
 												<div
-													id="imagePreviewAnuncio"
-													class="col-12 col-md-7 col-xl-5 mt-2 p-0"
+													id="imagePreviewLibro"
+													class="col-12 col-md-6 col-xl-4 mt-2 p-0"
 												></div>
 											</div>
 											<div class="form-group mt-4">
@@ -97,19 +110,100 @@
 													>Portada Actual</label
 												>
 												<div
-													class="col-12 col-md-7 col-xl-5 p-0"
+													class="col-12 col-md-6 col-xl-4 p-0"
 												>
 													<img
-														src="<%= anuncio.portada %>"
-														alt="<%= anuncio.titulo%>"
+														src="<%= libro.portada %>"
+														alt="<%= libro.titulo%>"
 														style="
 															width: 100%;
-															height: 300px;
+															height: 450px;
 														"
 													/>
 												</div>
 											</div>
+
+											<div class="my-3" style="border-top: 1px solid #e5e2e2; border-bottom: 1px solid #e5e2e2; border-radius: 3px;"></div>
+
+											 <div class="form-group">
+												<label for="archivo"
+													>Archivo (PDF Recomendado)</label
+												>
+												<div class="input-group">
+													<div class="custom-file">
+														<input
+															type="file"
+															class="custom-file-input"
+															id="fileInputArchivoLibro"
+															name="archivo"
+															accept=".pdf,.doc,.docx,.xls,.xlsx"
+														/>
+														<label
+															class="custom-file-label"
+															for="archivo"
+															>Elige un archivo</label
+														>
+													</div>
+													<div
+														class="input-group-append"
+													>
+														<span
+															class="input-group-text"
+															>Subir</span
+														>
+													</div>
+												</div>
+												<div
+													id="imagePreviewArchivoLibro"
+													class="mt-2 p-0"
+												></div>
+											</div>
+											<div class="form-group mt-4">
+												<label for="archivo"
+													>Archivo Actual</label
+												>
+												<div
+													class="col-12 col-md-6 col-xl-4 p-0"
+												>
+													<!-- <img
+														src="<%= libro.archivo %>"
+														alt="<%= libro.titulo %>"
+														style="
+															width: 100%;
+															height: 300px;
+														"
+													/> -->
+													<% if(libro.archivo){ %>
+														<object 
+															type="application/pdf" 
+															data="<%= libro.archivo %>" 
+															width="600" 
+															height="700"
+															border="3"
+															class="large-pdf-libro"
+														>
+															<!-- <img src="<%= libro.portada %>" alt="<%= libro.titulo %>" /> -->
+														</object>
+														<object 
+															type="application/pdf" 
+															data="<%= libro.archivo %>" 
+															width="300" 
+															height="400"
+															border="3"
+															class="small-pdf-libro"
+														>
+															 <!-- <img src="<%= libro.portada %>" alt="<%= libro.titulo %>" /> -->
+														</object>
+
+													<% } else { %>
+														<p>Sin archivo subido</p>
+													<% } %>
+												</div>
+											</div>
 										</div>
+
+
+
 										<!-- /.card-body -->
 
 										<div class="card-footer">
@@ -117,7 +211,7 @@
 												type="submit"
 												class="btn btn-primary"
 											>
-												Cambiar Portada
+												Cambiar Imagen/Archivo
 											</button>
 										</div>
 									</form>
