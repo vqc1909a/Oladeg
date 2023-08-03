@@ -64,10 +64,10 @@ const Libro = sequelize.define('Libro', {
         allowNull: false,
         validate: {
             notNull: {
-             msg: 'El año del libro es obligatorio'
+             msg: 'La fecha de publicación del libro es obligatorio'
             },
             notEmpty: {
-                msg: 'El año del libro es obligatorio'
+                msg: 'La fecha de publicación del libro es obligatorio'
             },
             // isAfter: {
                 //Con el new DAte, establezco zona UTC, y para obtener zona horaria pongo toLocaleString si es toda la fecha si es solo date => toLocaleDateString si es solo hora => toLocaleTimeString

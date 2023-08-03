@@ -100,3 +100,52 @@ export const storageProgramasAcademicos = multer.diskStorage({
     }
   }
 })
+
+
+
+
+export const storageLibros = multer.diskStorage({
+  // La función cb acepta dos parámetros: error y destino.
+  destination: (req, file, cb) => {
+    let folder = ''
+    if(file.fieldname === 'portada'){
+      folder = path.join(__dirname, '../public/dist/uploads/libros/portada/')
+    }else if(file.fieldname === 'archivo'){
+      //De esta manera evitamos la carga de un archivo
+      if (req.files.archivo) {
+        folder = path.join(__dirname, '../public/dist/uploads/libros/archivo/')
+      }
+    }
+    cb(null, folder);
+  },
+  filename: (req, file, cb) => {
+    if(file.fieldname === 'portada'){
+      const fileArray = file.originalname.split('.');
+      const fileExtension = fileArray[fileArray.length - 1];
+      const fileName =  fileArray[fileArray.length - 2]
+      const allowedExtensions = /jpeg|jpg|png|gif/i;
+      const isImage = allowedExtensions.test(fileExtension) && allowedExtensions.test(file.mimetype);
+      if(isImage){
+        const fullName = fileName + '-' + shortid.generate() + '.' + fileExtension;
+        cb(null, fullName)
+      }else{
+          cb(new Error('El archivo no es un tipo de imagen válido'))
+      }
+    }else if(file.fieldname === 'archivo'){
+       //De esta manera evitamos la carga de cua1qluier archivo
+       if (req.files.archivo) {
+        const fileArray = file.originalname.split('.');
+        const fileExtension = fileArray[fileArray.length - 1];
+        const fileName =  fileArray[fileArray.length - 2]
+        const allowedExtensions = /pdf|doc|docx|xls|xlsx/i; // Permitir PDF, Word y Excel
+        const isAllowedExtension = allowedExtensions.test(fileExtension);
+        if (isAllowedExtension) {
+          const fullName = fileName + '-' + shortid.generate() + '.' + fileExtension;
+          cb(null, fullName);
+        } else {
+          cb(new Error('El archivo no es un tipo permitido (PDF, Word o Excel)'));
+        }
+       }
+    }
+  }
+})

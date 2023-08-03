@@ -68,7 +68,7 @@
 														/>
 														<% if(user.isAdmin){ %>
 															<select class="form-control" name="userId" >
-																<option value="">-- Elige un Autor --</option>
+																<option value="">-- Elige un Usuario --</option>
 																<% users.forEach((user) => { %>
 																	<option value="<%= user.id %>"><%= user.nombre + ' ' + user.apellido %></option>	
 																<% }) %>
@@ -129,7 +129,7 @@
 													<% } %>	
 													<% if(userId && user.isAdmin){ %>
 														<% let user = users.find(user => Number(user.id) === Number(userId)) %>
-														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Author: <%= user.nombre + ' ' + user.apellido %></button>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Usuario: <%= user.nombre + ' ' + user.apellido %></button>
 													<% } %>
 													<% if(tipo){ %>
 														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Tipo: <%= tipo %></button>

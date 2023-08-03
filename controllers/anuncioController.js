@@ -20,6 +20,7 @@ const upload = multer({
     storage: storageAnuncios,
     limits: {
         fileSize: 1024 * 1024, // 1 MB
+        //Tamaño total del archivo
         fieldSize: 1024 * 1024,
         files: 1 // Máximo 5 archivos
     }

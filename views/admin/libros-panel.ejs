@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('../partials/headAdmin.ejs') %>
+		<style>
+			.disabled-link{
+				pointer-events: none; /* Evita eventos de puntero */
+				cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+				opacity: 0.5; /* Reduce la opacidad para indicar que está deshabilitado */
+			}
+		</style>
+	</head>
+	<body class="hold-transition sidebar-mini layout-navbar-fixed">
+		<!-- Site wrapper -->
+		<div class="wrapper">
+			<%- include ('../../views/layouts/navbarAdmin.ejs') %> <%-
+			include('../../views/layouts/sidebarAdmin.ejs') %>
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Listado de Libros</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.ADMIN %>">Home</a>
+									</li>
+									<li class="breadcrumb-item active">
+										Libros
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<%- include('../partials/mensajesFlash.ejs') %>
+								<div class="card">
+									<div class="card-header">
+										<div class="row mb-2">
+											<div class="col-12">
+												<h3 class="card-title">
+													Filtros de Búsqueda
+												</h3>
+											</div>
+										</div>
+										<div class="row align-items-center">
+											<div class="col-12 col-md-10 mb-2">
+												<form action="<%= ROUTES.LIBROS_ADMIN %>">
+													<div class="input-group input-group-sm">
+														<input
+															type="text"
+															class="form-control"
+															placeholder="Titulo"
+															name="titulo"
+														/>
+														<% if(user.isAdmin){ %>
+															<select class="form-control" name="userId" >
+																<option value="">-- Elige un Usuario --</option>
+																<% users.forEach((user) => { %>
+																	<option value="<%= user.id %>"><%= user.nombre + ' ' + user.apellido %></option>	
+																<% }) %>
+															</select>															
+														<% } %>
+														<input
+															type="text"
+															class="form-control"
+															name="autor"
+															placeholder="Autor del Libro"
+														/>
+														<input
+															type="date"
+															class="form-control"
+															name="fechaPublicacion"
+															placeholder="Fecha de Publicación del Libro"
+														/>
+														
+														<button
+															type="submit"
+															class="btn btn-sm btn-secondary"
+														>
+															Buscar
+														</button>
+													</div>
+												</form>
+												
+											</div>
+											<div class="col-12 col-md-2 mb-2">
+												<div class="row justify-content-end">
+													<a
+														href="<%= ROUTES.AGREGAR_LIBRO %>"
+														type="button"
+														class="btn btn-sm bg-primary ml-2"
+													>
+														<i class="fas fa-plus"></i>
+														Agregar
+													</a>
+
+												</div>
+											</div>
+											<div class="col-12">
+												<% let titulo = req.query.titulo %>
+												<% let userId = req.query.userId %>
+												<% let autor = req.query.autor %>
+												<% let fechaPublicacion = req.query.fechaPublicacion %>
+
+												<% if(titulo || userId || autor || fechaPublicacion){ %>
+													<p class="mb-1"><small>Filtros</small></p>	
+													<% if(titulo){ %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Título: <%= titulo %></button>
+													<% } %>	
+													<% if(userId && user.isAdmin){ %>
+														<% let user = users.find(user => Number(user.id) === Number(userId)) %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Usuario: <%= user.nombre + ' ' + user.apellido %></button>
+													<% } %>
+													<% if(autor){ %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Autor: <%= autor %></button>
+													<% } %>
+													<% if(fechaPublicacion){ %>
+														<button type="button" class="btn btn-warning btn-sm d-block d-md-inline-block mb-1">Fecha de Publicación: <%= fechaPublicacion %></button>
+													<% } %>		
+
+												<% } %>									
+											</div>
+										</div>
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body table-responsive p-0">
+										<table
+											class="table table-hover text-nowrap"
+										>
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Titulo</th>
+													<th>Portada</th>
+													<th>Autor del Libro</th>
+													<th>Fecha de Publicación</th>
+													<% if(user.isAdmin){ %>
+														<th>Creado por</th>
+													<%}%>
+													<th>Acciones</th>
+												</tr>
+											</thead>
+											<tbody>
+												<% if(libros.length){ %>
+													<% libros.forEach((libro, i) => { %>
+														<% const fecha = DateTime.fromISO(libro.fechaPublicacion, { locale: 'es' }) %>
+														<% const fechaFormateada = fecha.toFormat('EEEE, dd \'de\' MMMM \'de\' yyyy') %>
+														<tr>
+															<td><%= i+1 %></td>
+															<td>
+																<%= libro.titulo %>
+															</td>
+															<td>
+																<img
+																	src="<%= libro.portada %>"
+																	alt=""
+																	class="img-fluid"
+																	style="
+																		max-height: 100px;
+																	"
+																/>
+															</td>
+															<td><%= libro.autor %></td>
+															<td>
+																<%= convertirPrimeraLetraMayuscula(fechaFormateada) %>
+															</td>
+															<% if(user.isAdmin){ %>
+																<td><%= libro.User.nombre + ' ' + libro.User.apellido %></td>
+															<% } %>
+
+															<td>
+																<div class="row justify-content-center align-items-center text-center">
+
+																	<div class="col-12 mb-1">
+																		<button
+																			type="button"
+																			data-id="<%= libro.id %>"
+																			class="btn btn-sm bg-danger button-delete-libro"
+																		>
+																			<i
+																				class="fas fa-trash"
+																			></i>
+																		</button>
+																		<a
+																			href="<%= ROUTES.EDITAR_LIBRO.replace(':id', libro.id) %>"
+																			type="button"
+																			class="btn btn-sm bg-primary"
+																		>
+																			<i
+																				class="fas fa-edit"
+																			></i>
+																		</a>
+																	</div>
+																	<div class="col-12">
+																		<a
+																			href="<%= ROUTES.EDITAR_IMAGEN_LIBRO.replace(':id', libro.id) %>"
+																			type="button"
+																			class="btn btn-sm bg-success"
+																		>
+																			<i
+																				class="fas fa-image"
+																			></i>
+																		</a>
+																		<a
+																			href="<%= ROUTES.MOSTRAR_LIBRO.replace(':slug', libro.slug) %>"
+																			type="button"
+																			class="btn btn-sm bg-warning"
+																			target="_blank"
+																		>
+																			<i
+																				class="fas fa-eye"
+																			></i>
+																		</a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													<% }) %>
+												<% }else{ %>
+													<tr>
+														<td>
+															Sin libros
+														</td>
+													</tr>
+												<% } %>
+											</tbody>
+										</table>
+										<% if(libros.length){ %>
+											<div class="row">
+												<div class="col-sm-12 col-md-5 text-left pl-4 mb-2">
+													<div
+													class="dataTables_info"
+													id="example2_info"
+													role="status"
+													aria-live="polite"
+													>
+													Mostrando <%= (cantidadLibrosPagina * (paginaActual - 1)) + 1 %> - <%=  paginaActual === cantidadPaginas ? totalLibros : cantidadLibrosPagina * paginaActual %> de <%= totalLibros %> libros
+													</div>
+												</div>
+												<div class="col-sm-12 col-md-7 d-flex justify-content-end pr-4">
+													<div
+													class="dataTables_paginate paging_simple_numbers"
+													id="example2_paginate"
+													>
+														<ul class="pagination">
+															<li
+															class="paginate_button page-item previous"
+															id="example2_previous"
+															>
+															<a
+																href="?page=<%= (paginaActual - 1) + urlConditions %>"
+																aria-controls="example2"
+																data-dt-idx="0"
+																tabindex="0"
+																class="page-link <%= !isPaginacionAnterior ? 'disabled-link' : '' %>"
+																>Anterior</a
+															>
+															</li>
+															<% if(isPaginacionesNormal) {%>
+																<% arrayPaginas.forEach((pagina, i) => { %>
+																	<li
+																		class="paginate_button page-item <%= paginaActual === pagina ? 'active': '' %>"
+																	>
+																	<a
+																		href="?page=<%= pagina + urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="<%= i + 1 %>"
+																		tabindex="0"
+																		class="page-link"
+																		><%= pagina %></a
+																	>
+																	</li>
+																<% })%>
+															<% } %>
+															<% if(isPaginacionesIzquierda) {%>
+																<li
+																	class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
+																>
+																	<a
+																		href="?page=1<%= urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="1"
+																		tabindex="0"
+																		class="page-link"
+																		>1</a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item <%= paginaActual === 2 ? 'active': '' %>"
+																>
+																	<a
+																		href="?page=2<%= urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="2"
+																		tabindex="0"
+																		class="page-link"
+																		>2</a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item <%= paginaActual === 3 ? 'active': '' %>"
+																>
+																	<a
+																		href="?page=3<%= urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="3"
+																		tabindex="0"
+																		class="page-link"
+																		>3</a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item"
+																>
+																	<a
+																		href="#"
+																		aria-controls="example2"
+																		data-dt-idx="4"
+																		tabindex="0"
+																		class="page-link disabled-link"
+																		>...</a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
+																>
+																	<a
+																		href="?page=<%= cantidadPaginas + urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="5"
+																		tabindex="0"
+																		class="page-link"
+																		><%= cantidadPaginas %></a
+																	>
+																</li>
+															<% } %>
+
+															<% if(isPaginacionesMedia) {%>
+																<li
+																	class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
+																>
+																	<a
+																		href="?page=1<%= urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="1"
+																		tabindex="0"
+																		class="page-link"
+																		>1</a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item"
+																>
+																	<a
+																		href="#"
+																		aria-controls="example2"
+																		data-dt-idx="2"
+																		tabindex="0"
+																		class="page-link disabled-link"
+																		>...</a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item active"
+																>
+																	<a
+																		href="?page=<%= paginaActual + urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="3"
+																		tabindex="0"
+																		class="page-link"
+																		><%= paginaActual %></a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item"
+																>
+																	<a
+																		href="#"
+																		aria-controls="example2"
+																		data-dt-idx="4"
+																		tabindex="0"
+																		class="page-link disabled-link"
+																		>...</a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
+																>
+																	<a
+																		href="?page=<%= cantidadPaginas + urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="5"
+																		tabindex="0"
+																		class="page-link"
+																		><%= cantidadPaginas %></a
+																	>
+																</li>
+															<% } %>
+
+															<% if(isPaginacionesDerecha) {%>
+																<li
+																	class="paginate_button page-item <%= paginaActual === 1 ? 'active': '' %>"
+																>
+																	<a
+																		href="?page=1<%= urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="1"
+																		tabindex="0"
+																		class="page-link"
+																		>1</a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item"
+																>
+																	<a
+																		href="#"
+																		aria-controls="example2"
+																		data-dt-idx="2"
+																		tabindex="0"
+																		class="page-link disabled-link"
+																		>...</a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item <%= paginaActual === cantidadPaginas - 2 ? 'active': '' %>" 
+																>
+																	<a
+																		href="?page=<%= (cantidadPaginas - 2) + urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="3"
+																		tabindex="0"
+																		class="page-link"
+																		><%= cantidadPaginas - 2 %></a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item <%= paginaActual === cantidadPaginas - 1 ? 'active': '' %>" 
+																>
+																	<a
+																		href="?page=<%= (cantidadPaginas - 1) + urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="4"
+																		tabindex="0"
+																		class="page-link"
+																		><%= cantidadPaginas - 1 %></a
+																	>
+																</li>
+																<li
+																	class="paginate_button page-item <%= paginaActual === cantidadPaginas ? 'active': '' %>" 
+																>
+																	<a
+																		href="?page=<%= cantidadPaginas + urlConditions %>"
+																		aria-controls="example2"
+																		data-dt-idx="5"
+																		tabindex="0"
+																		class="page-link"
+																		><%= cantidadPaginas %></a
+																	>
+																</li>
+															<% } %>
+															<li
+															class="paginate_button page-item next"
+															id="example2_next"
+															>
+															<a
+																href="?page=<%= (paginaActual + 1) + urlConditions %>"
+																aria-controls="example2"
+																data-dt-idx="6"
+																tabindex="0"
+																class="page-link <%= !isPaginacionSiguiente ? 'disabled-link' : '' %>"
+																>Siguiente</a
+															>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										<% } %>
+									</div>
+									<!-- /.card-body -->
+								</div>
+								<!-- /.card -->
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+
+		<%- include('../layouts/scriptAdmin.ejs') %>
+	</body>
+</html>

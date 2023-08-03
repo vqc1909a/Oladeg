@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('../partials/headAdmin.ejs') %>
+	</head>
+	<body class="hold-transition sidebar-mini layout-navbar-fixed">
+		<!-- Site wrapper -->
+		<div class="wrapper">
+			<%- include ('../../views/layouts/navbarAdmin.ejs', {user}) %> <%-
+			include('../../views/layouts/sidebarAdmin.ejs', {user}) %>
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-8">
+								<h1>Editar Anuncio: <%= anuncio.titulo%></h1>
+							</div>
+							<div class="col-sm-4">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.ADMIN %>">Home</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.ANUNCIOS_ADMIN %>"
+											>Anuncios</a
+										>
+									</li>
+									<li class="breadcrumb-item active">
+										Editar Anuncio
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<%- include('../partials/mensajesFlash.ejs') %>
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">Formulario</h3>
+									</div>
+									<!-- /.card-header -->
+									<!-- form start -->
+									<form
+										method="POST"
+									>
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+										<div class="card-body">
+											<div class="form-group">
+												<label for="titulo"
+													>Título *</label
+												>
+												<input
+													type="text"
+													class="form-control"
+													id="titulo"
+													placeholder="Ingrese Título"
+													name="titulo"
+													value="<%= fields ? fields.titulo : anuncio ? anuncio.titulo : '' %>"
+												/>
+											</div>
+											<div class="form-group">
+												<label for="extracto"
+													>Extracto * (max 35 palabras)</label
+												>
+												<div class="row">
+													<div class="col-12 col-md-6">
+														<textarea
+															rows="3"
+															class="form-control"
+															id="extracto"
+															placeholder="Ingrese un extracto o resumen a mostrar"
+															name="extracto"
+														><%= fields ? fields.extracto : anuncio ? anuncio.extracto : '' %></textarea>
+													</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="fecha"
+															>Fecha *</label
+														>
+														<input
+															class="form-control"
+															type="date"
+															name="fecha"
+															id="fecha"
+															placeholder="Fecha Anuncio"
+															value="<%= fields ? fields.fecha : anuncio ? anuncio.fecha : '' %>"
+														/>
+													</div>
+												</div>
+												<div class="col-12 col-md-6">
+													<div class="form-group">
+														<label for="hora"
+															>Hora *</label
+														>
+														<input
+															class="form-control"
+															type="time"
+															name="hora"
+															id="hora"
+															placeholder="Hora Anuncio"
+															value="<%= fields ? fields.hora : anuncio ? anuncio.hora : '' %>"
+														/>
+													</div>
+												</div>
+											</div>
+											<%if(user.isAdmin){ %>
+												<div class="form-group">
+													<label for="userId"
+														>Autor *</label
+													>
+													<select class="form-control" name="userId" >
+														<option value="" selected disabled>-- Elige un Autor --</option>
+														<% users.forEach((user) => { %>
+															<% if(fields){ %>
+																<option value="<%= user.id %>" <%= String(fields.userId) === String(user.id) ? 'selected' : '' %>><%= user.nombre + ' ' + user.apellido %></option>
+															<% }else if(anuncio){ %>
+																<option value="<%= user.id %>" <%= String(anuncio.userId) === String(user.id) ? 'selected' : '' %>><%= user.nombre + ' ' + user.apellido %></option>                        
+															<% } else { %>
+																<option value="<%= user.id %>"><%= user.nombre + ' ' + user.apellido %></option>	
+															<% } %>
+														<% }) %>
+													</select>
+												</div>
+											<% } %>
+
+											<div class="form-group">
+												<label for="contenido"
+													>Descripción *</label
+												>
+												<div class="contenedor-editor">
+													<input
+														type="hidden"
+														name="contenido"
+														id="inputDescriptionQuill"
+														value="<%= fields ? fields.contenido : anuncio ? anuncio.contenido : '' %>"
+													/>
+													<div id="editor">
+														<%- fields ? fields.contenido : anuncio ? anuncio.contenido : '' %>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /.card-body -->
+
+										<div class="card-footer">
+											<button
+												type="submit"
+												class="btn btn-primary"
+											>
+												Editar Anuncio
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+
+		<%- include('../layouts/scriptAdmin.ejs') %>
+	</body>
+</html>

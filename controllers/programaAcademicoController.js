@@ -21,7 +21,8 @@ const upload = multer({
     storage: storageProgramasAcademicos,
     limits: {
         fileSize: 1024 * 1024, // 1 MB
-        fieldSize: 1024 * 1024,
+        //Tamaño total de los tres archivos
+        fieldSize: 3 * 1024 * 1024,
         files: 3 // Máximo 5 archivos
     }
 }).fields([

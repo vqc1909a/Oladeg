@@ -273,21 +273,21 @@ export const mostrarPanelLibros = async (req, res) => {
             libros = await Libro.findAll({
                 where: conditions,
                 include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
-                order: [["fechaYHora", "ASC"]]
+                order: [["fechaPublicacion", "ASC"]]
             });
         }else{
             conditions.userId = user.id;
             libros = await Libro.findAll({
                 where: conditions,
                 include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
-                order: [["fechaYHora", "ASC"]]
+                order: [["fechaPublicacion", "ASC"]]
             });
         }
             
         //PAGINACION
-        // const libros = await Libro.findAll({limit: cantidadLibrosPagina, offset: cantidadLibrosPagina * (paginaActual - 1), order: [["fechaYHora", "ASC"]]});
+        // const anuncios = await Anuncio.findAll({limit: cantidadAnunciosPagina, offset: cantidadAnunciosPagina * (paginaActual - 1), order: [["fechaYHora", "ASC"]]});
 
-        const cantidadLibrosPagina = 5;
+        const cantidadLibrosPagina = 4;
         const totalLibros = libros.length;
         const cantidadPaginas = Math.ceil(totalLibros / cantidadLibrosPagina)
         const paginaActual = Number(req.query.page ? (req.query.page >= 1 && req.query.page <= cantidadPaginas) ? req.query.page : 1 : 1) ;
@@ -305,7 +305,7 @@ export const mostrarPanelLibros = async (req, res) => {
             arrayPaginas.push(i); // Agrega cada número al array
         }
 
-        //LIBROS
+        //ANUNCIOS
         const librosFiltrados = libros.slice(cantidadLibrosPagina * (paginaActual - 1), cantidadLibrosPagina * paginaActual);
 
         return res.render("admin/libros-panel", {

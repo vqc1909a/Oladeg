@@ -9,6 +9,8 @@ export const $links2 = document.querySelectorAll('.link_mobile2');
 export const $hero = document.querySelector('.hero');
 export const $menu_overlay = document.querySelector('.header__menu-overlay');
 
+export const $inputDescriptionQuill = document.querySelector("#inputDescriptionQuill");
+export const $main = document.querySelector('.main');
 
 //Programas Academicos
 export const $inputInscripcionQuill = document.querySelector("#inputInscripcionQuill");
@@ -56,11 +58,14 @@ export const $curso_triggers = document.querySelectorAll('.detalles__trigger');
 export const $curso_contents = document.querySelectorAll('.detalles__content');
 
 //Anuncio
-export const $inputDescriptionQuill = document.querySelector("#inputDescriptionQuill");
-export const $main = document.querySelector('.main');
 export const $fileInputAnuncio = document.querySelector('#fileInputAnuncio');
 export const $imagePreviewAnuncio = document.querySelector('#imagePreviewAnuncio');
 export const $buttonsDeleteAnuncio = document.querySelectorAll(".button-delete-anuncio");
+
+//Libro
+export const $fileInputLibro = document.querySelector('#fileInputLibro');
+export const $imagePreviewLibro = document.querySelector('#imagePreviewLibro');
+export const $buttonsDeleteLibro = document.querySelectorAll(".button-delete-libro");
 
 //Modal
 export const modal_buttons = document.querySelectorAll('.modal-button');

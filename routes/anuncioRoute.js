@@ -1,10 +1,10 @@
 import express from "express";
-const Router = express.Router();
 import * as ROUTES from "../config/routes.js";
 import * as anuncioController from "../controllers/anuncioController.js";
 import * as authMiddleware from "../middlewares/authMiddleware.js";
-
 import * as anuncioValidation from "../validations/anuncioValidation.js"
+
+const Router = express.Router();
 
 Router.get(ROUTES.MOSTRAR_ANUNCIO, anuncioController.mostrarAnuncio);
 Router.get(ROUTES.AGREGAR_ANUNCIO, authMiddleware.verificarUsuarioAutenticado, anuncioController.mostrarPaginaAgregarAnuncio);

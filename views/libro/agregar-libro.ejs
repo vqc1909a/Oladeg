@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('../partials/headAdmin.ejs') %>
+	</head>
+	<body class="hold-transition sidebar-mini layout-navbar-fixed">
+		<!-- Site wrapper -->
+		<div class="wrapper">
+			<%- include ('../../views/layouts/navbarAdmin.ejs') %> <%-
+			include('../../views/layouts/sidebarAdmin.ejs') %>
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Agregar Libro</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.ADMIN %>">Home</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a href="<%= ROUTES.LIBROS_ADMIN %>"
+											>Libros</a
+										>
+									</li>
+									<li class="breadcrumb-item active">
+										Agregar Libro
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<%- include('../partials/mensajesFlash.ejs') %>
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">Formulario</h3>
+									</div>
+									<!-- /.card-header -->
+									<!-- form start -->
+									<form
+										method="POST"
+										action="<%= ROUTES.AGREGAR_LIBRO + '?_csrf=' + csrfToken %>"
+										enctype="multipart/form-data"
+									>
+										<div class="card-body">
+											<div class="form-group">
+												<label for="titulo"
+													>Título *</label
+												>
+												<input
+													type="text"
+													class="form-control"
+													id="titulo"
+													placeholder="Ingrese Título"
+													name="titulo"
+													value="<%= fields ? fields.titulo : '' %>"
+												/>
+											</div>
+											<div class="form-group">
+												<label for="portada"
+													>Portada *</label
+												>
+												<div class="input-group">
+													<div class="custom-file">
+														<input
+															type="file"
+															class="custom-file-input"
+															id="fileInputLibro"
+															name="portada"
+															accept="image/*"
+														/>
+														<label
+															class="custom-file-label"
+															for="portada"
+															>Elige una
+															imagen</label
+														>
+													</div>
+													<div
+														class="input-group-append"
+													>
+														<span
+															class="input-group-text"
+															>Subir</span
+														>
+													</div>
+												</div>
+												<div
+													id="imagePreviewLibro"
+													class="col-12 col-md-7 col-xl-5 mt-2 p-0"
+												></div>
+											</div>
+											<div class="form-group">
+												<label for="autor"
+													>Autor del Libro *</label
+												>
+												<input
+													type="text"
+													class="form-control"
+													id="autor"
+													placeholder="Ingrese Autor"
+													name="autor"
+													value="<%= fields ? fields.autor : '' %>"
+												/>
+											</div>
+
+											<div class="form-group ">
+												<div class="form-group">
+													<label for="fechaPublicacion"
+														>Fecha de Publicación *</label
+													>
+													<input
+														class="form-control"
+														type="date"
+														name="fechaPublicacion"
+														id="fechaPublicacion"
+														placeholder="Fecha Libro"
+														value="<%= fields ? fields.fechaPublicacion : '' %>"
+													/>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="contenido"
+													>Descripción *</label
+												>
+												<div class="contenedor-editor">
+													<input
+														type="hidden"
+														name="contenido"
+														id="inputDescriptionQuill"
+														value="<%= fields ? fields.contenido : '' %>"
+													/>
+													<div id="editor">
+														<%- fields ?
+														fields.contenido : '' %>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="archivo"
+													>Archivo (PDF Recomendado)</label
+												>
+												<div class="input-group">
+													<div class="custom-file">
+														<input
+															type="file"
+															class="custom-file-input"
+															id="archivo"
+															name="archivo"
+															accept=".pdf,.doc,.docx,.xls,.xlsx"
+														/>
+														<label
+															class="custom-file-label"
+															for="archivo"
+															>Elige una
+															imagen</label
+														>
+													</div>
+													<div
+														class="input-group-append"
+													>
+														<span
+															class="input-group-text"
+															>Subir</span
+														>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /.card-body -->
+
+										<div class="card-footer">
+											<button
+												type="submit"
+												class="btn btn-primary"
+											>
+												Agregar Libro
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+
+		<%- include('../layouts/scriptAdmin.ejs') %>
+	</body>
+</html>

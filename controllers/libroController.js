@@ -1,7 +1,67 @@
-const {obtenerLibros} = require('../helpers');
+import * as url from 'url';
+import Sequelize from "sequelize";
+import path from "path";
+import { validationResult } from "express-validator";
+import multer from "multer";
+import fse from "fs-extra";
+import { storageLibros } from "../config/multer.js";
+
+import Libro from "../models/LibroModel.js";
+import User from "../models/UserModel.js";
+import * as ROUTES from "../config/routes.js";
+import {DateTime} from "luxon";
+import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 
 
-const mostrarLibros = async (req, res) => {
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const Op = Sequelize.Op;    
+
+const upload = multer({
+    storage: storageLibros,
+    limits: {
+        fileSize: 1024 * 1024, // 1 MB
+        //Tamaño total de los dos archivos
+        fieldSize: 2 * 1024 * 1024,
+        files: 2 // Máximo 5 archivos
+    }
+}).fields([
+  {name: 'portada', maxCount: 1},
+  {name: 'archivo', maxCount: 1},
+]);
+
+export const subirImagen = (req, res, next) => {
+  upload(req, res, (err) => {
+      const body = req.body;
+      if (err instanceof multer.MulterError) {
+          // A Multer error occurred when uploading.
+          if(err.code === "LIMIT_FILE_SIZE"){
+              req.flash('error', 'El tamaño de la imagen o archivo debe ser como máximo de 1mb');
+          }else{
+              req.flash('error', err.message);
+          }
+          req.flash('fields', body);
+          //SI existe el id, redirrecionamos a la pagina de camibo de imagen del libro
+          if(req.params.id){
+              return res.redirect(ROUTES.EDITAR_IMAGEN_LIBRO.replace(':id', req.params.id));
+          }else{ 
+              return res.redirect(ROUTES.AGREGAR_LIBRO);
+          }        
+      } else if (err) {
+          // An unknown error occurred when uploading.
+          req.flash('error', err.message);
+          req.flash('fields', body);
+          if(req.params.id){
+              return res.redirect(ROUTES.EDITAR_IMAGEN_LIBRO.replace(':id', req.params.id));
+          }else{
+              return res.redirect(ROUTES.AGREGAR_LIBRO);
+          }             
+      }
+      next();
+  })
+}
+
+
+export const mostrarLibros = async (req, res) => {
   let libros = await obtenerLibros();
   let pagina_actual = req.query.page ? parseInt(req.query.page) : 1;
   let total_elementos = libros.length;
@@ -28,7 +88,7 @@ const mostrarLibros = async (req, res) => {
   });
 }
 
-const mostrarLibro = async (req, res) => {
+export const mostrarLibro = async (req, res) => {
   const url = req.params.libro;
   let libros = await obtenerLibros();
   let libro = libros.find((lib) => lib.Url === url );
@@ -55,4 +115,255 @@ const mostrarLibro = async (req, res) => {
  
 }
 
-module.exports = {mostrarLibros, mostrarLibro}
+export const mostrarPaginaAgregarLibro = async(req, res) => {
+  const user = req.user;
+  try{
+    return res.render('libro/agregar-libro', {
+      nombrePagina: "Agregar Libro",
+      user,
+      req
+    })
+  }catch(err){
+    req.flash("error", err.message);
+    return res.redirect(ROUTES.LIBROS_ADMIN)
+  }
+}
+
+export const agregarLibro = async(req, res) => {
+  const body = req.body;
+  body.userId = req.user.id;
+  if(req.files.portada){
+    body.portada = `/dist/uploads/libros/portada/${req.file.filename}`
+  }
+  if(req.files.archivo){
+    body.archivo = `/dist/uploads/libros/archivo/${req.file.filename}`
+  }
+  try{
+      let errorsExpress = validationResult(req);
+      //Comprobamos si hay errores de express
+      if(!errorsExpress.isEmpty()){
+          //Si hay algun error, pues obviamente borramos el archivo subido
+          const filePathPortada = path.join(__dirname, `../public/${body.portada}`);
+          if(fse.existsSync(filePathPortada)){
+              fse.unlinkSync(filePathPortada);
+          }
+          const filePathArchivo = path.join(__dirname, `../public/${body.archivo}`);
+          if(fse.existsSync(filePathArchivo)){
+              fse.unlinkSync(filePathArchivo);
+          }
+
+          const erroresExpress = errorsExpress.array().map(err => err.msg)
+          req.flash('error', erroresExpress);
+          req.flash('fields', body);        
+          return res.redirect(ROUTES.AGREGAR_LIBRO);
+      }
+      await Libro.create(body);
+      req.flash('success', 'Libro creado correctamente');
+      return res.redirect(ROUTES.LIBROS_ADMIN);
+  }catch(err){
+      let erroresSequelize = []
+      //Vamos a obtener los errores del propio modelo si no cumple las restricciones que le pusimos para cada campo
+      if(err.errors){
+        erroresSequelize = err.errors.map(err => err.message);
+      }else{
+          erroresSequelize.push(err.message);
+      }
+      //Si hay algun error, pues obviamente borramos el archivo subido
+      const filePathPortada = path.join(__dirname, `../public/${body.portada}`);
+      if(fse.existsSync(filePathPortada)){
+          fse.unlinkSync(filePathPortada);
+      }
+      const filePathArchivo = path.join(__dirname, `../public/${body.archivo}`);
+      if(fse.existsSync(filePathArchivo)){
+          fse.unlinkSync(filePathArchivo);
+      }
+      
+      req.flash('error', erroresSequelize);
+      req.flash('fields', body)
+      return res.redirect(ROUTES.AGREGAR_LIBRO);
+  }
+}
+
+export const mostrarPaginaEditarLibro = async(req, res) => {
+    const user = req.user;
+    const users = await User.findAll({});
+    try{
+        let libro;
+        if(user.isAdmin){
+            libro = await Libro.findOne({where: {id: req.params.id}});
+        }else{
+            libro = await Libro.findOne({where: {id: req.params.id, userId: user.id}});
+        }
+        if(!libro){
+            req.flash('error', 'Acceso denegado');
+            return res.redirect(ROUTES.LIBROS_ADMIN);
+        }
+        return res.render('libro/editar-libro', {
+            nombrePagina: "Editar Libro",
+            user,
+            req,
+            libro,
+            users
+        })
+    }catch(err){
+        req.flash("error", err.message);
+        return res.redirect(ROUTES.LIBROS_ADMIN)
+    }
+}
+
+export const editarLibro = async(req, res) => {
+    const body = req.body;
+    const user = req.user;
+    try{
+        let libro;
+        if(user.isAdmin){
+            libro = await Libro.findOne({where: {id: req.params.id}});
+        }else{
+            libro = await Libro.findOne({where: {id: req.params.id, userId: user.id}});
+        }
+
+        //Editar un libro que no le pertenece al usuario
+        if(!libro){
+            req.flash('error', 'Operación no válida');
+            return res.redirect(ROUTES.LIBROS_ADMIN);
+        }
+
+        let errorsExpress = validationResult(req);
+        //Comprobamos si hay errores de express
+        if(!errorsExpress.isEmpty()){
+            const erroresExpress = errorsExpress.array().map(err => err.msg)
+            req.flash('error', erroresExpress);
+            req.flash('fields', body);        
+            return res.redirect(ROUTES.EDITAR_LIBRO.replace(':id', req.params.id));
+        }
+        libro.titulo = body.titulo;
+        libro.autor = body.autor;
+        libro.fechaPublicacion = body.fechaPublicacion;
+        libro.contenido = body.contenido;
+        //SOlo el admin puede cambiar el usuario de las entradas
+        if(req.user.isAdmin){
+            libro.userId = body.userId;
+        }
+        
+        await libro.save();
+        req.flash('success', 'Libro editado correctamente');
+        return res.redirect(ROUTES.LIBROS_ADMIN);
+    }catch(err){
+        let erroresSequelize = []
+        //Vamos a obtener los errores del propio modelo si no cumple las restricciones que le pusimos para cada campo
+        if(err.errors){
+            erroresSequelize = err.errors.map(err => err.message);
+        }else{
+            erroresSequelize.push(err.message);
+        }
+        req.flash('error', erroresSequelize);
+        req.flash('fields', body)
+        return res.redirect(ROUTES.EDITAR_LIBRO.replace(':id', req.params.id));
+    }
+}
+
+export const mostrarPaginaEditarImagenLibro = async (req, res) => {
+    // Group.findByPk(req.params.id);
+    const user = req.user;
+
+    try{
+        let libro;
+        if(user.isAdmin){
+            libro = await Libro.findOne({where: {id: req.params.id}});
+        }else{
+            libro = await Libro.findOne({where: {id: req.params.id, userId: user.id}});
+        }
+
+        if(!libro){
+            req.flash('error', 'Acceso denegado');
+            return res.redirect(ROUTES.LIBROS_ADMIN);
+        }
+        return res.render('libro/editar-imagen-libro', {
+            nombrePagina: `Editar Imagen Libro: ${libro.titulo}`,
+            libro,
+            user,
+            req
+        })
+    }catch(err){
+        req.flash('error', err.message);
+        return res.redirect(ROUTES.LIBROS_ADMIN);
+    }
+}
+
+export const editarImagenLibro = async (req, res) => {
+    // Group.findByPk(req.params.id);
+    const body = req.body; 
+    const user = req.user;
+    //Verificar que el usuario sube una imagen
+    if(req.file){
+        body.portada = `/dist/uploads/libros/${req.file.filename}`
+    }
+    try{
+        let libro;
+        if(user.isAdmin){
+            libro = await Libro.findOne({where: {id: req.params.id}});
+        }else{
+            libro = await Libro.findOne({where: {id: req.params.id, userId: user.id}});
+        }
+
+        if(!libro){
+            req.flash('error', 'Acceso denegado');
+            return res.redirect(ROUTES.LIBROS_ADMIN);
+        }
+       
+        let previousImage = libro.portada;
+        //Si hemos subido la imagen, lo cambiamos 
+        libro.portada = body.portada
+        await libro.save();
+
+        //Si existe una imagen previa, borramos la imagen del servidor, lo ponemos aqui para asegurarno que guardo la nueva imagen en el servidor y su ruta en base de datos
+        const filePathPreviousImage = path.join(__dirname, `../public/${previousImage}`);
+        if(fse.existsSync(filePathPreviousImage)){
+            fse.unlinkSync(filePathPreviousImage);
+        }
+        req.flash('success', 'Portada cambiado correctamente');
+        return res.redirect(ROUTES.LIBROS_ADMIN);
+    }catch(err){
+        //Si algo ocurrio, borramos la nueva imagen que se subio
+        const filePathImage = path.join(__dirname, `../public/${body.portada}`);
+        if(fse.existsSync(filePathImage)){
+            fse.unlinkSync(filePathImage);
+        }
+        
+        let erroresSequelize = []
+        //Vamos a obtener los errores del propio modelo si no cumple las restricciones que le pusimos para cada campo
+        if(err.errors){
+            erroresSequelize = err.errors.map(err => err.message);
+        }else{
+            erroresSequelize.push(err.message);
+        }
+        req.flash('error', erroresSequelize);
+        return res.redirect(ROUTES.EDITAR_IMAGEN_LIBRO.replace(':id', req.params.id));
+    }
+}
+
+export const eliminarLibro = async(req, res) => {
+    const user = req.user;
+    try{
+        let libro;
+        if(user.isAdmin){
+            libro = await Libro.findOne({where: {id: req.params.id}});
+        }else{
+            libro = await Libro.findOne({where: {id: req.params.id, userId: user.id}});
+        }
+        if(!libro){
+            return res.status(401).json({message: "Acceso denegado"});
+        }
+        const filePathImage = path.join(__dirname, `../public/${libro.portada}`);
+        if(libro.portada && fse.existsSync(filePathImage)){
+            fse.unlinkSync(filePathImage);
+        }
+
+        await Libro.destroy({where: {id: req.params.id}});
+        return res.status(200).json({message: "El libro ha sido eliminado."});
+    }catch(err){
+        const message = err.message;
+        return res.status(400).json({message});
+    }
+}
+

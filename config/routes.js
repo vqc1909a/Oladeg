@@ -55,6 +55,10 @@ export const CONFIRM_NEW_EMAIL = "/admin/profile/confirm-email/:token";
 //LIBROS Y BOLETINES
 export const MOSTRAR_LIBROS = "/libros";
 export const MOSTRAR_LIBRO = "/libros/:slug";
+export const AGREGAR_LIBRO = "/admin/libro";
+export const EDITAR_LIBRO = "/admin/libro/:id/edit";
+export const EDITAR_IMAGEN_LIBRO = "/admin/libro/:id/edit-image";
+export const ELIMINAR_LIBRO = "/admin/libro/:id/delete";
 
 
 
