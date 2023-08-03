@@ -18,6 +18,8 @@ import cursoRoute from "./routes/cursoRoute.js";
 import dipĺomadoRoute from "./routes/diplomadoRoute.js";
 import especializacionRoute from "./routes/especializacionRoute.js" 
 import publicidadRoute from "./routes/publicidadRoute.js" 
+import libroRoute from "./routes/libroRoute.js" 
+
 
 
 
@@ -81,6 +83,7 @@ connectDB().then(async () => {
   app.use('/', dipĺomadoRoute);
   app.use('/', especializacionRoute);
   app.use('/', publicidadRoute);
+  app.use('/', libroRoute);
   // app.use('/', require("./routes/libroRoute"));
   // app.use('/', require("./routes/boletinRoute"));
 

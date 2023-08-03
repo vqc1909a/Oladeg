@@ -111,14 +111,12 @@ export const storageLibros = multer.diskStorage({
     if(file.fieldname === 'portada'){
       folder = path.join(__dirname, '../public/dist/uploads/libros/portada/')
     }else if(file.fieldname === 'archivo'){
-      //De esta manera evitamos la carga de un archivo
-      if (req.files.archivo) {
-        folder = path.join(__dirname, '../public/dist/uploads/libros/archivo/')
-      }
+      folder = path.join(__dirname, '../public/dist/uploads/libros/archivo/')
     }
     cb(null, folder);
   },
   filename: (req, file, cb) => {
+    //Eso de hacer obligatorio algun archivo o no eso depende de tus validaciones en tu model o en tu archivo de tu validation, porque aqui si subes o no le da igual, ya que al final si subes el archivo tendra contenido, caso contrario sera undefined el req.files.nombre_campo
     if(file.fieldname === 'portada'){
       const fileArray = file.originalname.split('.');
       const fileExtension = fileArray[fileArray.length - 1];
@@ -132,20 +130,17 @@ export const storageLibros = multer.diskStorage({
           cb(new Error('El archivo no es un tipo de imagen válido'))
       }
     }else if(file.fieldname === 'archivo'){
-       //De esta manera evitamos la carga de cua1qluier archivo
-       if (req.files.archivo) {
         const fileArray = file.originalname.split('.');
         const fileExtension = fileArray[fileArray.length - 1];
         const fileName =  fileArray[fileArray.length - 2]
         const allowedExtensions = /pdf|doc|docx|xls|xlsx/i; // Permitir PDF, Word y Excel
-        const isAllowedExtension = allowedExtensions.test(fileExtension);
+        const isAllowedExtension = allowedExtensions.test(fileExtension) && allowedExtensions.test(file.mimetype);
         if (isAllowedExtension) {
           const fullName = fileName + '-' + shortid.generate() + '.' + fileExtension;
           cb(null, fullName);
         } else {
           cb(new Error('El archivo no es un tipo permitido (PDF, Word o Excel)'));
         }
-       }
     }
   }
 })

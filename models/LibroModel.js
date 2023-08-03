@@ -23,18 +23,6 @@ const Libro = sequelize.define('Libro', {
             }
         }
     },  
-    contenido: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        validate: {
-            notNull: {
-                msg: 'El contenido del libro es obligatorio'
-            },
-            notEmpty: {
-                msg: 'El contenido del libro es obligatorio'
-            },
-        }
-    },
     portada: {
         type: DataTypes.TEXT,
         allowNull: false,
@@ -77,18 +65,19 @@ const Libro = sequelize.define('Libro', {
             // }
         }
     },
-    archivo: {
+    contenido: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
             notNull: {
-                msg: 'El archivo es obligatorio'
+                msg: 'El contenido del libro es obligatorio'
             },
             notEmpty: {
-                msg: 'El archivo es obligatorio'
-            }
+                msg: 'El contenido del libro es obligatorio'
+            },
         }
     },
+    archivo: DataTypes.TEXT,
     slug: DataTypes.TEXT,
 }, {
     timestamps: true,

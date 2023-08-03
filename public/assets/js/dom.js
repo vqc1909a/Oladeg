@@ -34,11 +34,11 @@ export const sidebar = document.querySelector('.sidebar');
 export const $candado = document.querySelector('#candado');
 
 //WhatssApp
-export const whatsapp_button = document.querySelector('.whatsapp__button');
-export const whatsapp_mensaje = document.querySelector('.whatsapp__mensaje');
-export const whatsapp__send = document.querySelector('.whatsapp__send');
-export const whatsapp__input = document.querySelector('.whatsapp__input');
-export const whatsapp__close = document.querySelector('.whatsapp__close');
+export const $whatsapp_button = document.querySelector('.whatsapp__button');
+export const $whatsapp_mensaje = document.querySelector('.whatsapp__mensaje');
+export const $whatsapp__send = document.querySelector('.whatsapp__send');
+export const $whatsapp__input = document.querySelector('.whatsapp__input');
+export const $whatsapp__close = document.querySelector('.whatsapp__close');
 
 //Consultorias
 export const $banner = document.querySelector('.banner');

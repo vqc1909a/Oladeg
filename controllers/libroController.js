@@ -30,6 +30,7 @@ const upload = multer({
 ]);
 
 export const subirImagen = (req, res, next) => {
+  
   upload(req, res, (err) => {
       const body = req.body;
       if (err instanceof multer.MulterError) {
@@ -133,10 +134,10 @@ export const agregarLibro = async(req, res) => {
   const body = req.body;
   body.userId = req.user.id;
   if(req.files.portada){
-    body.portada = `/dist/uploads/libros/portada/${req.file.filename}`
+    body.portada = `/dist/uploads/libros/portada/${req.files.portada[0].filename}`
   }
   if(req.files.archivo){
-    body.archivo = `/dist/uploads/libros/archivo/${req.file.filename}`
+    body.archivo = `/dist/uploads/libros/archivo/${req.files.archivo[0].filename}`
   }
   try{
       let errorsExpress = validationResult(req);
