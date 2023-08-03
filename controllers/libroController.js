@@ -158,6 +158,7 @@ export const agregarLibro = async(req, res) => {
           req.flash('fields', body);        
           return res.redirect(ROUTES.AGREGAR_LIBRO);
       }
+      //Create a difenrecia del Update es que create si o si necesita los campos y debe validar dichos campos, en cambio cuando usas update, sequelize interpreta que si le pasas un objeto vacio, entonces no quieres actualizar nada, pero si le pasas un objeto con algunos campos, pues te validara dichos campos según lo que pusiste en tu model
       await Libro.create(body);
       req.flash('success', 'Libro creado correctamente');
       return res.redirect(ROUTES.LIBROS_ADMIN);
@@ -296,8 +297,11 @@ export const editarImagenLibro = async (req, res) => {
     const body = req.body; 
     const user = req.user;
     //Verificar que el usuario sube una imagen
-    if(req.file){
-        body.portada = `/dist/uploads/libros/${req.file.filename}`
+    if(req.files.portada){
+        body.portada = `/dist/uploads/libros/portada/${req.files.portada[0].filename}`
+    }
+     if(req.files.archivo){
+        body.archivo = `/dist/uploads/libros/archivo/${req.files.archivo[0].filename}`
     }
     try{
         let libro;
@@ -312,25 +316,43 @@ export const editarImagenLibro = async (req, res) => {
             return res.redirect(ROUTES.LIBROS_ADMIN);
         }
        
-        let previousImage = libro.portada;
+        let previousPortada = libro.portada;
+        let previousArchivo = libro.archivo;
+
         //Si hemos subido la imagen, lo cambiamos 
-        libro.portada = body.portada
-        await libro.save();
+        await Libro.update(body, {
+            where: {
+                id: req.params.id
+            },
+            individualHooks: true
+        })
 
         //Si existe una imagen previa, borramos la imagen del servidor, lo ponemos aqui para asegurarno que guardo la nueva imagen en el servidor y su ruta en base de datos
-        const filePathPreviousImage = path.join(__dirname, `../public/${previousImage}`);
-        if(fse.existsSync(filePathPreviousImage)){
-            fse.unlinkSync(filePathPreviousImage);
+        const filePathPreviousPortada = path.join(__dirname, `../public/${previousPortada}`);
+        const filePathPreviousArchivo = path.join(__dirname, `../public/${previousArchivo}`);
+
+        if(fse.existsSync(filePathPreviousPortada) && body.portada){
+            fse.unlinkSync(filePathPreviousPortada);
         }
-        req.flash('success', 'Portada cambiado correctamente');
+         if(fse.existsSync(filePathPreviousArchivo) && body.archivo){
+            fse.unlinkSync(filePathPreviousArchivo);
+        }
+        req.flash('success', 'Imagenes cambiadas correctamente');
         return res.redirect(ROUTES.LIBROS_ADMIN);
     }catch(err){
-        //Si algo ocurrio, borramos la nueva imagen que se subio
-        const filePathImage = path.join(__dirname, `../public/${body.portada}`);
-        if(fse.existsSync(filePathImage)){
-            fse.unlinkSync(filePathImage);
-        }
         
+        //Si algo ocurrio, borramos la nueva imagen que se subio
+        const filePathPortada = path.join(__dirname, `../public/${body.portada}`);
+        const filePathArchivo = path.join(__dirname, `../public/${body.archivo}`);
+
+        if(fse.existsSync(filePathPortada)){
+            fse.unlinkSync(filePathPortada);
+        }
+
+        if(fse.existsSync(filePathArchivo)){
+            fse.unlinkSync(filePathArchivo);
+        }
+
         let erroresSequelize = []
         //Vamos a obtener los errores del propio modelo si no cumple las restricciones que le pusimos para cada campo
         if(err.errors){
@@ -356,7 +378,7 @@ export const eliminarLibro = async(req, res) => {
             return res.status(401).json({message: "Acceso denegado"});
         }
         const filePathImage = path.join(__dirname, `../public/${libro.portada}`);
-        if(libro.portada && fse.existsSync(filePathImage)){
+        if(fse.existsSync(filePathImage)){
             fse.unlinkSync(filePathImage);
         }
 

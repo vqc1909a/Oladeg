@@ -23,7 +23,7 @@ const upload = multer({
         fileSize: 1024 * 1024, // 1 MB
         //Tamaño total de los tres archivos
         fieldSize: 3 * 1024 * 1024,
-        files: 3 // Máximo 5 archivos
+        files: 3 // Máximo 3 archivos
     }
 }).fields([
     {name: 'portada', maxCount: 1},
@@ -194,23 +194,6 @@ export const editarPrograma = async(req, res) => {
         }
         
         let newProgram = body;
-        // programa.titulo = body.titulo;
-        // programa.descripcion = body.descripcion;
-        // programa.inversion = body.inversion;
-        // programa.duracion = body.duracion;
-        // programa.fecha = body.fecha;
-        // programa.hora = body.hora;
-        // programa.modalidad = body.modalidad;
-        // programa.tipo = body.tipo;
-
-        // programa.inscripcion = body.inscripcion;
-        // programa.temario = body.temario;
-        // programa.materiales = body.materiales;
-        // programa.promocion = body.promocion;
-        // programa.metodologia = body.metodologia;
-        // programa.expositorNombre = body.expositorNombre;
-        // programa.expositorDescripcion = body.expositorDescripcion;
-
         //Solo el admin puede cambiar el autor de las entradas
         if(req.user.isAdmin){
             newProgram.userId = body.userId;
@@ -280,6 +263,7 @@ export const editarImagenPrograma = async (req, res) => {
     if(req.files.certificado){
         body.certificado = `/dist/uploads/programas/certificado/${req.files.certificado[0].filename}`
     }
+    
     try{
         let programa;
         if(user.isAdmin){
@@ -297,48 +281,45 @@ export const editarImagenPrograma = async (req, res) => {
         let previousExpositorImagen = programa.expositorImagen;
         let previousCertificado = programa.certificado;
 
+        //Si hemos subido alguna imagen, lo cambiamos, Aqui si es que no subimos ninguna imagen, el body será vacio "{}", entonces no nos cambiara nada, para que nos cambie tiene que estar presente al menos el nombre del campo aunque su valor este vacio, ahi si nos cambia
+        await ProgramaAcademico.update(body, {
+            where: {
+                id: req.params.id
+            },
+            individualHooks: true,
+        })
 
-        //Si hemos subido la imagen, lo cambiamos 
-        programa.portada = body.portada
-        programa.expositorImagen = body.expositorImagen
-        programa.certificado = body.certificado
-        await programa.save();
-
-        //Si existe una imagen previa, borramos las imagenes del servidor, lo ponemos aqui para asegurarno que guardo la nueva imagen en el servidor y su ruta en base de datos
+        //Si existe una imagen previa lo borramos las imagenes del servidor siempre y cuando hayamos subido su reemplazo, lo ponemos aqui para asegurarno que guardo la nueva imagen en el servidor y su ruta en base de datos
         const filePathPreviousPortada = path.join(__dirname, `../public/${previousPortada}`);
         const filePathPreviousExpositorImagen = path.join(__dirname, `../public/${previousExpositorImagen}`);
         const filePathPreviousCertificado = path.join(__dirname, `../public/${previousCertificado}`);
 
-
-        if(fse.existsSync(filePathPreviousPortada)){
+        if(fse.existsSync(filePathPreviousPortada && body.portada)){
             fse.unlinkSync(filePathPreviousPortada);
         }
-        if(fse.existsSync(filePathPreviousExpositorImagen)){
+        if(fse.existsSync(filePathPreviousExpositorImagen && body.expositorImagen)){
             fse.unlinkSync(filePathPreviousExpositorImagen);
         }
-        if(fse.existsSync(filePathPreviousCertificado)){
+        if(fse.existsSync(filePathPreviousCertificado && body.certificado)){
             fse.unlinkSync(filePathPreviousCertificado);
         }
 
         req.flash('success', 'Imagenes cambiadas correctamente');
         return res.redirect(ROUTES.PROGRAMAS_ADMIN);
     }catch(err){
-        console.log({
-            body
-        })
         //Si algo ocurrio, borramos las imagenes que se subio
-        const filePathPreviousPortada = path.join(__dirname, `../public/${body.portada}`);
-        const filePathPreviousExpositorImagen = path.join(__dirname, `../public/${body.expositorImagen}`);
-        const filePathPreviousCertificado = path.join(__dirname, `../public/${body.certificado}`);
+        const filePathPortada = path.join(__dirname, `../public/${body.portada}`);
+        const filePathExpositorImagen = path.join(__dirname, `../public/${body.expositorImagen}`);
+        const filePathCertificado = path.join(__dirname, `../public/${body.certificado}`);
 
-        if(fse.existsSync(filePathPreviousPortada)){
-            fse.unlinkSync(filePathPreviousPortada);
+        if(fse.existsSync(filePathPortada)){
+            fse.unlinkSync(filePathPortada);
         }
-        if(fse.existsSync(filePathPreviousExpositorImagen)){
-            fse.unlinkSync(filePathPreviousExpositorImagen);
+        if(fse.existsSync(filePathExpositorImagen)){
+            fse.unlinkSync(filePathExpositorImagen);
         }
-        if(fse.existsSync(filePathPreviousCertificado)){
-            fse.unlinkSync(filePathPreviousCertificado);
+        if(fse.existsSync(filePathCertificado)){
+            fse.unlinkSync(filePathCertificado);
         }
         let erroresSequelize = []
         //Vamos a obtener los errores del propio modelo si no cumple las restricciones que le pusimos para cada campo

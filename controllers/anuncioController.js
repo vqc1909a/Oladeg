@@ -22,7 +22,7 @@ const upload = multer({
         fileSize: 1024 * 1024, // 1 MB
         //Tamaño total del archivo
         fieldSize: 1024 * 1024,
-        files: 1 // Máximo 5 archivos
+        files: 1 // Máximo 1 archivos
     }
 }).single('portada');
 
@@ -281,16 +281,20 @@ export const editarImagenAnuncio = async (req, res) => {
         }
        
         let previousImage = anuncio.portada;
-        //Si hemos subido la imagen, lo cambiamos 
-        anuncio.portada = body.portada
-        await anuncio.save();
+        //Si hemos subido la imagen, lo cambiamos, si no subimos nada el body sera un objeto vacio y entonces no me cambiara nada
+        await Anuncio.update(body, {
+            where: {
+                id: req.params.id
+            },
+            individualHooks: true,
+        })
 
         //Si existe una imagen previa, borramos la imagen del servidor, lo ponemos aqui para asegurarno que guardo la nueva imagen en el servidor y su ruta en base de datos
         const filePathPreviousImage = path.join(__dirname, `../public/${previousImage}`);
-        if(fse.existsSync(filePathPreviousImage)){
+        if(fse.existsSync(filePathPreviousImage) && body.portada){
             fse.unlinkSync(filePathPreviousImage);
         }
-        req.flash('success', 'Portada cambiado correctamente');
+        req.flash('success', 'Imagen cambiada correctamente');
         return res.redirect(ROUTES.ANUNCIOS_ADMIN);
     }catch(err){
         //Si algo ocurrio, borramos la nueva imagen que se subio
@@ -324,7 +328,7 @@ export const eliminarAnuncio = async(req, res) => {
             return res.status(401).json({message: "Acceso denegado"});
         }
         const filePathImage = path.join(__dirname, `../public/${anuncio.portada}`);
-        if(anuncio.portada && fse.existsSync(filePathImage)){
+        if(fse.existsSync(filePathImage)){
             fse.unlinkSync(filePathImage);
         }
 
