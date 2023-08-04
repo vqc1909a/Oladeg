@@ -24,7 +24,7 @@ export const USERS_ADMIN = "/admin/users";
 export const ANUNCIOS_ADMIN = "/admin/anuncios";
 export const PROGRAMAS_ADMIN = "/admin/programas";
 export const LIBROS_ADMIN = "/admin/libros";
-
+export const BOLETINES_ADMIN = "/admin/boletines";
 
 
 //ANUNCIO ROUTES
@@ -60,6 +60,12 @@ export const EDITAR_LIBRO = "/admin/libro/:id/edit";
 export const EDITAR_IMAGEN_LIBRO = "/admin/libro/:id/edit-image";
 export const ELIMINAR_LIBRO = "/admin/libro/:id/delete";
 
+export const MOSTRAR_BOLETINES = "/boletines";
+export const MOSTRAR_BOLETIN = "/boletines/:slug";
+export const AGREGAR_BOLETIN = "/admin/boletin";
+export const EDITAR_BOLETIN = "/admin/boletin/:id/edit";
+export const EDITAR_IMAGEN_BOLETIN = "/admin/boletin/:id/edit-image";
+export const ELIMINAR_BOLETIN = "/admin/boletin/:id/delete";
 
 
 

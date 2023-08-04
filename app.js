@@ -19,6 +19,8 @@ import dipĺomadoRoute from "./routes/diplomadoRoute.js";
 import especializacionRoute from "./routes/especializacionRoute.js" 
 import publicidadRoute from "./routes/publicidadRoute.js" 
 import libroRoute from "./routes/libroRoute.js" 
+import boletinRoute from "./routes/boletinRoute.js" 
+
 
 
 
@@ -31,6 +33,8 @@ import User from "./models/UserModel.js";
 import Anuncio from "./models/AnuncioModel.js";
 import ProgramaAcademico from "./models/ProgramaAcademicoModel.js";
 import Libro from "./models/LibroModel.js";
+import Boletin from "./models/BoletinModel.js";
+
 
 
 
@@ -84,6 +88,7 @@ connectDB().then(async () => {
   app.use('/', especializacionRoute);
   app.use('/', publicidadRoute);
   app.use('/', libroRoute);
+  app.use('/', boletinRoute);
   // app.use('/', require("./routes/libroRoute"));
   // app.use('/', require("./routes/boletinRoute"));
 

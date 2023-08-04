@@ -281,7 +281,7 @@ export const mostrarPaginaEditarImagenLibro = async (req, res) => {
             return res.redirect(ROUTES.LIBROS_ADMIN);
         }
         return res.render('libro/editar-imagen-libro', {
-            nombrePagina: `Editar Imagen Libro: ${libro.titulo}`,
+            nombrePagina: `Editar Imagen-Archivo del Libro: ${libro.titulo}`,
             libro,
             user,
             req
@@ -337,7 +337,7 @@ export const editarImagenLibro = async (req, res) => {
          if(fse.existsSync(filePathPreviousArchivo) && body.archivo){
             fse.unlinkSync(filePathPreviousArchivo);
         }
-        req.flash('success', 'Imagen/Archivo cambiadas correctamente');
+        req.flash('success', 'Imagen/Archivo cambiado correctamente');
         return res.redirect(ROUTES.LIBROS_ADMIN);
     }catch(err){
         
