@@ -1,19 +1,25 @@
-import {
-    $fileInputPrograma1,
-    $imagePreviewPrograma1,
-    $fileInputPrograma2,
-    $imagePreviewPrograma2,
-    $fileInputPrograma3,
-    $imagePreviewPrograma3,
-    $inputInscripcionQuill,
-    $inputTemarioQuill,
-    $inputMaterialesQuill,
-    $inputPromocionQuill,
-    $inputMetodologiaQuill,
-} from "../dom.js";
-
 import Quill from 'quill';
 let Delta = Quill.import('delta');
+import Swal from "sweetalert2";
+import axios from "axios";
+
+import {
+  $fileInputPrograma1,
+  $imagePreviewPrograma1,
+  $fileInputPrograma2,
+  $imagePreviewPrograma2,
+  $fileInputPrograma3,
+  $imagePreviewPrograma3,
+  $inputInscripcionQuill,
+  $inputTemarioQuill,
+  $inputMaterialesQuill,
+  $inputPromocionQuill,
+  $inputMetodologiaQuill,
+  $buttonsDeletePrograma,
+} from "../dom.js";
+
+import * as ROUTES from "../../../../config/routes.js";
+
 
 //Programa Academico
 const editores = ["editorInscripcion", "editorTemario", "editorMateriales", "editorPromocion", "editorMetodologia"];
@@ -134,4 +140,55 @@ if($fileInputPrograma3){
       reader.readAsDataURL(file);
     }
   });  
+}
+
+let arrayButtonsDeletePrograma = Array.from($buttonsDeletePrograma);
+if(arrayButtonsDeletePrograma.length){
+  arrayButtonsDeletePrograma.forEach(function(button){
+    button.addEventListener('click', function(e){
+      const id = e.currentTarget.dataset.id;
+
+      Swal.fire({
+        title: 'Estás seguro de eliminar el programa académico?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, bórralo!',
+        cancelButtonText: 'Cancelar'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try{
+            const {data} = await axios.delete(`${ROUTES.ELIMINAR_PROGRAMA.replace(':id', id)}`, {
+              headers: {
+                'x-csrf-token': csrfToken
+              }
+            });
+            Swal.fire({
+                title: '¡Eliminado!',
+                text: "El programa académico fue eliminado correctamente",
+                icon: 'success',
+                allowOutsideClick: false
+            }).then(async (result) => {
+                // {
+                //   "isConfirmed": true,
+                //   "isDenied": false,
+                //   "isDismissed": false,
+                //   "value": true
+                // }
+                window.location.reload();
+            })
+          }catch(err){
+            const message = err.response ? err.response.data.message : err.message;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: message,
+            })
+          }
+        }
+      })
+    })
+  })
 }

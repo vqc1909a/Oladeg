@@ -337,7 +337,7 @@ export const editarImagenLibro = async (req, res) => {
          if(fse.existsSync(filePathPreviousArchivo) && body.archivo){
             fse.unlinkSync(filePathPreviousArchivo);
         }
-        req.flash('success', 'Imagenes cambiadas correctamente');
+        req.flash('success', 'Imagen/Archivo cambiadas correctamente');
         return res.redirect(ROUTES.LIBROS_ADMIN);
     }catch(err){
         
@@ -377,16 +377,21 @@ export const eliminarLibro = async(req, res) => {
         if(!libro){
             return res.status(401).json({message: "Acceso denegado"});
         }
-        const filePathImage = path.join(__dirname, `../public/${libro.portada}`);
-        if(fse.existsSync(filePathImage)){
-            fse.unlinkSync(filePathImage);
-        }
+        const filePathPortada = path.join(__dirname, `../public/${libro.portada}`);
+        const filePathArchivo = path.join(__dirname, `../public/${libro.archivo}`);
 
+        if(fse.existsSync(filePathPortada)){
+            fse.unlinkSync(filePathPortada);
+        }
+        if(fse.existsSync(filePathArchivo)){
+            fse.unlinkSync(filePathArchivo);
+        }
         await Libro.destroy({where: {id: req.params.id}});
         return res.status(200).json({message: "El libro ha sido eliminado."});
     }catch(err){
+        const status = err.status ? err.status : res.statusCode === 200 ? 500 : res.statusCode;
         const message = err.message;
-        return res.status(400).json({message});
+        return res.status(status).json({message});
     }
 }
 

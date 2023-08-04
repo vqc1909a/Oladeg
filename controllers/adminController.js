@@ -262,7 +262,7 @@ export const mostrarPanelLibros = async (req, res) => {
             urlConditions+=`&userId=${userId}`
         }
         if(autor){
-            conditions.autor = autor
+            conditions.autor = {[Op.like]: `%${autor}%`} 
             urlConditions+=`&autor=${autor}`
         }
         if(fechaPublicacion){

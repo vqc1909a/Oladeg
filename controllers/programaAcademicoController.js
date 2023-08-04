@@ -346,7 +346,9 @@ export const eliminarPrograma = async(req, res) => {
         if(!programaAcademico){
             return res.status(401).json({message: "Acceso denegado"});
         }
-
+        console.log({
+            programaAcademico
+        })
         const filePathPreviousPortada = path.join(__dirname, `../public/${programaAcademico.portada}`);
         const filePathPreviousExpositorImagen = path.join(__dirname, `../public/${programaAcademico.expositorImagen}`);
         const filePathPreviousCertificado = path.join(__dirname, `../public/${programaAcademico.certificado}`);
@@ -364,8 +366,9 @@ export const eliminarPrograma = async(req, res) => {
         await ProgramaAcademico.destroy({where: {id: req.params.id}});
         return res.status(200).json({message: "El programa académico ha sido eliminado."});
     }catch(err){
+        const status = err.status ? err.status : res.statusCode === 200 ? 500 : res.statusCode;
         const message = err.message;
-        return res.status(400).json({message});
+        return res.status(status).json({message});
     }
 }
 

@@ -18,7 +18,6 @@ if(arrayButtonsDeleteLibro.length){
   arrayButtonsDeleteLibro.forEach(function(button){
     button.addEventListener('click', function(e){
       const id = e.currentTarget.dataset.id;
-      console.log(id);
 
       Swal.fire({
         title: 'Estás seguro de eliminar el libro?',

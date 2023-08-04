@@ -25,6 +25,8 @@ export const $fileInputPrograma2 = document.querySelector('#fileInputPrograma2')
 export const $imagePreviewPrograma2 = document.querySelector('#imagePreviewPrograma2');
 export const $fileInputPrograma3 = document.querySelector('#fileInputPrograma3');
 export const $imagePreviewPrograma3 = document.querySelector('#imagePreviewPrograma3');
+export const $buttonsDeletePrograma = document.querySelectorAll(".button-delete-programa");
+
 
 //Hero
 export const $nosotros = document.querySelector(".nosotros");
@@ -43,7 +45,7 @@ export const $whatsapp__close = document.querySelector('.whatsapp__close');
 //Consultorias
 export const $banner = document.querySelector('.banner');
 
-//Depostios
+//Depositos
 export const $deposito_buttons = document.querySelectorAll('.formas-de-pago__button');
 export const $formas_de_pago = document.querySelector('.formas-de-pago');
 
