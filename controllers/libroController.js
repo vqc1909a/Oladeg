@@ -63,30 +63,52 @@ export const subirImagen = (req, res, next) => {
 
 
 export const mostrarLibros = async (req, res) => {
-  let libros = await obtenerLibros();
-  let pagina_actual = req.query.page ? parseInt(req.query.page) : 1;
-  let total_elementos = libros.length;
-  let elementos_por_pagina = 4;
-  let elementos_hasta_ahora = elementos_por_pagina;
-  let total_paginas = Math.ceil(total_elementos / elementos_por_pagina)
-  if(!isNaN(pagina_actual) & pagina_actual >= 1 & pagina_actual <= total_paginas){
-    elementos_hasta_ahora = pagina_actual * elementos_por_pagina;
-  }else{
-    pagina_actual = 1;
-  }
-  libros = libros.slice(elementos_hasta_ahora - elementos_por_pagina, elementos_hasta_ahora);
-  return res.render("pages/librosView", {
-    title: "Biblioteca Digital &#8211; OLADEG",
-    description: "Ofrecemos documentos, libros y artículos digitales relacionados a temas de Gestión Pública y Empresarial, Planificación, Monitoreo y Evaluación de Proyectos de Desarrollo Económico Rural.",
-    protocol: req.protocol,
-    host: req.headers.host,
-    libros,
-    pagina_actual,
-    total_elementos,
-    elementos_por_pagina,
-    total_paginas,
-    publicidad: ''
-  });
+    try{
+        const libros = await Libro.findAll({order: [["updatedAt", "DESC"]]});
+        const cantidadLibrosPagina = 4;
+        const totalLibros = libros.length;
+        const cantidadPaginas = Math.ceil(totalLibros / cantidadLibrosPagina)
+        const paginaActual = Number(req.query.page ? (req.query.page >= 1 && req.query.page <= cantidadPaginas) ? req.query.page : 1 : 1)
+    
+        const isPaginacionesNormal = (cantidadPaginas <= 5) && (paginaActual <= 5) // 5 paginaciones del 1 al 5 o menos según la cantidad de paginas
+        const isPaginacionesIzquierda = (cantidadPaginas > 5) && (paginaActual <= 3); // 5 paginaciones del 1 2 3 ... final
+        const isPaginacionesMedia = (cantidadPaginas > 5) && (paginaActual > 3) && (paginaActual < cantidadPaginas - 2) // 5 paginaciones del 1 ... 4 ... final
+        const isPaginacionesDerecha = (cantidadPaginas > 5) && (paginaActual >= cantidadPaginas - 2)
+    
+        const isPaginacionAnterior = paginaActual > 1;
+        const isPaginacionSiguiente = paginaActual < cantidadPaginas;
+        const arrayPaginas = [];
+        for (var i = 1; i <= cantidadPaginas; i++) {
+          arrayPaginas.push(i); // Agrega cada número al array
+        }
+    
+        const librosFiltrados = libros.slice(cantidadLibrosPagina * (paginaActual - 1), cantidadLibrosPagina * paginaActual);
+    
+        
+        return res.render("libro/mostrar-libros", {
+          title: "Biblioteca Digital &#8211; OLADEG",
+          description: "Ofrecemos documentos, libros y artículos digitales relacionados a temas de Gestión Pública y Empresarial, Planificación, Monitoreo y Evaluación de Proyectos de Desarrollo Económico Rural.",
+          publicidad: '',
+          libros: librosFiltrados,
+          req,
+          DateTime,
+          convertirPrimeraLetraMayuscula,
+          paginaActual,
+          cantidadLibrosPagina,
+          cantidadPaginas,
+          totalLibros,
+          arrayPaginas,
+          isPaginacionesNormal,
+          isPaginacionesIzquierda,
+          isPaginacionesMedia,
+          isPaginacionesDerecha,
+          isPaginacionAnterior,
+          isPaginacionSiguiente,
+        });
+    }catch(err){
+        req.flash("error", err.message);
+        return res.redirect(ROUTES.MOSTRAR_LIBROS);
+    }
 }
 
 export const mostrarLibro = async (req, res) => {

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+	<%- include ('../partials/head.ejs') %>
+	<body>
+		<%- include ('../layouts/header.ejs') %>
+		<main>
+			<%- include('../layouts/banner2.ejs', {variant: 'Biblioteca Digital'}); %>
+			<div class="main__content container">
+				<section class="boletines">
+					<h1 class="boletines__intro">Biblioteca Digital</h1>
+					<% if(libros.length !== 0) { %>
+						<div class="boletines__grid">
+							<% libros.forEach(function(libro) { %>
+								<div class="boletines__item appear-content">
+									<h2 class="boletines__title">
+										<a
+											href="<%= `/libros/${libro.slug}` %>"
+											title="<%= `${libro.titulo}` %>"
+											role="link"
+											><%= libro.titulo %></a
+										>
+									</h2>
+									<p class="boletines__time flex flex-ai-c">
+										<img
+											loading="lazy"
+											src="/dist/icons/Clock.svg"
+											alt="Datetime Libro"
+										/>
+										<% let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone %> 
+										<% let datetime = libro.fechaPublicacion.toLocaleString('es', {timeZone: timeZone }) %> 
+										<% const fechaPublicacion = DateTime.fromISO(libro.fechaPublicacion, { locale: 'es' }) %> 
+										<% const fechaFormateada = fechaPublicacion.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
+										<time
+											datetime="<%= datetime %>"
+											class="flex flex-ai-c"
+											><%= convertirPrimeraLetraMayuscula(fechaFormateada) %></time>
+									</p>
+									<div class="boletines__image">
+										<a
+											href="<%= `/libros/${libro.slug}` %>"
+											title="<%= `${libro.titulo}` %>"
+											role="link"
+										>
+											<img
+												loading="lazy"
+												src="<%= libro.portada %>"
+												alt="<%= `Libro ${libro.titulo}` %>"
+											/>
+										</a>
+									</div>
+									<div class="boletines__button">
+										<a
+											href="<%= `/libros/${libro.slug}` %>"
+											title="<%= `${libro.titulo}` %>"
+											role="link"
+											type="button"
+											class="button"
+											>Más Información</a
+										>
+									</div>
+								</div>
+							<% }) %>
+						</div>
+					<% }else{ %>
+						<h3 class="boletines__title">Sin Libros</h3>
+					<% } %>
+					<%- include('../partials/buttons.ejs') %>
+				</section>
+				<%- include('../layouts/sidebar.ejs') %>
+			</div>
+
+			<%- include('../layouts/whatsapp.ejs') %>
+		</main>
+		<%- include('../layouts/footer.ejs') %> 
+		<%- include('../layouts/script.ejs') %>
+	</body>
+</html>
