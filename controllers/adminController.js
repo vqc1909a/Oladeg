@@ -2,6 +2,7 @@ import Sequelize from "sequelize";
 import Anuncio from "../models/AnuncioModel.js";
 import ProgramaAcademico from "../models/ProgramaAcademicoModel.js";
 import Libro from "../models/LibroModel.js";
+import Boletin from "../models/BoletinModel.js";
 import User from "../models/UserModel.js";
 
 import {DateTime} from "luxon";
@@ -76,14 +77,14 @@ export const mostrarPanelAnuncios = async (req, res) => {
             anuncios = await Anuncio.findAll({
                 where: conditions,
                 include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
-                order: [["fechaYHora", "ASC"]]
+                order: [["fechaYHora", "DESC"]]
             });
         }else{
             conditions.userId = user.id;
             anuncios = await Anuncio.findAll({
                 where: conditions,
                 include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
-                order: [["fechaYHora", "ASC"]]
+                order: [["fechaYHora", "DESC"]]
             });
         }
             
@@ -178,14 +179,14 @@ export const mostrarPanelProgramas = async (req, res) => {
             programas = await ProgramaAcademico.findAll({
                 where: conditions,
                 include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
-                order: [["fechaYHora", "ASC"]]
+                order: [["fechaYHora", "DESC"]]
             });
         }else{
             conditions.userId = user.id;
             programas = await ProgramaAcademico.findAll({
                 where: conditions,
                 include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
-                order: [["fechaYHora", "ASC"]]
+                order: [["fechaYHora", "DESC"]]
             });
         }
        
@@ -273,14 +274,14 @@ export const mostrarPanelLibros = async (req, res) => {
             libros = await Libro.findAll({
                 where: conditions,
                 include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
-                order: [["fechaPublicacion", "ASC"]]
+                order: [["updatedAt", "DESC"]]
             });
         }else{
             conditions.userId = user.id;
             libros = await Libro.findAll({
                 where: conditions,
                 include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
-                order: [["fechaPublicacion", "ASC"]]
+                order: [["updatedAt", "DESC"]]
             });
         }
             
@@ -334,4 +335,97 @@ export const mostrarPanelLibros = async (req, res) => {
         return res.redirect(ROUTES.ADMIN);
     }
 }
+
+export const mostrarPanelBoletines = async (req, res) => {
+    try{
+        const {titulo, userId, autor, fechaPublicacion} = req.query;
+        
+        const user = req.user;
+        const users = await User.findAll({});
+        let boletines;
+
+        let conditions = {};
+        let urlConditions = ''
+        if(titulo){
+            conditions.titulo = {[Op.like]: `%${titulo}%`}
+            urlConditions+=`&titulo=${titulo}`
+        }
+        if(userId){
+            conditions.userId = userId
+            urlConditions+=`&userId=${userId}`
+        }
+        if(autor){
+            conditions.autor = {[Op.like]: `%${autor}%`} 
+            urlConditions+=`&autor=${autor}`
+        }
+        if(fechaPublicacion){
+            conditions.fechaPublicacion = fechaPublicacion
+            urlConditions+=`&fechaPublicacion=${fechaPublicacion}`
+        }
+        if(user.isAdmin){
+            boletines = await Boletin.findAll({
+                where: conditions,
+                include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
+                order: [["updatedAt", "DESC"]]
+            });
+        }else{
+            conditions.userId = user.id;
+            boletines = await Boletin.findAll({
+                where: conditions,
+                include: [{model: User, attributes: ['id', 'nombre', 'apellido']}],
+                order: [["updatedAt", "DESC"]]
+            });
+        }
+            
+        //PAGINACION
+        // const anuncios = await Anuncio.findAll({limit: cantidadAnunciosPagina, offset: cantidadAnunciosPagina * (paginaActual - 1), order: [["fechaYHora", "ASC"]]});
+
+        const cantidadBoletinesPagina = 4;
+        const totalBoletines = boletines.length;
+        const cantidadPaginas = Math.ceil(totalBoletines / cantidadBoletinesPagina)
+        const paginaActual = Number(req.query.page ? (req.query.page >= 1 && req.query.page <= cantidadPaginas) ? req.query.page : 1 : 1) ;
+
+        const isPaginacionesNormal = (cantidadPaginas <= 5) && (paginaActual <= 5) // 5 paginaciones del 1 al 5 o menos según la cantidad de paginas
+        const isPaginacionesIzquierda = (cantidadPaginas > 5) && (paginaActual <= 3); // 5 paginaciones del 1 2 3 ... final
+        const isPaginacionesMedia = (cantidadPaginas > 5) && (paginaActual > 3) && (paginaActual < cantidadPaginas - 2) // 5 paginaciones del 1 ... 4 ... final
+        const isPaginacionesDerecha = (cantidadPaginas > 5) && (paginaActual >= cantidadPaginas - 2)
+
+        const isPaginacionAnterior = paginaActual > 1;
+        const isPaginacionSiguiente = paginaActual < cantidadPaginas;
+
+        const arrayPaginas = [];
+        for (var i = 1; i <= cantidadPaginas; i++) {
+            arrayPaginas.push(i); // Agrega cada número al array
+        }
+
+        //ANUNCIOS
+        const boletinesFiltrados = boletines.slice(cantidadBoletinesPagina * (paginaActual - 1), cantidadBoletinesPagina * paginaActual);
+
+        return res.render("admin/boletines-panel", {
+            nombrePagina: "Panel de boletines",
+            user,
+            users,
+            boletines: boletinesFiltrados,
+            req,
+            DateTime,
+            convertirPrimeraLetraMayuscula,
+            paginaActual,
+            cantidadBoletinesPagina,
+            cantidadPaginas,
+            totalBoletines,
+            arrayPaginas,
+            isPaginacionesNormal,
+            isPaginacionesIzquierda,
+            isPaginacionesMedia,
+            isPaginacionesDerecha,
+            isPaginacionAnterior,
+            isPaginacionSiguiente,
+            urlConditions
+        })
+    }catch(err){
+        req.flash("error", err.message);
+        return res.redirect(ROUTES.ADMIN);
+    }
+}
+
 

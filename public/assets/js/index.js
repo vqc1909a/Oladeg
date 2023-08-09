@@ -7,6 +7,8 @@ import './modules/cursoModule.js';
 import './modules/depositosModule.js';
 import './modules/contactModule.js';
 import './modules/libroModule.js';
+import './modules/boletinModule.js';
+
 
 // import './modules/modalModule.js';
 // import './modules/pdfModule.js';

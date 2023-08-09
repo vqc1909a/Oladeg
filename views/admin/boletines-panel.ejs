@@ -23,7 +23,7 @@
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h1>Listado de Libros</h1>
+								<h1>Listado de Boletines</h1>
 							</div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-right">
@@ -31,7 +31,7 @@
 										<a href="<%= ROUTES.ADMIN %>">Home</a>
 									</li>
 									<li class="breadcrumb-item active">
-										Libros
+										Boletines
 									</li>
 								</ol>
 							</div>
@@ -57,7 +57,7 @@
 										</div>
 										<div class="row align-items-center">
 											<div class="col-12 col-md-10 mb-2">
-												<form action="<%= ROUTES.LIBROS_ADMIN %>">
+												<form action="<%= ROUTES.BOLETINES_ADMIN %>">
 													<div class="input-group input-group-sm">
 														<input
 															type="text"
@@ -77,13 +77,13 @@
 															type="text"
 															class="form-control"
 															name="autor"
-															placeholder="Autor del Libro"
+															placeholder="Autor del Boletin"
 														/>
 														<input
 															type="date"
 															class="form-control"
 															name="fechaPublicacion"
-															placeholder="Fecha de Publicación del Libro"
+															placeholder="Fecha de Publicación del Boletin"
 														/>
 														
 														<button
@@ -99,7 +99,7 @@
 											<div class="col-12 col-md-2 mb-2">
 												<div class="row justify-content-end">
 													<a
-														href="<%= ROUTES.AGREGAR_LIBRO %>"
+														href="<%= ROUTES.AGREGAR_BOLETIN %>"
 														type="button"
 														class="btn btn-sm bg-primary ml-2"
 													>
@@ -145,7 +145,7 @@
 													<th>ID</th>
 													<th>Titulo</th>
 													<th>Portada</th>
-													<th>Autor del Libro</th>
+													<th>Autor del Boletin</th>
 													<th>Fecha de Publicación</th>
 													<% if(user.isAdmin){ %>
 														<th>Creado por</th>
@@ -154,18 +154,18 @@
 												</tr>
 											</thead>
 											<tbody>
-												<% if(libros.length){ %>
-													<% libros.forEach((libro, i) => { %>
-														<% const fecha = DateTime.fromISO(libro.fechaPublicacion, { locale: 'es' }) %>
+												<% if(boletines.length){ %>
+													<% boletines.forEach((boletin, i) => { %>
+														<% const fecha = DateTime.fromISO(boletin.fechaPublicacion, { locale: 'es' }) %>
 														<% const fechaFormateada = fecha.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
 														<tr>
 															<td><%= i+1 %></td>
 															<td>
-																<%= libro.titulo %>
+																<%= boletin.titulo %>
 															</td>
 															<td>
 																<img
-																	src="<%= libro.portada %>"
+																	src="<%= boletin.portada %>"
 																	alt=""
 																	class="img-fluid"
 																	style="
@@ -173,12 +173,12 @@
 																	"
 																/>
 															</td>
-															<td><%= libro.autor %></td>
+															<td><%= boletin.autor %></td>
 															<td>
 																<%= convertirPrimeraLetraMayuscula(fechaFormateada) %>
 															</td>
 															<% if(user.isAdmin){ %>
-																<td><%= libro.User.nombre + ' ' + libro.User.apellido %></td>
+																<td><%= boletin.User.nombre + ' ' + boletin.User.apellido %></td>
 															<% } %>
 
 															<td>
@@ -187,15 +187,15 @@
 																	<div class="col-12 mb-1">
 																		<button
 																			type="button"
-																			data-id="<%= libro.id %>"
-																			class="btn btn-sm bg-danger button-delete-libro"
+																			data-id="<%= boletin.id %>"
+																			class="btn btn-sm bg-danger button-delete-boletin"
 																		>
 																			<i
 																				class="fas fa-trash"
 																			></i>
 																		</button>
 																		<a
-																			href="<%= ROUTES.EDITAR_LIBRO.replace(':id', libro.id) %>"
+																			href="<%= ROUTES.EDITAR_BOLETIN.replace(':id', boletin.id) %>"
 																			type="button"
 																			class="btn btn-sm bg-primary"
 																		>
@@ -206,7 +206,7 @@
 																	</div>
 																	<div class="col-12">
 																		<a
-																			href="<%= ROUTES.EDITAR_IMAGEN_LIBRO.replace(':id', libro.id) %>"
+																			href="<%= ROUTES.EDITAR_IMAGEN_BOLETIN.replace(':id', boletin.id) %>"
 																			type="button"
 																			class="btn btn-sm bg-success"
 																		>
@@ -215,7 +215,7 @@
 																			></i>
 																		</a>
 																		<a
-																			href="<%= ROUTES.MOSTRAR_LIBRO.replace(':slug', libro.slug) %>"
+																			href="<%= ROUTES.MOSTRAR_BOLETIN.replace(':slug', boletin.slug) %>"
 																			type="button"
 																			class="btn btn-sm bg-warning"
 																			target="_blank"
@@ -232,13 +232,13 @@
 												<% }else{ %>
 													<tr>
 														<td>
-															Sin libros
+															Sin boletines
 														</td>
 													</tr>
 												<% } %>
 											</tbody>
 										</table>
-										<% if(libros.length){ %>
+										<% if(boletines.length){ %>
 											<div class="row">
 												<div class="col-sm-12 col-md-5 text-left pl-4 mb-2">
 													<div
@@ -247,7 +247,7 @@
 													role="status"
 													aria-live="polite"
 													>
-													Mostrando <%= (cantidadLibrosPagina * (paginaActual - 1)) + 1 %> - <%=  paginaActual === cantidadPaginas ? totalLibros : cantidadLibrosPagina * paginaActual %> de <%= totalLibros %> libros
+													Mostrando <%= (cantidadBoletinesPagina * (paginaActual - 1)) + 1 %> - <%=  paginaActual === cantidadPaginas ? totalBoletines : cantidadBoletinesPagina * paginaActual %> de <%= totalBoletines %> boletines
 													</div>
 												</div>
 												<div class="col-sm-12 col-md-7 d-flex justify-content-end pr-4">

@@ -61,8 +61,8 @@ export const mostrarAnuncio = async (req, res) => {
   try{
     const slug = req.params.slug
     const [anuncios, anuncio] = await Promise.all([Anuncio.findAll({
-        order: [["fechaYHora", "ASC"]]
-    }), Anuncio.findOne({where: {slug}, order: [["fechaYHora", "ASC"]]})])
+        order: [["fechaYHora", "DESC"]]
+    }), Anuncio.findOne({where: {slug}, order: [["fechaYHora", "DESC"]]})])
     if(!anuncio){
         req.flash("error", "El anuncio no existe");
         return res.redirect(ROUTES.HOME)

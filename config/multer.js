@@ -124,7 +124,7 @@ export const storageLibros = multer.diskStorage({
         const fullName = fileName + '-' + shortid.generate() + '.' + fileExtension;
         cb(null, fullName)
       }else{
-          cb(new Error('El archivo no es un tipo de imagen válido'))
+          cb(new Error('La portada no es un tipo de imagen válido'))
       }
     }else if(file.fieldname === 'archivo'){
         const fileArray = file.originalname.split('.');
@@ -165,7 +165,7 @@ export const storageBoletines = multer.diskStorage({
         const fullName = fileName + '-' + shortid.generate() + '.' + fileExtension;
         cb(null, fullName)
       }else{
-          cb(new Error('El archivo no es un tipo de imagen válido'))
+          cb(new Error('La portada no es un tipo de imagen válido'))
       }
     }else if(file.fieldname === 'archivo'){
         const fileArray = file.originalname.split('.');

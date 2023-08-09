@@ -5,7 +5,7 @@ import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 
 export const mostrarEspecializaciones = async (req, res) => {
   try{
-    const especializaciones = await ProgramaAcademico.findAll({where: {tipo: 'especializacion'}, order: [["fechaYHora", "ASC"]]});
+    const especializaciones = await ProgramaAcademico.findAll({where: {tipo: 'especializacion'}, order: [["fechaYHora", "DESC"]]});
     const cantidadEspecializacionesPagina = 4;
     const totalEspecializaciones = especializaciones.length;
     const cantidadPaginas = Math.ceil(totalEspecializaciones / cantidadEspecializacionesPagina)
@@ -57,11 +57,11 @@ export const mostrarEspecializacion = async (req, res) => {
     const [especializaciones, especializacion] = await Promise.all([
       ProgramaAcademico.findAll({
         where: {tipo: "especializacion"},
-        order: [["fechaYHora", "ASC"]]
+        order: [["fechaYHora", "DESC"]]
       }), 
       ProgramaAcademico.findOne({
         where: {slug, tipo: 'especializacion'}, 
-        order: [["fechaYHora", "ASC"]]
+        order: [["fechaYHora", "DESC"]]
       })
     ])
     if(!especializacion){

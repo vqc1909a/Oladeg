@@ -64,12 +64,22 @@ export const $fileInputAnuncio = document.querySelector('#fileInputAnuncio');
 export const $imagePreviewAnuncio = document.querySelector('#imagePreviewAnuncio');
 export const $buttonsDeleteAnuncio = document.querySelectorAll(".button-delete-anuncio");
 
+//Boletines y Libros
+export const $boletines = document.querySelectorAll(".boletines");
+
 //Libro
 export const $fileInputLibro = document.querySelector('#fileInputLibro');
 export const $fileInputArchivoLibro = document.querySelector('#fileInputArchivoLibro');
 export const $imagePreviewLibro = document.querySelector('#imagePreviewLibro');
 export const $imagePreviewArchivoLibro = document.querySelector("#imagePreviewArchivoLibro");
 export const $buttonsDeleteLibro = document.querySelectorAll(".button-delete-libro");
+
+//Boletines
+export const $fileInputBoletin = document.querySelector('#fileInputBoletin');
+export const $fileInputArchivoBoletin = document.querySelector('#fileInputArchivoBoletin');
+export const $imagePreviewBoletin = document.querySelector('#imagePreviewBoletin');
+export const $imagePreviewArchivoBoletin = document.querySelector("#imagePreviewArchivoBoletin");
+export const $buttonsDeleteBoletin = document.querySelectorAll(".button-delete-boletin");
 
 //Modal
 export const modal_buttons = document.querySelectorAll('.modal-button');
@@ -86,9 +96,6 @@ export const $appear_contents = document.querySelectorAll(".appear-content");
 //Contacto;
 export const $contact = document.querySelector(".contact");
 export const $contact_button = document.querySelector("#contact_button");
-
-//Boletines
-export const $boletines = document.querySelectorAll(".boletines");
 
 //Quienes Somos
 export const $quienes_somos = document.querySelector(".quienes-somos");

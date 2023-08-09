@@ -15,21 +15,21 @@
 				<section class="content-header">
 					<div class="container-fluid">
 						<div class="row mb-2">
-							<div class="col-sm-6">
-								<h1>Agregar Libro</h1>
+							<div class="col-sm-8">
+								<h1>Editar Boletin: <%= boletin.titulo %></h1>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<ol class="breadcrumb float-sm-right">
 									<li class="breadcrumb-item">
 										<a href="<%= ROUTES.ADMIN %>">Home</a>
 									</li>
 									<li class="breadcrumb-item">
-										<a href="<%= ROUTES.LIBROS_ADMIN %>"
-											>Libros</a
+										<a href="<%= ROUTES.BOLETINES_ADMIN %>"
+											>Boletines</a
 										>
 									</li>
 									<li class="breadcrumb-item active">
-										Agregar Libro
+										Editar Boletin
 									</li>
 								</ol>
 							</div>
@@ -52,9 +52,8 @@
 									<!-- form start -->
 									<form
 										method="POST"
-										action="<%= ROUTES.AGREGAR_LIBRO + '?_csrf=' + csrfToken %>"
-										enctype="multipart/form-data"
 									>
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 										<div class="card-body">
 											<div class="form-group">
 												<label for="titulo"
@@ -64,48 +63,14 @@
 													type="text"
 													class="form-control"
 													id="titulo"
-													placeholder="Ej. Guía metodológica para la formulación de políticas públicas estrategicas"
+													placeholder="Ej. Gestion Estratégica para el Desarrollo Regional"
 													name="titulo"
-													value="<%= fields ? fields.titulo : '' %>"
+													value="<%= fields ? fields.titulo : boletin ? boletin.titulo : '' %>"
 												/>
 											</div>
 											<div class="form-group">
-												<label for="portada"
-													>Portada *</label
-												>
-												<div class="input-group">
-													<div class="custom-file">
-														<input
-															type="file"
-															class="custom-file-input"
-															id="fileInputLibro"
-															name="portada"
-															accept="image/*"
-														/>
-														<label
-															class="custom-file-label"
-															for="portada"
-															>Elige una
-															imagen</label
-														>
-													</div>
-													<div
-														class="input-group-append"
-													>
-														<span
-															class="input-group-text"
-															>Subir</span
-														>
-													</div>
-												</div>
-												<div
-													id="imagePreviewLibro"
-													class="col-12 col-md-6 col-xl-4 mt-2 p-0"
-												></div>
-											</div>
-											<div class="form-group">
 												<label for="autor"
-													>Autor del Libro *</label
+													>Autor del Boletin *</label
 												>
 												<input
 													type="text"
@@ -113,10 +78,10 @@
 													id="autor"
 													placeholder="Ej. Ing. Pedro Argumedo"
 													name="autor"
-													value="<%= fields ? fields.autor : '' %>"
+													value="<%= fields ? fields.autor : boletin ? boletin.autor : '' %>"
 												/>
 											</div>
-
+											
 											<div class="form-group ">
 												<div class="form-group">
 													<label for="fechaPublicacion"
@@ -127,11 +92,30 @@
 														type="date"
 														name="fechaPublicacion"
 														id="fechaPublicacion"
-														placeholder="Fecha del Libro"
-														value="<%= fields ? fields.fechaPublicacion : '' %>"
+														placeholder="Fecha del Boletin"
+														value="<%= fields ? fields.fechaPublicacion : boletin ? boletin.fechaPublicacion : '' %>"
 													/>
 												</div>
 											</div>
+											<%if(user.isAdmin){ %>
+												<div class="form-group">
+													<label for="userId"
+														>Usuario *</label
+													>
+													<select class="form-control" name="userId" >
+														<option value="" selected disabled>-- Elige un Usuario --</option>
+														<% users.forEach((user) => { %>
+															<% if(fields){ %>
+																<option value="<%= user.id %>" <%= String(fields.userId) === String(user.id) ? 'selected' : '' %>><%= user.nombre + ' ' + user.apellido %></option>
+															<% }else if(boletin){ %>
+																<option value="<%= user.id %>" <%= String(boletin.userId) === String(user.id) ? 'selected' : '' %>><%= user.nombre + ' ' + user.apellido %></option>                        
+															<% } else { %>
+																<option value="<%= user.id %>"><%= user.nombre + ' ' + user.apellido %></option>	
+															<% } %>
+														<% }) %>
+													</select>
+												</div>
+											<% } %>
 
 											<div class="form-group">
 												<label for="contenido"
@@ -142,46 +126,12 @@
 														type="hidden"
 														name="contenido"
 														id="inputDescriptionQuill"
-														value="<%= fields ? fields.contenido : '' %>"
+														value="<%= fields ? fields.contenido : boletin ? boletin.contenido : '' %>"
 													/>
-													<div id="editorLibro">
-														<%- fields ?
-														fields.contenido : '' %>
+													<div id="editorBoletin">
+														<%- fields ? fields.contenido : boletin ? boletin.contenido : '' %>
 													</div>
 												</div>
-											</div>
-											<div class="form-group">
-												<label for="archivo"
-													>Archivo (PDF Recomendado)</label
-												>
-												<div class="input-group">
-													<div class="custom-file">
-														<input
-															type="file"
-															class="custom-file-input"
-															id="fileInputArchivoLibro"
-															name="archivo"
-															accept=".pdf,.doc,.docx,.xls,.xlsx"
-														/>
-														<label
-															class="custom-file-label"
-															for="archivo"
-															>Elige un archivo</label
-														>
-													</div>
-													<div
-														class="input-group-append"
-													>
-														<span
-															class="input-group-text"
-															>Subir</span
-														>
-													</div>
-												</div>
-												<div
-													id="imagePreviewArchivoLibro"
-													class="mt-2 p-0"
-												></div>
 											</div>
 										</div>
 										<!-- /.card-body -->
@@ -191,7 +141,7 @@
 												type="submit"
 												class="btn btn-primary"
 											>
-												Agregar Libro
+												Editar Boletin
 											</button>
 										</div>
 									</form>

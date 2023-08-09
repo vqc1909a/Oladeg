@@ -3,7 +3,7 @@ import {DateTime} from "luxon";
 import { convertirPrimeraLetraMayuscula } from "../helpers/date.js";
 
 export const mostrarPaginaPrincipal = async (req, res) => {
-  const anuncios = await Anuncio.findAll({order: [["fechaYHora", "ASC"]]});
+  const anuncios = await Anuncio.findAll({order: [["fechaYHora", "DESC"]]});
   const cantidadAnunciosPagina = 4;
   const totalAnuncios = anuncios.length;
   const cantidadPaginas = Math.ceil(totalAnuncios / cantidadAnunciosPagina)
