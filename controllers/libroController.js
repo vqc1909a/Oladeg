@@ -112,30 +112,53 @@ export const mostrarLibros = async (req, res) => {
 }
 
 export const mostrarLibro = async (req, res) => {
-  const url = req.params.libro;
-  let libros = await obtenerLibros();
-  let libro = libros.find((lib) => lib.Url === url );
-  let anterior;
-  let despues;
-  let ubicacion
-  libros.forEach((lib, i) => {
-    if(lib.Titulo === libro.Titulo){
-      ubicacion = i;
+  try{ 
+    const slug = req.params.slug
+    const [libros, libro] = await Promise.all([
+      Libro.findAll({
+        order: [["updatedAt", "DESC"]]
+      }), 
+      Libro.findOne({
+        where: {slug},
+        order: [["updatedAt", "DESC"]]
+      })
+    ])
+    if(!libro){
+        req.flash("error", "El libro no existe");
+        return res.redirect(ROUTES.HOME)
     }
-  });
-  anterior = libros[ubicacion + 1];
-  despues = libros[ubicacion - 1];
-  return res.render('pages/libroView', {
-    title: `${libro.Titulo} &#8211; OLADEG`,
-    description: libro.metadescripcion,
-    protocol: req.protocol, 
-    host: req.headers.host,
-    libro,
-    anterior,
-    despues,
-    publicidad: ''
-  })
- 
+    const index = libros.findIndex(a => a.id === libro.id);
+    const indexAnterior = index === 0 ? 0 : index - 1;
+    const indexSiguiente = (index === libros.length - 1) ? index : index + 1;
+
+    console.log({
+        libros: libros.map(libro => libro.id),
+        index,
+        indexSiguiente,
+        indexAnterior
+    })
+    const isButtonAnterior = index > 0;
+    const isButtonSiguiente = index < libros.length - 1
+
+    let contenidoAnterior = isButtonAnterior ? libros.slice(indexAnterior, indexAnterior  + 1)[0] : undefined;
+    let contenidoSiguiente = isButtonSiguiente ? libros.slice(indexSiguiente, indexSiguiente  + 1)[0] : undefined;
+    
+    return res.render('libro/mostrar-libro', {
+        title: `${libro.titulo} &#8211; OLADEG`,
+        description: '',
+        publicidad: '',
+        libro,
+        isButtonAnterior,
+        isButtonSiguiente,
+        contenidoAnterior,
+        contenidoSiguiente,
+        DateTime,
+        convertirPrimeraLetraMayuscula
+    })
+  }catch(err){
+    req.flash("error", err.message);
+    return res.redirect(ROUTES.HOME);
+  }
 }
 
 export const mostrarPaginaAgregarLibro = async(req, res) => {

@@ -82,6 +82,7 @@ export const mostrarCurso = async (req, res) => {
     
 
     const extracto = curso.descripcion.trim().split(/\s+/).slice(0, 35).join(' ');
+    console.log(extracto);
     return res.render('programa/mostrar-curso', {
         title: `${curso.titulo} &#8211; OLADEG`,
         description: extracto,

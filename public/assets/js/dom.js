@@ -73,6 +73,8 @@ export const $fileInputArchivoLibro = document.querySelector('#fileInputArchivoL
 export const $imagePreviewLibro = document.querySelector('#imagePreviewLibro');
 export const $imagePreviewArchivoLibro = document.querySelector("#imagePreviewArchivoLibro");
 export const $buttonsDeleteLibro = document.querySelectorAll(".button-delete-libro");
+export const $imagePreviewArchivoLibroClient = document.querySelector("#imagePreviewArchivoLibroClient");
+
 
 //Boletines
 export const $fileInputBoletin = document.querySelector('#fileInputBoletin');
@@ -119,14 +121,7 @@ export const $textarea = document.querySelector("textarea");
 //Buttons
 export const $buttons = document.querySelectorAll(".anuncios__button");
 
-//Libro
-export const canvas = document.querySelector("#pdf-render");
-export const button_pdf_prev = document.querySelector("#prev-page");
-export const button_pdf_next = document.querySelector("#next-page");
 
-export const canvas2 = document.querySelector("#pdf-render2");
-export const button_pdf_prev2 = document.querySelector("#prev-page2");
-export const button_pdf_next2 = document.querySelector("#next-page2");
 
 
 

@@ -9,8 +9,12 @@ import {
     $imagePreviewLibro,
     $imagePreviewArchivoLibro,
     $buttonsDeleteLibro,
-    $inputDescriptionQuill
+    $inputDescriptionQuill,
+    $imagePreviewArchivoLibroClient
 } from "../dom.js";
+
+import { getImageAsBase64 } from "../helpers/index.js";
+
 import * as ROUTES from "../../../../config/routes.js";
 
 let arrayButtonsDeleteLibro = Array.from($buttonsDeleteLibro);
@@ -162,6 +166,33 @@ if(editorLibro){
         //No olvides que en front donde vas a poner el html de tu base de datos, tienes que ponerlo dentro de la sigueinte etiqueta para que te aplique todos los estilos que pusiste en el editor '<div class="ql-editor">'
         $inputDescriptionQuill.value = quill.root.innerHTML;
     });
+}
+
+if($imagePreviewArchivoLibroClient){
+  let url = $imagePreviewArchivoLibroClient.dataset.url;
+  getImageAsBase64(url, (urlBase64) => {
+    const object1 = document.createElement('object');
+    const object2 = document.createElement('object');
+    // reader.result contiene una URL de datos (Data URL) que representa el contenido del archivo.
+    // data:image/png;base64,iVBORw0KGgoAAAANSUhEU.......
+    object1.type = "application/pdf";
+    object1.data = urlBase64;
+    object1.width = "600";
+    object1.height = "700";
+    object1.border = "3";
+    object1.classList.add("large-pdf-libro");
+
+    object2.type = "application/pdf";
+    object2.data = urlBase64;
+    object2.width = "300";
+    object2.height = "400";
+    object2.border = "3";
+    object2.classList.add("small-pdf-libro");
+
+    $imagePreviewArchivoLibroClient.innerHTML = '';
+    $imagePreviewArchivoLibroClient.appendChild(object1);
+    $imagePreviewArchivoLibroClient.appendChild(object2);
+  })
 }
 
 

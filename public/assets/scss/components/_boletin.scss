@@ -5,7 +5,12 @@
     margin-right: 2rem;
     flex: 7;  
   }
-
+  &__autor{
+    margin-bottom: .5rem;
+  }
+  &__fecha-publicacion{
+    margin-bottom: 1rem;
+  }
   &__title {
     text-transform: uppercase;
     text-align: center;
@@ -120,20 +125,14 @@
           font-size: $font-sm-dt;
         }
       }
-  
+      h1,
       h2,
       h3,
       h4,
       h5,
       h6 {
         color: $dark;
-        margin-top: 1.5rem;
         margin-bottom: .25rem;
-      }
-  
-      p {
-        text-align: justify;
-        margin-bottom: 1rem;
       }
   
       img {
@@ -141,26 +140,18 @@
         width: 100%;
       }
   
-      ul,
-      ol {
-        margin-left: 1.5rem;
-        margin-bottom: 1rem;
-      }
-  
       li {
         margin-bottom: .5rem;
       }
   
       a {
-        display: block;
-        margin: 2rem 0;
         text-decoration: underline;
       }
     }
   }
 
   &__download{
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     margin-bottom: 1rem;
     text-align: center;
     a{
@@ -169,37 +160,14 @@
       text-transform: uppercase;
       text-decoration: underline;
     }
+    a:first-child{
+      margin-right: 1.5rem;
+    }
   }
-  &__iframe{
-    text-align: center;
+  &__pdf{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 2rem;
-    .top-bar {
-      // background-color: #333;
-      color: #333;
-      padding: 1rem;
-    }
-
-    .btn {
-      background-color: coral;
-      color: #fff;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      padding: 0.7rem 2rem;
-    }
-
-    .btn:hover {
-      opacity: 0.9;
-    }
-
-    .page-info {
-      margin-bottom: 1rem;
-    }
-
-    .error {
-      background: orangered;
-      color: #fff;
-      padding: 1rem;
-    }
   }
 }

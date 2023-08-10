@@ -14,17 +14,16 @@ export const establecerVariablesGlobales = (req, res, next) => {
     res.locals.mensajes = {
         "error": flashes["error"],
         "success": flashes["success"]
-    };        
+    };
+    console.log({
+        mensaje: res.locals.mensajes
+    })        
     res.locals.fields = flashes["fields"] && flashes["fields"][0];
     
     next();
 }
 
 export const establecerProteccionCSRF = (req, res, next) => {
-    const body = req.body;
-    console.log({
-        body
-    })
     //Añadir Protección CSRF
     if(!req.session.csrfToken){
         req.session.csrfToken = uuidv4();

@@ -1,0 +1,17 @@
+<!-- Comprobamos si hay mensajes flash -->
+<% if(mensajes){ %>
+    <!-- Comprobamos que cada key tenga contenido o sea contenga array de mensajes -->
+    <% const keys = Object.keys(mensajes) %>
+    <% keys.forEach(key => { %>
+        <% if(mensajes[key]){ %>
+            <% mensajes[key].forEach(mensaje => { %>
+                <div class="input-group__mensaje input-group__mensaje--active" style="margin-bottom: 0; border-radius: 0">
+                    <p>
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <%= mensaje %>
+                    </p>
+                </div>
+            <% }) %>
+        <% } %>
+    <% }) %>
+<% } %>
