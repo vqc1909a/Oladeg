@@ -23,6 +23,24 @@ const Boletin = sequelize.define('Boletin', {
             }
         }
     },  
+    extracto: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+            notNull: {
+                msg: 'El extracto del boletin es obligatorio'
+            },
+            notEmpty: {
+                msg: 'El extracto del boletin es obligatorio'
+            },
+            tieneMaximo35Palabras(value) {
+                const palabras = value.trim().split(/\s+/);
+                if (palabras.length > 35) {
+                    throw new Error('El extracto del boletin debe tener como máximo 35 palabras.');
+                }
+            }
+        }
+    },
     portada: {
         type: DataTypes.TEXT,
         allowNull: false,

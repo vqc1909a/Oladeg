@@ -23,6 +23,24 @@ const Libro = sequelize.define('Libro', {
             }
         }
     },  
+    extracto: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+            notNull: {
+                msg: 'El extracto del libro es obligatorio'
+            },
+            notEmpty: {
+                msg: 'El extracto del libro es obligatorio'
+            },
+            tieneMaximo35Palabras(value) {
+                const palabras = value.trim().split(/\s+/);
+                if (palabras.length > 35) {
+                    throw new Error('El extracto del libro debe tener como máximo 35 palabras.');
+                }
+            }
+        }
+    },
     portada: {
         type: DataTypes.TEXT,
         allowNull: false,

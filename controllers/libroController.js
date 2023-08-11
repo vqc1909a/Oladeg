@@ -140,7 +140,7 @@ export const mostrarLibro = async (req, res) => {
     
     return res.render('libro/mostrar-libro', {
         title: `${libro.titulo} &#8211; OLADEG`,
-        description: '',
+        description: libro.extracto,
         publicidad: '',
         libro,
         isButtonAnterior,
@@ -279,6 +279,10 @@ export const editarLibro = async(req, res) => {
             return res.redirect(ROUTES.EDITAR_LIBRO.replace(':id', req.params.id));
         }
         libro.titulo = body.titulo;
+        console.log({
+            body
+        })
+        libro.extracto = body.extracto;
         libro.autor = body.autor;
         libro.fechaPublicacion = body.fechaPublicacion;
         libro.contenido = body.contenido;

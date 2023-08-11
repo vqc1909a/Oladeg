@@ -68,6 +68,22 @@
 													value="<%= fields ? fields.titulo : boletin ? boletin.titulo : '' %>"
 												/>
 											</div>
+												<div class="form-group">
+												<label for="extracto"
+													>Extracto * (max 35 palabras)</label
+												>
+												<div class="row">
+													<div class="col-12 col-md-6">
+														<textarea
+															rows="3"
+															class="form-control"
+															id="extracto"
+															placeholder="Ej. El boletín Guía metodológíca para la formulación de políticas públicas estratégicas tiene como objetivo..."
+															name="extracto"
+														><%= fields ? fields.extracto : boletin ? boletin.extracto : '' %></textarea>
+													</div>
+												</div>
+											</div>
 											<div class="form-group">
 												<label for="autor"
 													>Autor del Boletin *</label

@@ -139,7 +139,7 @@ export const mostrarBoletin = async (req, res) => {
     
     return res.render('boletin/mostrar-boletin', {
         title: `${boletin.titulo} &#8211; OLADEG`,
-        description: '',
+        description: boletin.extracto,
         publicidad: '',
         boletin,
         isButtonAnterior,
@@ -279,6 +279,7 @@ export const editarBoletin = async(req, res) => {
             return res.redirect(ROUTES.EDITAR_BOLETIN.replace(':id', req.params.id));
         }
         boletin.titulo = body.titulo;
+        boletin.extracto = body.extracto;
         boletin.autor = body.autor;
         boletin.fechaPublicacion = body.fechaPublicacion;
         boletin.contenido = body.contenido;
