@@ -7,49 +7,49 @@
 			<div class="main">
 				<div class="main__content container">
 					<div class="boletin">
-						<h1 class="boletin__title"><%= libro.titulo %></h1>
+						<h1 class="boletin__title"><%= boletin.titulo %></h1>
 						<div class="boletin__content">
 							<img
-								src="<%= libro.portada %>"
-								alt="<%= `Libro ${libro.titulo}` %>"
+								src="<%= boletin.portada %>"
+								alt="<%= `Boletin ${boletin.titulo}` %>"
 							/>
 							<div style="min-height: 320px">
-                                <p class="boletin__autor"><strong>Autor:</strong> <%= libro.autor %></p>
-                                <p class="boletin__fecha-publicacion"><strong>Año:</strong> <%= new Date(libro.fechaPublicacion).getFullYear() %></p>
+                                <p class="boletin__autor"><strong>Autor:</strong> <%= boletin.autor %></p>
+                                <p class="boletin__fecha-publicacion"><strong>Año:</strong> <%= new Date(boletin.fechaPublicacion).getFullYear() %></p>
                                 
-                                <%- libro.contenido %>
+                                <%- boletin.contenido %>
 								<!-- <p><strong>Autor: </strong>OLADEG</p>
               <p><strong>Año: </strong>2021</p>              
               <p>El boletín tiene por objetivo fortalecer a 1,000 jóvenes en todo el país con técnicas modernas de diálogo y de elaboración de políticas públicas, quienes integrarán 40 grupos de 25 personas. Para formarse en diálogo se impartirá la metodología para la transformación social de la Teoría U, del profesor Otto Sharmer del MIT (Pucci, Carpio y de la Fuente, 2007); a través del cual se construye un liderazgo colectivo, utilizando técnicas para que los integrantes co-inicien bajo un entorno de confianza intrapersonal, la identificación de un tema relevante de su comunidad.</p>
               <p>Sobre la base anterior, los 40 grupos redactarán una propuesta de política pública que será presentada a las autoridades nacionales y municipales. Para realizar dicha tarea, se ha elaborado la presente guía metodológica, la cual se apoya en un marco teórico con un método práctico basado en preguntas críticas que deben ser respondidas por cada grupo para formular una política pública, así: ¿qué problema identificaron para estudiarlo?, ¿por qué quieren estudiar el problema?, ¿para qué quieren resolver el problema? (identifican los objetivos y resultados), ¿cómo plantean resolver el problema? (definen acciones concretas para alcanzar los objetivos), ¿dónde, cuándo y con quiénes resolverán el problema?.</p>
               <p>Para cada pregunta la guía ofrece una orientación específica de los elementos que deben contemplar, y se desarrollan ejemplos de políticas públicas pasadas para comprender mejor cómo redactar cada parte. También, la guía incluye un componente de incidencia para que los grupos establezcan una agenda de acciones para que la política pública sea aceptada por la institución pública respectiva (esta puede ser del ámbito nacional o municipal).</p>   -->
 							</div>
-							<% if(libro.archivo){ %>
+							<% if(boletin.archivo){ %>
                                 <h2 class="boletin__download">
                                     <a
                                     target="_blank"
-                                    href="<%= libro.archivo %>"
+                                    href="<%= boletin.archivo %>"
                                     role="link"
-                                    title="<%= `Archivo ${libro.titulo}` %>"
-                                    >Ver Libro</a>
+                                    title="<%= `Archivo ${boletin.titulo}` %>"
+                                    >Ver Boletin</a>
                                     <a
                                         download
-                                        href="<%= libro.archivo %>"
+                                        href="<%= boletin.archivo %>"
                                         role="link"
-                                        title="<%= `Archivo ${libro.titulo}` %>"
-                                        >Descargar Libro</a
+                                        title="<%= `Archivo ${boletin.titulo}` %>"
+                                        >Descargar Boletin</a
                                     >
                                 </h2>
                                 <div
-                                    id="imagePreviewArchivoLibroClient"
-                                    data-url="<%= libro.archivo %>"
+                                    id="imagePreviewArchivoBoletinClient"
+                                    data-url="<%= boletin.archivo %>"
                                     class="boletin__pdf"
                                 ></div>
                             <% }else{ %>
                                  <h2>Sin Archivo Subido</h2>
                             <% } %>
 						</div>
-						<%- include('../partials/twobuttons.ejs', {tipo: "libro", url: 'libros'}) %>
+						<%- include('../partials/twobuttons.ejs', {tipo: "boletin", url: 'boletines'}) %>
 					</div>
 					<%- include('../layouts/sidebar.ejs') %>
 				</div>

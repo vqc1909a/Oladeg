@@ -62,56 +62,97 @@ export const subirImagen = (req, res, next) => {
 }
 
 export const mostrarBoletines = async (req, res) => {
-  let boletines = await obtenerBoletines();
-  let pagina_actual = req.query.page ? parseInt(req.query.page) : 1;
-  let total_elementos = boletines.length;
-  let elementos_por_pagina = 4;
-  let elementos_hasta_ahora = elementos_por_pagina;
-  let total_paginas = Math.ceil(total_elementos / elementos_por_pagina)
-  if(!isNaN(pagina_actual) & pagina_actual >= 1 & pagina_actual <= total_paginas){
-    elementos_hasta_ahora = pagina_actual * elementos_por_pagina;
-  }else{
-    pagina_actual = 1;
-  }
-  boletines = boletines.slice(elementos_hasta_ahora - elementos_por_pagina, elementos_hasta_ahora);
-  return res.render("pages/boletinesView", {
-    title: "Biblioteca Digital &#8211; OLADEG",
-    description: "Ofrecemos documentos, boletines y artículos digitales relacionados a temas de Gestión Pública y Empresarial, Planificación, Monitoreo y Evaluación de Proyectos de Desarrollo Económico Rural.",
-    protocol: req.protocol,
-    host: req.headers.host,
-    boletines,
-    pagina_actual,
-    total_elementos,
-    elementos_por_pagina,
-    total_paginas,
-    publicidad: ''
-  });
+    try{
+        const boletines = await Boletin.findAll({order: [["updatedAt", "DESC"]]});
+        const cantidadBoletinesPagina = 4;
+        const totalBoletines = boletines.length;
+        const cantidadPaginas = Math.ceil(totalBoletines / cantidadBoletinesPagina)
+        const paginaActual = Number(req.query.page ? (req.query.page >= 1 && req.query.page <= cantidadPaginas) ? req.query.page : 1 : 1)
+    
+        const isPaginacionesNormal = (cantidadPaginas <= 5) && (paginaActual <= 5) // 5 paginaciones del 1 al 5 o menos según la cantidad de paginas
+        const isPaginacionesIzquierda = (cantidadPaginas > 5) && (paginaActual <= 3); // 5 paginaciones del 1 2 3 ... final
+        const isPaginacionesMedia = (cantidadPaginas > 5) && (paginaActual > 3) && (paginaActual < cantidadPaginas - 2) // 5 paginaciones del 1 ... 4 ... final
+        const isPaginacionesDerecha = (cantidadPaginas > 5) && (paginaActual >= cantidadPaginas - 2)
+    
+        const isPaginacionAnterior = paginaActual > 1;
+        const isPaginacionSiguiente = paginaActual < cantidadPaginas;
+        const arrayPaginas = [];
+        for (var i = 1; i <= cantidadPaginas; i++) {
+          arrayPaginas.push(i); // Agrega cada número al array
+        }
+    
+        const boletinesFiltrados = boletines.slice(cantidadBoletinesPagina * (paginaActual - 1), cantidadBoletinesPagina * paginaActual);
+    
+        
+        return res.render("boletin/mostrar-boletines", {
+          title: "Boletines &#8211; OLADEG",
+          description: "Ofrecemos documentos, boletines y artículos digitales relacionados a temas de Gestión Pública y Empresarial, Planificación, Monitoreo y Evaluación de Proyectos de Desarrollo Económico Rural.",
+          publicidad: '',
+          boletines: boletinesFiltrados,
+          req,
+          DateTime,
+          convertirPrimeraLetraMayuscula,
+          paginaActual,
+          cantidadBoletinesPagina,
+          cantidadPaginas,
+          totalBoletines,
+          arrayPaginas,
+          isPaginacionesNormal,
+          isPaginacionesIzquierda,
+          isPaginacionesMedia,
+          isPaginacionesDerecha,
+          isPaginacionAnterior,
+          isPaginacionSiguiente,
+          ROUTES
+        });
+    }catch(err){
+        req.flash("error", err.message);
+        return res.redirect(ROUTES.MOSTRAR_BOLETINES);
+    }
 }
 
 export const mostrarBoletin = async (req, res) => {
-  const url = req.params.boletin;
-  let boletines = await obtenerBoletines();
-  let boletin = boletines.find((lib) => lib.Url === url );
-  let anterior;
-  let despues;
-  let ubicacion
-  boletines.forEach((lib, i) => {
-    if(lib.Titulo === boletin.Titulo){
-      ubicacion = i;
+  try{ 
+    const slug = req.params.slug
+    const [boletines, boletin] = await Promise.all([
+      Boletin.findAll({
+        order: [["updatedAt", "DESC"]]
+      }), 
+      Boletin.findOne({
+        where: {slug},
+        order: [["updatedAt", "DESC"]]
+      })
+    ])
+    if(!boletin){
+        req.flash("error", "El boletin no existe");
+        return res.redirect(ROUTES.HOME)
     }
-  });
-  anterior = boletines[ubicacion + 1];
-  despues = boletines[ubicacion - 1];
-  return res.render('pages/boletinView', {
-    title: `${boletin.Titulo} &#8211; OLADEG`,
-    description: boletin.metadescripcion,
-    protocol: req.protocol, 
-    host: req.headers.host,
-    boletin,
-    anterior,
-    despues,
-    publicidad: ''
-  })
+    const index = boletines.findIndex(a => a.id === boletin.id);
+    const indexAnterior = index === 0 ? 0 : index - 1;
+    const indexSiguiente = (index === boletines.length - 1) ? index : index + 1;
+
+    const isButtonAnterior = index > 0;
+    const isButtonSiguiente = index < boletines.length - 1
+
+    let contenidoAnterior = isButtonAnterior ? boletines.slice(indexAnterior, indexAnterior  + 1)[0] : undefined;
+    let contenidoSiguiente = isButtonSiguiente ? boletines.slice(indexSiguiente, indexSiguiente  + 1)[0] : undefined;
+    
+    return res.render('boletin/mostrar-boletin', {
+        title: `${boletin.titulo} &#8211; OLADEG`,
+        description: '',
+        publicidad: '',
+        boletin,
+        isButtonAnterior,
+        isButtonSiguiente,
+        contenidoAnterior,
+        contenidoSiguiente,
+        DateTime,
+        convertirPrimeraLetraMayuscula
+    })
+  }catch(err){
+    req.flash("error", err.message);
+    return res.redirect(ROUTES.HOME);
+  }
  
 }
 

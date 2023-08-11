@@ -104,6 +104,7 @@ export const mostrarLibros = async (req, res) => {
           isPaginacionesDerecha,
           isPaginacionAnterior,
           isPaginacionSiguiente,
+          ROUTES
         });
     }catch(err){
         req.flash("error", err.message);
@@ -131,12 +132,6 @@ export const mostrarLibro = async (req, res) => {
     const indexAnterior = index === 0 ? 0 : index - 1;
     const indexSiguiente = (index === libros.length - 1) ? index : index + 1;
 
-    console.log({
-        libros: libros.map(libro => libro.id),
-        index,
-        indexSiguiente,
-        indexAnterior
-    })
     const isButtonAnterior = index > 0;
     const isButtonSiguiente = index < libros.length - 1
 

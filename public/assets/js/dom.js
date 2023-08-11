@@ -82,6 +82,8 @@ export const $fileInputArchivoBoletin = document.querySelector('#fileInputArchiv
 export const $imagePreviewBoletin = document.querySelector('#imagePreviewBoletin');
 export const $imagePreviewArchivoBoletin = document.querySelector("#imagePreviewArchivoBoletin");
 export const $buttonsDeleteBoletin = document.querySelectorAll(".button-delete-boletin");
+export const $imagePreviewArchivoBoletinClient = document.querySelector("#imagePreviewArchivoBoletinClient");
+
 
 //Modal
 export const modal_buttons = document.querySelectorAll('.modal-button');

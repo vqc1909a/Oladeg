@@ -4,31 +4,31 @@
 	<body>
 		<%- include ('../layouts/header.ejs') %>
 		<main>
-			<%- include('../layouts/banner2.ejs', {variant: 'Biblioteca Digital'}); %>
+			<%- include('../layouts/banner2.ejs', {variant: 'Boletines'}); %>
 			<div class="main__content container">
 				<section class="boletines">
-					<h1 class="boletines__intro">Biblioteca Digital</h1>
-					<% if(libros.length !== 0) { %>
+					<h1 class="boletines__intro">Boletines</h1>
+					<% if(boletines.length !== 0) { %>
 						<div class="boletines__grid">
-							<% libros.forEach(function(libro) { %>
+							<% boletines.forEach(function(boletin) { %>
 								<div class="boletines__item appear-content">
 									<h2 class="boletines__title">
 										<a
-											href="<%= ROUTES.MOSTRAR_LIBRO.replace(':slug', libro.slug) %>"
-											title="<%= libro.titulo %>"
+											href="<%= ROUTES.MOSTRAR_BOLETIN.replace(':slug', boletin.slug) %>"
+											title="<%= boletin.titulo %>"
 											role="link"
-											><%= libro.titulo %></a
+											><%= boletin.titulo %></a
 										>
 									</h2>
 									<p class="boletines__time flex flex-ai-c">
 										<img
 											loading="lazy"
 											src="/dist/icons/Clock.svg"
-											alt="Datetime Libro"
+											alt="Datetime Boletin"
 										/>
 										<% let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone %> 
-										<% let datetime = libro.fechaPublicacion.toLocaleString('es', {timeZone: timeZone }) %> 
-										<% const fechaPublicacion = DateTime.fromISO(libro.fechaPublicacion, { locale: 'es' }) %> 
+										<% let datetime = boletin.fechaPublicacion.toLocaleString('es', {timeZone: timeZone }) %> 
+										<% const fechaPublicacion = DateTime.fromISO(boletin.fechaPublicacion, { locale: 'es' }) %> 
 										<% const fechaFormateada = fechaPublicacion.toFormat('dd \'de\' MMMM \'de\' yyyy') %>
 										<time
 											datetime="<%= datetime %>"
@@ -37,21 +37,21 @@
 									</p>
 									<div class="boletines__image">
 										<a
-											href="<%= ROUTES.MOSTRAR_LIBRO.replace(':slug', libro.slug) %>"
-											title="<%= libro.titulo %>"
+											href="<%= ROUTES.MOSTRAR_BOLETIN.replace(':slug', boletin.slug) %>"
+											title="<%= boletin.titulo %>"
 											role="link"
 										>
 											<img
 												loading="lazy"
-												src="<%= libro.portada %>"
-												alt="<%= `Libro ${libro.titulo}` %>"
+												src="<%= boletin.portada %>"
+												alt="<%= `Boletin ${boletin.titulo}` %>"
 											/>
 										</a>
 									</div>
 									<div class="boletines__button">
 										<a
-											href="<%= ROUTES.MOSTRAR_LIBRO.replace(':slug', libro.slug) %>"
-											title="<%= libro.titulo %>"
+											href="<%= ROUTES.MOSTRAR_BOLETIN.replace(':slug', boletin.slug) %>"
+											title="<%= `${boletin.titulo}` %>"
 											role="link"
 											type="button"
 											class="button"
@@ -62,7 +62,7 @@
 							<% }) %>
 						</div>
 					<% }else{ %>
-						<h3 class="boletines__title">Sin Libros</h3>
+						<h3 class="boletines__title">Sin Boletines</h3>
 					<% } %>
 					<%- include('../partials/buttons.ejs') %>
 				</section>
